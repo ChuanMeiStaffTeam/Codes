@@ -36,7 +36,7 @@ class PhotoAlbumManager {
             let assets = PHAsset.fetchAssets(in: album, options: nil)
             
             assets.enumerateObjects { asset, _, _ in
-                PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: 400, height: 400), contentMode: .aspectFill, options: nil) { image, _ in
+                PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: nil) { image, _ in
                     if let image = image {
                         allImages.append(image)
                     }

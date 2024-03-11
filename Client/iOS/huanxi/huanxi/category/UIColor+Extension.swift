@@ -28,5 +28,10 @@ extension UIColor {
 
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
+    
+    
+    static var mainBlueColor: UIColor {
+        return .init(hexString: "#009DFF")
+    }
 }
 

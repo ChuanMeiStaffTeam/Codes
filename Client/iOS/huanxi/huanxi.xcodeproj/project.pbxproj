@@ -39,6 +39,8 @@
 		397216C52B824A04007D0F2B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397216C42B824A04007D0F2B /* MainViewController.swift */; };
 		398FF3472B90177D00565C8C /* HUDHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398FF3462B90177D00565C8C /* HUDHelper.swift */; };
 		398FF3492B901BEA00565C8C /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398FF3482B901BEA00565C8C /* UIColor+Extension.swift */; };
+		39B7943C2B9896410048C996 /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B7943B2B9896410048C996 /* EditPhotoViewController.swift */; };
+		39B7943E2B989A3E0048C996 /* EditPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B7943D2B989A3E0048C996 /* EditPhotoCell.swift */; };
 		39FABA0E2B930B5000A10FE6 /* WaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA0D2B930B5000A10FE6 /* WaterfallLayout.swift */; };
 		39FABA102B931C4600A10FE6 /* PhotoAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA0F2B931C4600A10FE6 /* PhotoAlbumView.swift */; };
 		39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA112B931D3D00A10FE6 /* PhotoAlbumManager.swift */; };
@@ -99,6 +101,8 @@
 		397216C42B824A04007D0F2B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		398FF3462B90177D00565C8C /* HUDHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDHelper.swift; sourceTree = "<group>"; };
 		398FF3482B901BEA00565C8C /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		39B7943B2B9896410048C996 /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
+		39B7943D2B989A3E0048C996 /* EditPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoCell.swift; sourceTree = "<group>"; };
 		39FABA0D2B930B5000A10FE6 /* WaterfallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };
 		39FABA0F2B931C4600A10FE6 /* PhotoAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumView.swift; sourceTree = "<group>"; };
 		39FABA112B931D3D00A10FE6 /* PhotoAlbumManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumManager.swift; sourceTree = "<group>"; };
@@ -281,6 +285,8 @@
 				397216C02B8249F1007D0F2B /* PublishViewController.swift */,
 				39FABA0F2B931C4600A10FE6 /* PhotoAlbumView.swift */,
 				39FABA112B931D3D00A10FE6 /* PhotoAlbumManager.swift */,
+				39B7943B2B9896410048C996 /* EditPhotoViewController.swift */,
+				39B7943D2B989A3E0048C996 /* EditPhotoCell.swift */,
 			);
 			path = publish;
 			sourceTree = "<group>";
@@ -585,6 +591,7 @@
 				392CF10C2B8EC8E60070637E /* MainModel.swift in Sources */,
 				392CF1162B8ECE640070637E /* MainRecommendCell.swift in Sources */,
 				39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */,
+				39B7943C2B9896410048C996 /* EditPhotoViewController.swift in Sources */,
 				392CF1142B8ECE570070637E /* MainUserCell.swift in Sources */,
 				392CF1082B8D7E8F0070637E /* CGFloat+LayoutExtension.swift in Sources */,
 				39FABA102B931C4600A10FE6 /* PhotoAlbumView.swift in Sources */,
@@ -607,6 +614,7 @@
 				392CF1102B8ECA4F0070637E /* MainRecommendView.swift in Sources */,
 				397216B52B81EA79007D0F2B /* BaseViewController.swift in Sources */,
 				397216C12B8249F1007D0F2B /* PublishViewController.swift in Sources */,
+				39B7943E2B989A3E0048C996 /* EditPhotoCell.swift in Sources */,
 				392CF1062B8D7C5D0070637E /* UIView+FrameExtension.swift in Sources */,
 				398FF3472B90177D00565C8C /* HUDHelper.swift in Sources */,
 			);

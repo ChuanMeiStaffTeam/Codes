@@ -9,7 +9,7 @@ import UIKit
 import Photos
 
 protocol PhotoAlbumViewDelegate: AnyObject {
-    func didSelectImage(at index: Int, isSelected: Bool)
+    func didSelectImages(at indexs: [Int], isSelected: Bool)
 }
 
 class PhotoAlbumView: UIView {
@@ -19,6 +19,9 @@ class PhotoAlbumView: UIView {
             collectionView.reloadData()
         }
     }
+    
+    var selectedAlbumIndexs: [Int] = []
+    var currentPhotoIndex = 0
     
     weak var delegate: PhotoAlbumViewDelegate?
     
@@ -54,7 +57,13 @@ class PhotoAlbumView: UIView {
     }
     
     func toggleMultiSelect(enabled: Bool) {
+        if !enabled {
+            while selectedAlbumIndexs.count > 1 {
+                selectedAlbumIndexs.removeFirst()
+            }
+        }
         isMultiSelectEnabled = enabled
+        delegate?.didSelectImages(at: selectedAlbumIndexs, isSelected: true)
         collectionView.reloadData()
     }
     
@@ -76,48 +85,73 @@ extension PhotoAlbumView: UICollectionViewDataSource, UICollectionViewDelegate {
         cell.indexPath = indexPath
         cell.imgView.image = image
         cell.isMultiSelectEnabled = isMultiSelectEnabled
-        cell.delegate = self
+        cell._isSelected = currentPhotoIndex == indexPath.row
+        if let index = selectedAlbumIndexs.firstIndex(of: indexPath.row) {
+            cell.selectedIndex = index
+        } else {
+            cell.selectedIndex = -1
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard isMultiSelectEnabled else { return }
-        if let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell {
-            cell.toggleSelection()
+        var isSelected = false
+        if isMultiSelectEnabled {
+            if selectedAlbumIndexs.contains(indexPath.row) {
+                if selectedAlbumIndexs.count == 1 {
+                    currentPhotoIndex = selectedAlbumIndexs.last ?? 0
+                    selectedAlbumIndexs.removeAll { $0 == indexPath.row }
+                } else {
+                    selectedAlbumIndexs.removeAll { $0 == indexPath.row }
+                    currentPhotoIndex = selectedAlbumIndexs.last ?? 0
+                }
+            } else {
+                selectedAlbumIndexs.append(indexPath.row)
+                isSelected = true
+                currentPhotoIndex = selectedAlbumIndexs.last ?? 0
+            }
+        } else {
+            selectedAlbumIndexs.removeAll()
+            selectedAlbumIndexs.append(indexPath.row)
+            isSelected = true
+            currentPhotoIndex = selectedAlbumIndexs.last ?? 0
         }
+        
+        
+        collectionView.reloadData()
+        delegate?.didSelectImages(at: selectedAlbumIndexs, isSelected: isSelected)
     }
 }
 
-extension PhotoAlbumView: PhotoCellDelegate {
-    
-    func didSelectImage(at index: Int, isSelected: Bool) {
-        delegate?.didSelectImage(at: index, isSelected: isSelected)
-    }
-}
-
-protocol PhotoCellDelegate: AnyObject {
-    func didSelectImage(at index: Int, isSelected: Bool)
-}
 
 class PhotoCell: UICollectionViewCell {
     
     var isMultiSelectEnabled: Bool = false {
         didSet {
             selectionView.isHidden = !isMultiSelectEnabled
+            if !isMultiSelectEnabled {
+                selectionLabel.isHidden = true
+            }
         }
     }
     
     var indexPath: IndexPath?
-    
-    weak var delegate: PhotoCellDelegate?
-    
-    private var _isSelected: Bool = false
+        
+    var _isSelected: Bool = false
+    var selectedIndex: Int = -1
     
     let imgView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
+    }()
+    
+    let currentMaskView: UIView = {
+        let currentMaskView = UIView()
+        currentMaskView.isHidden = true
+        currentMaskView.backgroundColor = .init(white: 1, alpha: 0.2)
+        return currentMaskView
     }()
     
     private let selectionView: UIImageView = {
@@ -143,6 +177,7 @@ class PhotoCell: UICollectionViewCell {
         contentView.backgroundColor = .clear
         
         contentView.addSubview(imgView)
+        contentView.addSubview(currentMaskView)
         contentView.addSubview(selectionLabel)
         contentView.addSubview(selectionView)
         
@@ -151,8 +186,6 @@ class PhotoCell: UICollectionViewCell {
         
         selectionLabel.isHidden = true
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        contentView.addGestureRecognizer(tapGesture)
     }
     
     required init?(coder: NSCoder) {
@@ -163,21 +196,20 @@ class PhotoCell: UICollectionViewCell {
         super.layoutSubviews()
         
         imgView.frame = contentView.bounds
+        currentMaskView.frame = contentView.bounds
         selectionView.frame = CGRect(x: contentView.bounds.width - 22.5, y: 1.5, width: 21, height: 21)
         selectionLabel.frame = CGRect(x: contentView.bounds.width - 20, y: 4, width: 16, height: 16)
+        
+        toggleSelection()
+        currentMaskView.isHidden = !_isSelected
+        
     }
     
     func toggleSelection() {
-        _isSelected = !_isSelected
-//        selectionView.image = _isSelected ? UIImage(named: "selected_icon") : UIImage(named: "unselected_icon")
+        guard isMultiSelectEnabled else { return }
         
-        selectionLabel.isHidden = !_isSelected
-//        selectionLabel.text = "\(String(describing: delegate?.didSelectImage(at: self.tag, isSelected: _isSelected)))"
+        selectionLabel.isHidden = selectedIndex < 0
+        selectionLabel.text = String(selectedIndex+1)
     }
     
-    @objc private func handleTap() {
-        guard isMultiSelectEnabled else { return }
-        toggleSelection()
-        delegate?.didSelectImage(at: indexPath?.row ?? 0, isSelected: isSelected)
-    }
 }

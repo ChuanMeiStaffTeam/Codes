@@ -13,6 +13,7 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.delegate = self
         setupTabbar()
     }
     
@@ -42,4 +43,19 @@ class TabBarController: UITabBarController {
         return nav
     }
     
+}
+
+
+extension TabBarController: UITabBarControllerDelegate {
+
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if viewController == tabBarController.viewControllers?[2] {
+            let vcToPresent = PublishViewController()
+            vcToPresent.modalPresentationStyle = .fullScreen
+            present(vcToPresent, animated: true, completion: nil)
+            return false // 防止第三个 tab 被选中
+        }
+        return true
+    }
+
 }
