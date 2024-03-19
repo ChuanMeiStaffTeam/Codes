@@ -7,13 +7,23 @@
 
 import UIKit
 
+struct FilterImage {
+    
+    var image: UIImage
+    var name: String
+    var type: String
+}
+
+
 class EditPhotoViewController: BaseViewController {
     
     var image: UIImage?
     
     let editImageView = UIImageView()
-    var imagesArr: [UIImage] = []
-    var filtersArr: [String] = ["Normal", "Calrendon", "Gingham", "Moon"]
+//    var imagesArr: [UIImage] = []
+//    var filtersArr: [String] = ["Normal", "Calrendon", "Gingham", "Moon"]
+    
+    var filterImages: [FilterImage] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +44,22 @@ class EditPhotoViewController: BaseViewController {
         view.addSubview(collectionView)
     }
     
-    func configImages() {
+    func configImages()  {
+
+        let filterNames = ["铬黄", "褪色", "即影即逝", "单色照片", "黑白", "冲印", "色调", "岁月痕迹", "晕影", "单色", "伪彩色", "最大组件", "最小组件", "颜色控制"]
+        let filterTypes = ["CIPhotoEffectChrome", "CIPhotoEffectFade", "CIPhotoEffectInstant", "CIPhotoEffectMono", "CIPhotoEffectNoir", "CIPhotoEffectProcess", "CIPhotoEffectTonal", "CIPhotoEffectTransfer", "CIVignette", "CIColorMonochrome", "CIFalseColor", "CIMaximumComponent", "CIMinimumComponent", "CIColorControls"]
+        
+        var index = 0
+        if let image = self.image {
+            for type in filterTypes {
+                if let editedImage = ImageFilterTool.applyFilter(to: image, filterType: type) {
+                    let name = filterNames[index]
+                    let filterImage = FilterImage(image: editedImage, name: name, type: type)
+                    filterImages.append(filterImage)
+                }
+                index += 1
+            }
+        }
         
         collectionView.reloadData()
     }
@@ -109,20 +134,20 @@ class EditPhotoViewController: BaseViewController {
 extension EditPhotoViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filtersArr.count
+        return filterImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EditPhotoCell
-//        let image = imagesArr[indexPath.item]
-        let filter = filtersArr[indexPath.row]
-//        cell.imgView.image = image
-        cell.filterLabel.text = filter
+        let filter = filterImages[indexPath.row]
+        cell.imgView.image = filter.image
+        cell.filterLabel.text = filter.name
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
+        let filter = filterImages[indexPath.row]
+        editImageView.image = filter.image
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

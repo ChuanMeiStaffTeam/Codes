@@ -39,6 +39,8 @@
 		397216C52B824A04007D0F2B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397216C42B824A04007D0F2B /* MainViewController.swift */; };
 		398FF3472B90177D00565C8C /* HUDHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398FF3462B90177D00565C8C /* HUDHelper.swift */; };
 		398FF3492B901BEA00565C8C /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398FF3482B901BEA00565C8C /* UIColor+Extension.swift */; };
+		399952792BA8607500415C46 /* ImageFilterTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399952782BA8607500415C46 /* ImageFilterTool.swift */; };
+		3999527B2BA9B30300415C46 /* ExplainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3999527A2BA9B30300415C46 /* ExplainViewController.swift */; };
 		39B7943C2B9896410048C996 /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B7943B2B9896410048C996 /* EditPhotoViewController.swift */; };
 		39B7943E2B989A3E0048C996 /* EditPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B7943D2B989A3E0048C996 /* EditPhotoCell.swift */; };
 		39FABA0E2B930B5000A10FE6 /* WaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA0D2B930B5000A10FE6 /* WaterfallLayout.swift */; };
@@ -101,6 +103,8 @@
 		397216C42B824A04007D0F2B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		398FF3462B90177D00565C8C /* HUDHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDHelper.swift; sourceTree = "<group>"; };
 		398FF3482B901BEA00565C8C /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		399952782BA8607500415C46 /* ImageFilterTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilterTool.swift; sourceTree = "<group>"; };
+		3999527A2BA9B30300415C46 /* ExplainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainViewController.swift; sourceTree = "<group>"; };
 		39B7943B2B9896410048C996 /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		39B7943D2B989A3E0048C996 /* EditPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoCell.swift; sourceTree = "<group>"; };
 		39FABA0D2B930B5000A10FE6 /* WaterfallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 				39FABA0F2B931C4600A10FE6 /* PhotoAlbumView.swift */,
 				39FABA112B931D3D00A10FE6 /* PhotoAlbumManager.swift */,
 				39B7943B2B9896410048C996 /* EditPhotoViewController.swift */,
+				3999527A2BA9B30300415C46 /* ExplainViewController.swift */,
 				39B7943D2B989A3E0048C996 /* EditPhotoCell.swift */,
 			);
 			path = publish;
@@ -312,6 +317,7 @@
 			children = (
 				392CF1022B8D789E0070637E /* network */,
 				398FF3462B90177D00565C8C /* HUDHelper.swift */,
+				399952782BA8607500415C46 /* ImageFilterTool.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -599,11 +605,13 @@
 				397216C32B8249FC007D0F2B /* SearchViewController.swift in Sources */,
 				397216C52B824A04007D0F2B /* MainViewController.swift in Sources */,
 				392CF1122B8ECA660070637E /* MainView.swift in Sources */,
+				399952792BA8607500415C46 /* ImageFilterTool.swift in Sources */,
 				39FABA0E2B930B5000A10FE6 /* WaterfallLayout.swift in Sources */,
 				397216842B81E8EC007D0F2B /* ViewController.swift in Sources */,
 				392CF10A2B8EC8700070637E /* MainViewModel.swift in Sources */,
 				397216B12B81EA57007D0F2B /* NavigationController.swift in Sources */,
 				397216BD2B8249D9007D0F2B /* UpdatesViewController.swift in Sources */,
+				3999527B2BA9B30300415C46 /* ExplainViewController.swift in Sources */,
 				397216BF2B8249E2007D0F2B /* MineViewController.swift in Sources */,
 				392CF1182B8ECE720070637E /* MainContentCell.swift in Sources */,
 				392CF10E2B8ECA230070637E /* MainUserView.swift in Sources */,

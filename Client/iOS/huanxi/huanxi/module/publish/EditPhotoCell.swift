@@ -43,7 +43,7 @@ class EditPhotoCell: UICollectionViewCell {
         super.layoutSubviews()
         
         filterLabel.frame = CGRect(x: 0, y: 0, width: width, height: 25)
-        imgView.frame = CGRect(x: 0, y: 25, width: 100, height: 100)
+        imgView.frame = CGRect(x: 3, y: 27, width: 94, height: 94)
         
     }
     
