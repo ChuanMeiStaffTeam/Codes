@@ -19,19 +19,23 @@ struct ExplainItem {
 class ExplainViewController: BaseViewController {
     
     var explainItems: [ExplainItem] = []
+    var images: [UIImage] = []
+    
+    let textView = UITextView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupData()
         setupView()
+        setupNavView()
     }
     
     func setupData() {
         
-        let mark = ExplainItem(title: "标记用户", detail: "", type: 1, switchStatus: 0)
-        let address = ExplainItem(title: "添加地点", detail: "", type: 1, switchStatus: 0)
-        let wx = ExplainItem(title: "微信", detail: "", type: 2, switchStatus: 0)
-        let wb = ExplainItem(title: "微博", detail: "", type: 2, switchStatus: 0)
+        let mark = ExplainItem(title: "标记用户", detail: "", type: 0, switchStatus: 0)
+        let address = ExplainItem(title: "添加地点", detail: "", type: 0, switchStatus: 0)
+        let wx = ExplainItem(title: "微信", detail: "", type: 1, switchStatus: 0)
+        let wb = ExplainItem(title: "微博", detail: "", type: 1, switchStatus: 0)
 
         explainItems.append(mark)
         explainItems.append(address)
@@ -42,8 +46,60 @@ class ExplainViewController: BaseViewController {
     func setupView() {
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.edges.equalTo(0)
+            make.left.right.bottom.equalToSuperview().offset(0)
+            make.top.equalToSuperview().offset(.topSafeAreaHeight+40)
         }
+        
+        let headerView = UIView()
+        headerView.frame = CGRect.init(x: 0, y: 0, width: .screenWidth, height: 330)
+        tableView.tableHeaderView = headerView
+        
+        let explainImagesView = ExplainImagesView()
+        explainImagesView.frame = CGRect.init(x: 0, y: 0, width: CGFloat.screenWidth, height: 250)
+        headerView.addSubview(explainImagesView)
+        
+        explainImagesView.images = images
+        
+        textView.addPlaceholder("添加说明...")
+        headerView.addSubview(textView)
+        textView.backgroundColor = .clear
+        textView.frame = CGRect.init(x: 16, y: 260, width: CGFloat.screenWidth - 32, height: 60)
+        textView.font = .systemFont(ofSize: 16)
+        textView.textColor = .white
+    }
+    
+    func setupNavView() {
+        let closeBtn = UIButton(type: .custom)
+        closeBtn.setImage(UIImage.init(named: "publish_close"), for: .normal)
+        closeBtn.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
+        view.addSubview(closeBtn)
+        closeBtn.snp.makeConstraints { make in
+            make.height.width.equalTo(20)
+            make.left.equalToSuperview().offset(16)
+            make.top.equalToSuperview().offset(CGFloat.topSafeAreaHeight+10)
+        }
+        
+        
+        let shareBtn = UIButton(type: .custom)
+        shareBtn.setTitle("分享", for: .normal)
+        shareBtn.setTitleColor(.mainBlueColor, for: .normal)
+        shareBtn.titleLabel?.font = .systemFont(ofSize: 16)
+        shareBtn.addTarget(self, action: #selector(shareAction), for: .touchUpInside)
+        view.addSubview(shareBtn)
+        shareBtn.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-16)
+            make.centerY.equalTo(closeBtn.snp.centerY).offset(0)
+            make.width.equalTo(40)
+            make.height.equalTo(40)
+        }
+    }
+    
+    @objc func closeAction() {
+        dismiss(animated: true)
+    }
+    
+    @objc func shareAction() {
+        
     }
     
     lazy var tableView: UITableView = {
@@ -52,10 +108,13 @@ class ExplainViewController: BaseViewController {
         view.delegate = self
         view.dataSource = self
         view.register(ExplainViewCell.self, forCellReuseIdentifier: "ExplainViewCell")
+        view.keyboardDismissMode = .onDrag
         return view
     }()
     
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
 }
 
 
@@ -68,7 +127,7 @@ extension ExplainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ExplainViewCell.init(style: .default, reuseIdentifier: "ExplainViewCell")
         cell.explainItem = explainItems[indexPath.row]
-        return UITableViewCell()
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -122,8 +181,40 @@ class ExplainViewCell: UITableViewCell {
 
 
     func setupView() {
+        self.backgroundColor = .clear
+        self.contentView.backgroundColor = .black
+        selectionStyle = .none
         
+        titleLabel.textColor = .white
+        titleLabel.font = .systemFont(ofSize: 16)
+        contentView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(12)
+            make.centerY.equalToSuperview().offset(0)
+        }
         
+        arrowImgView.image = .init(named: "publish_arrow")
+        contentView.addSubview(arrowImgView)
+        arrowImgView.snp.makeConstraints { make in
+            make.height.width.equalTo(16)
+            make.right.equalToSuperview().offset(-16)
+            make.centerY.equalToSuperview().offset(0)
+        }
+        
+        detailLabel.textColor = .white
+        detailLabel.font = .systemFont(ofSize: 14)
+        contentView.addSubview(detailLabel)
+        detailLabel.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-16)
+            make.centerY.equalToSuperview().offset(0)
+        }
+        
+        switchView.isOn = false
+        contentView.addSubview(switchView)
+        switchView.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-16)
+            make.centerY.equalToSuperview().offset(0)
+        }
         
         
     }

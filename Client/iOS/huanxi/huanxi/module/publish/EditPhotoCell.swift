@@ -13,6 +13,7 @@ class EditPhotoCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 6
         return imageView
     }()
     

@@ -9,6 +9,7 @@ import UIKit
 class PublishViewController: BaseViewController {
     
     var allImages: [UIImage] = []
+    var indexs: [Int] = [0]
     
     let photoAlbumManager = PhotoAlbumManager.shared
     let photoAlbumView = PhotoAlbumView()
@@ -165,13 +166,18 @@ class PublishViewController: BaseViewController {
     }
     
     @objc func continueAction() {
-        guard (editImageView.image != nil) else {
+        guard !indexs.isEmpty else {
             HUDHelper.showToast("请先选择照片")
             return
         }
+        
+        let images = indexs.map {
+            allImages[$0]
+        }
+        
         let vc = EditPhotoViewController()
         vc.modalPresentationStyle = .fullScreen
-        vc.image = editImageView.image
+        vc.images = images
         present(vc, animated: true)
     }
     
@@ -196,6 +202,7 @@ extension PublishViewController: PhotoAlbumViewDelegate {
         guard indexs.count > 0, allImages.count > indexs.last ?? 0 else {
             return
         }
+        self.indexs = indexs
         editImageView.image = allImages[indexs.last ?? 0]
     }
     

@@ -17,13 +17,13 @@ struct FilterImage {
 
 class EditPhotoViewController: BaseViewController {
     
-    var image: UIImage?
+    var images: [UIImage] = []
     
     let editImageView = UIImageView()
-//    var imagesArr: [UIImage] = []
-//    var filtersArr: [String] = ["Normal", "Calrendon", "Gingham", "Moon"]
+    let editPhotosView = EditPhotosView()
     
     var filterImages: [FilterImage] = []
+    var editedImages: [UIImage] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +36,10 @@ class EditPhotoViewController: BaseViewController {
         
         setupNavView()
         
-        editImageView.frame = CGRect.init(x: 0, y: .topSafeAreaHeight+40, width: .screenWidth, height: 400)
-        editImageView.contentMode = .scaleAspectFit
-        editImageView.image = image
-        view.addSubview(editImageView)
+        editedImages = images
+        editPhotosView.frame = CGRect.init(x: 0, y: .topSafeAreaHeight+40, width: .screenWidth, height: .screenWidth - 32)
+        editPhotosView.images = editedImages
+        view.addSubview(editPhotosView)
         
         view.addSubview(collectionView)
     }
@@ -50,7 +50,7 @@ class EditPhotoViewController: BaseViewController {
         let filterTypes = ["CIPhotoEffectChrome", "CIPhotoEffectFade", "CIPhotoEffectInstant", "CIPhotoEffectMono", "CIPhotoEffectNoir", "CIPhotoEffectProcess", "CIPhotoEffectTonal", "CIPhotoEffectTransfer", "CIVignette", "CIColorMonochrome", "CIFalseColor", "CIMaximumComponent", "CIMinimumComponent", "CIColorControls"]
         
         var index = 0
-        if let image = self.image {
+        if let image = self.images.first {
             for type in filterTypes {
                 if let editedImage = ImageFilterTool.applyFilter(to: image, filterType: type) {
                     let name = filterNames[index]
@@ -106,7 +106,10 @@ class EditPhotoViewController: BaseViewController {
     }
     
     @objc func continueAction() {
-        
+        let vc = ExplainViewController()
+        vc.images = editedImages
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
     }
     
     
@@ -119,10 +122,11 @@ class EditPhotoViewController: BaseViewController {
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 100, height: 125)
         
-        let collectionView = UICollectionView(frame: CGRect.init(x: 0, y: editImageView.bottom + 100, width: CGFloat.screenWidth, height: 125), collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: CGRect.init(x: 0, y: editPhotosView.bottom + 100, width: CGFloat.screenWidth, height: 125), collectionViewLayout: layout)
         collectionView.backgroundColor = .black
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(EditPhotoCell.self, forCellWithReuseIdentifier: cellIdentifier)
         
         return collectionView
@@ -131,7 +135,7 @@ class EditPhotoViewController: BaseViewController {
 }
 
 
-extension EditPhotoViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension EditPhotoViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filterImages.count
@@ -147,11 +151,22 @@ extension EditPhotoViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let filter = filterImages[indexPath.row]
-        editImageView.image = filter.image
+        updateEditedImages(type: filter.type)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let edgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 6)
         return edgeInsets
+    }
+    
+    func updateEditedImages(type: String) {
+        var editedImages: [UIImage] = []
+        for image in images {
+            if let editedImage = ImageFilterTool.applyFilter(to: image, filterType: type) {
+                editedImages.append(editedImage)
+            }
+        }
+        self.editedImages = editedImages
+        editPhotosView.images = editedImages
     }
 }
