@@ -42,6 +42,9 @@
 		3998DE2F2BB00B4B0000C4DD /* EditImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3998DE2E2BB00B4B0000C4DD /* EditImagesView.swift */; };
 		3998DE312BB016A60000C4DD /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3998DE302BB016A60000C4DD /* UITextView+Extension.swift */; };
 		3998DE332BB031FF0000C4DD /* EditPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3998DE322BB031FE0000C4DD /* EditPhotosView.swift */; };
+		3998DE352BB59F0E0000C4DD /* UpdatesEarlierCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3998DE342BB59F0E0000C4DD /* UpdatesEarlierCell.swift */; };
+		3998DE372BB59F270000C4DD /* UpdatesThisMonthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3998DE362BB59F270000C4DD /* UpdatesThisMonthCell.swift */; };
+		3998DE392BB59F5D0000C4DD /* UpdatesRecommendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3998DE382BB59F5D0000C4DD /* UpdatesRecommendCell.swift */; };
 		399952792BA8607500415C46 /* ImageFilterTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399952782BA8607500415C46 /* ImageFilterTool.swift */; };
 		3999527B2BA9B30300415C46 /* ExplainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3999527A2BA9B30300415C46 /* ExplainViewController.swift */; };
 		39B7943C2B9896410048C996 /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B7943B2B9896410048C996 /* EditPhotoViewController.swift */; };
@@ -109,6 +112,9 @@
 		3998DE2E2BB00B4B0000C4DD /* EditImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImagesView.swift; sourceTree = "<group>"; };
 		3998DE302BB016A60000C4DD /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		3998DE322BB031FE0000C4DD /* EditPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotosView.swift; sourceTree = "<group>"; };
+		3998DE342BB59F0E0000C4DD /* UpdatesEarlierCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesEarlierCell.swift; sourceTree = "<group>"; };
+		3998DE362BB59F270000C4DD /* UpdatesThisMonthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesThisMonthCell.swift; sourceTree = "<group>"; };
+		3998DE382BB59F5D0000C4DD /* UpdatesRecommendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesRecommendCell.swift; sourceTree = "<group>"; };
 		399952782BA8607500415C46 /* ImageFilterTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilterTool.swift; sourceTree = "<group>"; };
 		3999527A2BA9B30300415C46 /* ExplainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainViewController.swift; sourceTree = "<group>"; };
 		39B7943B2B9896410048C996 /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
@@ -316,6 +322,9 @@
 			isa = PBXGroup;
 			children = (
 				397216BC2B8249D9007D0F2B /* UpdatesViewController.swift */,
+				3998DE342BB59F0E0000C4DD /* UpdatesEarlierCell.swift */,
+				3998DE362BB59F270000C4DD /* UpdatesThisMonthCell.swift */,
+				3998DE382BB59F5D0000C4DD /* UpdatesRecommendCell.swift */,
 			);
 			path = updates;
 			sourceTree = "<group>";
@@ -604,10 +613,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				392CF10C2B8EC8E60070637E /* MainModel.swift in Sources */,
+				3998DE392BB59F5D0000C4DD /* UpdatesRecommendCell.swift in Sources */,
 				392CF1162B8ECE640070637E /* MainRecommendCell.swift in Sources */,
 				3998DE312BB016A60000C4DD /* UITextView+Extension.swift in Sources */,
 				3998DE332BB031FF0000C4DD /* EditPhotosView.swift in Sources */,
 				39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */,
+				3998DE372BB59F270000C4DD /* UpdatesThisMonthCell.swift in Sources */,
 				39B7943C2B9896410048C996 /* EditPhotoViewController.swift in Sources */,
 				392CF1142B8ECE570070637E /* MainUserCell.swift in Sources */,
 				392CF1082B8D7E8F0070637E /* CGFloat+LayoutExtension.swift in Sources */,
@@ -635,6 +646,7 @@
 				397216B52B81EA79007D0F2B /* BaseViewController.swift in Sources */,
 				397216C12B8249F1007D0F2B /* PublishViewController.swift in Sources */,
 				39B7943E2B989A3E0048C996 /* EditPhotoCell.swift in Sources */,
+				3998DE352BB59F0E0000C4DD /* UpdatesEarlierCell.swift in Sources */,
 				392CF1062B8D7C5D0070637E /* UIView+FrameExtension.swift in Sources */,
 				398FF3472B90177D00565C8C /* HUDHelper.swift in Sources */,
 			);
