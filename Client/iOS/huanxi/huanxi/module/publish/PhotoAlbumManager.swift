@@ -29,20 +29,34 @@ class PhotoAlbumManager {
     func fetchAllImages(completion: @escaping ([UIImage]) -> Void) {
         var allImages: [UIImage] = []
         
-        let fetchOptions = PHFetchOptions()
-        let albums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: fetchOptions)
-        
-        albums.enumerateObjects { album, _, _ in
-            let assets = PHAsset.fetchAssets(in: album, options: nil)
+        DispatchQueue.global().async {
+            let fetchOptions = PHFetchOptions()
+            let albums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: fetchOptions)
+            fetchOptions.fetchLimit = 50
             
-            assets.enumerateObjects { asset, _, _ in
-                PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: nil) { image, _ in
-                    if let image = image {
-                        allImages.append(image)
-                    }
+            let requestOptions = PHImageRequestOptions()
+            requestOptions.deliveryMode = .highQualityFormat
+            
 
-                    if allImages.count == assets.count {
-                        completion(allImages)
+            
+            albums.enumerateObjects { album, _, _ in
+                let assets = PHAsset.fetchAssets(in: album, options: nil)
+                
+                if assets.count > 0 {
+                    print("相册名：" + (album.localizedTitle ?? "") + "    照片数量" + String(assets.count))
+                }
+
+                assets.enumerateObjects { asset, _, _ in
+                    PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: requestOptions) { image, _ in
+                        if let image = image {
+                            allImages.append(image)
+                        }
+
+                        if allImages.count == assets.count {
+                            DispatchQueue.main.async {
+                                completion(allImages)
+                            }
+                        }
                     }
                 }
             }
