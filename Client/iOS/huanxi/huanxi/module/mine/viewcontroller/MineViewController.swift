@@ -14,7 +14,7 @@ class MineViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = true
     }
     
     override func viewDidLoad() {
@@ -26,7 +26,7 @@ class MineViewController: BaseViewController {
     
     func setupView() {
         
-        let nameLabel = UILabel(frame: CGRectMake(16, .topSafeAreaHeight, 200, 40))
+        let nameLabel = UILabel(frame: CGRect(x: 16, y: .topSafeAreaHeight, width: 200, height: 40))
         nameLabel.text = "Jack"
         nameLabel.textColor = .white
         nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
@@ -34,13 +34,13 @@ class MineViewController: BaseViewController {
         
         let addButton = UIButton(type: .custom)
         addButton.setImage(UIImage(named: "main_snapshot_add"), for: .normal)
-        addButton.frame = CGRectMake(.screenWidth - 80, .topSafeAreaHeight + 5, 30, 30)
+        addButton.frame = CGRect(x: .screenWidth - 80, y: .topSafeAreaHeight + 5, width: 30, height:30)
         addButton.addTarget(self, action: #selector(addAction), for: .touchUpInside)
         view.addSubview(addButton)
         
         let setButton = UIButton(type: .custom)
         setButton.setImage(UIImage(named: "main_more"), for: .normal)
-        setButton.frame = CGRectMake(.screenWidth - 40, .topSafeAreaHeight + 5, 30, 30)
+        setButton.frame = CGRect(x: .screenWidth - 40, y: .topSafeAreaHeight + 5, width: 30, height: 30)
         setButton.addTarget(self, action: #selector(setAction), for: .touchUpInside)
         view.addSubview(setButton)
         

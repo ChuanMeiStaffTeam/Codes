@@ -68,6 +68,7 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else if model.type == "content" {
             let cell = MainContentCell.init(style: .default, reuseIdentifier: contentCell)
+            cell.reloadData(indexPath: indexPath)
             return cell
         } else if model.type == "recommend" {
             let cell = MainRecommendCell.init(style: .default, reuseIdentifier: recommendCell)
@@ -83,7 +84,7 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
         if model.type == "user" {
             return 100
         } else if model.type == "content" {
-            return 580
+            return 585
         } else if model.type == "recommend" {
             return 330
         }

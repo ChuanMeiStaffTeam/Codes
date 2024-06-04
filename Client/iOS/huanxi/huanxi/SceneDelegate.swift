@@ -18,6 +18,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         
+        // 自定义导航栏的外观
+        let appearance = UINavigationBarAppearance()
+        
+        // 设置背景色（例如：系统蓝色）
+        appearance.backgroundColor = UIColor.black
+        
+        // 去除毛玻璃效果
+        appearance.backgroundEffect = nil
+        
+        // 可选：设置标题文字颜色和字体
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        	
+        // 将自定义的外观应用到导航栏
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        
         let tabbar = TabBarController()
         window?.rootViewController = tabbar
         window?.makeKeyAndVisible()

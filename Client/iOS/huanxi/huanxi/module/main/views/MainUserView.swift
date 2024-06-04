@@ -10,6 +10,8 @@ import SnapKit
 
 class MainUserView: UIView {
     
+    let names: [String] = ["你的快拍", "zixuanooo", "diza", "dnsk", "jack", "rose"]
+    
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -51,11 +53,15 @@ extension MainUserView: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return names.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCollectionViewCell
+        
+        cell.label.text = names[indexPath.row]
+        let nameStr = "avatar_test_" + String(indexPath.row)
+        cell.imageView.image = UIImage.init(named: nameStr)
         return cell
     }
     
@@ -80,7 +86,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.white
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.text = "用户名"
         label.textAlignment = .center
         return label

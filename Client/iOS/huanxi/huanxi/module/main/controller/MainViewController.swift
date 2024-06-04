@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class MainViewController: BaseViewController {
     
@@ -14,7 +15,7 @@ class MainViewController: BaseViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = true
     }
     
     override func viewDidLoad() {
@@ -27,11 +28,26 @@ class MainViewController: BaseViewController {
     
     
     func setupView() {
-
+        setupNavView()
+        
         mainView = MainView(frame: CGRect.init(x: 0, y: 0, width: .screenWidth, height: .screenHeight - .bottomSafeAreaHeight - .tabBarHeight))
         view.addSubview(mainView)
         
     }
     
+    func setupNavView() {
+        
+        let imageView = UIImageView(image: UIImage.init(named: "instagram"))
+        imageView.frame = CGRect(x: 16, y: 4	, width: 134, height: 36)
+        let leftItem = UIBarButtonItem(customView: imageView)
+        self.navigationItem.leftBarButtonItem = leftItem
+        
+        let button = UIButton(type: .custom)
+        button.frame = CGRect(x: .screenWidth - 46, y: 7, width: 30, height: 30)
+        button.setImage(UIImage.init(named: "main_relay"), for: .normal)
+        let rightItem = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = rightItem
+        
+    }
     
 }

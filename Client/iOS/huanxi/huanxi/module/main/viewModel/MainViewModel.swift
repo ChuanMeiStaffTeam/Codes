@@ -22,8 +22,8 @@ class MainViewModel {
         let user = MainModel(type: "user", users: [u, u, u, u,])
         let content = MainModel(type: "content", users: [])
         let recommend = MainModel(type: "recommend", users: [])
-
-        mainList = [user, content, content, content, content, content, content, recommend, content]
+	
+        mainList = [user, content, content, content, recommend, content, content, content, content]
     }
     
     
