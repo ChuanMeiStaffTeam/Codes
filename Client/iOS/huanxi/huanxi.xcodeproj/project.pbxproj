@@ -7,8 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04BCDA312C12F80400437222 /* ChatTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCDA302C12F80400437222 /* ChatTextCell.swift */; };
+		04BCDA332C1301AA00437222 /* ChatMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCDA322C1301AA00437222 /* ChatMessageManager.swift */; };
+		04BCDA352C13063100437222 /* TextSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCDA342C13063100437222 /* TextSizeCalculator.swift */; };
 		04F0D1A62BFADC5900FFE128 /* MineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0D1A52BFADC5900FFE128 /* MineHeaderView.swift */; };
 		04F0D1A82BFAEC0D00FFE128 /* EditHomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0D1A72BFAEC0D00FFE128 /* EditHomePageViewController.swift */; };
+		04F23E452C0EE4330078809E /* DirectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F23E442C0EE4330078809E /* DirectViewController.swift */; };
+		04F23E482C0EE6AF0078809E /* DirectChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F23E472C0EE6AF0078809E /* DirectChatCell.swift */; };
+		04F23E4A2C0EE7900078809E /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F23E492C0EE7900078809E /* ChatModel.swift */; };
+		04F23E4F2C0F00050078809E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F23E4E2C0F00050078809E /* ChatViewController.swift */; };
+		04F23E512C0F00450078809E /* ChatUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F23E502C0F00450078809E /* ChatUserInfoView.swift */; };
 		1EAD2653DE3A78D8102EAB37 /* Pods_huanxiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E29E7310307A6B5C6ADA6A5 /* Pods_huanxiTests.framework */; };
 		27EA01C3256DE6B9B53333E7 /* Pods_huanxi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA729ABFB7BAA4ADCD4DD472 /* Pods_huanxi.framework */; };
 		392CF1042B8D78BB0070637E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392CF1032B8D78BB0070637E /* NetworkManager.swift */; };
@@ -75,8 +83,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04BCDA302C12F80400437222 /* ChatTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextCell.swift; sourceTree = "<group>"; };
+		04BCDA322C1301AA00437222 /* ChatMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageManager.swift; sourceTree = "<group>"; };
+		04BCDA342C13063100437222 /* TextSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSizeCalculator.swift; sourceTree = "<group>"; };
 		04F0D1A52BFADC5900FFE128 /* MineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineHeaderView.swift; sourceTree = "<group>"; };
 		04F0D1A72BFAEC0D00FFE128 /* EditHomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHomePageViewController.swift; sourceTree = "<group>"; };
+		04F23E442C0EE4330078809E /* DirectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectViewController.swift; sourceTree = "<group>"; };
+		04F23E472C0EE6AF0078809E /* DirectChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectChatCell.swift; sourceTree = "<group>"; };
+		04F23E492C0EE7900078809E /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		04F23E4E2C0F00050078809E /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		04F23E502C0F00450078809E /* ChatUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUserInfoView.swift; sourceTree = "<group>"; };
 		0E29E7310307A6B5C6ADA6A5 /* Pods_huanxiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_huanxiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		339142C30AFBEC27D15F2192 /* Pods-huanxiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanxiTests.release.xcconfig"; path = "Target Support Files/Pods-huanxiTests/Pods-huanxiTests.release.xcconfig"; sourceTree = "<group>"; };
 		392CF1032B8D78BB0070637E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -180,6 +196,16 @@
 			path = views;
 			sourceTree = "<group>";
 		};
+		04F23E462C0EE69B0078809E /* direct */ = {
+			isa = PBXGroup;
+			children = (
+				04F23E472C0EE6AF0078809E /* DirectChatCell.swift */,
+				04BCDA302C12F80400437222 /* ChatTextCell.swift */,
+				04F23E502C0F00450078809E /* ChatUserInfoView.swift */,
+			);
+			path = direct;
+			sourceTree = "<group>";
+		};
 		392CF1022B8D789E0070637E /* network */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +217,7 @@
 		392CF1192B8F15100070637E /* views */ = {
 			isa = PBXGroup;
 			children = (
+				04F23E462C0EE69B0078809E /* direct */,
 				392CF10D2B8ECA230070637E /* MainUserView.swift */,
 				392CF10F2B8ECA4F0070637E /* MainRecommendView.swift */,
 				392CF1112B8ECA660070637E /* MainView.swift */,
@@ -206,6 +233,8 @@
 			children = (
 				392CF1092B8EC8700070637E /* MainViewModel.swift */,
 				392CF10B2B8EC8E60070637E /* MainModel.swift */,
+				04F23E492C0EE7900078809E /* ChatModel.swift */,
+				04BCDA322C1301AA00437222 /* ChatMessageManager.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -214,6 +243,8 @@
 			isa = PBXGroup;
 			children = (
 				397216C42B824A04007D0F2B /* MainViewController.swift */,
+				04F23E442C0EE4330078809E /* DirectViewController.swift */,
+				04F23E4E2C0F00050078809E /* ChatViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -357,6 +388,7 @@
 				392CF1022B8D789E0070637E /* network */,
 				398FF3462B90177D00565C8C /* HUDHelper.swift */,
 				399952782BA8607500415C46 /* ImageFilterTool.swift */,
+				04BCDA342C13063100437222 /* TextSizeCalculator.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -640,6 +672,7 @@
 				3998DE312BB016A60000C4DD /* UITextView+Extension.swift in Sources */,
 				3998DE332BB031FF0000C4DD /* EditPhotosView.swift in Sources */,
 				39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */,
+				04F23E482C0EE6AF0078809E /* DirectChatCell.swift in Sources */,
 				3998DE372BB59F270000C4DD /* UpdatesThisMonthCell.swift in Sources */,
 				39B7943C2B9896410048C996 /* EditPhotoViewController.swift in Sources */,
 				392CF1142B8ECE570070637E /* MainUserCell.swift in Sources */,
@@ -648,8 +681,11 @@
 				39FABA102B931C4600A10FE6 /* PhotoAlbumView.swift in Sources */,
 				392CF1042B8D78BB0070637E /* NetworkManager.swift in Sources */,
 				397216C32B8249FC007D0F2B /* SearchViewController.swift in Sources */,
+				04F23E512C0F00450078809E /* ChatUserInfoView.swift in Sources */,
 				397216C52B824A04007D0F2B /* MainViewController.swift in Sources */,
 				392CF1122B8ECA660070637E /* MainView.swift in Sources */,
+				04F23E4A2C0EE7900078809E /* ChatModel.swift in Sources */,
+				04BCDA332C1301AA00437222 /* ChatMessageManager.swift in Sources */,
 				399952792BA8607500415C46 /* ImageFilterTool.swift in Sources */,
 				39FABA0E2B930B5000A10FE6 /* WaterfallLayout.swift in Sources */,
 				04F0D1A62BFADC5900FFE128 /* MineHeaderView.swift in Sources */,
@@ -657,6 +693,7 @@
 				392CF10A2B8EC8700070637E /* MainViewModel.swift in Sources */,
 				397216B12B81EA57007D0F2B /* NavigationController.swift in Sources */,
 				397216BD2B8249D9007D0F2B /* UpdatesViewController.swift in Sources */,
+				04F23E452C0EE4330078809E /* DirectViewController.swift in Sources */,
 				3999527B2BA9B30300415C46 /* ExplainViewController.swift in Sources */,
 				397216BF2B8249E2007D0F2B /* MineViewController.swift in Sources */,
 				392CF1182B8ECE720070637E /* MainContentCell.swift in Sources */,
@@ -665,11 +702,14 @@
 				397216802B81E8EC007D0F2B /* AppDelegate.swift in Sources */,
 				04F0D1A82BFAEC0D00FFE128 /* EditHomePageViewController.swift in Sources */,
 				397216B32B81EA6A007D0F2B /* TabBarController.swift in Sources */,
+				04BCDA312C12F80400437222 /* ChatTextCell.swift in Sources */,
 				397216822B81E8EC007D0F2B /* SceneDelegate.swift in Sources */,
 				392CF1102B8ECA4F0070637E /* MainRecommendView.swift in Sources */,
 				397216B52B81EA79007D0F2B /* BaseViewController.swift in Sources */,
 				397216C12B8249F1007D0F2B /* PublishViewController.swift in Sources */,
 				39B7943E2B989A3E0048C996 /* EditPhotoCell.swift in Sources */,
+				04F23E4F2C0F00050078809E /* ChatViewController.swift in Sources */,
+				04BCDA352C13063100437222 /* TextSizeCalculator.swift in Sources */,
 				3998DE352BB59F0E0000C4DD /* UpdatesEarlierCell.swift in Sources */,
 				392CF1062B8D7C5D0070637E /* UIView+FrameExtension.swift in Sources */,
 				398FF3472B90177D00565C8C /* HUDHelper.swift in Sources */,
@@ -848,14 +888,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 420045BD32FD448FC5BBC8C4 /* Pods-huanxi.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = CH2X87N5DP;
+				DEVELOPMENT_TEAM = VPMQYZNVJA;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = huanxi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "欢喜";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App需要获取相册权限，来发布图片动态";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -867,7 +910,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chuanmei.huanxi;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jxyz.huanxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -879,14 +923,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CCA9A2110F87E34A74D9BC07 /* Pods-huanxi.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = CH2X87N5DP;
+				DEVELOPMENT_TEAM = VPMQYZNVJA;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = huanxi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "欢喜";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App需要获取相册权限，来发布图片动态";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -898,7 +945,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chuanmei.huanxi;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jxyz.huanxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

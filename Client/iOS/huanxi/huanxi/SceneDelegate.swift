@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NIMSDK
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,6 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        configNIMSDK()
+        
         
         // 自定义导航栏的外观
         let appearance = UINavigationBarAppearance()
@@ -39,6 +43,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabbar = TabBarController()
         window?.rootViewController = tabbar
         window?.makeKeyAndVisible()
+        
+    }
+    
+    func configNIMSDK() {
+        
+        let option = NIMSDKOption(appKey: "7b801e694e564050c0a8f344094edfba")
+        NIMSDK.shared().register(with: option)
         
     }
 

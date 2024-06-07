@@ -45,9 +45,17 @@ class MainViewController: BaseViewController {
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: .screenWidth - 46, y: 7, width: 30, height: 30)
         button.setImage(UIImage.init(named: "main_relay"), for: .normal)
+        button.addTarget(self, action: #selector(gotoDirect), for: .touchUpInside)
         let rightItem = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = rightItem
         
+    }
+    
+    
+    @objc func gotoDirect() {
+        let vc = DirectViewController()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
