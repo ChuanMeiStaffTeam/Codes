@@ -28,6 +28,8 @@ public class UserController {
     @RequestMapping("/register/username")
     public AppResult register(String username, String password) {
         // TODO: 2024/05/20 注册逻辑
+        // 注册成功后，返回token
+        // 判断注册的用户名是否已经注册     密码的加密方式
         return AppResult.success();
     }
 
