@@ -22,15 +22,11 @@ public enum ResultCode {
     FAILED_LOGIN_               (1106,"验证码错误"),
     FAILED_USER_BANNED          (1104, "您已被禁⾔, 请联系管理员, 并重新登录."),
     FAILED_TWO_PWD_NOT_SAME     (1105, "两次输⼊的密码不⼀致"),
-    FAILED_USER_ARTICLE_COUNT (1201,"更新帖子数量失败"),
 
-    //关于板块的错误描述
-    FAILED_BOARD_ARTICLE_COUNT (1201,"更新帖子数量失败"),
-    FAILED_BOARD_BANNED(1201,"板块状态异常"),
-    FAILED_BOARD_NOT_EXISTS           (1203, "板块不存在"),
 
     FAILED_ARTICLE_NOT_EXISTS (1301,"帖子不存在"),
     FAILED_ARTICLE_BANNED (1302,"帖子状态异常"),
+
 
     ERROR_SERVICES              (2000, "服务器内部错误"),
     ERROR_IS_NULL               (2001, "IS NULL.");

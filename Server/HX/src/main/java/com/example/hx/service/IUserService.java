@@ -1,5 +1,6 @@
 package com.example.hx.service;
 
+import com.example.hx.model.User;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,4 +12,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface IUserService {
+
+    User getUserByUserName(String userName);
+
+
+    int insertUser(User user);
 }
