@@ -3,13 +3,58 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hx.dao.UserMapper">
+    <resultMap id="userResultMap" type="com.example.hx.model.User">
+        <!-- 这里的id属性是随便起的，只要保证唯一即可 -->
+        <id property="userId" column="user_id"/> <!-- 这里的property属性是User类的属性名，column属性是数据库表的列名 -->
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="salt" column="salt"/>
+        <result property="passwordHash" column="password_hash"/>
+        <result property="nickName" column="nickname"/>
+        <result property="bio" column="bio"/>
+        <result property="profilePictureUrl" column="profile_picture_url"/>
+        <result property="websiteUrl" column="website_url"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="gender" column="gender"/>
+        <result property="dateOfBirth" column="date_of_birth"/>
+        <result property="address" column="address"/>
+        <result property="city" column="city"/>
+        <result property="state" column="state"/>
+        <result property="country" column="country"/>
+        <result property="postalCode" column="postal_code"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="isActive" column="is_active"/>
+        <result property="isVerified" column="is_verified"/>
+        <result property="preferredLanguage" column="preferred_language"/>
+        <result property="timezone" column="timezone"/>
+        <result property="loginAttempts" column="login_attempts"/>
+        <result property="accountLocked" column="account_locked"/>
+        <result property="lockoutTime" column="lockout_time"/>
+        <result property="facebookUrl" column="facebook_url"/>
+        <result property="twitterUrl" column="twitter_url"/>
+        <result property="privacySettings" column="privacy_settings"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id
+        , username, email, salt, password_hash, nickname, bio, profile_picture_url,
+        website_url, phone_number, gender, date_of_birth, address, city, state, country,
+        postal_code, created_at, updated_at, is_active, is_verified,
+        preferred_language, timezone, login_attempts, account_locked, lockout_time,
+        facebook_url, twitter_url, privacy_settings
+    </sql>
+
+
     <insert id="insertUser" parameterType="com.example.hx.model.User">
-
-
+        INSERT INTO sys_user (username, salt, password_hash, nickname)
+        VALUES (#{username}, #{salt}, #{passwordHash}, #{nickName})
     </insert>
 
 
-    <select id="selectByUserName" resultType="com.example.hx.model.User" parameterType="java.lang.String">
-        SELECT * FROM user WHERE username = #{username}
+    <select id="selectByUserName" resultMap="userResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_user WHERE username = #{username}
     </select>
 </mapper>

@@ -1,7 +1,9 @@
 package com.example.hx.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -11,13 +13,17 @@ import java.util.Date;
  * 用户实体类
  */
 @Data
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L; // 序列化ID
 
     private Integer userId; // 用户ID，自增主键
     private String username; // 用户名，唯一且不能为空
     private String email; // 邮箱地址，唯一且不能为空
-    private String salt; // 密码盐值，不能为空
 
+    @JsonIgnore  //不参与json序列化
+    private String salt; // 密码盐值，不能为空
+    @JsonIgnore  //不参与json序列化
     private String passwordHash; // 密码哈希值，不能为空
     private String nickName; // 昵称
     private String bio; // 简介
@@ -33,7 +39,6 @@ public class User {
     private String postalCode; // 邮政编码
     private Timestamp createdAt; // 账户创建时间
     private Timestamp updatedAt; // 账户更新时间
-    private Timestamp lastLogin; // 上次登录时间
     private Boolean isActive; // 账户是否激活
     private Boolean isVerified; // 账户是否验证
 
@@ -41,7 +46,7 @@ public class User {
     private String timezone; // 时区，默认为UTC
     private Integer loginAttempts; // 登录尝试次数
     private Boolean accountLocked; // 账户是否被锁定
-    private Timestamp lockoutTime; // 账户锁定时间
+    private String lockoutTime; // 账户锁定时间
     private String facebookUrl; // Facebook URL
     private String twitterUrl; // Twitter URL
     private String privacySettings; // 隐私设置
