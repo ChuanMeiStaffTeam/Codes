@@ -7,16 +7,18 @@ import com.example.hx.model.User;
 import com.example.hx.service.IUserService;
 import com.example.hx.util.MD5util;
 import com.example.hx.util.Uuid;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,7 +41,7 @@ public class UserController {
 
 
     // 登录接口
-    @RequestMapping("/login/username")
+    @PostMapping("/login/username")
     public AppResult login(@NonNull String username, @NonNull String password,
                            HttpServletRequest request) {
         User user = userService.getUserByUserName(username);
@@ -67,9 +69,9 @@ public class UserController {
 
 
     // 注册接口用户名密码注册
-    @RequestMapping("/register/username")
-    public AppResult register(@Nonnull String nickname, @Nonnull String username,
-                              @Nonnull String password, @Nonnull String password2) {
+    @PostMapping("/register/username")
+    public AppResult register(@NonNull String nickname, @NonNull  String username,
+                              @NonNull  String password, @NonNull  String password2) {
         // 判断两次密码是否相同
         if (!password.equals(password2)) {
             log.error(ResultCode.FAILED_TWO_PWD_NOT_SAME.getMessage());
@@ -102,14 +104,14 @@ public class UserController {
     }
 
     // 注册接口手机号验证码注册
-    @RequestMapping("/register/phone")
+    @PostMapping("/register/phone")
     public AppResult registerByPhone(String phone, String code) {
         // TODO: 2024/06/06 手机号验证码注册逻辑
         return AppResult.success();
     }
 
     // 注册接口邮箱验证码注册
-    @RequestMapping("/register/email")
+    @PostMapping("/register/email")
     public AppResult registerByEmail(String email, String code) {
         // TODO: 2024/06/06 邮箱验证码注册逻辑
         return AppResult.success();
@@ -117,7 +119,7 @@ public class UserController {
 
 
     // 注销接口
-    @RequestMapping("/logout")
+    @PostMapping("/logout")
     public AppResult logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {

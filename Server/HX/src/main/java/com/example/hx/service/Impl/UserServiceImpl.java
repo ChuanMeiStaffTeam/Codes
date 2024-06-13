@@ -3,8 +3,9 @@ package com.example.hx.service.Impl;
 import com.example.hx.dao.UserMapper;
 import com.example.hx.model.User;
 import com.example.hx.service.IUserService;
-import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * Created with IntelliJ IDEA.
