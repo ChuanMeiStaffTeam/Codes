@@ -8,13 +8,14 @@ import com.example.hx.service.IUserService;
 import com.example.hx.util.MD5util;
 import com.example.hx.util.Uuid;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 @RestController
 @RequestMapping("/user")
+@Api(tags = "用户注册登录接口")
 public class UserController {
 
 
@@ -41,20 +43,18 @@ public class UserController {
 
 
     // 登录接口
+    @ApiOperation(value = "用户名密码登录接口")
     @PostMapping("/login/username")
-    public AppResult login(@NonNull String username, @NonNull String password,
+    public AppResult login(@NonNull @ApiParam(value = "用户名") @RequestParam("username") String username,
+                           @NonNull @ApiParam(value = "密码") @RequestParam("password") String password,
                            HttpServletRequest request) {
         User user = userService.getUserByUserName(username);
         if (user == null) {
             log.error(ResultCode.FAILED_USER_NOT_EXISTS.getMessage());
             throw new ApplicationException(ResultCode.FAILED_USER_NOT_EXISTS.getMessage());
         }
-        System.out.println(user.toString());
         String salt = user.getSalt();  // 获取盐
-        System.out.println(salt);
         String s = MD5util.md5Salt(password, salt);  // 验证密码
-        System.out.println(s);
-        System.out.println(user.getPasswordHash());
         if (!s.equals(user.getPasswordHash())) {
             log.error(ResultCode.FAILED_LOGIN.getMessage());
             throw new ApplicationException(ResultCode.FAILED_LOGIN.getMessage());
@@ -69,9 +69,12 @@ public class UserController {
 
 
     // 注册接口用户名密码注册
+    @ApiOperation(value = "用户名密码注册接口")
     @PostMapping("/register/username")
-    public AppResult register(@NonNull String nickname, @NonNull  String username,
-                              @NonNull  String password, @NonNull  String password2) {
+    public AppResult register(@NonNull @ApiParam(value = "昵称") @RequestParam("nickname")  String nickname,
+                              @NonNull @ApiParam(value = "用户名") @RequestParam("username") String username,
+                              @NonNull @ApiParam(value = "密码") @RequestParam("password") String password,
+                              @NonNull @ApiParam(value = "确认密码") @RequestParam("password2") String password2) {
         // 判断两次密码是否相同
         if (!password.equals(password2)) {
             log.error(ResultCode.FAILED_TWO_PWD_NOT_SAME.getMessage());
@@ -84,17 +87,13 @@ public class UserController {
             throw new ApplicationException(ResultCode.FAILED_USER_EXISTS.getMessage());
         }
         String salt = Uuid.UUID_32();  // 生成盐
-        System.out.println(salt);
         String s = MD5util.md5Salt(password, salt);  // 加密密码
-        System.out.println(s);
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPasswordHash(s);
         newUser.setSalt(salt);
         newUser.setNickName(nickname);
-
         int result = userService.insertUser(newUser);
-        System.out.println(newUser);
         if (result != 1) {
             log.error(ResultCode.ERROR_SERVICES.getMessage());
             throw new ApplicationException(ResultCode.ERROR_SERVICES.getMessage());
