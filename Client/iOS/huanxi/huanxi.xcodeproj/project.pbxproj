@@ -10,6 +10,8 @@
 		04BCDA312C12F80400437222 /* ChatTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCDA302C12F80400437222 /* ChatTextCell.swift */; };
 		04BCDA332C1301AA00437222 /* ChatMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCDA322C1301AA00437222 /* ChatMessageManager.swift */; };
 		04BCDA352C13063100437222 /* TextSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCDA342C13063100437222 /* TextSizeCalculator.swift */; };
+		04D16F722C1AE9A400D0BF61 /* ChatEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D16F712C1AE9A400D0BF61 /* ChatEditView.swift */; };
+		04D16F742C1BDC6C00D0BF61 /* ChatUserHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D16F732C1BDC6C00D0BF61 /* ChatUserHomeViewController.swift */; };
 		04F0D1A62BFADC5900FFE128 /* MineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0D1A52BFADC5900FFE128 /* MineHeaderView.swift */; };
 		04F0D1A82BFAEC0D00FFE128 /* EditHomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0D1A72BFAEC0D00FFE128 /* EditHomePageViewController.swift */; };
 		04F23E452C0EE4330078809E /* DirectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F23E442C0EE4330078809E /* DirectViewController.swift */; };
@@ -86,6 +88,8 @@
 		04BCDA302C12F80400437222 /* ChatTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextCell.swift; sourceTree = "<group>"; };
 		04BCDA322C1301AA00437222 /* ChatMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageManager.swift; sourceTree = "<group>"; };
 		04BCDA342C13063100437222 /* TextSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSizeCalculator.swift; sourceTree = "<group>"; };
+		04D16F712C1AE9A400D0BF61 /* ChatEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatEditView.swift; sourceTree = "<group>"; };
+		04D16F732C1BDC6C00D0BF61 /* ChatUserHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUserHomeViewController.swift; sourceTree = "<group>"; };
 		04F0D1A52BFADC5900FFE128 /* MineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineHeaderView.swift; sourceTree = "<group>"; };
 		04F0D1A72BFAEC0D00FFE128 /* EditHomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHomePageViewController.swift; sourceTree = "<group>"; };
 		04F23E442C0EE4330078809E /* DirectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 				04F23E472C0EE6AF0078809E /* DirectChatCell.swift */,
 				04BCDA302C12F80400437222 /* ChatTextCell.swift */,
 				04F23E502C0F00450078809E /* ChatUserInfoView.swift */,
+				04D16F712C1AE9A400D0BF61 /* ChatEditView.swift */,
 			);
 			path = direct;
 			sourceTree = "<group>";
@@ -245,6 +250,7 @@
 				397216C42B824A04007D0F2B /* MainViewController.swift */,
 				04F23E442C0EE4330078809E /* DirectViewController.swift */,
 				04F23E4E2C0F00050078809E /* ChatViewController.swift */,
+				04D16F732C1BDC6C00D0BF61 /* ChatUserHomeViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -680,6 +686,7 @@
 				3998DE2F2BB00B4B0000C4DD /* EditImagesView.swift in Sources */,
 				39FABA102B931C4600A10FE6 /* PhotoAlbumView.swift in Sources */,
 				392CF1042B8D78BB0070637E /* NetworkManager.swift in Sources */,
+				04D16F722C1AE9A400D0BF61 /* ChatEditView.swift in Sources */,
 				397216C32B8249FC007D0F2B /* SearchViewController.swift in Sources */,
 				04F23E512C0F00450078809E /* ChatUserInfoView.swift in Sources */,
 				397216C52B824A04007D0F2B /* MainViewController.swift in Sources */,
@@ -688,6 +695,7 @@
 				04BCDA332C1301AA00437222 /* ChatMessageManager.swift in Sources */,
 				399952792BA8607500415C46 /* ImageFilterTool.swift in Sources */,
 				39FABA0E2B930B5000A10FE6 /* WaterfallLayout.swift in Sources */,
+				04D16F742C1BDC6C00D0BF61 /* ChatUserHomeViewController.swift in Sources */,
 				04F0D1A62BFADC5900FFE128 /* MineHeaderView.swift in Sources */,
 				397216842B81E8EC007D0F2B /* ViewController.swift in Sources */,
 				392CF10A2B8EC8700070637E /* MainViewModel.swift in Sources */,

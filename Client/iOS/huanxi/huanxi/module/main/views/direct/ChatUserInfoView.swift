@@ -27,10 +27,10 @@ class ChatUserInfoView: UIView {
         setupData()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.height = lookBtn.bottom + 10
-    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        self.height = lookBtn.bottom + 10
+//    }
     
     func setupData() {
         iconImgView.image = UIImage(named: "icon0")
@@ -130,6 +130,7 @@ class ChatUserInfoView: UIView {
             make.top.equalTo(descriptionLabel.snp.bottom).offset(16)
             make.width.equalTo(76)
             make.height.equalTo(26)
+            make.bottom.equalToSuperview().offset(-10)
         }
         
     }

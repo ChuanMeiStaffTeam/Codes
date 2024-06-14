@@ -24,7 +24,7 @@ class DirectViewController: BaseViewController {
     }
     
     func loginIM() {
-        NIMSDK.shared().loginManager.login("test01", token: "123456") { error in
+        NIMSDK.shared().loginManager.login("test02", token: "123456") { error in
             if error == nil {
                 HUDHelper.showToast("云信IM登录成功")
             }
