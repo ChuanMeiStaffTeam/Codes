@@ -80,24 +80,41 @@ class ChatTextCell: UITableViewCell {
         super.layoutSubviews()
         
         let currentUserID = NIMSDK.shared().loginManager.currentAccount()
+//        if currentUserID == message?.from {
+//            iconView.frame = CGRectMake(self.width - 60, 5, 40, 40)
+//            nameLabel.frame = CGRectMake(0, 5, self.width - 70, 15)
+//            nameLabel.textAlignment = .right
+//            constainerView.frame = CGRectMake(self.width - labelWidth - 10 - 70, 25, labelWidth + 10, self.height - 30)
+//            let color = UIColor.init(red: 27 / 255.0, green: 188 / 255.0, blue: 155 / 255.0, alpha: 1)
+//            constainerView.backgroundColor = .mainBlueColor
+//            iconView.image = UIImage(named: "icon0")
+//        } else {
+//            iconView.frame = CGRectMake(20, 5, 40, 40)
+//            nameLabel.frame = CGRectMake(70, 5, self.width - 70, 15)
+//            nameLabel.textAlignment = .left
+//            constainerView.frame = CGRectMake(70, 25, labelWidth + 10, self.height - 30)
+//            constainerView.backgroundColor = .mainBlueColor
+//            iconView.image = UIImage(named: "icon1")
+//        }
+//
+//        messageLabel.frame = CGRectMake(5, 10, labelWidth, constainerView.height - 20)
         if currentUserID == message?.from {
-            iconView.frame = CGRectMake(self.width - 60, 5, 40, 40)
-            nameLabel.frame = CGRectMake(0, 5, self.width - 70, 15)
+            iconView.frame = CGRect.init(x: self.width - 60, y: 5, width: 40, height: 40)
+            nameLabel.frame = CGRect.init(x: 0, y: 5, width: self.width - 70, height: 15)
             nameLabel.textAlignment = .right
-            constainerView.frame = CGRectMake(self.width - labelWidth - 10 - 70, 25, labelWidth + 10, self.height - 30)
+            constainerView.frame = CGRect.init(x: self.width - labelWidth - 10 - 70, y: 25, width: labelWidth + 10, height: self.height - 30)
             let color = UIColor.init(red: 27 / 255.0, green: 188 / 255.0, blue: 155 / 255.0, alpha: 1)
             constainerView.backgroundColor = .mainBlueColor
             iconView.image = UIImage(named: "icon0")
         } else {
-            iconView.frame = CGRectMake(20, 5, 40, 40)
-            nameLabel.frame = CGRectMake(70, 5, self.width - 70, 15)
+            iconView.frame = CGRect.init(x: 20, y: 5, width: 40, height: 40)
+            nameLabel.frame = CGRect.init(x: 70, y: 5, width: self.width - 70, height: 15)
             nameLabel.textAlignment = .left
-            constainerView.frame = CGRectMake(70, 25, labelWidth + 10, self.height - 30)
+            constainerView.frame = CGRect.init(x: 70, y: 25, width: labelWidth + 10, height: self.height - 30)
             constainerView.backgroundColor = .mainBlueColor
             iconView.image = UIImage(named: "icon1")
         }
-        
-        messageLabel.frame = CGRectMake(5, 10, labelWidth, constainerView.height - 20)
+        messageLabel.frame = CGRect.init(x: 5, y: 10, width: labelWidth, height: constainerView.height - 20)
 
         
     }

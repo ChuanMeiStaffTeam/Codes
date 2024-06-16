@@ -61,7 +61,11 @@ extension UIApplication {
     
     var bottomSafeAreaHeight: CGFloat {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-            return windowScene.keyWindow?.safeAreaInsets.bottom ?? 0
+            if #available(iOS 15.0, *) {
+                return windowScene.keyWindow?.safeAreaInsets.bottom ?? 0
+            } else {
+                // Fallback on earlier versions
+            }
         }
         return 0
     }

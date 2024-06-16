@@ -53,6 +53,7 @@ class ChatViewController: BaseViewController {
     func setupView() {
         self.title = "yao.D.C"
 
+        chatUserInfoView.isHidden = false
         view.addSubview(chatUserInfoView)
         chatUserInfoView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().offset(0)
@@ -67,12 +68,25 @@ class ChatViewController: BaseViewController {
         }
         
         view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().offset(0)
-            make.top.equalTo(chatUserInfoView.snp.bottom).offset(0)
-            make.bottom.equalTo(chatEditView.snp.top).offset(0)
-        }
         
+        
+    }
+    
+    func showUserInfo(_ hidden: Bool) {
+        chatUserInfoView.isHidden = hidden
+        if hidden {
+            tableView.snp.remakeConstraints { make in
+                make.left.right.equalToSuperview().offset(0)
+                make.top.equalTo(chatUserInfoView.snp.top).offset(0)
+                make.bottom.equalTo(chatEditView.snp.top).offset(0)
+            }
+        } else {
+            tableView.snp.remakeConstraints { make in
+                make.left.right.equalToSuperview().offset(0)
+                make.top.equalTo(chatUserInfoView.snp.bottom).offset(0)
+                make.bottom.equalTo(chatEditView.snp.top).offset(0)
+            }
+        }
     }
     
     lazy var tableView: UITableView = {
@@ -143,6 +157,7 @@ extension ChatViewController: NIMChatManagerDelegate {
                 print(error)
             } else {
                 self.messages = messages ?? []
+                self.showUserInfo(!self.messages.isEmpty)
                 self.tableView.reloadData()
                 self.tableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: .bottom, animated: false)
             }
@@ -171,8 +186,8 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let vc = ChatViewController()
-//        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = ChatUserHomeViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
