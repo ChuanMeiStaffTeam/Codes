@@ -61,4 +61,11 @@ public class UserServiceImpl implements IUserService {
         Integer userId = user.getUserId();
         return userMapper.selectByUserId(userId);
     }
+
+
+
+    // 以下为测试代码，可删除
+    public void test() {
+        User user = new User();
+    }
 }
