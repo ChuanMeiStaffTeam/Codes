@@ -30,4 +30,8 @@ public interface IUserService {
     // 更新用户登录次数为0
     int updateUserLoginCountToZero(User user);
 
+
+    // 根据用户id获取用户信息
+    User getUserByUserId(User user);
+
 }

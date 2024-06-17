@@ -55,7 +55,6 @@
         FROM sys_user WHERE username = #{username}
     </select>
 
-
     <!--    更新用户最后登录时间-->
     <update id="updateLastLoginTime" parameterType="com.example.hx.model.User">
         UPDATE sys_user
@@ -70,4 +69,12 @@
         SET login_attempts = #{loginAttempts}
         WHERE user_id = #{userId}
     </update>
+
+
+    <select id="selectByUserId" resultType="com.example.hx.model.User" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where user_id = #{userId}
+    </select>
 </mapper>

@@ -55,4 +55,10 @@ public class UserServiceImpl implements IUserService {
         return userMapper.updateLoginCount(user);
 
     }
+
+    @Override
+    public User getUserByUserId(User user) {
+        Integer userId = user.getUserId();
+        return userMapper.selectByUserId(userId);
+    }
 }

@@ -24,4 +24,8 @@ public interface UserMapper {
 
     // 更新用户登录次数
     int updateLoginCount(User user);
+
+
+    // 根据用户id查询用户信息
+    User selectByUserId(Integer userId);
 }
