@@ -11,10 +11,11 @@ class MineViewController: BaseViewController {
     
     
     let mineHeader = MineHeaderView(frame: CGRect(x: 0, y: .topSafeAreaHeight + 40, width: .screenWidth, height: 165))
+    var constrainerView: MineConstrainerView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     override func viewDidLoad() {
@@ -52,6 +53,9 @@ class MineViewController: BaseViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
+        constrainerView = MineConstrainerView(frame: CGRect.init(x: 0, y: mineHeader.bottom, width: .screenWidth, height: .screenHeight - mineHeader.bottom - .tabBarHeight - .bottomSafeAreaHeight))
+        view.addSubview(constrainerView)
+
     }
     
     
