@@ -10,7 +10,6 @@
         <result property="email" column="email"/>
         <result property="salt" column="salt"/>
         <result property="passwordHash" column="password_hash"/>
-        <result property="nickName" column="nickname"/>
         <result property="bio" column="bio"/>
         <result property="profilePictureUrl" column="profile_picture_url"/>
         <result property="websiteUrl" column="website_url"/>
@@ -22,12 +21,9 @@
         <result property="state" column="state"/>
         <result property="country" column="country"/>
         <result property="postalCode" column="postal_code"/>
+        <result property="lastLoginAt" column="lastlogin_at"/>
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
-        <result property="isActive" column="is_active"/>
-        <result property="isVerified" column="is_verified"/>
-        <result property="preferredLanguage" column="preferred_language"/>
-        <result property="timezone" column="timezone"/>
         <result property="loginAttempts" column="login_attempts"/>
         <result property="accountLocked" column="account_locked"/>
         <result property="lockoutTime" column="lockout_time"/>
@@ -38,17 +34,18 @@
 
     <sql id="Base_Column_List">
         user_id
-        , username, email, salt, password_hash, nickname, bio, profile_picture_url,
-        website_url, phone_number, gender, date_of_birth, address, city, state, country,
-        postal_code, created_at, updated_at, is_active, is_verified,
-        preferred_language, timezone, login_attempts, account_locked, lockout_time,
+        , username, email, salt, password_hash, bio,
+        profile_picture_url,website_url, phone_number,
+        gender, date_of_birth, address, city, state, country,
+        postal_code, created_at, updated_at,
+        login_attempts, account_locked, lockout_time,
         facebook_url, twitter_url, privacy_settings
     </sql>
 
 
     <insert id="insertUser" parameterType="com.example.hx.model.User">
-        INSERT INTO sys_user (username, salt, password_hash, nickname)
-        VALUES (#{username}, #{salt}, #{passwordHash}, #{nickName})
+        INSERT INTO sys_user (username, salt, password_hash,)
+        VALUES (#{username}, #{salt}, #{passwordHash})
     </insert>
 
 
@@ -57,4 +54,20 @@
         <include refid="Base_Column_List"/>
         FROM sys_user WHERE username = #{username}
     </select>
+
+
+    <!--    更新用户最后登录时间-->
+    <update id="updateLastLoginTime" parameterType="com.example.hx.model.User">
+        UPDATE sys_user
+        SET lastlogin_at = #{lastLoginAt}
+        WHERE user_id = #{userId}
+    </update>
+
+
+    <!--    更新用户登录失败次数    -->
+    <update id="updateLoginCount" parameterType="com.example.hx.model.User">
+        UPDATE sys_user
+        SET login_attempts = #{loginAttempts}
+        WHERE user_id = #{userId}
+    </update>
 </mapper>

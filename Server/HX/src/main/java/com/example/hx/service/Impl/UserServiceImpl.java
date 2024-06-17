@@ -6,6 +6,7 @@ import com.example.hx.service.IUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,5 +29,30 @@ public class UserServiceImpl implements IUserService {
     @Override
     public int insertUser(User user) {
         return userMapper.insertUser(user);
+    }
+
+    @Override
+    public int updateUserLastLoginTime(User user) {
+        // 更新用户最后登录时间 Timestamp 类型
+        // Timestamp
+        user.setLastLoginAt(new Timestamp(System.currentTimeMillis()));
+        return userMapper.updateLastLoginTime(user);
+    }
+
+    @Override
+    public int updateUserLoginCount(User user) {
+        Integer UserLoginCount = user.getLoginAttempts() + 1;
+        if(UserLoginCount >= 6) {
+            UserLoginCount = 1;
+        }
+        user.setLoginAttempts(UserLoginCount);
+        return userMapper.updateLoginCount(user);
+    }
+
+    @Override
+    public int updateUserLoginCountToZero(User user) {
+        user.setLoginAttempts(0);
+        return userMapper.updateLoginCount(user);
+
     }
 }

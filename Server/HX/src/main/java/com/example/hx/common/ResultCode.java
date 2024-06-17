@@ -22,6 +22,9 @@ public enum ResultCode {
     FAILED_LOGIN_               (1106,"验证码错误"),
     FAILED_USER_BANNED          (1104, "您已被禁⾔, 请联系管理员, 并重新登录."),
     FAILED_TWO_PWD_NOT_SAME     (1105, "两次输⼊的密码不⼀致"),
+    // 登录次数超过限制
+    FAILED_LOGIN_LIMIT          (1107, "登录次数超过限制, 请稍后再试."),
+
 
 
     FAILED_ARTICLE_NOT_EXISTS (1301,"帖子不存在"),

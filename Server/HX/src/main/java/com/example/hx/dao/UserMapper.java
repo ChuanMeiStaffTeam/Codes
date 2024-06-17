@@ -19,5 +19,9 @@ public interface UserMapper {
     int insertUser(User user);
 
 
-    int insertLastLoginTime(User user);
+    // 更新用户最后登录时间
+    int updateLastLoginTime(User user);
+
+    // 更新用户登录次数
+    int updateLoginCount(User user);
 }
