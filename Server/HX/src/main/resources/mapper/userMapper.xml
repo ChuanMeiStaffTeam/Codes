@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.hx.dao.UserMapper">
-    <resultMap id="userResultMap" type="com.example.hx.model.User">
+<mapper namespace="com.ChuanMeiStaffTeam.hx.dao.UserMapper">
+    <resultMap id="userResultMap" type="com.ChuanMeiStaffTeam.hx.model.User">
         <!-- 这里的id属性是随便起的，只要保证唯一即可 -->
         <id property="userId" column="user_id"/> <!-- 这里的property属性是User类的属性名，column属性是数据库表的列名 -->
         <result property="username" column="username"/>
@@ -43,7 +43,7 @@
     </sql>
 
 
-    <insert id="insertUser" parameterType="com.example.hx.model.User">
+    <insert id="insertUser" parameterType="com.ChuanMeiStaffTeam.hx.model.User">
         INSERT INTO sys_user (username, salt, password_hash,)
         VALUES (#{username}, #{salt}, #{passwordHash})
     </insert>
@@ -56,7 +56,7 @@
     </select>
 
     <!--    更新用户最后登录时间-->
-    <update id="updateLastLoginTime" parameterType="com.example.hx.model.User">
+    <update id="updateLastLoginTime" parameterType="com.ChuanMeiStaffTeam.hx.model.User">
         UPDATE sys_user
         SET lastlogin_at = #{lastLoginAt}
         WHERE user_id = #{userId}
@@ -64,14 +64,14 @@
 
 
     <!--    更新用户登录失败次数    -->
-    <update id="updateLoginCount" parameterType="com.example.hx.model.User">
+    <update id="updateLoginCount" parameterType="com.ChuanMeiStaffTeam.hx.model.User">
         UPDATE sys_user
         SET login_attempts = #{loginAttempts}
         WHERE user_id = #{userId}
     </update>
 
 
-    <select id="selectByUserId" resultType="com.example.hx.model.User" parameterType="java.lang.Integer">
+    <select id="selectByUserId" resultType="com.ChuanMeiStaffTeam.hx.model.User" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from sys_user

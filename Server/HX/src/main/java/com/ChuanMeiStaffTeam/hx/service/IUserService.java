@@ -1,0 +1,38 @@
+package com.ChuanMeiStaffTeam.hx.service;
+
+import com.ChuanMeiStaffTeam.hx.model.User;
+import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.stereotype.Service;
+
+/**
+ * Created with IntelliJ IDEA.
+ *
+ * @Author: DongGuoZhen
+ * @Date: 2024/05/20/15:31
+ * @Description:
+ */
+@Service
+public interface IUserService extends IService<User> {
+
+
+    // 根据用户名获取用户信息
+    User getUserByUserName(String userName);
+
+
+    // 插入用户信息
+    int insertUser(User user);
+
+    // 更新用户最后登录时间
+    int updateUserLastLoginTime(User user);
+
+    // 更新用户登录失败次数
+    int updateUserLoginCount(User user);
+
+    // 更新用户登录次数为0
+    int updateUserLoginCountToZero(User user);
+
+
+    // 根据用户id获取用户信息
+    User getUserByUserId(User user);
+
+}
