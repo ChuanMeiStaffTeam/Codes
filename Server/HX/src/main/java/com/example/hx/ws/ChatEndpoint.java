@@ -1,12 +1,15 @@
 package com.example.hx.ws;
 
+import com.example.hx.model.message.Message;
 import com.example.hx.util.MessageUtil;
-import org.springframework.context.annotation.Configuration;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 @Component
-@ServerEndpoint("/chat")
+@ServerEndpoint(value = "/chat", configurator = GetHttpSessionConfiguration.class)
 public class ChatEndpoint { // 定义websocket的路径
 
     // 用来存储每个客户端对应的chatEndpoint对象   线程安全的map
@@ -44,17 +47,34 @@ public class ChatEndpoint { // 定义websocket的路径
 
         // 向所有在线用户发送消息
         // 获取消息
-        String message = MessageUtil.getMessage(true,null,getNames());
-        // 调用方法 broadcastAllUsers() 向所有在线用户发送消息
+        String message = MessageUtil.getMessage(true, null, getNames());
+        // 调用方法
+        broadcastAllUsers(message); //向所有在线用户   客户端发送消息
 
         System.out.println("WebSocket opened");
     }
 
 
-
     // 接收到消息时触发
     @OnMessage
     public void OnMessage(Session session, String message) {
+        // 将message转换为Message对象
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Message mess = mapper.readValue(message, Message.class);
+            // 获取要将数据发送给谁
+            String toName = mess.getToName();
+            // 获取消息内容
+            String content = mess.getMessage();
+            // 获取推动给指定用户的消息格式的数据
+            // 获取当前登录的用户
+            String username = (String) httpSession.getAttribute("user");
+            String resultMessage = MessageUtil.getMessage(false, username, content);
+            // 发送数据
+            onlineUsers.get(toName).session.getBasicRemote().sendText(resultMessage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println("WebSocket closed");
     }
 
@@ -75,7 +95,11 @@ public class ChatEndpoint { // 定义websocket的路径
         Set<String> strings = onlineUsers.keySet();
         for (String name : strings) {
             ChatEndpoint chatEndpoint = onlineUsers.get(name);  // 获取当前用户的chatEndpoint对象
-            chatEndpoint.session.getAsyncRemote().sendText(message);  // 向当前用户发送消息
+            try {
+                chatEndpoint.session.getBasicRemote().sendText(message);  // 向当前用户发送消息
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

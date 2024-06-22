@@ -12,6 +12,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @Description:
  */
 public class MessageUtil {
+    /**
+     *
+     * @param isSystemMessage  是否是系统消息
+     * @param fromName   发送者名字
+     * @param message   消息内容
+     * @return
+     */
     public static String getMessage(boolean isSystemMessage, String fromName, Object message){
         ResultMessage resultMessage = new ResultMessage();
         resultMessage.setSystem(isSystemMessage);
