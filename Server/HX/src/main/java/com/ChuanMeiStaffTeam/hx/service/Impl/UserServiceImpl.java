@@ -4,6 +4,7 @@ import com.ChuanMeiStaffTeam.hx.service.IUserService;
 import com.ChuanMeiStaffTeam.hx.dao.UserMapper;
 import com.ChuanMeiStaffTeam.hx.model.User;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -43,7 +44,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public int updateUserLoginCount(User user) {
         Integer UserLoginCount = user.getLoginAttempts() + 1;
-        if(UserLoginCount >= 6) {
+        if (UserLoginCount >= 6) {
             UserLoginCount = 1;
         }
         user.setLoginAttempts(UserLoginCount);
@@ -63,13 +64,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return userMapper.selectByUserId(userId);
     }
 
-
-
-    // 以下为测试代码，可删除
-    public void test() {
-        User user = new User();
+    @Override
+    public int updateUserAvatar(Integer userId, String avatarUrl) {
+        User user = userMapper.selectById(userId);
+        System.out.println(user);
+        user.setProfilePictureUrl(avatarUrl);
+        user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));  // 更新用户的更新时间
+        return userMapper.updateById(user);  // 更新用户头像
     }
-
 
 
 }

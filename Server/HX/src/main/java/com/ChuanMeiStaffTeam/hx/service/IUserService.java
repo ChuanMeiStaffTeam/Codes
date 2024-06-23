@@ -35,4 +35,8 @@ public interface IUserService extends IService<User> {
     // 根据用户id获取用户信息
     User getUserByUserId(User user);
 
+
+    //用户修改头像
+    int updateUserAvatar(Integer userId,String fileUrl);
+
 }
