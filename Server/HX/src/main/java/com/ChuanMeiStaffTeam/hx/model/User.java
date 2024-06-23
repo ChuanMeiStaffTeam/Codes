@@ -2,6 +2,8 @@ package com.ChuanMeiStaffTeam.hx.model;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,6 +15,7 @@ import java.util.Date;
 /**
  * 用户实体类
  */
+@ApiModel(value = "用户实体类")
 @Data
 @TableName("sys_user")
 public class User implements Serializable {
@@ -24,12 +27,23 @@ public class User implements Serializable {
 //   主键ID 使用自增主键注解
     @TableId(value = "user_id", type = IdType.AUTO)
     private Integer userId; // 用户ID，自增主键
-    private String username; // 用户名，唯一且不能为空
+    private String username; // 用户名，唯一且不能为空  账号
+    private String fullName; // 姓名
     private String email; // 邮箱地址，唯一且不能为空
     @JsonIgnore  //不参与json序列化
     private String salt; // 密码盐值，不能为空
     @JsonIgnore  //不参与json序列化
     private String passwordHash; // 密码哈希值，不能为空
+
+
+    private Integer postCount; // 帖子数量
+
+    private Integer followerCount; // 粉丝数量
+
+    private Integer followingCount; // 关注数量
+
+    private Integer favoriteCount; // 收藏数量
+
     private String bio; // 个性签名
     private String profilePictureUrl; // 头像图片URL
     private String websiteUrl; // 个人网站URL

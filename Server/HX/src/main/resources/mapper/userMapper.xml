@@ -7,9 +7,14 @@
         <!-- 这里的id属性是随便起的，只要保证唯一即可 -->
         <id property="userId" column="user_id"/> <!-- 这里的property属性是User类的属性名，column属性是数据库表的列名 -->
         <result property="username" column="username"/>
+        <result property="fullName" column="full_name"/>
         <result property="email" column="email"/>
         <result property="salt" column="salt"/>
         <result property="passwordHash" column="password_hash"/>
+        <result property="postCount" column="post_count"/>
+        <result property="followerCount" column="follower_count"/>
+        <result property="followingCount" column="following_count"/>
+        <result property="favoriteCount" column="favorite_count"/>
         <result property="bio" column="bio"/>
         <result property="profilePictureUrl" column="profile_picture_url"/>
         <result property="websiteUrl" column="website_url"/>
@@ -34,7 +39,8 @@
 
     <sql id="Base_Column_List">
         user_id
-        , username, email, salt, password_hash, bio,
+        , username, full_name,email, salt, password_hash,
+        postCount, followerCount,followingCount,favoriteCount bio,
         profile_picture_url,website_url, phone_number,
         gender, date_of_birth, address, city, state, country,
         postal_code, created_at, updated_at,
@@ -44,8 +50,8 @@
 
 
     <insert id="insertUser" parameterType="com.ChuanMeiStaffTeam.hx.model.User">
-        INSERT INTO sys_user (username, salt, password_hash,)
-        VALUES (#{username}, #{salt}, #{passwordHash})
+        INSERT INTO sys_user (username, full_name, salt, password_hash)
+        VALUES (#{username}, #{fullName},#{salt}, #{passwordHash})
     </insert>
 
 

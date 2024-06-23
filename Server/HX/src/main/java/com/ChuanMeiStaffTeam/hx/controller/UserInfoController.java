@@ -62,4 +62,17 @@ public class UserInfoController {
         log.info("用户头像更新成功, 图片路径为{}" + destinationFile.getAbsolutePath());
         return AppResult.success(destinationFile.getAbsolutePath());
     }
+//
+//    // 更新用户信息
+//    @ApiOperation(value = "设置用户信息")
+//    @PostMapping("/updateInfo")
+//    public AppResult updateInfo(Integer userId,String fullName,String email,
+//                                String phoneNumber,String websiteUrl,
+//                                String gender,) {
+//
+//       // todo 更新用户信息
+//
+//
+//       return AppResult.success();
+//    }
 }

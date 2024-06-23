@@ -90,6 +90,7 @@ public class UserController {
     @ApiOperation(value = "用户名密码注册接口")
     @PostMapping("/register/username")
     public AppResult register(@NonNull @ApiParam(value = "用户名") @RequestParam("username") String username,
+                              @NonNull @ApiParam(value = "姓名") @RequestParam("fullName") String fullName,
                               @NonNull @ApiParam(value = "密码") @RequestParam("password") String password,
                               @NonNull @ApiParam(value = "确认密码") @RequestParam("password2") String password2) {
         // 判断两次密码是否相同
@@ -109,6 +110,7 @@ public class UserController {
         newUser.setUsername(username);
         newUser.setPasswordHash(s);
         newUser.setSalt(salt);
+        newUser.setFullName(fullName);
         int result = userService.insertUser(newUser);
         if (result != 1) {
             log.error(ResultCode.ERROR_SERVICES.getMessage());
