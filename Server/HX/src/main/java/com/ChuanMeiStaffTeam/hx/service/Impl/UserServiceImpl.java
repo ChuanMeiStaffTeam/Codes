@@ -73,5 +73,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return userMapper.updateById(user);  // 更新用户头像
     }
 
+    // 更新用户基本信息
+    @Override
+    public int updateUserBaseInfo(User user) {
+        return userMapper.updateById(user);
+
+    }
+
 
 }
