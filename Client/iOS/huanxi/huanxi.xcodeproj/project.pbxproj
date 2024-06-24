@@ -62,7 +62,20 @@
 		39B7943C2B9896410048C996 /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B7943B2B9896410048C996 /* EditPhotoViewController.swift */; };
 		39B7943E2B989A3E0048C996 /* EditPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B7943D2B989A3E0048C996 /* EditPhotoCell.swift */; };
 		39E908082C1ECD0C0017B83B /* MineConstrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E908072C1ECD0C0017B83B /* MineConstrainerView.swift */; };
-		39FABA0E2B930B5000A10FE6 /* WaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA0D2B930B5000A10FE6 /* WaterfallLayout.swift */; };
+		39E9080B2C26B15B0017B83B /* SearchTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E9080A2C26B15B0017B83B /* SearchTagsView.swift */; };
+		39E9080D2C26B9070017B83B /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E9080C2C26B9070017B83B /* SearchHeaderView.swift */; };
+		39E9080F2C26BAC40017B83B /* SearchTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E9080E2C26BAC40017B83B /* SearchTagViewController.swift */; };
+		39E908122C26C4200017B83B /* WaterfallCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E908112C26C4200017B83B /* WaterfallCollectionViewCell.swift */; };
+		39E908142C26C46F0017B83B /* WaterfallCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E908132C26C46F0017B83B /* WaterfallCollectionView.swift */; };
+		39E908162C2872CF0017B83B /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E908152C2872CF0017B83B /* SearchBarView.swift */; };
+		39E908182C2872DC0017B83B /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E908172C2872DC0017B83B /* SearchResultView.swift */; };
+		39E9081A2C2874D40017B83B /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E908192C2874D40017B83B /* SearchResultsViewController.swift */; };
+		39E9081C2C2874EE0017B83B /* TopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E9081B2C2874EE0017B83B /* TopItemCell.swift */; };
+		39E9081E2C2874F80017B83B /* BottomContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E9081D2C2874F80017B83B /* BottomContentCell.swift */; };
+		39E908202C2875010017B83B /* ContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E9081F2C2875010017B83B /* ContentTableViewCell.swift */; };
+		39E908222C28791C0017B83B /* SearchResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E908212C28791C0017B83B /* SearchResultHeaderView.swift */; };
+		39E908242C287C630017B83B /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E908232C287C630017B83B /* UITextField+Extension.swift */; };
+		39FABA0E2B930B5000A10FE6 /* WaterfallFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA0D2B930B5000A10FE6 /* WaterfallFlowLayout.swift */; };
 		39FABA102B931C4600A10FE6 /* PhotoAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA0F2B931C4600A10FE6 /* PhotoAlbumView.swift */; };
 		39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA112B931D3D00A10FE6 /* PhotoAlbumManager.swift */; };
 		E4F67917F7CC2921539ABE7B /* Pods_huanxi_huanxiUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 732438BDA74AF7212978F584 /* Pods_huanxi_huanxiUITests.framework */; };
@@ -145,7 +158,20 @@
 		39B7943B2B9896410048C996 /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		39B7943D2B989A3E0048C996 /* EditPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoCell.swift; sourceTree = "<group>"; };
 		39E908072C1ECD0C0017B83B /* MineConstrainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineConstrainerView.swift; sourceTree = "<group>"; };
-		39FABA0D2B930B5000A10FE6 /* WaterfallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };
+		39E9080A2C26B15B0017B83B /* SearchTagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagsView.swift; sourceTree = "<group>"; };
+		39E9080C2C26B9070017B83B /* SearchHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
+		39E9080E2C26BAC40017B83B /* SearchTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagViewController.swift; sourceTree = "<group>"; };
+		39E908112C26C4200017B83B /* WaterfallCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallCollectionViewCell.swift; sourceTree = "<group>"; };
+		39E908132C26C46F0017B83B /* WaterfallCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallCollectionView.swift; sourceTree = "<group>"; };
+		39E908152C2872CF0017B83B /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		39E908172C2872DC0017B83B /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
+		39E908192C2874D40017B83B /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		39E9081B2C2874EE0017B83B /* TopItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopItemCell.swift; sourceTree = "<group>"; };
+		39E9081D2C2874F80017B83B /* BottomContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomContentCell.swift; sourceTree = "<group>"; };
+		39E9081F2C2875010017B83B /* ContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTableViewCell.swift; sourceTree = "<group>"; };
+		39E908212C28791C0017B83B /* SearchResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultHeaderView.swift; sourceTree = "<group>"; };
+		39E908232C287C630017B83B /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		39FABA0D2B930B5000A10FE6 /* WaterfallFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallFlowLayout.swift; sourceTree = "<group>"; };
 		39FABA0F2B931C4600A10FE6 /* PhotoAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumView.swift; sourceTree = "<group>"; };
 		39FABA112B931D3D00A10FE6 /* PhotoAlbumManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumManager.swift; sourceTree = "<group>"; };
 		3C82D69DA4DF83BACA07A825 /* Pods-huanxi-huanxiUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanxi-huanxiUITests.release.xcconfig"; path = "Target Support Files/Pods-huanxi-huanxiUITests/Pods-huanxi-huanxiUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -350,8 +376,11 @@
 		397216B82B820FA0007D0F2B /* search */ = {
 			isa = PBXGroup;
 			children = (
+				39E908102C26C4070017B83B /* waterfall */,
+				39E908092C26B1440017B83B /* views */,
 				397216C22B8249FC007D0F2B /* SearchViewController.swift */,
-				39FABA0D2B930B5000A10FE6 /* WaterfallLayout.swift */,
+				39E9080E2C26BAC40017B83B /* SearchTagViewController.swift */,
+				39E908192C2874D40017B83B /* SearchResultsViewController.swift */,
 			);
 			path = search;
 			sourceTree = "<group>";
@@ -409,8 +438,34 @@
 				392CF1072B8D7E8F0070637E /* CGFloat+LayoutExtension.swift */,
 				398FF3482B901BEA00565C8C /* UIColor+Extension.swift */,
 				3998DE302BB016A60000C4DD /* UITextView+Extension.swift */,
+				39E908232C287C630017B83B /* UITextField+Extension.swift */,
 			);
 			path = category;
+			sourceTree = "<group>";
+		};
+		39E908092C26B1440017B83B /* views */ = {
+			isa = PBXGroup;
+			children = (
+				39E9080A2C26B15B0017B83B /* SearchTagsView.swift */,
+				39E9080C2C26B9070017B83B /* SearchHeaderView.swift */,
+				39E908152C2872CF0017B83B /* SearchBarView.swift */,
+				39E908172C2872DC0017B83B /* SearchResultView.swift */,
+				39E9081B2C2874EE0017B83B /* TopItemCell.swift */,
+				39E9081D2C2874F80017B83B /* BottomContentCell.swift */,
+				39E9081F2C2875010017B83B /* ContentTableViewCell.swift */,
+				39E908212C28791C0017B83B /* SearchResultHeaderView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		39E908102C26C4070017B83B /* waterfall */ = {
+			isa = PBXGroup;
+			children = (
+				39FABA0D2B930B5000A10FE6 /* WaterfallFlowLayout.swift */,
+				39E908112C26C4200017B83B /* WaterfallCollectionViewCell.swift */,
+				39E908132C26C46F0017B83B /* WaterfallCollectionView.swift */,
+			);
+			path = waterfall;
 			sourceTree = "<group>";
 		};
 		861B4615934AA2169BCBFDEA /* Pods */ = {
@@ -677,12 +732,14 @@
 			files = (
 				392CF10C2B8EC8E60070637E /* MainModel.swift in Sources */,
 				3998DE392BB59F5D0000C4DD /* UpdatesRecommendCell.swift in Sources */,
+				39E908202C2875010017B83B /* ContentTableViewCell.swift in Sources */,
 				392CF1162B8ECE640070637E /* MainRecommendCell.swift in Sources */,
 				3998DE312BB016A60000C4DD /* UITextView+Extension.swift in Sources */,
 				3998DE332BB031FF0000C4DD /* EditPhotosView.swift in Sources */,
 				39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */,
 				04F23E482C0EE6AF0078809E /* DirectChatCell.swift in Sources */,
 				3998DE372BB59F270000C4DD /* UpdatesThisMonthCell.swift in Sources */,
+				39E908242C287C630017B83B /* UITextField+Extension.swift in Sources */,
 				39B7943C2B9896410048C996 /* EditPhotoViewController.swift in Sources */,
 				392CF1142B8ECE570070637E /* MainUserCell.swift in Sources */,
 				392CF1082B8D7E8F0070637E /* CGFloat+LayoutExtension.swift in Sources */,
@@ -692,19 +749,26 @@
 				04D16F722C1AE9A400D0BF61 /* ChatEditView.swift in Sources */,
 				397216C32B8249FC007D0F2B /* SearchViewController.swift in Sources */,
 				39E908082C1ECD0C0017B83B /* MineConstrainerView.swift in Sources */,
+				39E9080B2C26B15B0017B83B /* SearchTagsView.swift in Sources */,
 				04F23E512C0F00450078809E /* ChatUserInfoView.swift in Sources */,
 				397216C52B824A04007D0F2B /* MainViewController.swift in Sources */,
 				392CF1122B8ECA660070637E /* MainView.swift in Sources */,
 				04F23E4A2C0EE7900078809E /* ChatModel.swift in Sources */,
+				39E908182C2872DC0017B83B /* SearchResultView.swift in Sources */,
 				04BCDA332C1301AA00437222 /* ChatMessageManager.swift in Sources */,
+				39E908122C26C4200017B83B /* WaterfallCollectionViewCell.swift in Sources */,
 				399952792BA8607500415C46 /* ImageFilterTool.swift in Sources */,
-				39FABA0E2B930B5000A10FE6 /* WaterfallLayout.swift in Sources */,
+				39FABA0E2B930B5000A10FE6 /* WaterfallFlowLayout.swift in Sources */,
+				39E9081C2C2874EE0017B83B /* TopItemCell.swift in Sources */,
 				04D16F742C1BDC6C00D0BF61 /* ChatUserHomeViewController.swift in Sources */,
 				04F0D1A62BFADC5900FFE128 /* MineHeaderView.swift in Sources */,
+				39E908142C26C46F0017B83B /* WaterfallCollectionView.swift in Sources */,
+				39E908222C28791C0017B83B /* SearchResultHeaderView.swift in Sources */,
 				397216842B81E8EC007D0F2B /* ViewController.swift in Sources */,
 				392CF10A2B8EC8700070637E /* MainViewModel.swift in Sources */,
 				397216B12B81EA57007D0F2B /* NavigationController.swift in Sources */,
 				397216BD2B8249D9007D0F2B /* UpdatesViewController.swift in Sources */,
+				39E9080D2C26B9070017B83B /* SearchHeaderView.swift in Sources */,
 				04F23E452C0EE4330078809E /* DirectViewController.swift in Sources */,
 				3999527B2BA9B30300415C46 /* ExplainViewController.swift in Sources */,
 				397216BF2B8249E2007D0F2B /* MineViewController.swift in Sources */,
@@ -715,13 +779,17 @@
 				04F0D1A82BFAEC0D00FFE128 /* EditHomePageViewController.swift in Sources */,
 				397216B32B81EA6A007D0F2B /* TabBarController.swift in Sources */,
 				04BCDA312C12F80400437222 /* ChatTextCell.swift in Sources */,
+				39E9081E2C2874F80017B83B /* BottomContentCell.swift in Sources */,
 				397216822B81E8EC007D0F2B /* SceneDelegate.swift in Sources */,
 				392CF1102B8ECA4F0070637E /* MainRecommendView.swift in Sources */,
 				397216B52B81EA79007D0F2B /* BaseViewController.swift in Sources */,
 				397216C12B8249F1007D0F2B /* PublishViewController.swift in Sources */,
+				39E9081A2C2874D40017B83B /* SearchResultsViewController.swift in Sources */,
 				39B7943E2B989A3E0048C996 /* EditPhotoCell.swift in Sources */,
 				04F23E4F2C0F00050078809E /* ChatViewController.swift in Sources */,
 				04BCDA352C13063100437222 /* TextSizeCalculator.swift in Sources */,
+				39E9080F2C26BAC40017B83B /* SearchTagViewController.swift in Sources */,
+				39E908162C2872CF0017B83B /* SearchBarView.swift in Sources */,
 				3998DE352BB59F0E0000C4DD /* UpdatesEarlierCell.swift in Sources */,
 				392CF1062B8D7C5D0070637E /* UIView+FrameExtension.swift in Sources */,
 				398FF3472B90177D00565C8C /* HUDHelper.swift in Sources */,
