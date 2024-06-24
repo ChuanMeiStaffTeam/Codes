@@ -80,5 +80,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     }
 
+    @Override
+    public int updateUserPassword(User user) {
+        return userMapper.updateById(user);
+    }
+
 
 }

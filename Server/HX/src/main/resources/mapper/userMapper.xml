@@ -26,7 +26,7 @@
         <result property="state" column="state"/>
         <result property="country" column="country"/>
         <result property="postalCode" column="postal_code"/>
-        <result property="lastLoginAt" column="lastlogin_at"/>
+        <result property="lastLoginAt" column="last_login_at"/>
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
         <result property="loginAttempts" column="login_attempts"/>
@@ -40,12 +40,12 @@
     <sql id="Base_Column_List">
         user_id
         , username, full_name,email, salt, password_hash,
-        postCount, followerCount,followingCount,favoriteCount bio,
+        post_Count, follower_Count,following_Count,favorite_Count bio,
         profile_picture_url,website_url, phone_number,
         gender, date_of_birth, address, city, state, country,
         postal_code, created_at, updated_at,
         login_attempts, account_locked, lockout_time,
-        facebook_url, twitter_url, privacy_settings
+        facebook_url, twitter_url, privacy_settings,last_login_at
     </sql>
 
 
@@ -64,7 +64,7 @@
     <!--    更新用户最后登录时间-->
     <update id="updateLastLoginTime" parameterType="com.ChuanMeiStaffTeam.hx.model.User">
         UPDATE sys_user
-        SET lastlogin_at = #{lastLoginAt}
+        SET last_login_at = #{lastLoginAt}
         WHERE user_id = #{userId}
     </update>
 

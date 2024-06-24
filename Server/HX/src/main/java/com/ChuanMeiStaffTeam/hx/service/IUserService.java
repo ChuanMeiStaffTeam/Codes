@@ -42,4 +42,8 @@ public interface IUserService extends IService<User> {
     // 用户更新个人基本信息
     int updateUserBaseInfo(User user);
 
+
+    // 用户更新密码
+    int updateUserPassword(User user);
+
 }
