@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042597FF2C2A951F00482282 /* SearchDetailListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042597FE2C2A951F00482282 /* SearchDetailListViewController.swift */; };
+		042598012C2A970400482282 /* SearchContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042598002C2A970400482282 /* SearchContentCell.swift */; };
+		042598032C2ABB0400482282 /* InfiniteCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042598022C2ABB0400482282 /* InfiniteCarousel.swift */; };
 		04BCDA312C12F80400437222 /* ChatTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCDA302C12F80400437222 /* ChatTextCell.swift */; };
 		04BCDA332C1301AA00437222 /* ChatMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCDA322C1301AA00437222 /* ChatMessageManager.swift */; };
 		04BCDA352C13063100437222 /* TextSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BCDA342C13063100437222 /* TextSizeCalculator.swift */; };
@@ -99,6 +102,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		042597FE2C2A951F00482282 /* SearchDetailListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailListViewController.swift; sourceTree = "<group>"; };
+		042598002C2A970400482282 /* SearchContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContentCell.swift; sourceTree = "<group>"; };
+		042598022C2ABB0400482282 /* InfiniteCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteCarousel.swift; sourceTree = "<group>"; };
 		04BCDA302C12F80400437222 /* ChatTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextCell.swift; sourceTree = "<group>"; };
 		04BCDA322C1301AA00437222 /* ChatMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageManager.swift; sourceTree = "<group>"; };
 		04BCDA342C13063100437222 /* TextSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSizeCalculator.swift; sourceTree = "<group>"; };
@@ -381,6 +387,7 @@
 				397216C22B8249FC007D0F2B /* SearchViewController.swift */,
 				39E9080E2C26BAC40017B83B /* SearchTagViewController.swift */,
 				39E908192C2874D40017B83B /* SearchResultsViewController.swift */,
+				042597FE2C2A951F00482282 /* SearchDetailListViewController.swift */,
 			);
 			path = search;
 			sourceTree = "<group>";
@@ -446,6 +453,7 @@
 		39E908092C26B1440017B83B /* views */ = {
 			isa = PBXGroup;
 			children = (
+				042598002C2A970400482282 /* SearchContentCell.swift */,
 				39E9080A2C26B15B0017B83B /* SearchTagsView.swift */,
 				39E9080C2C26B9070017B83B /* SearchHeaderView.swift */,
 				39E908152C2872CF0017B83B /* SearchBarView.swift */,
@@ -454,6 +462,7 @@
 				39E9081D2C2874F80017B83B /* BottomContentCell.swift */,
 				39E9081F2C2875010017B83B /* ContentTableViewCell.swift */,
 				39E908212C28791C0017B83B /* SearchResultHeaderView.swift */,
+				042598022C2ABB0400482282 /* InfiniteCarousel.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -735,6 +744,7 @@
 				39E908202C2875010017B83B /* ContentTableViewCell.swift in Sources */,
 				392CF1162B8ECE640070637E /* MainRecommendCell.swift in Sources */,
 				3998DE312BB016A60000C4DD /* UITextView+Extension.swift in Sources */,
+				042598012C2A970400482282 /* SearchContentCell.swift in Sources */,
 				3998DE332BB031FF0000C4DD /* EditPhotosView.swift in Sources */,
 				39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */,
 				04F23E482C0EE6AF0078809E /* DirectChatCell.swift in Sources */,
@@ -751,6 +761,7 @@
 				39E908082C1ECD0C0017B83B /* MineConstrainerView.swift in Sources */,
 				39E9080B2C26B15B0017B83B /* SearchTagsView.swift in Sources */,
 				04F23E512C0F00450078809E /* ChatUserInfoView.swift in Sources */,
+				042597FF2C2A951F00482282 /* SearchDetailListViewController.swift in Sources */,
 				397216C52B824A04007D0F2B /* MainViewController.swift in Sources */,
 				392CF1122B8ECA660070637E /* MainView.swift in Sources */,
 				04F23E4A2C0EE7900078809E /* ChatModel.swift in Sources */,
@@ -785,6 +796,7 @@
 				397216B52B81EA79007D0F2B /* BaseViewController.swift in Sources */,
 				397216C12B8249F1007D0F2B /* PublishViewController.swift in Sources */,
 				39E9081A2C2874D40017B83B /* SearchResultsViewController.swift in Sources */,
+				042598032C2ABB0400482282 /* InfiniteCarousel.swift in Sources */,
 				39B7943E2B989A3E0048C996 /* EditPhotoCell.swift in Sources */,
 				04F23E4F2C0F00050078809E /* ChatViewController.swift in Sources */,
 				04BCDA352C13063100437222 /* TextSizeCalculator.swift in Sources */,

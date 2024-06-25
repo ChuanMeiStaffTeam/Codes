@@ -45,6 +45,11 @@ class SearchViewController: BaseViewController {
         }
         
         let waterfallView = WaterfallCollectionView(frame: CGRect.init(x: 0, y: searchTagsView.bottom, width: .screenWidth, height: .screenHeight - searchTagsView.bottom - .bottomSafeAreaHeight - .tabBarHeight), numberOfColumns: 3)
+        waterfallView.didSelectItemBlock = { [weak self] index in
+            let vc = SearchDetailListViewController()
+            vc.hidesBottomBarWhenPushed = true
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
         view.addSubview(waterfallView)
 
         // 测试数据

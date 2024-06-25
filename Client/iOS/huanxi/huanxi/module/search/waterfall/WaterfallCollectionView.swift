@@ -7,14 +7,17 @@
 
 import UIKit
 
-class WaterfallCollectionView: UICollectionView, UICollectionViewDataSource, WaterfallLayoutDelegate {
+class WaterfallCollectionView: UICollectionView, UICollectionViewDataSource, WaterfallLayoutDelegate, UICollectionViewDelegate {
     private var items: [String] = []
     private var itemHeights: [CGFloat] = []
+    
+    var didSelectItemBlock: ((IndexPath) ->Void)?
     
     init(frame: CGRect, numberOfColumns: Int) {
         let layout = WaterfallFlowLayout(numberOfColumns: numberOfColumns)
         super.init(frame: frame, collectionViewLayout: layout)
         self.dataSource = self
+        self.delegate = self
         layout.delegate = self
         self.register(WaterfallCollectionViewCell.self, forCellWithReuseIdentifier: WaterfallCollectionViewCell.reuseIdentifier)
         self.backgroundColor = .white
@@ -45,5 +48,11 @@ class WaterfallCollectionView: UICollectionView, UICollectionViewDataSource, Wat
     // 实现 WaterfallLayoutDelegate 协议方法
     func collectionView(_ collectionView: UICollectionView, heightForItemAt indexPath: IndexPath) -> CGFloat {
         return itemHeights[indexPath.item]
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let block = didSelectItemBlock {
+            block(indexPath)
+        }
     }
 }
