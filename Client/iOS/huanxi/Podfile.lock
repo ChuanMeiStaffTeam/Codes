@@ -1,7 +1,6 @@
 PODS:
   - Alamofire (5.8.1)
   - iCarousel (1.8.3)
-  - IQKeyboardManagerSwift (7.0.3)
   - Kingfisher (7.11.0)
   - MBProgressHUD (1.2.0)
   - NIMSDK_LITE (9.16.5):
@@ -16,7 +15,6 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - iCarousel
-  - IQKeyboardManagerSwift
   - Kingfisher
   - MBProgressHUD
   - NIMSDK_LITE (= 9.16.5)
@@ -27,7 +25,6 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - iCarousel
-    - IQKeyboardManagerSwift
     - Kingfisher
     - MBProgressHUD
     - NIMSDK_LITE
@@ -38,7 +35,6 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
   iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
-  IQKeyboardManagerSwift: f9c5dc36cba16ddd2e51fa7d51c34a2e083029b5
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   NIMSDK_LITE: 88b7b4dfc47c74fe9790893322af1af1d06050e3
@@ -46,6 +42,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
   YXArtemis: 2771e9ac5e5e01867914835aedb03429d135043e
 
-PODFILE CHECKSUM: 0a62c56fb667f2b2e6250fab3657bf93f2d91b67
+PODFILE CHECKSUM: 21cfa92df877dee9974885ef74fcc8af901156c5
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.11.3

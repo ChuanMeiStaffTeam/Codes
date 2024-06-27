@@ -11,7 +11,7 @@ target 'huanxi' do
   pod 'SwiftyJSON'
   pod 'Kingfisher'
   pod 'SnapKit'
-  pod 'IQKeyboardManagerSwift'
+#  pod 'IQKeyboardManagerSwift'
   pod 'MBProgressHUD'
   pod 'iCarousel'
 

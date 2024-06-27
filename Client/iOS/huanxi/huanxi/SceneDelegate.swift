@@ -7,7 +7,7 @@
 
 import UIKit
 import NIMSDK
-import IQKeyboardManagerSwift
+//import IQKeyboardManagerSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         configNIMSDK()
-        IQKeyboardManager.shared.enable = true
+//        IQKeyboardManager.shared.enable = true
         
         // 自定义导航栏的外观
         let appearance = UINavigationBarAppearance()

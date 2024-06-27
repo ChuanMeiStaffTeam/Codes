@@ -7,7 +7,7 @@
 
 import UIKit
 import NIMSDK
-import IQKeyboardManagerSwift
+//import IQKeyboardManagerSwift
 
 class ChatViewController: BaseViewController {
     
@@ -27,8 +27,8 @@ class ChatViewController: BaseViewController {
         
         resetMessages()
         
-        IQKeyboardManager.shared.enableAutoToolbar = false // 默认是 true
-        IQKeyboardManager.shared.resignOnTouchOutside = true // 当点击键盘外部时，键盘是否应该关闭
+//        IQKeyboardManager.shared.enableAutoToolbar = false // 默认是 true
+//        IQKeyboardManager.shared.resignOnTouchOutside = true // 当点击键盘外部时，键盘是否应该关闭
     }
     
     func addObserver() {
