@@ -5,10 +5,13 @@
 //  Created by jack on 2024/2/18.
 //
 import UIKit
+import Photos
 
 class PublishViewController: BaseViewController {
     
     var allImages: [UIImage] = []
+    var allAssets: [PHAsset] = []
+
     var indexs: [Int] = [0]
     
     let photoAlbumManager = PhotoAlbumManager.shared
@@ -30,15 +33,30 @@ class PublishViewController: BaseViewController {
         photoAlbumManager.fetchSystemAlbums()
         
         setupView()
+        requestImageData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        photoAlbumManager.fetchAllImages { images in
-            self.allImages = images
-            self.photoAlbumView.images = images
-            self.editImageView.image = images.first
+//        requestImageData()
+    }
+    
+    func requestImageData() {
+        HUDHelper.showHUD(view, text: "图片加载中...")
+
+        photoAlbumManager.fetchAllImages { [weak self] images, assets in
+            self?.allImages = images
+            self?.allAssets = assets
+            self?.photoAlbumView.images = images
+            
+            if let asset = assets.first {
+                self?.photoAlbumManager.fetchOriginalImage(for: asset) { image in
+                    self?.editImageView.image = image
+                    HUDHelper.hideHUD(self?.view)
+                }
+            }
+            
         }
     }
     
@@ -171,14 +189,22 @@ class PublishViewController: BaseViewController {
             return
         }
         
-        let images = indexs.map {
-            allImages[$0]
+        let selectedAssets = indexs.map {
+            allAssets[$0]
         }
         
-        let vc = EditPhotoViewController()
-        vc.modalPresentationStyle = .fullScreen
-        vc.images = images
-        present(vc, animated: true)
+        HUDHelper.showHUD(view, text: "加载中...")
+
+        photoAlbumManager.fetchOriginalImages(for: selectedAssets) { [weak self] images in
+            HUDHelper.hideHUD(self?.view)
+            let vc = EditPhotoViewController()
+            vc.modalPresentationStyle = .fullScreen
+            vc.images = images ?? []
+            self?.present(vc, animated: true)
+        }
+//        let images = indexs.map {
+//            allImages[$0]
+//        }
     }
     
     @objc func changeAlbumAction() {
@@ -203,7 +229,11 @@ extension PublishViewController: PhotoAlbumViewDelegate {
             return
         }
         self.indexs = indexs
-        editImageView.image = allImages[indexs.last ?? 0]
+//        editImageView.image = allImages[indexs.last ?? 0]
+        let asset = allAssets[indexs.last ?? 0]
+        self.photoAlbumManager.fetchOriginalImage(for: asset) { image in
+            self.editImageView.image = image
+        }
     }
     
 }

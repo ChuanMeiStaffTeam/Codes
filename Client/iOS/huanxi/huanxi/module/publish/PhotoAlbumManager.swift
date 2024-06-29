@@ -26,7 +26,7 @@ class PhotoAlbumManager {
         }
     }
     
-    func fetchAllImages(completion: @escaping ([UIImage]) -> Void) {
+    func fetchAllImages(completion: @escaping ([UIImage], [PHAsset]) -> Void) {
         var allImages: [UIImage] = []
 
         DispatchQueue.global().async {
@@ -35,9 +35,10 @@ class PhotoAlbumManager {
             fetchOptions.fetchLimit = 50
 
             let requestOptions = PHImageRequestOptions()
-            requestOptions.deliveryMode = .opportunistic
+            requestOptions.deliveryMode = .fastFormat
 
 
+            var allAssets: [PHAsset] = []
 
             albums.enumerateObjects { album, _, _ in
                 let assets = PHAsset.fetchAssets(in: album, options: nil)
@@ -47,19 +48,25 @@ class PhotoAlbumManager {
                 }
 
                 assets.enumerateObjects { asset, _, _ in
-                    PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: requestOptions) { image, _ in
-                        if let image = image {
-                            allImages.append(image)
-                        }
+                    
+                    allAssets.append(asset)
+                }
+            }
+            
+            allAssets.forEach { asset in
+                PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: requestOptions) { image, _ in
+                    if let image = image {
+                        allImages.append(image)
+                    }
 
-                        if allImages.count == assets.count {
-                            DispatchQueue.main.async {
-                                completion(allImages)
-                            }
+                    if allImages.count == allAssets.count {
+                        DispatchQueue.main.async {
+                            completion(allImages, allAssets)
                         }
                     }
                 }
             }
+            
         }
     }
 //    func fetchAllImages(completion: @escaping ([UIImage]) -> Void) {
@@ -96,17 +103,37 @@ class PhotoAlbumManager {
 //        }
 //    }
 //
-//    // 加载原图
-//    func fetchOriginalImage(for asset: PHAsset, completion: @escaping (UIImage?) -> Void) {
-//        let requestOptions = PHImageRequestOptions()
-//        requestOptions.deliveryMode = .highQualityFormat
-//
-//        PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: requestOptions) { image, _ in
-//            DispatchQueue.main.async {
-//                completion(image)
-//            }
-//        }
-//    }
+    // 加载原图
+    func fetchOriginalImage(for asset: PHAsset, completion: @escaping (UIImage?) -> Void) {
+        DispatchQueue.global().async {
+            let requestOptions = PHImageRequestOptions()
+            requestOptions.deliveryMode = .highQualityFormat
+
+            PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: requestOptions) { image, _ in
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            }
+        }
+    }
+    
+    func fetchOriginalImages(for assets: [PHAsset], completion: @escaping ([UIImage]?) -> Void) {
+        var allImages: [UIImage] = []
+
+        assets.forEach { asset in
+            fetchOriginalImage(for: asset) { image in
+                if let image = image {
+                    allImages.append(image)
+                }
+
+                if allImages.count == assets.count {
+                    DispatchQueue.main.async {
+                        completion(allImages)
+                    }
+                }
+            }
+        }
+    }
 
     
     func fetchImagesFromAlbum(at index: Int) {
