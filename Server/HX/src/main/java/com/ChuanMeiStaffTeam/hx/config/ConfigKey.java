@@ -10,4 +10,6 @@ package com.ChuanMeiStaffTeam.hx.config;
 public class ConfigKey {
 
     public static final Integer login_count = 5;    // 登录次数限制
+
+    public static final String USER_SESSION_KEY = "USER_SESSION_KEY";
 }

@@ -14,7 +14,7 @@ import java.sql.Timestamp;
  */
 @Data
 @TableName("sys_images")
-public class SysImage extends Model<SysImage> {
+public class SysImage {
 
     /**
      * 图片ID，自增主键

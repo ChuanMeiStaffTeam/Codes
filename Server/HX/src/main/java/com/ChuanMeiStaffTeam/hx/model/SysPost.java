@@ -15,8 +15,8 @@ import lombok.Data;
  */
 @Data
 @TableName("sys_posts")
-public class SysPost extends Model<SysPost> {
-    // 继承Model<SysPost>类，可以使用ActiveRecord相关API
+public class SysPost {
+
 
     /**
      * 帖子ID，自增主键
@@ -91,11 +91,7 @@ public class SysPost extends Model<SysPost> {
     @TableField("visibility")
     private String visibility;
 
-    /**
-     * 帖子审核状态
-     */
-    @TableField("status")
-    private String status;
+
 
     /**
      * 帖子的图片列表，一对多关系  // 注意：该字段不在数据库中，而是在代码中通过注解的方式实现一对多关系

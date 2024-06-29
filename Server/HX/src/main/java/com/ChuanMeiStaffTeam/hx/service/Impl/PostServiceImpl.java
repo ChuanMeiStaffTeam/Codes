@@ -31,11 +31,9 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
     private IImage imageService;
 
 
-    @Transactional
+
     @Override
-    public boolean insertPost_image(SysPost sysPost, List<SysImage> sysImages) {
-        int insert = postMapper.insert(sysPost);
-        boolean b = imageService.saveBatch(sysImages);
-        return insert == 1 && b;
+    public int insertPost_image(SysPost sysPost) {
+        return postMapper.insert(sysPost);
     }
 }

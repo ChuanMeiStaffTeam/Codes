@@ -19,6 +19,6 @@ import java.util.List;
 public interface IPostsImage extends IService<SysPost> {
 
     // 用户发帖上传图片
-    boolean insertPost_image(SysPost sysPost, List<SysImage> sysImages);
+    int insertPost_image(SysPost sysPost);
 
 }

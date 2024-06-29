@@ -79,7 +79,7 @@ public class UserController {
         userService.updateUserLoginCountToZero(user);
         // 创建session
         HttpSession session = request.getSession(true);
-        session.setAttribute("username", user);
+        session.setAttribute(ConfigKey.USER_SESSION_KEY, user);
         log.info("登录成功 username: " + username);
         //redisTemplate.opsForValue().set(username, user);  // 设置redis缓存
         return AppResult.success();
