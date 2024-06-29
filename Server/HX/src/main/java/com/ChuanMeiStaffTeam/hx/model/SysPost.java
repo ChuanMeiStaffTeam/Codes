@@ -100,7 +100,7 @@ public class SysPost extends Model<SysPost> {
     /**
      * 帖子的图片列表，一对多关系  // 注意：该字段不在数据库中，而是在代码中通过注解的方式实现一对多关系
      */
-    @TableField(exist = false)
+    @TableField(exist = false)    // 不在数据库中创建该字段
     private List<SysImage> images;
 
 }
