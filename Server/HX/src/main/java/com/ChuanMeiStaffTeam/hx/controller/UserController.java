@@ -1,6 +1,8 @@
 package com.ChuanMeiStaffTeam.hx.controller;
 
+import com.ChuanMeiStaffTeam.hx.util.JwtUtil;
 import com.ChuanMeiStaffTeam.hx.util.MD5util;
+import com.ChuanMeiStaffTeam.hx.util.RedisUtil;
 import com.ChuanMeiStaffTeam.hx.util.Uuid;
 import com.ChuanMeiStaffTeam.hx.common.AppResult;
 import com.ChuanMeiStaffTeam.hx.common.ResultCode;
@@ -9,6 +11,7 @@ import com.ChuanMeiStaffTeam.hx.exception.ApplicationException;
 import com.ChuanMeiStaffTeam.hx.model.User;
 import com.ChuanMeiStaffTeam.hx.service.IUserService;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -21,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -51,7 +56,7 @@ public class UserController {
                            @NonNull @ApiParam(value = "密码") @RequestParam("password") String password,
                            HttpServletRequest request) {
         // 检查登录失败时间是否到期
-        if(redisTemplate.opsForValue().get(username)!= null) {
+        if (redisTemplate.opsForValue().get(username) != null) {
             return AppResult.failed(ResultCode.FAILED_LOGIN_LIMIT.getMessage());
         }
         // 判断用户名是否存在
@@ -65,10 +70,10 @@ public class UserController {
         if (!s.equals(user.getPasswordHash())) {
             log.error(ResultCode.FAILED_LOGIN.getMessage());
             userService.updateUserLoginCount(user);
-            if(user.getLoginAttempts() >= ConfigKey.login_count) {
+            if (user.getLoginAttempts() >= ConfigKey.login_count) {
                 log.error(ResultCode.FAILED_LOGIN_LIMIT.getMessage());
                 // 在 redis 中设置登录失败次数过多的用户的锁定状态，并设置过期时间5分钟
-                redisTemplate.opsForValue().set(username, user,300, TimeUnit.SECONDS);  // 设置redis缓存 过期时间为5分钟
+                redisTemplate.opsForValue().set(username, user, 300, TimeUnit.SECONDS);  // 设置redis缓存 过期时间为5分钟
                 return AppResult.failed(ResultCode.FAILED_LOGIN_LIMIT.getMessage());
             }
             throw new ApplicationException(ResultCode.FAILED_LOGIN.getMessage());
@@ -77,12 +82,20 @@ public class UserController {
         userService.updateUserLastLoginTime(user);
         // 更新用户失败登录次数为0
         userService.updateUserLoginCountToZero(user);
-        // 创建session
-        HttpSession session = request.getSession(true);
-        session.setAttribute(ConfigKey.USER_SESSION_KEY, user);
+
+        // 创建token 将user对象的部分信息放入token中，并存入redis缓存
+        User TokenUser = new User();
+        TokenUser = userService.getUserByUserName(user.getUsername());
+        Map<String, String> payload = JwtUtil.getPayload(TokenUser);
+        String token = JwtUtil.getToken(payload);
         log.info("登录成功 username: " + username);
-        //redisTemplate.opsForValue().set(username, user);  // 设置redis缓存
-        return AppResult.success();
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("token", token);
+        // 将user放入redis缓存
+        redisTemplate.opsForValue().set(username, TokenUser, 7, TimeUnit.DAYS);  // 设置redis缓存 过期时间为7天
+        // 将token放入redis缓存
+        redisTemplate.opsForValue().set(username + ": token", token, 7, TimeUnit.DAYS);  // 设置redis缓存 过期时间为7天
+        return AppResult.success(tokenMap);  // 返回token
     }
 
 
@@ -138,11 +151,26 @@ public class UserController {
     // 注销接口
     @PostMapping("/logout")
     public AppResult logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();  // 销毁session
-        }
-        log.info("注销成功");
+//        HttpSession session = request.getSession(false);
+//        if (session != null) {
+//            session.invalidate();  // 销毁session
+//        }
+//        log.info("注销成功");
+//        return AppResult.success();
+
+
+        // 从redis中获取token，并删除redis缓存
+        String token = request.getHeader("token");
+        // 从token中获取username
+        JwtUtil.verifyToken(token);
+        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+        String username = tokenInfo.getClaim("username").asString();
+        // 删除redis缓存
+        redisTemplate.delete(username);
+        redisTemplate.delete(username + ": token");
+        // 删除token  todo 后续处理
+             request.getSession().invalidate(); // 销毁session 同时删除session中的token
+        log.info("注销成功 username: " + username);
         return AppResult.success();
     }
 
