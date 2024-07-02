@@ -6,6 +6,7 @@ import com.ChuanMeiStaffTeam.hx.model.User;
 import com.ChuanMeiStaffTeam.hx.service.IUserService;
 import com.ChuanMeiStaffTeam.hx.util.MD5util;
 import com.ChuanMeiStaffTeam.hx.util.TimeUtil;
+import com.ChuanMeiStaffTeam.hx.util.UploadUtil;
 import com.ChuanMeiStaffTeam.hx.util.Uuid;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -55,17 +56,10 @@ public class UserInfoController {
             log.error("图片不能为空");
             throw new ApplicationException("图片不能为空");
         }
-        // 读取配置文件中图片上传路径
-        File destinationFile = null;
-        try {
-            destinationFile = new File(path + File.separator + file.getOriginalFilename());
-            file.transferTo(destinationFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        userService.updateUserAvatar(userId, destinationFile.getAbsolutePath());
-        log.info("用户头像更新成功, 图片路径为{}" + destinationFile.getAbsolutePath());
-        return AppResult.success(destinationFile.getAbsolutePath());
+        String s = UploadUtil.uploadFile(file);
+        userService.updateUserAvatar(userId, s);
+        log.info("用户头像更新成功, 图片路径为{}" + s);
+        return AppResult.success(s);
     }
 
     // 更新用户信息
