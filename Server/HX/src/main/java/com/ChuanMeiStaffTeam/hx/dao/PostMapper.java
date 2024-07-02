@@ -1,6 +1,7 @@
 package com.ChuanMeiStaffTeam.hx.dao;
 
 import com.ChuanMeiStaffTeam.hx.model.SysPost;
+import com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,4 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface PostMapper extends BaseMapper<SysPost> {
+
+    // 根据帖子id 查询帖子信息
+    SysPostImage selectPostById(Long postId);
 }

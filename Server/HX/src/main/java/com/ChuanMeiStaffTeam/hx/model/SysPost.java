@@ -8,13 +8,17 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.sql.Timestamp;
 import java.util.List;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 帖子实体类，存储用户发布的帖子信息
  */
 @Data
 @TableName("sys_posts")
+@NoArgsConstructor
+@AllArgsConstructor
 public class SysPost {
 
 
@@ -93,10 +97,5 @@ public class SysPost {
 
 
 
-    /**
-     * 帖子的图片列表，一对多关系  // 注意：该字段不在数据库中，而是在代码中通过注解的方式实现一对多关系
-     */
-    @TableField(exist = false)    // 不在数据库中创建该字段
-    private List<SysImage> images;
 
 }

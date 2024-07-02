@@ -2,6 +2,7 @@ package com.ChuanMeiStaffTeam.hx.service;
 
 import com.ChuanMeiStaffTeam.hx.model.SysImage;
 import com.ChuanMeiStaffTeam.hx.model.SysPost;
+import com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,17 @@ import java.util.List;
 @Service
 public interface IPostsImage extends IService<SysPost> {
 
-    // 用户发帖上传图片
-    int insertPost_image(SysPost sysPost);
 
+    // 保存帖子信息
+    int insertPost(SysPost sysPost);
+
+    // 保存帖子下的图片
+    int insertPostImage(SysImage sysImages);
+
+
+    // 根据帖子ID查询帖子
+    SysPostImage selectPostById(Integer postId);
+
+    // 根据帖子ID查询帖子图片
+    List<SysImage> selectPostImagesByPostId(Integer postId);
 }

@@ -3,12 +3,16 @@ package com.ChuanMeiStaffTeam.hx.service.Impl;
 import com.ChuanMeiStaffTeam.hx.service.IUserService;
 import com.ChuanMeiStaffTeam.hx.dao.UserMapper;
 import com.ChuanMeiStaffTeam.hx.model.User;
+import com.ChuanMeiStaffTeam.hx.util.RedisUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.swagger.models.auth.In;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,6 +26,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Resource
     private UserMapper userMapper;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
 
     @Override
     public User getUserByUserName(String userName) {
@@ -82,6 +93,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public int updateUserPassword(User user) {
+        return userMapper.updateById(user);
+    }
+
+    @Override
+    public int updateUserPostCount(User user) {
+        if(user.getPostCount() == null) {
+            user.setPostCount(0);
+        }
+        Integer postCount = user.getPostCount() + 1;
+        user.setPostCount(postCount);
+        // 更新用户的更新时间
+        user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+        // 更新redis缓存
+        redisTemplate.opsForValue().set(user.getUsername(), user, 7, TimeUnit.DAYS);  // 设置redis缓存 过期时间为7天
         return userMapper.updateById(user);
     }
 
