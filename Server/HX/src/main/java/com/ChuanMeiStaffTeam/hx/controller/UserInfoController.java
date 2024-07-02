@@ -126,4 +126,5 @@ public class UserInfoController {
         int i = userService.updateUserPassword(user);
         return AppResult.success();
     }
+    // TEST CODE END
 }
