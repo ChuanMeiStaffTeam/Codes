@@ -110,5 +110,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return userMapper.updateById(user);
     }
 
+    @Override
+    public int updateUserReplyCount(User user) {
+        if(user.getPostCount() == null) {
+            user.setPostCount(0);
+        }
+        int postCount = user.getPostCount() - 1;
+        if(postCount < 0) {
+            postCount = 0;
+        }
+        user.setPostCount(postCount);
+        user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+        // 更新redis缓存
+        redisTemplate.opsForValue().set(user.getUsername(), user, 7, TimeUnit.DAYS);
+        return userMapper.updateById(user);
+    }
+
 
 }

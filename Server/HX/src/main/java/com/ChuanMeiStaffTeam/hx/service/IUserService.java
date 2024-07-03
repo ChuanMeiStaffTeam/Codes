@@ -47,7 +47,11 @@ public interface IUserService extends IService<User> {
     int updateUserPassword(User user);
 
 
-    // 更新用户帖子数量
+    // 更新用户帖子数量+1
     int updateUserPostCount(User user);
+
+    // 更新用户回帖数量-1
+
+    int updateUserReplyCount(User user);
 
 }
