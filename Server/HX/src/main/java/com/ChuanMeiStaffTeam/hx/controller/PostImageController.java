@@ -65,7 +65,7 @@ public class PostImageController {
             e.printStackTrace();
         }
 
-        if(images.isEmpty()) {  // 图片为空
+        if (images.isEmpty()) {  // 图片为空
             return AppResult.failed("请上传图片");
         }
         // 获取当前登录用户id和username 从token中获取
@@ -80,7 +80,7 @@ public class PostImageController {
         // 插入帖子信息,用户帖子数量加1,保存图片
         boolean b = postsImageService.insertPost(post, user, images);
         // 后续添加redis缓存 todo
-        if(!b) {
+        if (!b) {
             return AppResult.failed("发帖失败");
         }
         return AppResult.success();
@@ -91,17 +91,17 @@ public class PostImageController {
     @GetMapping(value = "/queryPost")
     @ApiOperation(value = "用户查询帖子接口")
     public AppResult queryPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId) {
-        if(postId == null) {
+        if (postId == null) {
             return AppResult.failed("帖子id不能为空");
         }
         // 查询帖子信息
         SysPostImage sysPostImage = postsImageService.selectPostById(postId);
-        if(sysPostImage == null) {
+        if (sysPostImage == null) {
             return AppResult.failed("帖子不存在");
         }
         // 查询图片信息
         List<SysImage> sysImages = postsImageService.selectPostImagesByPostId(postId);
-        if(sysImages == null || sysImages.isEmpty()) {
+        if (sysImages == null || sysImages.isEmpty()) {
             return AppResult.failed("帖子图片不存在");
         }
         sysPostImage.setImages(sysImages);
@@ -126,7 +126,7 @@ public class PostImageController {
     // 用户删除帖子接口
     @DeleteMapping(value = "/deletePost")
     @ApiOperation(value = "用户删除帖子接口")
-    public AppResult deletePost(@ApiParam("帖子id") @RequestParam("postId") Integer postId,HttpServletRequest request) {
+    public AppResult deletePost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
         if (postId == null) {
             return AppResult.failed("帖子id不能为空");
         }
@@ -146,11 +146,203 @@ public class PostImageController {
             return AppResult.failed("你没有权限删除该帖子");
         }
         // 删除帖子信息,根据帖子id删除图片信息,用户帖子数量减1
-        boolean b = postsImageService.deletePost(postId,user);
-        if(!b) {
+        boolean b = postsImageService.deletePost(postId, user);
+        if (!b) {
             return AppResult.failed("删除帖子失败");
         }
         return AppResult.success();
     }
 
+    // 用户修改帖子接口 todo
+
+    // 点赞帖子接口 todo
+
+    @PostMapping(value = "/likePost")
+    @ApiOperation(value = "点赞帖子接口")
+
+
+    public AppResult likePost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
+        if (postId == null) {
+            return AppResult.failed("帖子id不能为空");
+        }
+        // 判断当前登录用户是否已经点赞
+        String token = request.getHeader("token");
+        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+        String username = tokenInfo.getClaim("username").asString();
+        // 从 redis 中获取当前登录用户
+        User user = (User) redisUtil.get(username);
+        // 查询帖子信息
+        SysPostImage sysPostImage = postsImageService.selectPostById(postId);
+        int userId = user.getUserId();
+        if (sysPostImage.getUserId() == userId) {
+            return AppResult.failed("不能给自己点赞");
+        }
+        // 点赞帖子
+        boolean b = postsImageService.likePost(postId, user);
+        if (!b) {
+            return AppResult.failed("点赞失败");
+        }
+        return AppResult.success();
+    }
+
+    // 取消点赞帖子接口 todo
+    @DeleteMapping(value = "/cancelLikePost")
+    @ApiOperation(value = "取消点赞帖子接口")
+    public AppResult cancelLikePost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
+        if (postId == null) {
+            return AppResult.failed("帖子id不能为空");
+        }
+        // 判断当前登录用户是否已经点赞
+        String token = request.getHeader("token");
+        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+        String username = tokenInfo.getClaim("username").asString();
+        // 从 redis 中获取当前登录用户
+        User user = (User) redisUtil.get(username);
+        // 查询帖子信息
+        SysPostImage sysPostImage = postsImageService.selectPostById(postId);
+        int userId = user.getUserId();
+        if (sysPostImage.getUserId() == userId) {
+            return AppResult.failed("不能给自己取消点赞");
+        }
+        // 取消点赞帖子
+        boolean b = postsImageService.cancelLikePost(postId, user);
+        if (!b) {
+            return AppResult.failed("取消点赞失败");
+        }
+        return AppResult.success();
+    }
+
+    // 收藏帖子接口 todo
+    @PostMapping(value = "/collectPost")
+    @ApiOperation(value = "收藏帖子接口")
+    public AppResult collectPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
+        if (postId == null) {
+            return AppResult.failed("帖子id不能为空");
+        }
+        // 判断当前登录用户是否已经收藏
+        String token = request.getHeader("token");
+        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+        String username = tokenInfo.getClaim("username").asString();
+        // 从 redis 中获取当前登录用户
+        User user = (User) redisUtil.get(username);
+        // 查询帖子信息
+        SysPostImage sysPostImage = postsImageService.selectPostById(postId);
+        int userId = user.getUserId();
+        if (sysPostImage.getUserId() == userId) {
+            return AppResult.failed("不能收藏自己的帖子");
+        }
+        // 收藏帖子
+        boolean b = postsImageService.collectPost(postId, user);
+        if (!b) {
+            return AppResult.failed("收藏失败");
+        }
+        return AppResult.success();
+    }
+
+
+    // 取消收藏帖子接口 todo
+    @DeleteMapping(value = "/cancelCollectPost")
+    @ApiOperation(value = "取消收藏帖子接口")
+    public AppResult cancelCollectPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
+        if (postId == null) {
+            return AppResult.failed("帖子id不能为空");
+        }
+        // 判断当前登录用户是否已经收藏
+        String token = request.getHeader("token");
+        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+        String username = tokenInfo.getClaim("username").asString();
+        // 从 redis 中获取当前登录用户
+        User user = (User) redisUtil.get(username);
+        // 查询帖子信息
+        SysPostImage sysPostImage = postsImageService.selectPostById(postId);
+        int userId = user.getUserId();
+        if (sysPostImage.getUserId() == userId) {
+            return AppResult.failed("不能取消收藏自己的帖子");
+        }
+        // 取消收藏帖子
+        boolean b = postsImageService.cancelCollectPost(postId, user);
+        if (!b) {
+            return AppResult.failed("取消收藏失败");
+        }
+        return AppResult.success();
+    }
+
+    // 评论帖子接口 todo
+    @PostMapping(value = "/commentPost")
+    @ApiOperation(value = "评论帖子接口")
+    public AppResult commentPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId,
+                                 @ApiParam("评论内容") @RequestParam("content") String content,
+                                 @ApiParam("评论图片") @RequestParam(value = "images", required = false) List<MultipartFile> images,
+                                 HttpServletRequest request) {
+        if (postId == null) {
+            return AppResult.failed("帖子id不能为空");
+        }
+        if (content == null || content.trim().isEmpty()) {
+            return AppResult.failed("评论内容不能为空");
+        }
+        // 判断当前登录用户是否已经评论
+        String token = request.getHeader("token");
+        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+        String username = tokenInfo.getClaim("username").asString();
+        // 从 redis 中获取当前登录用户
+        User user = (User) redisUtil.get(username);
+        // 查询帖子信息
+        SysPostImage sysPostImage = postsImageService.selectPostById(postId);
+        int userId = user.getUserId();
+        if (sysPostImage.getUserId() == userId) {
+            return AppResult.failed("不能评论自己的帖子");
+        }
+        // 评论帖子
+        boolean b = postsImageService.commentPost(postId, user, content, images);
+        if (!b) {
+            return AppResult.failed("评论失败");
+        }
+        return AppResult.success();
+    }
+
+    // 回复评论接口 todo
+    @PostMapping(value = "/replyComment")
+    @ApiOperation(value = "回复评论接口")
+    public AppResult replyComment(@ApiParam("评论id") @RequestParam("commentId") Integer commentId,
+                                  @ApiParam("回复内容") @RequestParam("content") String content,
+                                  @ApiParam("回复图片") @RequestParam(value = "images", required = false) List<MultipartFile> images,
+                                  HttpServletRequest request) {
+
+
+        if (commentId == null) {
+            return AppResult.failed("评论id不能为空");
+
+
+        }
+        if (content == null || content.trim().isEmpty()) {
+            return AppResult.failed("回复内容不能为空");
+
+        }
+
+
+        // 判断当前登录用户是否已经评论   todo
+        String token = request.getHeader("token");
+        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+        String username = tokenInfo.getClaim("username").asString();
+        // 从 redis 中获取当前登录用户
+        User user = (User) redisUtil.get(username);
+        // 回复评论
+        boolean b = postsImageService.replyComment(commentId, user, content, images);
+        if (!b) {
+            return AppResult.failed("回复失败");
+        }
+        return AppResult.success();
+    }
+
+    // 删除评论接口  todo
+
+    // 举报评论接口 todo
+
+
+    // 举报帖子接口 todo
+
+    // 搜索帖子接口 todo
+
+
+    // 关注用户接口 todo
 }
