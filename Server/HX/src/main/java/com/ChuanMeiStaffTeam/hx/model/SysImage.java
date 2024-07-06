@@ -20,13 +20,13 @@ public class SysImage {
      * 图片ID，自增主键
      */
     @TableId(value = "image_id", type = IdType.AUTO)
-    private int imageId;
+    private Integer imageId;
 
     /**
      * 帖子ID，外键，关联到sys_posts表
      */
     @TableField("post_id")
-    private int postId;
+    private Integer postId;
 
     /**
      * 图片URL

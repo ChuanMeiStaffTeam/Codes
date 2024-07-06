@@ -26,13 +26,13 @@ public class SysPost {
      * 帖子ID，自增主键
      */
     @TableId(value = "post_id", type = IdType.AUTO)
-    private int postId;
+    private Integer postId;
 
     /**
      * 用户ID，发布此帖子的用户
      */
     @TableField("user_id")
-    private int userId;
+    private Integer userId;
 
     /**
      * 图片说明 帖子标题
@@ -62,7 +62,7 @@ public class SysPost {
      * 点赞数
      */
     @TableField("likes_count")
-    private int likesCount;
+    private Integer likesCount;
 
     /**
      * 评论数

@@ -47,4 +47,9 @@ public interface IPostsImage extends IService<SysPost> {
     // 删除帖子
     @Transactional // 事务注解
     boolean deletePost(Integer postId, User user);
+
+
+    // 更新帖子点赞数
+    boolean updatePostLikeCount(Integer postId, Integer likeCount);
+
 }

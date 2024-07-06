@@ -154,4 +154,15 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
         return true;
     }
 
+    @Override
+    public boolean updatePostLikeCount(Integer postId, Integer likeCount) {
+        QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("post_id",postId);
+        SysPost sysPost = new SysPost();
+        sysPost.setLikesCount(likeCount);
+        int update = postMapper.update(sysPost, queryWrapper);
+        return update > 0;
+
+    }
+
 }
