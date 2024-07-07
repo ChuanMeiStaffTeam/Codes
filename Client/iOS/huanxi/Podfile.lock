@@ -10,6 +10,7 @@ PODS:
     - YXArtemis
   - SnapKit (5.7.1)
   - SwiftyJSON (5.0.1)
+  - TOCropViewController (2.7.4)
   - YXArtemis (1.1.3)
 
 DEPENDENCIES:
@@ -20,6 +21,7 @@ DEPENDENCIES:
   - NIMSDK_LITE (= 9.16.5)
   - SnapKit
   - SwiftyJSON
+  - TOCropViewController
 
 SPEC REPOS:
   trunk:
@@ -30,6 +32,7 @@ SPEC REPOS:
     - NIMSDK_LITE
     - SnapKit
     - SwiftyJSON
+    - TOCropViewController
     - YXArtemis
 
 SPEC CHECKSUMS:
@@ -40,8 +43,9 @@ SPEC CHECKSUMS:
   NIMSDK_LITE: 88b7b4dfc47c74fe9790893322af1af1d06050e3
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
+  TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
   YXArtemis: 2771e9ac5e5e01867914835aedb03429d135043e
 
-PODFILE CHECKSUM: 21cfa92df877dee9974885ef74fcc8af901156c5
+PODFILE CHECKSUM: b852cfeacfe646b7266d86a8fe8a49bb722fe238
 
 COCOAPODS: 1.11.3
