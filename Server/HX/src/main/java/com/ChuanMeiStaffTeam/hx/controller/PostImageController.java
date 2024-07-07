@@ -163,8 +163,8 @@ public class PostImageController {
         return AppResult.success();
     }
 
-    //    // 用户修改帖子接口 todo
-//
+    // 用户修改帖子接口 todo
+
     // 点赞帖子接口
     @PostMapping(value = "/likePost")
     @ApiOperation(value = "点赞帖子接口")
