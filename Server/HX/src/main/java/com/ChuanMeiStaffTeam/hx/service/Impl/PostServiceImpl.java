@@ -100,6 +100,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
         sysPostImage.setTags(sysPost.getTags());
         sysPostImage.setDeleted(sysPost.isDeleted());
         sysPostImage.setVisibility(sysPost.getVisibility());
+        sysPostImage.setFavoriteCount(sysPost.getFavoriteCount());
         return sysPostImage;
     }
 
@@ -132,6 +133,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
             sysPostImage.setTags(sysPost.getTags());
             sysPostImage.setDeleted(sysPost.isDeleted());
             sysPostImage.setVisibility(sysPost.getVisibility());
+            sysPostImage.setFavoriteCount(sysPost.getFavoriteCount());
             // 设置图片
             List<SysImage> sysImages = selectPostImagesByPostId(sysPostImage.getPostId());
             sysPostImage.setImages(sysImages);
@@ -163,6 +165,17 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
         int update = postMapper.update(sysPost, queryWrapper);
         return update > 0;
 
+    }
+
+    @Override
+    public boolean updatePostCollectCount(Integer postId, Integer collectCount) {
+        QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("post_id",postId);
+        SysPost sysPost = new SysPost();
+        sysPost.setFavoriteCount(collectCount);
+        int update = postMapper.update(sysPost, queryWrapper);
+        // sql: update sys_post set favorite_count = #{collectCount} where post_id = #{postId}
+        return update > 0;
     }
 
 }

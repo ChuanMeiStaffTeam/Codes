@@ -71,6 +71,11 @@ public class SysPost {
     private int commentsCount;
 
     /**
+     * 收藏数
+     */
+    @TableField("favorite_count")
+    private Integer favoriteCount;
+    /**
      * 是否公开
      */
     @TableField("is_public")

@@ -4,6 +4,8 @@ import com.ChuanMeiStaffTeam.hx.service.IUserService;
 import com.ChuanMeiStaffTeam.hx.dao.UserMapper;
 import com.ChuanMeiStaffTeam.hx.model.User;
 import com.ChuanMeiStaffTeam.hx.util.RedisUtil;
+import com.ChuanMeiStaffTeam.hx.util.TimeUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +100,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public int updateUserPostCount(User user) {
-        if(user.getPostCount() == null) {
+        if (user.getPostCount() == null) {
             user.setPostCount(0);
         }
         Integer postCount = user.getPostCount() + 1;
@@ -112,11 +114,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public int updateUserReplyCount(User user) {
-        if(user.getPostCount() == null) {
+        if (user.getPostCount() == null) {
             user.setPostCount(0);
         }
         int postCount = user.getPostCount() - 1;
-        if(postCount < 0) {
+        if (postCount < 0) {
             postCount = 0;
         }
         user.setPostCount(postCount);
@@ -126,5 +128,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return userMapper.updateById(user);
     }
 
+    @Override
+    public int updateUserFavoriteCount(Integer userId, Integer favoriteCount) {
+        // 更新用户收藏数
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        User user = new User();
+        user.setFavoriteCount(favoriteCount);
+        user.setUpdatedAt(TimeUtil.getCurrentTime());
+        return userMapper.update(user, queryWrapper);
 
+    }
 }

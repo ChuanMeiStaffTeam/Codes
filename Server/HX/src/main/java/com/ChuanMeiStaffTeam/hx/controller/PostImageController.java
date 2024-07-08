@@ -6,6 +6,7 @@ import com.ChuanMeiStaffTeam.hx.model.SysImage;
 import com.ChuanMeiStaffTeam.hx.model.SysPost;
 import com.ChuanMeiStaffTeam.hx.model.User;
 import com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage;
+import com.ChuanMeiStaffTeam.hx.service.IFavoriteService;
 import com.ChuanMeiStaffTeam.hx.service.ILikeService;
 import com.ChuanMeiStaffTeam.hx.service.IPostsImage;
 import com.ChuanMeiStaffTeam.hx.service.IUserService;
@@ -52,6 +53,10 @@ public class PostImageController {
     @Resource
     private ILikeService likeService;
 
+
+    @Resource
+    private IFavoriteService favoriteService;
+
     @ApiOperation(value = "用户发帖接口")
     @PostMapping(value = "/article", consumes = "multipart/form-data")
     public AppResult upload(
@@ -67,6 +72,7 @@ public class PostImageController {
         }
 
         if (images.isEmpty()) {  // 图片为空
+            log.info("请上传图片");
             return AppResult.failed("请上传图片");
         }
         // 获取当前登录用户id和username 从token中获取
@@ -76,6 +82,7 @@ public class PostImageController {
         // 从 redis 中获取当前登录用户
         User user = (User) redisUtil.get(username);
         if (user == null) {
+            log.info("登录信息已过期,请重新登录");
             return AppResult.failed("登录信息已过期,请重新登录");
         }
         post.setUserId(user.getUserId());
@@ -88,6 +95,7 @@ public class PostImageController {
         log.error("插入帖子信息耗时:" + (end - start) + "毫秒");
         // 后续添加redis缓存 todo
         if (!b) {
+            log.info("发帖失败");
             return AppResult.failed("发帖失败");
         }
         return AppResult.success();
@@ -99,16 +107,19 @@ public class PostImageController {
     @ApiOperation(value = "用户查询帖子接口")
     public AppResult queryPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId) {
         if (postId == null) {
+            log.info("帖子id不能为空");
             return AppResult.failed("帖子id不能为空");
         }
         // 查询帖子信息
         SysPostImage sysPostImage = postsImageService.selectPostById(postId);
         if (sysPostImage == null) {
+            log.info("帖子不存在");
             return AppResult.failed("帖子不存在");
         }
         // 查询图片信息
         List<SysImage> sysImages = postsImageService.selectPostImagesByPostId(postId);
         if (sysImages == null || sysImages.isEmpty()) {
+            log.info("帖子图片不存在");
             return AppResult.failed("帖子图片不存在");
         }
         sysPostImage.setImages(sysImages);
@@ -123,6 +134,7 @@ public class PostImageController {
         // 查询所有的帖子信息,并将帖子信息中的图片信息查询出来,设置到SysPostImage对象中
         List<SysPostImage> sysPostImages = postsImageService.selectAllPosts();
         if (sysPostImages == null || sysPostImages.isEmpty()) {
+            log.info("帖子为空");
             return AppResult.failed("帖子为空");
         }
         // 后续添加分页功能 redis缓存 todo
@@ -135,6 +147,7 @@ public class PostImageController {
     @ApiOperation(value = "用户删除帖子接口")
     public AppResult deletePost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
         if (postId == null) {
+            log.info("帖子id不能为空");
             return AppResult.failed("帖子id不能为空");
         }
         // 判断当前登录用户是否为帖子作者
@@ -145,6 +158,7 @@ public class PostImageController {
         System.out.println(username);
         User user = (User) redisUtil.get(username);
         if (user == null) {
+            log.info("登录信息已过期,请重新登录");
             return AppResult.failed("登录信息已过期,请重新登录");
         }
         System.out.println(user.toString());
@@ -153,11 +167,13 @@ public class PostImageController {
         int userId = user.getUserId();
         System.out.println(user.toString());
         if (!sysPostImage.getUserId().equals(userId)) {
+            log.info("你没有权限删除该帖子");
             return AppResult.failed("你没有权限删除该帖子");
         }
         // 删除帖子信息,根据帖子id删除图片信息,用户帖子数量减1
         boolean b = postsImageService.deletePost(postId, user);
         if (!b) {
+            log.info("删除帖子失败");
             return AppResult.failed("删除帖子失败");
         }
         return AppResult.success();
@@ -170,6 +186,7 @@ public class PostImageController {
     @ApiOperation(value = "点赞帖子接口")
     public AppResult likePost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
         if (postId == null) {
+            log.info("帖子id不能为空");
             return AppResult.failed("帖子id不能为空");
         }
         String token = request.getHeader("token");
@@ -178,25 +195,30 @@ public class PostImageController {
         // 从 redis 中获取当前登录用户
         User user = (User) redisUtil.get(username);
         if (user == null || user.getUserId() == null) {
+            log.info("登录信息已过期,请重新登录");
             return AppResult.failed("登录信息已过期,请重新登录");
         }
         // 判断当前登录用户是否已经点赞
         boolean liked = likeService.isLiked(postId, user.getUserId());
         if (!liked) {
+            log.info("你已经点赞过该帖子");
             return AppResult.failed("你已经点赞过该帖子");
         }
         // 查询帖子信息
         SysPostImage sysPostImage = postsImageService.selectPostById(postId);
         if (sysPostImage == null) {
+            log.info("帖子不存在");
             return AppResult.failed("帖子不存在");
         }
         int userId = user.getUserId();
         if (sysPostImage.getUserId().equals(userId)) {
+            log.info("不能给自己点赞");
             return AppResult.failed("不能给自己点赞");
         }
         // 点赞帖子
         boolean b = likeService.like(postId, user.getUserId());
         if (!b) {
+            log.info("点赞失败");
             return AppResult.failed("点赞失败");
         }
         // 更新帖子点赞数
@@ -213,6 +235,7 @@ public class PostImageController {
     @ApiOperation(value = "取消点赞帖子接口")
     public AppResult cancelLikePost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
         if (postId == null) {
+            log.info("帖子id不能为空");
             return AppResult.failed("帖子id不能为空");
         }
 
@@ -222,25 +245,30 @@ public class PostImageController {
         // 从 redis 中获取当前登录用户
         User user = (User) redisUtil.get(username);
         if (user == null || user.getUserId() == null) {
+            log.info("登录信息已过期,请重新登录");
             return AppResult.failed("登录信息已过期,请重新登录");
         }
         // 判断当前登录用户是否已经点赞
         boolean liked = likeService.isLiked(postId, user.getUserId());
         if (liked) {
+            log.info("你还没有点赞过该帖子");
             return AppResult.failed("你还没有点赞过该帖子");
         }
         // 查询帖子信息
         SysPostImage sysPostImage = postsImageService.selectPostById(postId);
         if (sysPostImage == null) {
+            log.info("帖子不存在");
             return AppResult.failed("帖子不存在");
         }
         int userId = user.getUserId();
         if (sysPostImage.getUserId().equals(userId)) {
+            log.info("不能给自己取消点赞");
             return AppResult.failed("不能给自己取消点赞");
         }
         // 取消点赞帖子
         boolean b = likeService.unlike(postId, user.getUserId());
         if (!b) {
+            log.info("取消点赞失败");
             return AppResult.failed("取消点赞失败");
         }
         // 更新帖子点赞数
@@ -262,12 +290,14 @@ public class PostImageController {
         // 从 redis 中获取当前登录用户
         User user = (User) redisUtil.get(username);
         if (user == null || user.getUserId() == null) {
+            log.info("登录信息已过期,请重新登录");
             return AppResult.failed("登录信息已过期,请重新登录");
         }
         // 查询当前用户点赞过的帖子信息
         // 查询当前用户都是点赞过那些帖子,拿到帖子id,再根据帖子id查询帖子信息
         List<Integer> likedPostIds = likeService.getLikedPostIds(user.getUserId());
         if (likedPostIds == null || likedPostIds.isEmpty()) {
+            log.info("没有点赞过的帖子");
             return AppResult.failed("没有点赞过的帖子");
         }
         List<SysPostImage> postImages = new ArrayList<>();
@@ -282,62 +312,110 @@ public class PostImageController {
     }
 
 
-//
-//    // 收藏帖子接口 todo
-//    @PostMapping(value = "/collectPost")
-//    @ApiOperation(value = "收藏帖子接口")
-//    public AppResult collectPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
-//        if (postId == null) {
-//            return AppResult.failed("帖子id不能为空");
-//        }
-//        // 判断当前登录用户是否已经收藏
-//        String token = request.getHeader("token");
-//        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
-//        String username = tokenInfo.getClaim("username").asString();
-//        // 从 redis 中获取当前登录用户
-//        User user = (User) redisUtil.get(username);
-//        // 查询帖子信息
-//        SysPostImage sysPostImage = postsImageService.selectPostById(postId);
-//        int userId = user.getUserId();
-//        if (sysPostImage.getUserId() == userId) {
-//            return AppResult.failed("不能收藏自己的帖子");
-//        }
-//        // 收藏帖子
-//        boolean b = postsImageService.collectPost(postId, user);
-//        if (!b) {
-//            return AppResult.failed("收藏失败");
-//        }
-//        return AppResult.success();
-//    }
-//
-//
-//    // 取消收藏帖子接口 todo
-//    @DeleteMapping(value = "/cancelCollectPost")
-//    @ApiOperation(value = "取消收藏帖子接口")
-//    public AppResult cancelCollectPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
-//        if (postId == null) {
-//            return AppResult.failed("帖子id不能为空");
-//        }
-//        // 判断当前登录用户是否已经收藏
-//        String token = request.getHeader("token");
-//        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
-//        String username = tokenInfo.getClaim("username").asString();
-//        // 从 redis 中获取当前登录用户
-//        User user = (User) redisUtil.get(username);
-//        // 查询帖子信息
-//        SysPostImage sysPostImage = postsImageService.selectPostById(postId);
-//        int userId = user.getUserId();
-//        if (sysPostImage.getUserId() == userId) {
-//            return AppResult.failed("不能取消收藏自己的帖子");
-//        }
-//        // 取消收藏帖子
-//        boolean b = postsImageService.cancelCollectPost(postId, user);
-//        if (!b) {
-//            return AppResult.failed("取消收藏失败");
-//        }
-//        return AppResult.success();
-//    }
-//
+    // 收藏帖子接口
+    @PostMapping(value = "/collectPost")
+    @ApiOperation(value = "收藏帖子接口")
+    public AppResult collectPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
+        if (postId == null) {
+            log.info("帖子id不能为空");
+            return AppResult.failed("帖子id不能为空");
+        }
+        String token = request.getHeader("token");
+        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+        String username = tokenInfo.getClaim("username").asString();
+        // 从 redis 中获取当前登录用户
+        User user = (User) redisUtil.get(username);
+        if (user == null || user.getUserId() == null) {
+            log.info("登录信息已过期,请重新登录");
+            return AppResult.failed("登录信息已过期,请重新登录");
+        }
+        Integer userId = user.getUserId();
+        // 判断当前用户是否已经收藏
+        boolean favorite = favoriteService.isFavorite(postId, userId);
+        if (favorite) {
+            log.info("你已经收藏过该帖子");
+            return AppResult.failed("你已经收藏过该帖子");
+        }
+        // 查询帖子信息
+        SysPostImage sysPostImage = postsImageService.selectPostById(postId);
+        if(sysPostImage == null) {
+            log.info("帖子不存在");
+            return AppResult.failed("帖子不存在");
+        }
+        if (sysPostImage.getUserId().equals(userId)) {
+            log.info("不能收藏自己的帖子");
+            return AppResult.failed("不能收藏自己的帖子");
+        }
+        // 收藏帖子
+        favoriteService.insertFavorite(sysPostImage, user);
+        return AppResult.success();
+    }
+
+
+    // 取消收藏帖子接口
+    @DeleteMapping(value = "/cancelCollectPost")
+    @ApiOperation(value = "取消收藏帖子接口")
+    public AppResult cancelCollectPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
+        if (postId == null) {
+            log.info("帖子id不能为空");
+            return AppResult.failed("帖子id不能为空");
+        }
+        String token = request.getHeader("token");
+        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+        String username = tokenInfo.getClaim("username").asString();
+        // 从 redis 中获取当前登录用户
+        User user = (User) redisUtil.get(username);
+        if (user == null || user.getUserId() == null) {
+            log.info("登录信息已过期,请重新登录");
+            return AppResult.failed("登录信息已过期,请重新登录");
+        }
+        // 查询帖子信息
+        SysPostImage sysPostImage = postsImageService.selectPostById(postId);
+        if (sysPostImage == null) {
+            log.info("帖子不存在");
+            return AppResult.failed("帖子不存在");
+        }
+        Integer userId = user.getUserId();
+        if (sysPostImage.getUserId().equals(userId)) {
+            log.info("不能取消收藏自己的帖子");
+            return AppResult.failed("不能取消收藏自己的帖子");
+        }
+        // 判断当前登录用户是否收藏该帖子
+        boolean favorite = favoriteService.isFavorite(postId, userId);
+        if (!favorite) {
+            // 没有收藏过 不能取消收藏
+            log.info("你没有收藏过该帖子");
+            return AppResult.failed("你没有收藏过该帖子");
+        }
+        // 取消收藏帖子
+        favoriteService.deleteFavorite(sysPostImage, user);
+        return AppResult.success();
+    }
+
+
+    // 获取当前用户收藏的帖子信息
+    @GetMapping(value = "/queryCollectedPosts")
+    @ApiOperation(value = "获取当前用户收藏的帖子信息")
+    public AppResult queryCollectedPosts(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+        String username = tokenInfo.getClaim("username").asString();
+        // 从 redis 中获取当前登录用户
+        User user = (User) redisUtil.get(username);
+        if (user == null || user.getUserId() == null) {
+            log.info("登录信息已过期,请重新登录");
+            return AppResult.failed("登录信息已过期,请重新登录");
+        }
+        // 查询当前用户收藏的帖子信息
+        List<SysPostImage> collectedPosts = favoriteService.getFavoriteList(user.getUserId());
+        if (collectedPosts == null || collectedPosts.isEmpty()) {
+            log.info("没有收藏的帖子");
+            return AppResult.failed("没有收藏的帖子");
+        }
+        return AppResult.success(collectedPosts);
+    }
+
+
 //    // 评论帖子接口 todo
 //    @PostMapping(value = "/commentPost")
 //    @ApiOperation(value = "评论帖子接口")
