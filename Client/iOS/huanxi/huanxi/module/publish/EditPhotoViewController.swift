@@ -73,8 +73,8 @@ class EditPhotoViewController: BaseViewController {
 //        let filterNames = ["铬黄", "褪色", "即影即逝", "单色照片", "黑白", "冲印", "色调", "岁月痕迹", "晕影", "单色", "伪彩色", "最大组件", "最小组件", "颜色控制"]
 //        let filterTypes = ["CIPhotoEffectChrome", "CIPhotoEffectFade", "CIPhotoEffectInstant", "CIPhotoEffectMono", "CIPhotoEffectNoir", "CIPhotoEffectProcess", "CIPhotoEffectTonal", "CIPhotoEffectTransfer", "CIVignette", "CIColorMonochrome", "CIFalseColor", "CIMaximumComponent", "CIMinimumComponent", "CIColorControls"]
         
-        let filterNames = ["铬黄", "褪色", "即影即逝","岁月痕迹", "单色"]
-        let filterTypes = ["CIPhotoEffectChrome", "CIPhotoEffectFade", "CIPhotoEffectInstant","CIPhotoEffectTransfer","CIColorMonochrome"]
+        let filterNames = ["冷色调", "暖色调", "黑白", "单色"]
+        let filterTypes = ["CIPhotoEffectProcess", "CIPhotoEffectTransfer", "CIPhotoEffectMono","CIColorMonochrome"]
         
         var index = 0
         if let image = self.images.first {
