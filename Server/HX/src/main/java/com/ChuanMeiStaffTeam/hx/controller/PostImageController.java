@@ -19,9 +19,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.models.auth.In;
 import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.FutureTask;
 
 @Slf4j
@@ -53,6 +56,9 @@ public class PostImageController {
     @Resource
     private ILikeService likeService;
 
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
+
 
     @Resource
     private IFavoriteService favoriteService;
@@ -60,17 +66,10 @@ public class PostImageController {
     @ApiOperation(value = "用户发帖接口")
     @PostMapping(value = "/article", consumes = "multipart/form-data")
     public AppResult upload(
-            @ApiParam("用户帖子信息") @RequestParam("post") String postJson,
+            @RequestBody SysPost post,
             @RequestParam("images") List<MultipartFile> images,
             HttpServletRequest request) {
         // 将 JSON 字符串转换为 SysPost 对象
-        SysPost post = null;
-        try {
-            post = new ObjectMapper().readValue(postJson, SysPost.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
         if (images.isEmpty()) {  // 图片为空
             log.info("请上传图片");
             return AppResult.failed("请上传图片");
@@ -105,7 +104,8 @@ public class PostImageController {
     // 用户查询帖子详情接口
     @GetMapping(value = "/queryPost")
     @ApiOperation(value = "用户查询帖子接口")
-    public AppResult queryPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId) {
+    public AppResult queryPost(@RequestBody Map<String, Object> params) {
+        Integer postId = (Integer) params.get("postId");
         if (postId == null) {
             log.info("帖子id不能为空");
             return AppResult.failed("帖子id不能为空");
@@ -120,7 +120,7 @@ public class PostImageController {
         List<SysImage> sysImages = postsImageService.selectPostImagesByPostId(postId);
         if (sysImages == null || sysImages.isEmpty()) {
             log.info("帖子图片不存在");
-            return AppResult.failed("帖子图片不存在");
+            //return AppResult.failed("帖子图片不存在");
         }
         sysPostImage.setImages(sysImages);
         return AppResult.success(sysPostImage);
@@ -145,7 +145,8 @@ public class PostImageController {
     // 用户删除帖子接口
     @DeleteMapping(value = "/deletePost")
     @ApiOperation(value = "用户删除帖子接口")
-    public AppResult deletePost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
+    public AppResult deletePost(@RequestBody Map<String, Object> params, HttpServletRequest request) {
+        Integer postId = (Integer) params.get("postId");
         if (postId == null) {
             log.info("帖子id不能为空");
             return AppResult.failed("帖子id不能为空");
@@ -184,7 +185,8 @@ public class PostImageController {
     // 点赞帖子接口
     @PostMapping(value = "/likePost")
     @ApiOperation(value = "点赞帖子接口")
-    public AppResult likePost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
+    public AppResult likePost(@RequestBody Map<String,Object> params, HttpServletRequest request) {
+        Integer postId = (Integer) params.get("postId");
         if (postId == null) {
             log.info("帖子id不能为空");
             return AppResult.failed("帖子id不能为空");
@@ -233,7 +235,8 @@ public class PostImageController {
     // 取消点赞帖子接口
     @PostMapping(value = "/cancelLikePost")
     @ApiOperation(value = "取消点赞帖子接口")
-    public AppResult cancelLikePost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
+    public AppResult cancelLikePost(@RequestBody Map<String,Object> params, HttpServletRequest request) {
+        Integer postId = (Integer) params.get("postId");
         if (postId == null) {
             log.info("帖子id不能为空");
             return AppResult.failed("帖子id不能为空");
@@ -315,7 +318,8 @@ public class PostImageController {
     // 收藏帖子接口
     @PostMapping(value = "/collectPost")
     @ApiOperation(value = "收藏帖子接口")
-    public AppResult collectPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
+    public AppResult collectPost(@RequestBody Map<String ,Object> params, HttpServletRequest request) {
+       Integer postId = (Integer) params.get("postId");
         if (postId == null) {
             log.info("帖子id不能为空");
             return AppResult.failed("帖子id不能为空");
@@ -355,7 +359,8 @@ public class PostImageController {
     // 取消收藏帖子接口
     @DeleteMapping(value = "/cancelCollectPost")
     @ApiOperation(value = "取消收藏帖子接口")
-    public AppResult cancelCollectPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId, HttpServletRequest request) {
+    public AppResult cancelCollectPost(@RequestBody Map<String,Object> params, HttpServletRequest request) {
+        Integer postId = (Integer) params.get("postId");
         if (postId == null) {
             log.info("帖子id不能为空");
             return AppResult.failed("帖子id不能为空");

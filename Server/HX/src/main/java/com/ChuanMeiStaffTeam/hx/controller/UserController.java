@@ -52,9 +52,13 @@ public class UserController {
     // 登录接口
     @ApiOperation(value = "用户名密码登录接口")
     @PostMapping("/login/username")
-    public AppResult login(@NonNull @ApiParam(value = "用户名") @RequestParam("username") String username,
-                           @NonNull @ApiParam(value = "密码") @RequestParam("password") String password,
+//    public AppResult login(@NonNull @ApiParam(value = "用户名") @RequestParam("username") String username,
+//                           @NonNull @ApiParam(value = "密码") @RequestParam("password") String password,
+//                           HttpServletRequest request) {
+    public AppResult login( @RequestBody Map<String, String> params,
                            HttpServletRequest request) {
+        String username = params.get("username");
+        String password = params.get("password");
         // 检查登录失败时间是否到期
         if (redisTemplate.opsForValue().get(username) != null) {
             return AppResult.failed(ResultCode.FAILED_LOGIN_LIMIT.getMessage());
@@ -102,10 +106,15 @@ public class UserController {
     // 注册接口用户名密码注册
     @ApiOperation(value = "用户名密码注册接口")
     @PostMapping("/register/username")
-    public AppResult register(@NonNull @ApiParam(value = "用户名") @RequestParam("username") String username,
-                              @NonNull @ApiParam(value = "姓名") @RequestParam("fullName") String fullName,
-                              @NonNull @ApiParam(value = "密码") @RequestParam("password") String password,
-                              @NonNull @ApiParam(value = "确认密码") @RequestParam("password2") String password2) {
+//    public AppResult register(@NonNull @ApiParam(value = "用户名") @RequestParam("username") String username,
+//                              @NonNull @ApiParam(value = "姓名") @RequestParam("fullName") String fullName,
+//                              @NonNull @ApiParam(value = "密码") @RequestParam("password") String password,
+//                              @NonNull @ApiParam(value = "确认密码") @RequestParam("password2") String password2) {
+    public AppResult register(@RequestBody Map<String, String> params) {
+        String username = params.get("username");
+        String fullName = params.get("fullName");
+        String password = params.get("password");
+        String password2 = params.get("password2");
         // 判断两次密码是否相同
         if (!password.equals(password2)) {
             log.error(ResultCode.FAILED_TWO_PWD_NOT_SAME.getMessage());
@@ -169,7 +178,7 @@ public class UserController {
         redisTemplate.delete(username);
         redisTemplate.delete(username + ": token");
         // 删除token  todo 后续处理
-             request.getSession().invalidate(); // 销毁session 同时删除session中的token
+        request.getSession().invalidate(); // 销毁session 同时删除session中的token
         log.info("注销成功 username: " + username);
         return AppResult.success();
     }

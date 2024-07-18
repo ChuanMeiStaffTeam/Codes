@@ -78,11 +78,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public int updateUserAvatar(Integer userId, String avatarUrl) {
-        User user = userMapper.selectById(userId);
+    public int updateUserAvatar(User user, String avatarUrl) {
         System.out.println(user);
         user.setProfilePictureUrl(avatarUrl);
         user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));  // 更新用户的更新时间
+        // 更新redis缓存
+        redisTemplate.opsForValue().set(user.getUsername(), user, 7, TimeUnit.DAYS);
         return userMapper.updateById(user);  // 更新用户头像
     }
 

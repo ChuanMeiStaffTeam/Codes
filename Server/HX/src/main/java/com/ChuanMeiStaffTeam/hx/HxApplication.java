@@ -11,7 +11,7 @@ public class HxApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(HxApplication.class, args);
-        System.out.println("Hello World!");
+        System.out.println("(๑•̀ㅂ•́)و✧  欢喜后端系统启动成功   (๑•̀ㅂ•́)و✧  \n");
     }
 
 }
