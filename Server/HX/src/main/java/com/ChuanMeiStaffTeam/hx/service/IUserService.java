@@ -37,7 +37,7 @@ public interface IUserService extends IService<User> {
 
 
     //用户修改头像
-    int updateUserAvatar(Integer userId,String fileUrl);
+    int updateUserAvatar(User user,String fileUrl);
 
     // 用户更新个人基本信息
     int updateUserBaseInfo(User user);
