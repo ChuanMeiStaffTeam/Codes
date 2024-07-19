@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ public interface IPostsImage extends IService<SysPost> {
 
     // 保存帖子信息
     @Transactional // 事务注解
-    boolean insertPost(SysPost sysPost, User user, List<MultipartFile> images);
+    boolean insertPost(SysPost sysPost, User user, List<String> images);
 
     // 保存帖子下的图片
     int insertPostImage(SysImage sysImages);

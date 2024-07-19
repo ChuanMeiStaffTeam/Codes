@@ -101,6 +101,12 @@ public class SysPost {
     private String visibility;
 
 
+    // 帖子图片url 该字段不存入数据库，而是通过图片表关联查询获取
+
+    @TableField(exist = false)   // 不在数据库中创建该字段
+    private List<String> imagesUrl;
+
+
 
 
 }

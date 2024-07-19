@@ -6,6 +6,7 @@ import com.ChuanMeiStaffTeam.hx.model.SysImage;
 import com.ChuanMeiStaffTeam.hx.model.SysPost;
 import com.ChuanMeiStaffTeam.hx.model.User;
 import com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage;
+import com.ChuanMeiStaffTeam.hx.model.vo.paramPost;
 import com.ChuanMeiStaffTeam.hx.service.IFavoriteService;
 import com.ChuanMeiStaffTeam.hx.service.ILikeService;
 import com.ChuanMeiStaffTeam.hx.service.IPostsImage;
@@ -63,13 +64,12 @@ public class PostImageController {
     @Resource
     private IFavoriteService favoriteService;
 
-    @ApiOperation(value = "用户发帖接口")
+    @ApiOperation(value = "用户发帖图片接口")
     @PostMapping(value = "/article", consumes = "multipart/form-data")
     public AppResult upload(
-            @RequestBody SysPost post,
             @RequestParam("images") List<MultipartFile> images,
             HttpServletRequest request) {
-        // 将 JSON 字符串转换为 SysPost 对象
+
         if (images.isEmpty()) {  // 图片为空
             log.info("请上传图片");
             return AppResult.failed("请上传图片");
@@ -84,22 +84,54 @@ public class PostImageController {
             log.info("登录信息已过期,请重新登录");
             return AppResult.failed("登录信息已过期,请重新登录");
         }
-        post.setUserId(user.getUserId());
+        List<String> imageUrls = new ArrayList<>();
+        for (MultipartFile image : images) {
+            String imageUrl = UploadUtil.uploadFile(image);
+            imageUrls.add(imageUrl);
+        }
+        return AppResult.success(imageUrls);
+
+
+      //  post.setUserId(user.getUserId());
 //        log.error(user.toString());
 //        log.error(post.toString());
         // 插入帖子信息,用户帖子数量加1,保存图片
-        long start = System.currentTimeMillis();
-        boolean b = postsImageService.insertPost(post, user, images);
-        long end = System.currentTimeMillis();
-        log.error("插入帖子信息耗时:" + (end - start) + "毫秒");
+       // long start = System.currentTimeMillis();
+      //  boolean b = postsImageService.insertPost(post, user, images);
+       // long end = System.currentTimeMillis();
+       // log.error("插入帖子信息耗时:" + (end - start) + "毫秒");
         // 后续添加redis缓存 todo
-        if (!b) {
-            log.info("发帖失败");
-            return AppResult.failed("发帖失败");
-        }
-        return AppResult.success();
+//        if (!b) {
+//            log.info("发帖失败");
+//            return AppResult.failed("发帖失败");
+//        }
+    //    return AppResult.success();
     }
 
+        // 用户发帖接口
+        @PostMapping("/createPost")
+        public AppResult createPost(@RequestBody SysPost post, HttpServletRequest request) {
+            // 获取当前登录用户id和username 从token中获取
+            String token = request.getHeader("token");
+            DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+            String username = tokenInfo.getClaim("username").asString();
+            // 从 redis 中获取当前登录用户
+            User user = (User) redisUtil.get(username);
+            if (user == null) {
+                log.info("登录信息已过期,请重新登录");
+                return AppResult.failed("登录信息已过期,请重新登录");
+            }
+            post.setUserId(user.getUserId());
+            log.error(post.toString());
+
+            // 插入帖子信息,用户帖子数量加1,保存图片
+            boolean b = postsImageService.insertPost(post, user, post.getImagesUrl());
+            if(!b) {
+                log.info("发帖失败");
+                return AppResult.failed("发帖失败");
+            }
+            return AppResult.success();
+        }
 
     // 用户查询帖子详情接口
     @GetMapping(value = "/queryPost")

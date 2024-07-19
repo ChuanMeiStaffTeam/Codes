@@ -9,20 +9,15 @@ import com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage;
 import com.ChuanMeiStaffTeam.hx.service.IImage;
 import com.ChuanMeiStaffTeam.hx.service.IPostsImage;
 import com.ChuanMeiStaffTeam.hx.service.IUserService;
-import com.ChuanMeiStaffTeam.hx.util.JwtUtil;
 import com.ChuanMeiStaffTeam.hx.util.RedisUtil;
 import com.ChuanMeiStaffTeam.hx.util.UploadUtil;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,18 +53,17 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
     private RedisUtil redisUtil;
 
     @Override
-    public boolean insertPost(SysPost sysPost, User user, List<MultipartFile> images) {
+    public boolean insertPost(SysPost sysPost, User user, List<String> images) {
         // 插入文章 并获取文章id
         postMapper.insert(sysPost);
         int postId = sysPost.getPostId(); // 返回文章id
         //更新用户帖子数量
         userService.updateUserPostCount(user);
         // 保存图片
-        for (MultipartFile image : images) {
-            String imageUrl = UploadUtil.uploadFile(image);
+        for (String image : images) {
             SysImage sysImage = new SysImage();
             sysImage.setPostId(postId);
-            sysImage.setImageUrl(imageUrl);
+            sysImage.setImageUrl(image);
             insertPostImage(sysImage);
         }
         return true;
