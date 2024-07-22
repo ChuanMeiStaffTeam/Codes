@@ -83,6 +83,34 @@ class EditHomePageViewController: BaseViewController {
         
         createLine(left: 0, top: .topSafeAreaHeight + 200)
         
+        var itemTop = .topSafeAreaHeight + 200
+        createItem(title: "姓名", value: "小摩", top: itemTop)
+        itemTop = itemTop + 46
+        
+        createItem(title: "账号", value: "xiaomo", top: itemTop)
+        itemTop = itemTop + 46
+        
+        createItem(title: "网站", value: "www.baidu.com", top: itemTop)
+        itemTop = itemTop + 46
+        
+        createItem(title: "个性签名", value: "设计+协作，摹客就够了！", top: itemTop)
+        itemTop = itemTop + 46
+        
+        createLine(left: 0, top: itemTop)
+        let titleLabel1 = UILabel(frame: CGRect(x: 20, y: itemTop, width: 100, height: 46))
+        titleLabel1.text = "切换为专业账户"
+        titleLabel1.textColor = .mainBlueColor
+        titleLabel1.font = .systemFont(ofSize: 14)
+        view.addSubview(titleLabel1)
+        
+        
+        itemTop = itemTop + 46
+        createLine(left: 0, top: itemTop)
+        let titleLabel2 = UILabel(frame: CGRect(x: 20, y: itemTop, width: 100, height: 46))
+        titleLabel2.text = "个人信息设置"
+        titleLabel2.textColor = .mainBlueColor
+        titleLabel2.font = .systemFont(ofSize: 14)
+        view.addSubview(titleLabel2)
         
         
     }
@@ -94,9 +122,19 @@ class EditHomePageViewController: BaseViewController {
     }
     
     func createItem(title: String, value: String, top: CGFloat) {
-//        let titleLabel = UILabel(frame: CGRect(x: <#T##Int#>, y: <#T##Int#>, width: <#T##Int#>, height: 46))
+        let titleLabel = UILabel(frame: CGRect(x: 20, y: top, width: 100, height: 46))
+        titleLabel.text = title
+        titleLabel.textColor = .white
+        titleLabel.font = .systemFont(ofSize: 14)
+        view.addSubview(titleLabel)
         
+        let valueLabel = UILabel(frame: CGRect(x: 120, y: top, width: 100, height: 46))
+        valueLabel.text = value
+        valueLabel.textColor = .white
+        valueLabel.font = .systemFont(ofSize: 14)
+        view.addSubview(valueLabel)
         
+        createLine(left: 120, top: top + 45)
     }
     
     
