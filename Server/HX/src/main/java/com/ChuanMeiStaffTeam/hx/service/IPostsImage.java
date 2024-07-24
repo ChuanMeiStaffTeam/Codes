@@ -54,4 +54,6 @@ public interface IPostsImage extends IService<SysPost> {
     // 更新帖子收藏数
     boolean updatePostCollectCount(Integer postId, Integer collectCount);
 
+    // 更新帖子评论数
+    boolean updatePostCommentCount(Integer postId, Integer commentCount);
 }

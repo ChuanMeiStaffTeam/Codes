@@ -3,6 +3,7 @@ package com.ChuanMeiStaffTeam.hx.service;
 import com.ChuanMeiStaffTeam.hx.model.SysComment;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ICommentService extends IService<SysComment> {
 
-    // 新增评论
+    // 新增评论 帖子评论数+1
+    @Transactional
     void addComment(SysComment comment);
 }

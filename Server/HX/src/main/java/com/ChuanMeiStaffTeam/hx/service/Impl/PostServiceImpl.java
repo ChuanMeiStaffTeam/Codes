@@ -172,4 +172,15 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
         return update > 0;
     }
 
+    @Override
+    public boolean updatePostCommentCount(Integer postId, Integer commentCount) {
+        QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("post_id",postId);
+        SysPost sysPost = new SysPost();
+        sysPost.setCommentsCount(commentCount);
+        int update = postMapper.update(sysPost, queryWrapper);
+        // sql: update sys_post set comments_count = #{commentCount} where post_id = #{postId}
+        return update > 0;
+    }
+
 }

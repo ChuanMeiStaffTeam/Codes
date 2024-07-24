@@ -114,12 +114,12 @@ public class UserController {
         String username = params.get("username");
         String fullName = params.get("fullName");
         String password = params.get("password");
-        String password2 = params.get("password2");
+ //       String password2 = params.get("password2");
         // 判断两次密码是否相同
-        if (!password.equals(password2)) {
-            log.error(ResultCode.FAILED_TWO_PWD_NOT_SAME.getMessage());
-            throw new ApplicationException(ResultCode.FAILED_TWO_PWD_NOT_SAME.getMessage());
-        }
+//        if (!password.equals(password2)) {
+//            log.error(ResultCode.FAILED_TWO_PWD_NOT_SAME.getMessage());
+//            throw new ApplicationException(ResultCode.FAILED_TWO_PWD_NOT_SAME.getMessage());
+//        }
         User user = userService.getUserByUserName(username);
         // 判断用户名是否已经注册
         if (user != null) {
