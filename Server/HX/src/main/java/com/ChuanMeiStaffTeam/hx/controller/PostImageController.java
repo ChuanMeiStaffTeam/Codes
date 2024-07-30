@@ -339,6 +339,9 @@ public class PostImageController {
         // 根据帖子id查询帖子信息  图片信息
         for (Integer likedPostId : likedPostIds) {
             SysPostImage sysPostImage = postsImageService.selectPostById(likedPostId);
+            if(sysPostImage == null) {
+                continue;
+            }
             List<SysImage> sysImages = postsImageService.selectPostImagesByPostId(likedPostId);
             sysPostImage.setImages(sysImages);
             postImages.add(sysPostImage);

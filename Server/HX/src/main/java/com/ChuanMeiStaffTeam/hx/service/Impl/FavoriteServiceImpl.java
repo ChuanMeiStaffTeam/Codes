@@ -100,6 +100,9 @@ public class FavoriteServiceImpl extends ServiceImpl<FavoriteMapper, SysFavorite
         List<SysPostImage> sysPostImageList = new ArrayList<>();
         for (SysFavorite sysFavorite : sysFavorites) {
             SysPostImage post = postsImage.selectPostById(sysFavorite.getPostId());
+            if(post == null) {
+                continue;
+            }
             List<SysImage> sysImages = postsImage.selectPostImagesByPostId(sysFavorite.getPostId());
             post.setImages(sysImages);
             sysPostImageList.add(post);

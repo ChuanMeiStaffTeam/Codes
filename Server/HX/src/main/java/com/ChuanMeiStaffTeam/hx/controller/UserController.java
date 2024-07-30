@@ -93,13 +93,14 @@ public class UserController {
         Map<String, String> payload = JwtUtil.getPayload(TokenUser);
         String token = JwtUtil.getToken(payload);
         log.info("登录成功 username: " + username);
-        Map<String, String> tokenMap = new HashMap<>();
+        Map<String, Object> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         // 将user放入redis缓存
         redisTemplate.opsForValue().set(username, TokenUser, 7, TimeUnit.DAYS);  // 设置redis缓存 过期时间为7天
         // 将token放入redis缓存
         redisTemplate.opsForValue().set(username + ": token", token, 7, TimeUnit.DAYS);  // 设置redis缓存 过期时间为7天
-        return AppResult.success(tokenMap);  // 返回token
+        tokenMap.put("userinfo",TokenUser);
+        return AppResult.success(tokenMap);  //登录成功 返回token 和用户信息
     }
 
 

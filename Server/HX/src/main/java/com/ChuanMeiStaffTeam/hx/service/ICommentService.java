@@ -18,4 +18,8 @@ public interface ICommentService extends IService<SysComment> {
     // 新增评论 帖子评论数+1
     @Transactional
     void addComment(SysComment comment);
+
+    // 校验用户是否是评论者
+
+    boolean checkUser(Integer userId, Integer commentId);
 }

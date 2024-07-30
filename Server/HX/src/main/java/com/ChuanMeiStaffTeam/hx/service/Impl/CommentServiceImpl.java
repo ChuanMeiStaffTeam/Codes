@@ -49,4 +49,18 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, SysComment> i
         postsImage.updatePostCommentCount(comment.getPostId(),sysPostImage.getCommentsCount());
         log.info("新增评论成功");
     }
+
+    @Override
+    public boolean checkUser(Integer userId, Integer commentId) {
+        if(userId == null || commentId == null) {
+            log.error("用户或评论ID为空");
+            throw new ApplicationException("用户或评论ID为空");
+        }
+        SysComment sysComment = commentMapper.selectById(commentId);
+        if(sysComment == null) {
+            log.error("评论不存在,无法进行删除");
+            throw new ApplicationException("评论不存在,无法进行删除");
+        }
+        return userId.equals(commentId);
+    }
 }
