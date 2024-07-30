@@ -86,21 +86,20 @@ public class UserController {
         userService.updateUserLastLoginTime(user);
         // 更新用户失败登录次数为0
         userService.updateUserLoginCountToZero(user);
-
-        // 创建token 将user对象的部分信息放入token中，并存入redis缓存
-        User TokenUser = new User();
-        TokenUser = userService.getUserByUserName(user.getUsername());
-        Map<String, String> payload = JwtUtil.getPayload(TokenUser);
-        String token = JwtUtil.getToken(payload);
         log.info("登录成功 username: " + username);
+        // 创建token 将user对象的部分信息放入token中，并存入redis缓存
+
+        Map<String, String> payload = JwtUtil.getPayload(user);
+        String token = JwtUtil.getToken(payload);
         Map<String, Object> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
-        // 将user放入redis缓存
-        redisTemplate.opsForValue().set(username, TokenUser, 7, TimeUnit.DAYS);  // 设置redis缓存 过期时间为7天
-        // 将token放入redis缓存
+        tokenMap.put("userinfo", user);
+        log.info("token: " + token);
+        log.info("userinfo: " + user);
+        redisTemplate.opsForValue().set(username, user, 7, TimeUnit.DAYS);  // 设置redis缓存 过期时间为7天
         redisTemplate.opsForValue().set(username + ": token", token, 7, TimeUnit.DAYS);  // 设置redis缓存 过期时间为7天
-        tokenMap.put("userinfo",TokenUser);
-        return AppResult.success(tokenMap);  //登录成功 返回token 和用户信息
+        return AppResult.success(tokenMap);
+
     }
 
 

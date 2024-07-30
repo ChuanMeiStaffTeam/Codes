@@ -40,7 +40,7 @@
     <sql id="Base_Column_List">
         user_id
         , username, full_name,email, salt, password_hash,
-        post_Count, follower_Count,following_Count,favorite_Count bio,
+        post_Count, follower_Count,following_Count,favorite_Count, bio,
         profile_picture_url,website_url, phone_number,
         gender, date_of_birth, address, city, state, country,
         postal_code, created_at, updated_at,
