@@ -33,10 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.FutureTask;
 
 @Slf4j
@@ -169,8 +166,10 @@ public class PostImageController {
             log.info("帖子为空");
             return AppResult.failed("帖子为空");
         }
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", sysPostImages);
         // 后续添加分页功能 redis缓存 todo
-        return AppResult.success(sysPostImages);
+        return AppResult.success(map);
     }
 
 

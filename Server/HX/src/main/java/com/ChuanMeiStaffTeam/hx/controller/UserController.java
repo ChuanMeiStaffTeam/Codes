@@ -160,14 +160,6 @@ public class UserController {
     // 注销接口
     @PostMapping("/logout")
     public AppResult logout(HttpServletRequest request) {
-//        HttpSession session = request.getSession(false);
-//        if (session != null) {
-//            session.invalidate();  // 销毁session
-//        }
-//        log.info("注销成功");
-//        return AppResult.success();
-
-
         // 从redis中获取token，并删除redis缓存
         String token = request.getHeader("token");
         // 从token中获取username
