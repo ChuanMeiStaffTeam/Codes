@@ -3,7 +3,10 @@ package com.ChuanMeiStaffTeam.hx.controller;
 import com.ChuanMeiStaffTeam.hx.common.AppResult;
 import com.ChuanMeiStaffTeam.hx.model.SysComment;
 import com.ChuanMeiStaffTeam.hx.model.User;
+import com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage;
 import com.ChuanMeiStaffTeam.hx.service.ICommentService;
+import com.ChuanMeiStaffTeam.hx.service.IPostsImage;
+import com.ChuanMeiStaffTeam.hx.service.Impl.PostServiceImpl;
 import com.ChuanMeiStaffTeam.hx.util.AuthUtil;
 import com.ChuanMeiStaffTeam.hx.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -35,10 +38,13 @@ public class CommentController {
     @Resource
     private ICommentService commentService;
 
+    @Resource
+    private IPostsImage postService;
+
 
     // 发布评论
     @PostMapping("/addComment")
-// 评论正文,帖子id,父评论id
+// 发布评论 评论内容 帖子id 用户id 父评论id
     public AppResult addComment(@RequestBody SysComment comment, HttpServletRequest request) {
         String currentUserName = AuthUtil.getCurrentUserName(request);
         if (currentUserName == null || currentUserName.equals("")) {
@@ -82,11 +88,17 @@ public class CommentController {
         if(!b) {
             return AppResult.failed("不能删除别人的评论");
         }
-       // todo 判断是否为父评论  如果是父评论 则删除所有子评论   否则只删除当前评论
-        // todo 判断当前帖子是否删除  如果帖子删除 则删除所有评论  否则只删除当前评论
-
-        // todo
+        // 判断帖子是否存在
+        Integer postId = (Integer) params.get("postId");
+        if (postId == null) {
+            return AppResult.failed("帖子id不能为空");
+        }
+        SysPostImage sysPostImage = postService.selectPostById(postId);
+        if(sysPostImage == null) {
+            return AppResult.failed("帖子不存在");
+        }
+        Integer parentCommentId = (Integer) params.get("parentCommentId");
+        commentService.delComment(commentId,postId,parentCommentId);
         return AppResult.success("删除成功");
     }
-    // 校验参数 评论id 帖子id 父评论id
 }

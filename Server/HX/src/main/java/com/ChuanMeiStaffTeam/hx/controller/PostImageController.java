@@ -208,6 +208,7 @@ public class PostImageController {
             log.info("删除帖子失败");
             return AppResult.failed("删除帖子失败");
         }
+        // todo 删除该帖子下的所有评论信息
         return AppResult.success();
     }
 

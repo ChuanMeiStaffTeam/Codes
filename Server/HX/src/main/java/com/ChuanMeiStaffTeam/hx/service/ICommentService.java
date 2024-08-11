@@ -20,6 +20,9 @@ public interface ICommentService extends IService<SysComment> {
     void addComment(SysComment comment);
 
     // 校验用户是否是评论者
-
     boolean checkUser(Integer userId, Integer commentId);
+
+    // 删除评论 帖子评论数-1
+    @Transactional
+    void delComment(Integer commentId,Integer postId,Integer parentCommentId);
 }
