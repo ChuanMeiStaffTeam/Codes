@@ -11,13 +11,12 @@ import com.ChuanMeiStaffTeam.hx.util.AuthUtil;
 import com.ChuanMeiStaffTeam.hx.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -100,5 +99,19 @@ public class CommentController {
         Integer parentCommentId = (Integer) params.get("parentCommentId");
         commentService.delComment(commentId,postId,parentCommentId);
         return AppResult.success("删除成功");
+    }
+
+
+    @GetMapping("/getCommentsByPostId")
+    public AppResult getCommentsByPostId(@RequestBody Map<String,Object> params) {
+        Integer postId = (Integer) params.get("postId");
+        if (postId == null) {
+            return AppResult.failed("帖子ID不能为空");
+        }
+
+        List<SysComment> comments = commentService.getCommentsByPostId(postId);
+        Map<String, Object> result = new HashMap<>();
+        result.put("comments", comments);
+        return AppResult.success(result);
     }
 }

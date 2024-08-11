@@ -78,7 +78,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, SysComment> i
     @Override
     public void delComment(Integer commentId, Integer postId, Integer parentCommentId) {
         int deletedCommentsCount = 0;
-        if (parentCommentId == null || parentCommentId.equals(0)) {
+        if (parentCommentId == null || parentCommentId.equals(0)) {  // 根评论
             // 父评论为0，表示这是一个根评论，递归删除所有子评论及当前评论
             deletedCommentsCount = deleteCommentAndChildren(commentId);
             // 删除当前根评论
@@ -87,10 +87,14 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, SysComment> i
             deletedCommentsCount++;
             log.info("删除根评论及其子评论成功");
         } else {
-            // 只删除当前评论
+            // 不是根评论, 递归删除当前评论及其子评论
+            deletedCommentsCount = deleteCommentAndChildren(commentId);
             commentMapper.deleteById(commentId);
+            deletedCommentsCount++;
+            // 只删除当前评论
+            //commentMapper.deleteById(commentId);
             // 计数增加1
-            deletedCommentsCount = 1;
+            //deletedCommentsCount = 1;
 
             log.info("删除评论成功");
         }
@@ -127,5 +131,13 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, SysComment> i
         postsImage.updatePostCommentCount(postId, sysPostImage.getCommentsCount());
     }
 
+
+
+    @Override
+    public List<SysComment> getCommentsByPostId(Integer postId) {
+        QueryWrapper<SysComment> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("post_id", postId);
+        return commentMapper.selectList(queryWrapper); // 查询该帖子的所有评论 返回List<SysComment>
+    }
 
 }
