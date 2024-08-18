@@ -71,6 +71,7 @@ public class PostImageController {
             log.info("请上传图片");
             return AppResult.failed("请上传图片");
         }
+        Map<String, Object> params = new HashMap<>();
         // 获取当前登录用户id和username 从token中获取
         String token = request.getHeader("token");
         DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
@@ -86,7 +87,8 @@ public class PostImageController {
             String imageUrl = UploadUtil.uploadFile(image);
             imageUrls.add(imageUrl);
         }
-        return AppResult.success(imageUrls);
+        params.put("list",imageUrls);
+        return AppResult.success(params);
 
 
       //  post.setUserId(user.getUserId());
@@ -152,7 +154,9 @@ public class PostImageController {
             //return AppResult.failed("帖子图片不存在");
         }
         sysPostImage.setImages(sysImages);
-        return AppResult.success(sysPostImage);
+        Map<String, Object> map = new HashMap<>();
+        map.put("post", sysPostImage);
+        return AppResult.success(map);
     }
 
     // 获取主页帖子信息接口
@@ -346,7 +350,9 @@ public class PostImageController {
             sysPostImage.setImages(sysImages);
             postImages.add(sysPostImage);
         }
-        return AppResult.success(postImages);
+        Map<String, Object> map = new HashMap<>();
+        map.put("list",postImages);
+        return AppResult.success(map);
     }
 
 
@@ -452,7 +458,9 @@ public class PostImageController {
             log.info("没有收藏的帖子");
             return AppResult.failed("没有收藏的帖子");
         }
-        return AppResult.success(collectedPosts);
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", collectedPosts);
+        return AppResult.success(map);
     }
 
 

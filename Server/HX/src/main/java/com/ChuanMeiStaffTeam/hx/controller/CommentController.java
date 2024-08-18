@@ -102,6 +102,7 @@ public class CommentController {
     }
 
 
+    // 获取帖子评论列表 帖子id
     @GetMapping("/getCommentsByPostId")
     public AppResult getCommentsByPostId(@RequestBody Map<String,Object> params) {
         Integer postId = (Integer) params.get("postId");

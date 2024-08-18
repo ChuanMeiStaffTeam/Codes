@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -71,7 +72,9 @@ public class UserInfoController {
         }
         userService.updateUserAvatar(user, s);
         log.info("用户头像更新成功, 图片路径为{}" + s);
-        return AppResult.success(s);
+        Map<String, Object> map = new HashMap<>();
+        map.put("avatar", s);
+        return AppResult.success(map);
     }
 
     // 更新用户信息
@@ -108,13 +111,15 @@ public class UserInfoController {
         User resultUser = userService.getUserByUserId(user);
         // 更新 redis 中的用户信息
         redisTemplate.opsForValue().set(username, resultUser, 7, TimeUnit.DAYS);  // 设置redis缓存 过期时间为7天
-        return AppResult.success(resultUser);
+        Map<String, Object> map = new HashMap<>();
+        map.put("user",resultUser);
+        return AppResult.success(map);
     }
 
     // 获取用户详细信息
     @ApiOperation(value = "获取用户详细信息")
     @GetMapping("/getUserInfo")
-    public AppResult<User> getUserInfo(HttpServletRequest request) {
+    public AppResult getUserInfo(HttpServletRequest request) {
         String token = request.getHeader("token");
         DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
         // 从token中获取用户名
@@ -125,7 +130,9 @@ public class UserInfoController {
             log.error("登录信息已过期,请重新登录");
             throw new ApplicationException("用户不存在");
         }
-        return AppResult.success(loginUser);
+        Map<String, Object> map = new HashMap<>();
+        map.put("user",loginUser);
+        return AppResult.success(map);
     }
 
     //更新用户密码
