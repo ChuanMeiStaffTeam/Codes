@@ -1,5 +1,6 @@
 package com.ChuanMeiStaffTeam.hx.service.Impl;
 
+import com.ChuanMeiStaffTeam.hx.exception.ApplicationException;
 import com.ChuanMeiStaffTeam.hx.service.IUserService;
 import com.ChuanMeiStaffTeam.hx.dao.UserMapper;
 import com.ChuanMeiStaffTeam.hx.model.User;
@@ -90,6 +91,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     // 更新用户基本信息
     @Override
     public int updateUserBaseInfo(User user) {
+        // 判断用户邮箱和电话号码是否已存在
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("email", user.getEmail()).or().eq("phone_number", user.getPhoneNumber());
+        User existUser = userMapper.selectOne(queryWrapper);
+        // sql : select * from user where email = 'user.getEmail()' or phone_number = 'user.getPhoneNumber()'
+        if(existUser != null) {
+            throw new ApplicationException("邮箱或电话号码已存在");  // 邮箱或电话号码已存在，返回0
+        }
         return userMapper.updateById(user);
 
     }

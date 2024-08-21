@@ -132,6 +132,7 @@ public class UserInfoController {
         }
         Map<String, Object> map = new HashMap<>();
         map.put("user",loginUser);
+        log.info("获取用户详细信息成功" + loginUser.toString());
         return AppResult.success(map);
     }
 
@@ -179,6 +180,7 @@ public class UserInfoController {
         user.setUpdatedAt(TimeUtil.getCurrentTime()); // 更新用户的更新时间
         int i = userService.updateUserPassword(user);
         // todo 用户密码更新之后是否需要重新登录
+        log.info("用户密码更新成功");
         return AppResult.success();
     }
     // TEST CODE END

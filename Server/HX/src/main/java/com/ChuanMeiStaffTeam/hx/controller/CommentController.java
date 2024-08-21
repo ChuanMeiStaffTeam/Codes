@@ -98,6 +98,7 @@ public class CommentController {
         }
         Integer parentCommentId = (Integer) params.get("parentCommentId");
         commentService.delComment(commentId,postId,parentCommentId);
+        log.info("删除评论成功");
         return AppResult.success("删除成功");
     }
 
@@ -113,6 +114,7 @@ public class CommentController {
         List<SysComment> comments = commentService.getCommentsByPostId(postId);
         Map<String, Object> result = new HashMap<>();
         result.put("comments", comments);
+        log.info("获取帖子评论列表成功");
         return AppResult.success(result);
     }
 }

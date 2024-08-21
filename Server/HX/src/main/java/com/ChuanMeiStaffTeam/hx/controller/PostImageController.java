@@ -87,6 +87,7 @@ public class PostImageController {
             String imageUrl = UploadUtil.uploadFile(image);
             imageUrls.add(imageUrl);
         }
+        log.info("用户帖子图片上传成功" + imageUrls.toString());
         params.put("list",imageUrls);
         return AppResult.success(params);
 
@@ -129,6 +130,7 @@ public class PostImageController {
                 log.info("发帖失败");
                 return AppResult.failed("发帖失败");
             }
+            log.info("发帖成功");
             return AppResult.success();
         }
 
@@ -156,6 +158,7 @@ public class PostImageController {
         sysPostImage.setImages(sysImages);
         Map<String, Object> map = new HashMap<>();
         map.put("post", sysPostImage);
+        log.info("根据id查询帖子成功");
         return AppResult.success(map);
     }
 
@@ -173,6 +176,7 @@ public class PostImageController {
         Map<String, Object> map = new HashMap<>();
         map.put("list", sysPostImages);
         // 后续添加分页功能 redis缓存 todo
+        log.info("获取主页帖子成功");
         return AppResult.success(map);
     }
 
@@ -213,6 +217,7 @@ public class PostImageController {
             return AppResult.failed("删除帖子失败");
         }
         // todo 删除该帖子下的所有评论信息
+        log.info("" + postId + "删除帖子成功");
         return AppResult.success();
     }
 
@@ -265,6 +270,7 @@ public class PostImageController {
         }
         Integer likeCount = sysPostImage.getLikesCount() + 1;
         postsImageService.updatePostLikeCount(postId, likeCount);
+        log.info("点赞成功");
         return AppResult.success("点赞成功");
     }
 
@@ -316,6 +322,7 @@ public class PostImageController {
         }
         Integer likeCount = 0;
         postsImageService.updatePostLikeCount(postId, likeCount);
+        log.info("取消点赞成功");
         return AppResult.success("取消点赞成功");
     }
 
@@ -352,6 +359,7 @@ public class PostImageController {
         }
         Map<String, Object> map = new HashMap<>();
         map.put("list",postImages);
+        log.info("查询当前用户点赞过的帖子信息成功");
         return AppResult.success(map);
     }
 
@@ -393,6 +401,7 @@ public class PostImageController {
         }
         // 收藏帖子
         favoriteService.insertFavorite(sysPostImage, user);
+        log.info("收藏帖子成功");
         return AppResult.success();
     }
 
@@ -435,6 +444,7 @@ public class PostImageController {
         }
         // 取消收藏帖子
         favoriteService.deleteFavorite(sysPostImage, user);
+        log.info("取消收藏帖子成功");
         return AppResult.success();
     }
 
@@ -460,6 +470,7 @@ public class PostImageController {
         }
         Map<String, Object> map = new HashMap<>();
         map.put("list", collectedPosts);
+        log.info("获取当前用户收藏的帖子信息成功");
         return AppResult.success(map);
     }
 
