@@ -41,9 +41,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         
-        let tabbar = TabBarController()
-        window?.rootViewController = tabbar
-        window?.makeKeyAndVisible()
+        if !LoginManager.isLogin() {
+            let tabbar = TabBarController()
+            window?.rootViewController = tabbar
+            window?.makeKeyAndVisible()
+        } else {
+            let loginVC = LoginViewController()
+            loginVC.closeBtn.isHidden = true
+            window?.rootViewController = loginVC
+            window?.makeKeyAndVisible()
+        }
+        
         
     }
     

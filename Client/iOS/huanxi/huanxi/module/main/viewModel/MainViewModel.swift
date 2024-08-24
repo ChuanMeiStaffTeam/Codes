@@ -10,6 +10,7 @@ import Foundation
 class MainViewModel {
     
     var mainList: [MainModel] = []
+    var postsList: [PostModel] = []
     
     required init() {
         configData()
@@ -26,6 +27,15 @@ class MainViewModel {
         mainList = [user, content, content, content, recommend, content, content, content, content]
     }
     
-    
+    func requestHomePosts() {
+        NetworkManager.shared.getRequest(urlStr: "postImage/queryHomePosts",
+                                         parameters: nil,
+                                         responseType: PostsResponse.self) { success, message, data in
+            if success {
+                self.postsList = data?.list ?? []
+            }
+            HUDHelper.showToast(message)
+        }
+    }
     
 }

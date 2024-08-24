@@ -93,7 +93,7 @@ class EditHomePageViewController: BaseViewController {
         createItem(title: "网站", value: "www.baidu.com", top: itemTop)
         itemTop = itemTop + 46
         
-        createItem(title: "个性签名", value: "设计+协作，摹客就够了！", top: itemTop)
+        createItem(title: "个性签名", value: "设计+协作，摹客就够了！", top: itemTop, lineHidden: true)
         itemTop = itemTop + 46
         
         createLine(left: 0, top: itemTop)
@@ -116,25 +116,27 @@ class EditHomePageViewController: BaseViewController {
     }
     
     func createLine(left: CGFloat, top: CGFloat) {
-        let line = UIView(frame: CGRect(x: left, y: top, width: .screenWidth - left, height: 1))
+        let line = UIView(frame: CGRect(x: left, y: top, width: .screenWidth - left, height: 0.5))
         line.backgroundColor = .gray
         view.addSubview(line)
     }
     
-    func createItem(title: String, value: String, top: CGFloat) {
+    func createItem(title: String, value: String, top: CGFloat, lineHidden: Bool = false) {
         let titleLabel = UILabel(frame: CGRect(x: 20, y: top, width: 100, height: 46))
         titleLabel.text = title
         titleLabel.textColor = .white
         titleLabel.font = .systemFont(ofSize: 14)
         view.addSubview(titleLabel)
         
-        let valueLabel = UILabel(frame: CGRect(x: 120, y: top, width: 100, height: 46))
+        let valueLabel = UILabel(frame: CGRect(x: 120, y: top, width: 200, height: 46))
         valueLabel.text = value
         valueLabel.textColor = .white
         valueLabel.font = .systemFont(ofSize: 14)
         view.addSubview(valueLabel)
         
-        createLine(left: 120, top: top + 45)
+        if !lineHidden {
+            createLine(left: 120, top: top + 45)
+        }
     }
     
     

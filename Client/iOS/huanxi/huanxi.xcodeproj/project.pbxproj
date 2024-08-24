@@ -24,6 +24,11 @@
 		04F23E512C0F00450078809E /* ChatUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F23E502C0F00450078809E /* ChatUserInfoView.swift */; };
 		1EAD2653DE3A78D8102EAB37 /* Pods_huanxiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E29E7310307A6B5C6ADA6A5 /* Pods_huanxiTests.framework */; };
 		27EA01C3256DE6B9B53333E7 /* Pods_huanxi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA729ABFB7BAA4ADCD4DD472 /* Pods_huanxi.framework */; };
+		39066F612C50E2DB003D347E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39066F602C50E2DB003D347E /* LoginViewController.swift */; };
+		39066F632C50EEA4003D347E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39066F622C50EEA4003D347E /* RegisterViewController.swift */; };
+		39066F652C514853003D347E /* DataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39066F642C514852003D347E /* DataUtil.swift */; };
+		39066F672C51E15B003D347E /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39066F662C51E15B003D347E /* LoginManager.swift */; };
+		39066F692C51E1A3003D347E /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39066F682C51E1A3003D347E /* UserInfoModel.swift */; };
 		392CF1042B8D78BB0070637E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392CF1032B8D78BB0070637E /* NetworkManager.swift */; };
 		392CF1062B8D7C5D0070637E /* UIView+FrameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392CF1052B8D7C5D0070637E /* UIView+FrameExtension.swift */; };
 		392CF1082B8D7E8F0070637E /* CGFloat+LayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392CF1072B8D7E8F0070637E /* CGFloat+LayoutExtension.swift */; };
@@ -54,6 +59,9 @@
 		397216C52B824A04007D0F2B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397216C42B824A04007D0F2B /* MainViewController.swift */; };
 		398FF3472B90177D00565C8C /* HUDHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398FF3462B90177D00565C8C /* HUDHelper.swift */; };
 		398FF3492B901BEA00565C8C /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398FF3482B901BEA00565C8C /* UIColor+Extension.swift */; };
+		399739532C61C04A00D4DD8C /* WindowHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399739522C61C04A00D4DD8C /* WindowHelper.swift */; };
+		399739552C6B3BA600D4DD8C /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399739542C6B3BA600D4DD8C /* ResponseModel.swift */; };
+		399739572C6B3D6700D4DD8C /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399739562C6B3D6700D4DD8C /* PostModel.swift */; };
 		3998DE2F2BB00B4B0000C4DD /* EditImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3998DE2E2BB00B4B0000C4DD /* EditImagesView.swift */; };
 		3998DE312BB016A60000C4DD /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3998DE302BB016A60000C4DD /* UITextView+Extension.swift */; };
 		3998DE332BB031FF0000C4DD /* EditPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3998DE322BB031FE0000C4DD /* EditPhotosView.swift */; };
@@ -120,6 +128,11 @@
 		04F23E502C0F00450078809E /* ChatUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUserInfoView.swift; sourceTree = "<group>"; };
 		0E29E7310307A6B5C6ADA6A5 /* Pods_huanxiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_huanxiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		339142C30AFBEC27D15F2192 /* Pods-huanxiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanxiTests.release.xcconfig"; path = "Target Support Files/Pods-huanxiTests/Pods-huanxiTests.release.xcconfig"; sourceTree = "<group>"; };
+		39066F602C50E2DB003D347E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		39066F622C50EEA4003D347E /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		39066F642C514852003D347E /* DataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtil.swift; sourceTree = "<group>"; };
+		39066F662C51E15B003D347E /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
+		39066F682C51E1A3003D347E /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		392CF1032B8D78BB0070637E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		392CF1052B8D7C5D0070637E /* UIView+FrameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+FrameExtension.swift"; sourceTree = "<group>"; };
 		392CF1072B8D7E8F0070637E /* CGFloat+LayoutExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+LayoutExtension.swift"; sourceTree = "<group>"; };
@@ -154,6 +167,9 @@
 		397216C42B824A04007D0F2B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		398FF3462B90177D00565C8C /* HUDHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDHelper.swift; sourceTree = "<group>"; };
 		398FF3482B901BEA00565C8C /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		399739522C61C04A00D4DD8C /* WindowHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowHelper.swift; sourceTree = "<group>"; };
+		399739542C6B3BA600D4DD8C /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
+		399739562C6B3D6700D4DD8C /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		3998DE2E2BB00B4B0000C4DD /* EditImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImagesView.swift; sourceTree = "<group>"; };
 		3998DE302BB016A60000C4DD /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		3998DE322BB031FE0000C4DD /* EditPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotosView.swift; sourceTree = "<group>"; };
@@ -249,10 +265,23 @@
 			path = direct;
 			sourceTree = "<group>";
 		};
+		39066F5F2C50E2C9003D347E /* login */ = {
+			isa = PBXGroup;
+			children = (
+				39066F602C50E2DB003D347E /* LoginViewController.swift */,
+				39066F662C51E15B003D347E /* LoginManager.swift */,
+				39066F682C51E1A3003D347E /* UserInfoModel.swift */,
+				39066F622C50EEA4003D347E /* RegisterViewController.swift */,
+			);
+			path = login;
+			sourceTree = "<group>";
+		};
 		392CF1022B8D789E0070637E /* network */ = {
 			isa = PBXGroup;
 			children = (
 				392CF1032B8D78BB0070637E /* NetworkManager.swift */,
+				399739542C6B3BA600D4DD8C /* ResponseModel.swift */,
+				39066F642C514852003D347E /* DataUtil.swift */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -274,6 +303,7 @@
 		392CF11A2B8F15240070637E /* viewModel */ = {
 			isa = PBXGroup;
 			children = (
+				399739562C6B3D6700D4DD8C /* PostModel.swift */,
 				392CF1092B8EC8700070637E /* MainViewModel.swift */,
 				392CF10B2B8EC8E60070637E /* MainModel.swift */,
 				04F23E492C0EE7900078809E /* ChatModel.swift */,
@@ -363,6 +393,7 @@
 		397216B62B820F6C007D0F2B /* module */ = {
 			isa = PBXGroup;
 			children = (
+				39066F5F2C50E2C9003D347E /* login */,
 				397216BB2B821087007D0F2B /* updates */,
 				397216BA2B820FC9007D0F2B /* mine */,
 				397216B92B820FAA007D0F2B /* publish */,
@@ -437,6 +468,7 @@
 				398FF3462B90177D00565C8C /* HUDHelper.swift */,
 				399952782BA8607500415C46 /* ImageFilterTool.swift */,
 				04BCDA342C13063100437222 /* TextSizeCalculator.swift */,
+				399739522C61C04A00D4DD8C /* WindowHelper.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -751,6 +783,7 @@
 				3998DE332BB031FF0000C4DD /* EditPhotosView.swift in Sources */,
 				39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */,
 				04F23E482C0EE6AF0078809E /* DirectChatCell.swift in Sources */,
+				39066F652C514853003D347E /* DataUtil.swift in Sources */,
 				3998DE372BB59F270000C4DD /* UpdatesThisMonthCell.swift in Sources */,
 				39E908242C287C630017B83B /* UITextField+Extension.swift in Sources */,
 				39B7943C2B9896410048C996 /* EditPhotoViewController.swift in Sources */,
@@ -759,6 +792,7 @@
 				39A86D1F2C4DF0C7000D4217 /* SettingViewController.swift in Sources */,
 				3998DE2F2BB00B4B0000C4DD /* EditImagesView.swift in Sources */,
 				39FABA102B931C4600A10FE6 /* PhotoAlbumView.swift in Sources */,
+				39066F692C51E1A3003D347E /* UserInfoModel.swift in Sources */,
 				392CF1042B8D78BB0070637E /* NetworkManager.swift in Sources */,
 				04D16F722C1AE9A400D0BF61 /* ChatEditView.swift in Sources */,
 				397216C32B8249FC007D0F2B /* SearchViewController.swift in Sources */,
@@ -781,10 +815,12 @@
 				39E908222C28791C0017B83B /* SearchResultHeaderView.swift in Sources */,
 				397216842B81E8EC007D0F2B /* ViewController.swift in Sources */,
 				392CF10A2B8EC8700070637E /* MainViewModel.swift in Sources */,
+				39066F672C51E15B003D347E /* LoginManager.swift in Sources */,
 				397216B12B81EA57007D0F2B /* NavigationController.swift in Sources */,
 				397216BD2B8249D9007D0F2B /* UpdatesViewController.swift in Sources */,
 				39E9080D2C26B9070017B83B /* SearchHeaderView.swift in Sources */,
 				04F23E452C0EE4330078809E /* DirectViewController.swift in Sources */,
+				399739572C6B3D6700D4DD8C /* PostModel.swift in Sources */,
 				3999527B2BA9B30300415C46 /* ExplainViewController.swift in Sources */,
 				397216BF2B8249E2007D0F2B /* MineViewController.swift in Sources */,
 				392CF1182B8ECE720070637E /* MainContentCell.swift in Sources */,
@@ -799,16 +835,20 @@
 				392CF1102B8ECA4F0070637E /* MainRecommendView.swift in Sources */,
 				397216B52B81EA79007D0F2B /* BaseViewController.swift in Sources */,
 				397216C12B8249F1007D0F2B /* PublishViewController.swift in Sources */,
+				399739552C6B3BA600D4DD8C /* ResponseModel.swift in Sources */,
 				39E9081A2C2874D40017B83B /* SearchResultsViewController.swift in Sources */,
 				042598032C2ABB0400482282 /* InfiniteCarousel.swift in Sources */,
 				39B7943E2B989A3E0048C996 /* EditPhotoCell.swift in Sources */,
+				39066F632C50EEA4003D347E /* RegisterViewController.swift in Sources */,
 				04F23E4F2C0F00050078809E /* ChatViewController.swift in Sources */,
 				04BCDA352C13063100437222 /* TextSizeCalculator.swift in Sources */,
 				39E9080F2C26BAC40017B83B /* SearchTagViewController.swift in Sources */,
 				39E908162C2872CF0017B83B /* SearchBarView.swift in Sources */,
+				39066F612C50E2DB003D347E /* LoginViewController.swift in Sources */,
 				3998DE352BB59F0E0000C4DD /* UpdatesEarlierCell.swift in Sources */,
 				392CF1062B8D7C5D0070637E /* UIView+FrameExtension.swift in Sources */,
 				398FF3472B90177D00565C8C /* HUDHelper.swift in Sources */,
+				399739532C61C04A00D4DD8C /* WindowHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

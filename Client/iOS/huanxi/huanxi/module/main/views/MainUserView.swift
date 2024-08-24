@@ -67,6 +67,23 @@ extension MainUserView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HUDHelper.showToast("点击了用户")
+        
+        guard let image = UIImage.init(named: "list_7") else { return }
+        // 上传单张图片
+//        NetworkManager.shared.uploadSingleImage(urlStr: "userinfo/updateAvatar", parameters: ["":""], image: image) { model in
+//
+//        } failure: { error in
+//
+//        }
+
+        // 上传多张图片
+//        NetworkManager.shared.uploadMultipleImages(urlStr: "postImage/article", parameters: ["":""], images: [image, image, image]) { model in
+//            
+//        } failure: { error in
+//
+//        }
+
+        
     }
     
 }

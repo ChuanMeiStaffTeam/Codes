@@ -16,6 +16,8 @@ class MainViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        self.navigationController?.isNavigationBarHidden = true
+        
+        vm.requestHomePosts()
     }
     
     override func viewDidLoad() {
@@ -24,6 +26,8 @@ class MainViewController: BaseViewController {
         setupView()
         
         mainView.reloadMainViewData(vm.mainList)
+        
+        LoginManager.requestUserInfo()
     }
     
     
