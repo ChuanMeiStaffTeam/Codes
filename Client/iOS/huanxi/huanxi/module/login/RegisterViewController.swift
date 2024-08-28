@@ -37,12 +37,13 @@ class RegisterViewController: BaseViewController {
         }
         
         let iconImgView = UIImageView()
-        iconImgView.image = UIImage.init(named: "instagram")
+        iconImgView.image = UIImage.init(named: "huanxi.jpg")
         view.addSubview(iconImgView)
         iconImgView.snp.makeConstraints { make in
             make.centerX.equalToSuperview().offset(0)
             make.top.equalToSuperview().offset(CGFloat.topSafeAreaHeight + 150)
             make.height.equalTo(50)
+            make.width.equalTo(100)
         }
         
         accountTF.placeholder = "账号"

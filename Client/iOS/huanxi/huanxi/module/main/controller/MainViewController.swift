@@ -41,9 +41,14 @@ class MainViewController: BaseViewController {
     
     func setupNavView() {
         
-        let imageView = UIImageView(image: UIImage.init(named: "instagram"))
-        imageView.frame = CGRect(x: 16, y: 4	, width: 134, height: 36)
-        let leftItem = UIBarButtonItem(customView: imageView)
+        let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 150, height: 40))
+        view.backgroundColor = .clear
+        
+        let imageView = UIImageView(image: UIImage.init(named: "huanxi.jpg"))
+        imageView.frame = CGRect(x: -10, y: 4, width: 72, height: 36)
+        imageView.contentMode = .scaleAspectFit
+        view.addSubview(imageView)
+        let leftItem = UIBarButtonItem(customView: view)
         self.navigationItem.leftBarButtonItem = leftItem
         
         let button = UIButton(type: .custom)

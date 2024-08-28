@@ -36,10 +36,15 @@ class UpdatesViewController: BaseViewController {
     
     func setupNavView() {
         
-        let imageView = UIImageView(image: UIImage.init(named: "instagram"))
-        imageView.frame = CGRect(x: 0, y: 4    , width: 134, height: 36)
+        let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 150, height: 40))
+        view.backgroundColor = .clear
+        
+        let imageView = UIImageView(image: UIImage.init(named: "huanxi.jpg"))
+        imageView.frame = CGRect(x: 39, y: 0, width: 72, height: 36)
+        imageView.contentMode = .scaleAspectFill
+        view.addSubview(imageView)
 //        let leftItem = UIBarButtonItem(customView: imageView)
-        self.navigationItem.titleView = imageView
+        self.navigationItem.titleView = view
         
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: .screenWidth - 46, y: 7, width: 30, height: 30)
