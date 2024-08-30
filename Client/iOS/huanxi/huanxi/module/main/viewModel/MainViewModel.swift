@@ -28,14 +28,14 @@ class MainViewModel {
     }
     
     func requestHomePosts() {
-        NetworkManager.shared.getRequest(urlStr: "postImage/queryHomePosts",
-                                         parameters: nil,
-                                         responseType: PostsResponse.self) { success, message, data in
-            if success {
-                self.postsList = data?.list ?? []
-            }
-            HUDHelper.showToast(message)
-        }
+//        NetworkManager.shared.getRequest(urlStr: "postImage/queryHomePosts",
+//                                         parameters: nil,
+//                                         responseType: PostsResponse.self) { success, message, data in
+//            if success {
+//                self.postsList = data?.list ?? []
+//            }
+//            HUDHelper.showToast(message)
+//        }
     }
     
 }

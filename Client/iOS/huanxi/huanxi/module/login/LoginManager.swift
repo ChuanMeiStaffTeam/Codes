@@ -42,31 +42,31 @@ class LoginManager {
 extension LoginManager {
     
     class func requestUserInfo() {
-        NetworkManager.shared.getRequest(urlStr: "userinfo/getUserInfo",
-                                         parameters: nil,
-                                         responseType: UserInfoModel.self) { success, message, data in
-            if success {
-                
-            }
-            HUDHelper.showToast(message)
-        }
+//        NetworkManager.shared.getRequest(urlStr: "userinfo/getUserInfo",
+//                                         parameters: nil,
+//                                         responseType: UserInfoModel.self) { success, message, data in
+//            if success {
+//
+//            }
+//            HUDHelper.showToast(message)
+//        }
         
     }
     
     class func requestLogout() {
-        NetworkManager.shared.postRequest(urlStr: "user/logout",
-                                          parameters: nil,
-                                          responseType: String.self) { success, message, data in
-            if success {
-                LoginManager.removeToken()
-                
-                let loginVC = LoginViewController()
-                let topVC = WindowHelper.topViewController()
-                loginVC.modalPresentationStyle = .fullScreen
-                topVC?.present(loginVC, animated: true)
-            }
-            HUDHelper.showToast(message)
-        }
+//        NetworkManager.shared.postRequest(urlStr: "user/logout",
+//                                          parameters: nil,
+//                                          responseType: String.self) { success, message, data in
+//            if success {
+//                LoginManager.removeToken()
+//
+//                let loginVC = LoginViewController()
+//                let topVC = WindowHelper.topViewController()
+//                loginVC.modalPresentationStyle = .fullScreen
+//                topVC?.present(loginVC, animated: true)
+//            }
+//            HUDHelper.showToast(message)
+//        }
 
     }
     
