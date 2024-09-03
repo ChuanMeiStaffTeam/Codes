@@ -55,4 +55,11 @@ public interface IUserService extends IService<User> {
 
     // 更新用户收藏数量
     int updateUserFavoriteCount(Integer userId,Integer favoriteCount);
+
+
+    // TODO 更新用户关注数量
+    int updateUserFollowCount(Integer userId,Integer followCount);
+
+    // TODO 更新用户粉丝数量
+    int updateUserFansCount(Integer userId,Integer fansCount);
 }

@@ -149,4 +149,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return userMapper.update(user, queryWrapper);
 
     }
+
+    @Override
+    public int updateUserFollowCount(Integer userId, Integer followCount) {
+        return 0;
+    }
+
+    @Override
+    public int updateUserFansCount(Integer userId, Integer fansCount) {
+        return 0;
+    }
 }
