@@ -9,6 +9,8 @@ import com.ChuanMeiStaffTeam.hx.service.IPostsImage;
 import com.ChuanMeiStaffTeam.hx.service.Impl.PostServiceImpl;
 import com.ChuanMeiStaffTeam.hx.util.AuthUtil;
 import com.ChuanMeiStaffTeam.hx.util.RedisUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/api/comment")
+@Api(tags = "帖子图片接口")
 public class CommentController {
 
     @Autowired
@@ -43,6 +46,7 @@ public class CommentController {
 
     // 发布评论
     @PostMapping("/addComment")
+    @ApiOperation(value = "发布评论")
 // 发布评论 评论内容 帖子id 用户id 父评论id
     public AppResult addComment(@RequestBody SysComment comment, HttpServletRequest request) {
         String currentUserName = AuthUtil.getCurrentUserName(request);
@@ -65,6 +69,7 @@ public class CommentController {
 
 
     // 删除评论
+    @ApiOperation(value = "删除评论")
     @PostMapping("/deleteComment")
     // params: {commentId: 评论id,  postId: 帖子id,  parentCommentId: 父评论id}
     public AppResult deleteComment(@RequestBody Map<String, Object> params, HttpServletRequest request) {
@@ -104,6 +109,7 @@ public class CommentController {
 
 
     // 获取帖子评论列表 帖子id
+    @ApiOperation(value = "获取帖子评论列表")
     @GetMapping("/getCommentsByPostId")
     public AppResult getCommentsByPostId(@RequestBody Map<String,Object> params) {
         Integer postId = (Integer) params.get("postId");

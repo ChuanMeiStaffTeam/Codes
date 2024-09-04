@@ -109,6 +109,7 @@ public class PostImageController {
     }
 
         // 用户发帖接口
+        @ApiOperation(value = "用户发帖接口")
         @PostMapping("/createPost")
         public AppResult createPost(@RequestBody SysPost post, HttpServletRequest request) {
             // 获取当前登录用户id和username 从token中获取

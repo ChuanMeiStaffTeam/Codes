@@ -5,6 +5,8 @@ import com.ChuanMeiStaffTeam.hx.model.User;
 import com.ChuanMeiStaffTeam.hx.service.IFollowsService;
 import com.ChuanMeiStaffTeam.hx.util.AuthUtil;
 import com.ChuanMeiStaffTeam.hx.util.RedisUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +27,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/api/follows")
+@Api(tags = "关注接口")
 public class FollowsController {
 
 
@@ -37,6 +40,7 @@ public class FollowsController {
     private IFollowsService followsService;
 
     // TODO: 关注接口实现
+    @ApiOperation(value = "关注接口")
     @PostMapping("/follow")
     public AppResult follow(@RequestBody Map<String, Object> params, HttpServletRequest request) {
         // 参数有 被关注者用户id  followingId
@@ -74,6 +78,7 @@ public class FollowsController {
 
 
     // TODO: 取消关注接口实现
+    @ApiOperation(value = "取消关注接口")
     @PostMapping("/unfollow")
     public AppResult unfollow(@RequestBody Map<String, Object> params, HttpServletRequest request) {
         // 参数有 被取消关注者用户id  unfollowingId
@@ -112,6 +117,7 @@ public class FollowsController {
 
     // TODO: 关注列表接口实现
     @PostMapping("/followslist")
+    @ApiOperation(value = "关注列表接口")
     public AppResult follows() {
 
         return null;
@@ -121,6 +127,7 @@ public class FollowsController {
 
     // TODO: 粉丝列表接口实现
     @PostMapping("/fanslist")
+    @ApiOperation(value = "粉丝列表接口")
     public AppResult fans() {
 
         return null;
