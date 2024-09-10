@@ -14,8 +14,8 @@ public class SysFollows {
 
     @TableId(value = "follow_id", type = IdType.AUTO)
     private Integer followId;
-    private Integer followerId;
-    private Integer followingId;
+    private Integer followerId;  // 关注者ID
+    private Integer followingId;  // 被关注者ID
     private Timestamp createdAt;
     private Timestamp updatedAt;
 

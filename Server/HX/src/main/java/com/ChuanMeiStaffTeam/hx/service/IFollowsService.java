@@ -1,9 +1,12 @@
 package com.ChuanMeiStaffTeam.hx.service;
 
 import com.ChuanMeiStaffTeam.hx.model.SysFollows;
+import com.ChuanMeiStaffTeam.hx.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,4 +28,10 @@ public interface IFollowsService extends IService<SysFollows> {
     // 用户点击取消关注
     @Transactional
     int unfollow(Integer followerId, Integer followingId);
+
+    // 获取关注列表
+    List<User> getFollowsList(Integer userId);
+
+    // 获取粉丝列表
+    List<User> getFansList(Integer userId);
 }

@@ -5,6 +5,8 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.CannedAccessControlList;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -16,6 +18,7 @@ import java.io.IOException;
  * @Date: 2024/07/02/10:51
  * @Description:
  */
+@Component
 public class UploadUtil {
 
     public static final String ALI_DOMAIN = "https://huanxi-project-image.oss-cn-shanghai.aliyuncs.com/";

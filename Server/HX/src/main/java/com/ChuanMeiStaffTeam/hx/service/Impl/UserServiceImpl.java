@@ -1,6 +1,7 @@
 package com.ChuanMeiStaffTeam.hx.service.Impl;
 
 import com.ChuanMeiStaffTeam.hx.exception.ApplicationException;
+import com.ChuanMeiStaffTeam.hx.model.SysFollows;
 import com.ChuanMeiStaffTeam.hx.service.IUserService;
 import com.ChuanMeiStaffTeam.hx.dao.UserMapper;
 import com.ChuanMeiStaffTeam.hx.model.User;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -76,6 +79,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public User getUserByUserId(User user) {
         Integer userId = user.getUserId();
         return userMapper.selectByUserId(userId);
+    }
+
+    @Override
+    public User getUserByUserId(Integer userId) {
+        if(userId == null) {
+            return null;
+        }
+        return userMapper.selectById(userId); // sql: select * from user where user_id = 'userId'
     }
 
     @Override
@@ -151,12 +162,34 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public int updateUserFollowCount(Integer userId, Integer followCount) {
+    public int updateUserFollowCount(User user) {
+       userMapper.updateById(user);
         return 0;
     }
 
     @Override
-    public int updateUserFansCount(Integer userId, Integer fansCount) {
+    public int updateUserFansCount(User user) {
+        userMapper.updateById(user);
         return 0;
+    }
+
+    @Override
+    public List<User> getUserListByUserIds(List<SysFollows> sysFollowsList) {
+       List<User> userList = new ArrayList<>();
+        for (SysFollows sysFollows : sysFollowsList) {
+            User user = getUserByUserId(sysFollows.getFollowingId());
+            userList.add(user);
+        }
+        return userList;
+    }
+
+    @Override
+    public List<User> getUserListByFansIds(List<SysFollows> sysFollowsList) {
+        List<User> userList = new ArrayList<>();
+        for (SysFollows sysFollows : sysFollowsList) {
+            User user = getUserByUserId(sysFollows.getFollowerId());
+            userList.add(user);
+        }
+        return userList;
     }
 }

@@ -1,8 +1,11 @@
 package com.ChuanMeiStaffTeam.hx.service;
 
+import com.ChuanMeiStaffTeam.hx.model.SysFollows;
 import com.ChuanMeiStaffTeam.hx.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,7 +37,8 @@ public interface IUserService extends IService<User> {
 
     // 根据用户id获取用户信息
     User getUserByUserId(User user);
-
+    // 根据用户id获取用户信息
+    User getUserByUserId(Integer userId);
 
     //用户修改头像
     int updateUserAvatar(User user,String fileUrl);
@@ -57,9 +61,17 @@ public interface IUserService extends IService<User> {
     int updateUserFavoriteCount(Integer userId,Integer favoriteCount);
 
 
-    // TODO 更新用户关注数量
-    int updateUserFollowCount(Integer userId,Integer followCount);
 
-    // TODO 更新用户粉丝数量
-    int updateUserFansCount(Integer userId,Integer fansCount);
+    // 更新用户关注数量
+    int updateUserFollowCount(User user);
+
+
+    // 更新用户粉丝数量
+    int updateUserFansCount(User user);
+
+    // 获取用户关注列表
+    List<User> getUserListByUserIds(List<SysFollows> sysFollowsList);
+
+    // 获取用户粉丝列表
+    List<User> getUserListByFansIds(List<SysFollows> sysFollowsList);
 }
