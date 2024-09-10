@@ -44,7 +44,7 @@ public class SendSmsImpl implements SendSms {
         // 构造请求对象，请填入请求参数值
         SendSmsRequest sendSmsRequest = new SendSmsRequest()
                 .setPhoneNumbers(phoneNum)
-                .setSignName("欢喜")
+                .setSignName("欢喜app")
                 .setTemplateCode(templateCode)
                 .setTemplateParam(toJSONString(code));
         // 获取响应对象

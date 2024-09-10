@@ -48,7 +48,7 @@ public class SmsApiController {
         log.info("验证码生成成功,手机号:{},验证码:{}", phone, code);
         Map<String, Object> data = new HashMap<>();
         data.put("code", code);
-        boolean isSuccess = sendSms.send(phone, "SMS_472680156", data);
+        boolean isSuccess = sendSms.send(phone, "SMS_472800186", data);
         if (isSuccess) {
             log.info("验证码发送成功,手机号:{},验证码:{}", phone, code);
             redisUtil.set(phone, code, 300);
