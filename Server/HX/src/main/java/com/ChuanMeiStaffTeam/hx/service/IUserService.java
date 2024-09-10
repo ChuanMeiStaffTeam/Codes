@@ -74,4 +74,6 @@ public interface IUserService extends IService<User> {
 
     // 获取用户粉丝列表
     List<User> getUserListByFansIds(List<SysFollows> sysFollowsList);
+
+    User getUserByPhone(String phone);
 }

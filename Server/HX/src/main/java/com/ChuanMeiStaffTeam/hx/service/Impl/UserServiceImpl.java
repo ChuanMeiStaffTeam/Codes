@@ -192,4 +192,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         return userList;
     }
+
+    @Override
+    public User getUserByPhone(String phone) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("phone_number", phone);
+        return userMapper.selectOne(queryWrapper);
+    }
 }

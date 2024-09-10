@@ -61,6 +61,9 @@ public class PostImageController {
     @Resource
     private IFavoriteService favoriteService;
 
+    @Resource
+    private UploadUtil uploadUtil;
+
     @ApiOperation(value = "用户发帖图片接口")
     @PostMapping(value = "/article", consumes = "multipart/form-data")
     public AppResult upload(
@@ -84,7 +87,7 @@ public class PostImageController {
         }
         List<String> imageUrls = new ArrayList<>();
         for (MultipartFile image : images) {
-            String imageUrl = UploadUtil.uploadFile(image);
+            String imageUrl = uploadUtil.uploadFile(image);
             imageUrls.add(imageUrl);
         }
         log.info("用户帖子图片上传成功" + imageUrls.toString());

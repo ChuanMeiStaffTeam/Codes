@@ -18,6 +18,7 @@ public class AppInterceptorConfigurer implements WebMvcConfigurer {
         registry.addInterceptor(loginInterceptor) // 添加⽤⼾登录拦截器
                 .addPathPatterns("/**") // 拦截所有请求
                 // 排除swagger接口
+                .excludePathPatterns("/api/sms/**")
                 .excludePathPatterns("/swagger-ui.html/**", "/webjars/**", "/v2/**", "/swagger-resources/**")
                 .excludePathPatterns("/api/user/**"); // 排除登录  注册接口
 

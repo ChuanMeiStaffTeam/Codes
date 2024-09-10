@@ -52,6 +52,8 @@ public class UserInfoController {
 
     @Resource
     private IUserService userService;
+    @Resource
+    private UploadUtil uploadUtil;
 
     // 更新用户头像
     @ApiOperation(value = "更新用户头像")
@@ -61,7 +63,7 @@ public class UserInfoController {
             log.error("图片不能为空");
             throw new ApplicationException("图片不能为空");
         }
-        String s = UploadUtil.uploadFile(file);
+        String s = uploadUtil.uploadFile(file);
         String token = request.getHeader("token");
         DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
         String username = tokenInfo.getClaim("username").asString();

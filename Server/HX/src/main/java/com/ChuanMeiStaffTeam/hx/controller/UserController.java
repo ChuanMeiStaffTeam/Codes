@@ -42,6 +42,9 @@ import java.util.concurrent.TimeUnit;
 public class UserController {
 
 
+    @Resource
+    private RedisUtil redisUtil;
+
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
@@ -141,6 +144,49 @@ public class UserController {
         log.info("注册成功 username: " + username);
         return AppResult.success();   //注册成功
     }
+
+    // 用户验证码登录接口
+    @PostMapping("/login/code")
+    public AppResult loginByCode(@RequestBody Map<String, String> params) {
+        String phone = params.get("phone");
+        String code = params.get("code");
+        // 从redis中获取验证码
+        String redisCode = redisUtil.getString(phone);
+        if(redisCode == null) {
+            log.error("验证码已过期");
+            return AppResult.failed("验证码已过期");
+        }
+        if(!code.equals(redisCode)) {
+            log.error("验证码错误");
+            return AppResult.failed("验证码错误");
+        }
+        // 登录成功 更新用户登录时间
+        User user = userService.getUserByPhone(phone);
+        if (user == null) {
+            log.error("该手机号未注册");
+            return AppResult.failed("该手机号未注册");
+        }
+        // 登录成功 更新用户登录时间
+        userService.updateUserLastLoginTime(user);
+        // 更新用户失败登录次数为0
+        userService.updateUserLoginCountToZero(user);
+        log.info("登录成功 username: " + user.getUsername());
+        // 登录成功之后,删除redis中的验证码
+        redisUtil.delete(phone);
+
+        // 创建token 将user对象的部分信息放入token中，并存入redis缓存
+        Map<String, String> payload = JwtUtil.getPayload(user);
+        String token = JwtUtil.getToken(payload);
+        Map<String, Object> tokenMap = new HashMap<>();
+        tokenMap.put("token", token);
+        tokenMap.put("userinfo", user);
+        log.info("token: " + token);
+        log.info("userinfo: " + user);
+        redisTemplate.opsForValue().set(user.getUsername(), user, 7, TimeUnit.DAYS);  // 设置redis缓存 过期时间为7天
+        redisTemplate.opsForValue().set(user.getUsername() + ": token", token, 7, TimeUnit.DAYS);  // 设置redis缓存 过期时间为7天
+        return AppResult.success(tokenMap);
+    }
+
 
     // 注册接口手机号验证码注册
     @PostMapping("/register/phone")

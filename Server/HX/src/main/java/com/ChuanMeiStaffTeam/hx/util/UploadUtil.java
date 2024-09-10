@@ -21,8 +21,15 @@ import java.io.IOException;
 @Component
 public class UploadUtil {
 
-    public static final String ALI_DOMAIN = "https://huanxi-project-image.oss-cn-shanghai.aliyuncs.com/";
-    public static String uploadFile(MultipartFile file) {
+
+    @Value("${aly.accessKeyId}")
+    private String accessKeyId;
+
+    @Value("${aly.accessKeySecret}")
+    private String accessKeySecret;
+
+    public  final String ALI_DOMAIN = "https://huanxi-project-image.oss-cn-shanghai.aliyuncs.com/";
+    public  String uploadFile(MultipartFile file) {
         String originalFilename = file.getOriginalFilename(); // 文件名
         String ext = FilenameUtils.getExtension(originalFilename); // 文件扩展名
         String uuid = Uuid.UUID_32(); // 生成uuid
@@ -30,8 +37,6 @@ public class UploadUtil {
         String fullFileName = "img-main/Post-Image/" + fileName; // 文件路径
         // 地域节点
         String endpoint = "http://oss-cn-shanghai.aliyuncs.com";
-        String accessKeyId = "";
-        String accessKeySecret = "";
         // 创建OSSClient实例
         OSS OSSClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
         try {
