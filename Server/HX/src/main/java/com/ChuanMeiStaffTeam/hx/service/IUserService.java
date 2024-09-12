@@ -76,4 +76,8 @@ public interface IUserService extends IService<User> {
     List<User> getUserListByFansIds(List<SysFollows> sysFollowsList);
 
     User getUserByPhone(String phone);
+
+
+    //随机获取用户数量count个
+    List<User> RandomUser(int count);
 }

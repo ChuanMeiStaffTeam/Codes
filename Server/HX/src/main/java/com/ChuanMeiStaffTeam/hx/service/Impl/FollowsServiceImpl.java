@@ -3,8 +3,11 @@ package com.ChuanMeiStaffTeam.hx.service.Impl;
 import com.ChuanMeiStaffTeam.hx.dao.FollowsMapper;
 import com.ChuanMeiStaffTeam.hx.dao.UserMapper;
 import com.ChuanMeiStaffTeam.hx.model.SysFollows;
+import com.ChuanMeiStaffTeam.hx.model.SysPost;
 import com.ChuanMeiStaffTeam.hx.model.User;
+import com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage;
 import com.ChuanMeiStaffTeam.hx.service.IFollowsService;
+import com.ChuanMeiStaffTeam.hx.service.IPostsImage;
 import com.ChuanMeiStaffTeam.hx.service.IUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +33,9 @@ public class FollowsServiceImpl extends ServiceImpl<FollowsMapper, SysFollows> i
 
     @Resource
     private IUserService userService;
+
+    @Resource
+    private IPostsImage postService;
 
     @Override
     public boolean isAlreadyFollowed(Integer followerId, Integer followingId) {
@@ -80,12 +87,12 @@ public class FollowsServiceImpl extends ServiceImpl<FollowsMapper, SysFollows> i
             //当前用户关注数量-1, 被关注用户粉丝数量-1
             User followerUser = userService.getUserByUserId(followerId);
             if (followerUser != null) {
-               if(followerUser.getFollowingCount() != null && followerUser.getFollowingCount() > 0) {
-                   followerUser.setFollowingCount(followerUser.getFollowingCount() - 1);
-               } else {
-                   followerUser.setFollowingCount(0);
-               }
-               userService.updateUserFansCount(followerUser);
+                if (followerUser.getFollowingCount() != null && followerUser.getFollowingCount() > 0) {
+                    followerUser.setFollowingCount(followerUser.getFollowingCount() - 1);
+                } else {
+                    followerUser.setFollowingCount(0);
+                }
+                userService.updateUserFansCount(followerUser);
             }
             User followingUser = userService.getUserByUserId(followingId);
             if (followingUser != null) {
@@ -123,5 +130,19 @@ public class FollowsServiceImpl extends ServiceImpl<FollowsMapper, SysFollows> i
         }
         return null;
 
+    }
+
+    @Override
+    public List<List<SysPostImage>> getFollowPostList(List<User> userList) {
+        List<List<SysPostImage>> postList = new ArrayList<>();
+        if (userList != null && userList.size() > 0) {
+            for (User user : userList) {
+                List<SysPostImage> userPostList = postService.getPostListByUserId(user.getUserId());
+                if(userPostList!= null && userPostList.size() > 0) {
+                    postList.add(userPostList);
+                }
+            }
+        }
+        return postList;
     }
 }

@@ -1,7 +1,9 @@
 package com.ChuanMeiStaffTeam.hx.controller;
 
 import com.ChuanMeiStaffTeam.hx.common.AppResult;
+import com.ChuanMeiStaffTeam.hx.model.SysPost;
 import com.ChuanMeiStaffTeam.hx.model.User;
+import com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage;
 import com.ChuanMeiStaffTeam.hx.service.IFollowsService;
 import com.ChuanMeiStaffTeam.hx.service.IUserService;
 import com.ChuanMeiStaffTeam.hx.util.AuthUtil;
@@ -160,6 +162,39 @@ public class FollowsController {
         log.info("粉丝列表：" + fansList);
         Map<String,Object> result = new HashMap<>();
         result.put("fansList", fansList);
+        return AppResult.success(result);
+    }
+
+    // 获取关注用户的帖子列表
+    @GetMapping("/followpostlist")
+    @ApiOperation(value = "获取关注用户的帖子列表")
+    public AppResult followPostList(HttpServletRequest request) {
+        String currentUserName = AuthUtil.getCurrentUserName(request);
+        if (currentUserName == null) {
+            log.error("用户未登录");
+            return AppResult.failed("用户未登录");
+        }
+        User user = userService.getUserByUserName(currentUserName);
+        if (user == null) {
+            log.error("用户未登录");
+            return AppResult.failed("用户未登录");
+        }
+        Integer userId = user.getUserId();
+        // 查询关注列表
+        List<User> followsList = followsService.getFollowsList(userId);
+        log.info("关注列表：" + followsList);
+          //followsList 为空时
+        if(followsList.size() == 0) {
+            return AppResult.success("","您还没有关注任何用户");
+        }
+        //  根据用户关注列表查询帖子列表todo
+        List<List<SysPostImage>> followPostList = followsService.getFollowPostList(followsList);
+        if(followPostList.size() == 0) {
+            return AppResult.success("","您关注的用户还没有发表帖子");
+        }
+        Map<String, Object> result = new HashMap<>();
+        result.put("followPostList", followPostList);
+        log.info("获取关注用户的帖子列表成功");
         return AppResult.success(result);
     }
 }

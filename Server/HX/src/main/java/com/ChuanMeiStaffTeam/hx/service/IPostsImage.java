@@ -56,4 +56,8 @@ public interface IPostsImage extends IService<SysPost> {
 
     // 更新帖子评论数
     boolean updatePostCommentCount(Integer postId, Integer commentCount);
+
+
+    // 根据用户id查询帖子列表
+    List<SysPostImage> getPostListByUserId(Integer userId);
 }

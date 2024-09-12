@@ -110,7 +110,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
         // 查询所有 按照时间降序
         QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("created_at");
-        List<SysPost> sysPosts = postMapper.selectList(queryWrapper);
+        List<SysPost> sysPosts = postMapper.selectList(queryWrapper);  // sql: select * from sys_post order by created_at desc
         // 将sysPosts转换为SysPostImage  并设置图片
         List<SysPostImage> sysPostImages = new ArrayList<>();
         for (SysPost sysPost : sysPosts) {
@@ -183,4 +183,32 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
         return update > 0;
     }
 
+    @Override
+    public List<SysPostImage> getPostListByUserId(Integer userId) {
+        QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id",userId);
+        List<SysPost> sysPosts = postMapper.selectList(queryWrapper);
+        List<SysPostImage> sysPostImages = new ArrayList<>();
+        for (SysPost sysPost : sysPosts) {
+            SysPostImage sysPostImage = new SysPostImage();
+            sysPostImage.setPostId(sysPost.getPostId());
+            sysPostImage.setUserId(sysPost.getUserId());
+            sysPostImage.setCaption(sysPost.getCaption());
+            sysPostImage.setLocation(sysPost.getLocation());
+            sysPostImage.setLikesCount(sysPost.getLikesCount());
+            sysPostImage.setCreatedAt(sysPost.getCreatedAt());
+            sysPostImage.setUpdatedAt(sysPost.getUpdatedAt());
+            sysPostImage.setCommentsCount(sysPost.getCommentsCount());
+            sysPostImage.setPublic(sysPost.isPublic());
+            sysPostImage.setTags(sysPost.getTags());
+            sysPostImage.setDeleted(sysPost.isDeleted());
+            sysPostImage.setVisibility(sysPost.getVisibility());
+            sysPostImage.setFavoriteCount(sysPost.getFavoriteCount());
+            // 设置图片
+            List<SysImage> sysImages = selectPostImagesByPostId(sysPostImage.getPostId());
+            sysPostImage.setImages(sysImages);
+            sysPostImages.add(sysPostImage);
+        }
+        return sysPostImages;
+    }
 }

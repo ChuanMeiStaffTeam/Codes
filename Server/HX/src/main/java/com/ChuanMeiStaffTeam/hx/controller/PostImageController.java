@@ -57,6 +57,8 @@ public class PostImageController {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
+    @Resource
+    private IUserService userService;
 
     @Resource
     private IFavoriteService favoriteService;
@@ -177,10 +179,11 @@ public class PostImageController {
             log.info("帖子为空");
             return AppResult.failed("帖子为空");
         }
+        List<User> users = userService.RandomUser(6);
         Map<String, Object> map = new HashMap<>();
         map.put("list", sysPostImages);
-        // 后续添加分页功能 redis缓存 todo
-        log.info("获取主页帖子成功");
+        map.put("users", users);
+        log.info("获取主页帖子和推荐用户获取成功");
         return AppResult.success(map);
     }
 

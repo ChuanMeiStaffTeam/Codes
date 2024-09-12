@@ -199,4 +199,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         queryWrapper.eq("phone_number", phone);
         return userMapper.selectOne(queryWrapper);
     }
+
+
+    @Override
+    public List<User> RandomUser(int count) {
+        // 随机获取count个用户并返回
+        // 创建 QueryWrapper 对象
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        // MySQL 中使用 RAND() 来随机排序
+        queryWrapper.orderBy(true, false, "RAND()");
+        // 添加 LIMIT 限制
+        queryWrapper.last("LIMIT " + count);
+        // 使用 list() 方法返回结果
+        return this.list(queryWrapper);  // sql: select * from user order by RAND() limit count
+    }
 }

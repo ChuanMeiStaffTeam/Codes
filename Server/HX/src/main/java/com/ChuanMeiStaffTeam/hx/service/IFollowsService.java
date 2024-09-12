@@ -1,7 +1,9 @@
 package com.ChuanMeiStaffTeam.hx.service;
 
 import com.ChuanMeiStaffTeam.hx.model.SysFollows;
+import com.ChuanMeiStaffTeam.hx.model.SysPost;
 import com.ChuanMeiStaffTeam.hx.model.User;
+import com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,4 +36,7 @@ public interface IFollowsService extends IService<SysFollows> {
 
     // 获取粉丝列表
     List<User> getFansList(Integer userId);
+
+    // 获取关注的帖子列表 userList 为关注列表
+    List<List<SysPostImage>> getFollowPostList(List<User> userList);
 }
