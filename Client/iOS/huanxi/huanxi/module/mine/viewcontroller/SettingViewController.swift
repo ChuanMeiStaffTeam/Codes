@@ -9,9 +9,7 @@ import UIKit
 
 class SettingViewController: BaseViewController {
     
-    let searchHeaderView = SearchHeaderView(frame: CGRect.init(x: 0, y: .topBarHeight, width: .screenWidth, height: 40))
     var dataList: [String] = []
-    var iconList: [String] = []
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -28,18 +26,11 @@ class SettingViewController: BaseViewController {
     func setupView() {
         title = "设置"
         
-        dataList = ["更新消息功能", "关注和邀请好友", "你的活动", "通知", "隐私", "安全", "广告", "账户", "帮助", "关于"]
-        iconList = ["set_message", "set_follow", "set_active", "set_noti", "set_sec", "set_safe", "set_ad", "set_account", "set_help", "set_about"]
+        dataList = ["账号管理", "广告接入", "语言"]
 
-        searchHeaderView.didClickViewCallBack = { [weak self] in
-            
-        }
-        view.addSubview(searchHeaderView)
-        
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(searchHeaderView.snp.bottom).offset(0)
-            make.bottom.left.right.equalToSuperview().offset(0)
+            make.top.bottom.left.right.equalToSuperview().offset(0)
         }
     }
     
@@ -81,9 +72,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = SettingItemCell.init(style: .default, reuseIdentifier: "cell")
         
         let title = dataList[indexPath.row]
-        let icon = iconList[indexPath.row]
         cell.titleLabel.text = title
-        cell.icon.image = UIImage.init(named: icon)
         return cell
     }
     
@@ -96,13 +85,26 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         btn.frame = CGRect.init(x: 0, y: 0, width: .screenWidth, height: 40)
         btn.setTitle("退出登录", for: .normal)
         btn.setTitleColor(.red, for: .normal)
-        btn.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+        btn.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         btn.addTarget(self, action: #selector(logout), for: .touchUpInside)
         return btn
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 40
+        return 60
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            let vc = BindPhoneViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else if indexPath.row == 1 {
+            let vc = CompanyViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else if indexPath.row == 2 {
+            let vc = LanguageViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
 }
@@ -114,48 +116,48 @@ class SettingItemCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.font = .systemFont(ofSize: 16, weight: .regular)
         return label
     }()
     
-    let icon: UIImageView = {
-        let icon = UIImageView()
-        icon.image = UIImage.init(named: "publish_camera")
-        return icon
-    }()
-    
-    private let arrow: UIImageView = {
+    let arrow: UIImageView = {
         let arrow = UIImageView()
         arrow.image = UIImage.init(named: "publish_arrow")
         return arrow
     }()
+    
 
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        selectionStyle = .none
+        
         self.backgroundColor = .clear
         self.contentView.backgroundColor = .clear
         
         contentView.addSubview(titleLabel)
-        contentView.addSubview(icon)
         contentView.addSubview(arrow)
 
-        icon.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(16)
-            make.centerY.equalToSuperview().offset(0)
-            make.width.height.equalTo(20)
-        }
-        
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview().offset(0)
-            make.left.equalTo(icon.snp.right).offset(12)
+            make.left.equalToSuperview().offset(16)
         }
         
         arrow.snp.makeConstraints { make in
             make.centerY.equalToSuperview().offset(0)
             make.right.equalToSuperview().offset(-16)
             make.width.height.equalTo(16)
+        }
+        
+        let line = UIView()
+        line.backgroundColor = UIColor.init(hexString: "#666666")
+        contentView.addSubview(line)
+        line.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16)
+            make.bottom.equalToSuperview().offset(0)
+            make.right.equalToSuperview().offset(0)
+            make.height.equalTo(0.5)
         }
     }
     

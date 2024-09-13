@@ -71,6 +71,10 @@
 		399952792BA8607500415C46 /* ImageFilterTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399952782BA8607500415C46 /* ImageFilterTool.swift */; };
 		3999527B2BA9B30300415C46 /* ExplainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3999527A2BA9B30300415C46 /* ExplainViewController.swift */; };
 		39A86D1F2C4DF0C7000D4217 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A86D1E2C4DF0C7000D4217 /* SettingViewController.swift */; };
+		39AB750F2C92F39C00440E5A /* BindPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB750E2C92F39C00440E5A /* BindPhoneViewController.swift */; };
+		39AB75112C93224900440E5A /* InputCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB75102C93224900440E5A /* InputCodeViewController.swift */; };
+		39AB75132C93271B00440E5A /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB75122C93271B00440E5A /* LanguageViewController.swift */; };
+		39AB75152C93E10500440E5A /* CompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB75142C93E10500440E5A /* CompanyViewController.swift */; };
 		39B7943C2B9896410048C996 /* EditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B7943B2B9896410048C996 /* EditPhotoViewController.swift */; };
 		39B7943E2B989A3E0048C996 /* EditPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B7943D2B989A3E0048C996 /* EditPhotoCell.swift */; };
 		39E908082C1ECD0C0017B83B /* MineConstrainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E908072C1ECD0C0017B83B /* MineConstrainerView.swift */; };
@@ -179,6 +183,10 @@
 		399952782BA8607500415C46 /* ImageFilterTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilterTool.swift; sourceTree = "<group>"; };
 		3999527A2BA9B30300415C46 /* ExplainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainViewController.swift; sourceTree = "<group>"; };
 		39A86D1E2C4DF0C7000D4217 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		39AB750E2C92F39C00440E5A /* BindPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindPhoneViewController.swift; sourceTree = "<group>"; };
+		39AB75102C93224900440E5A /* InputCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCodeViewController.swift; sourceTree = "<group>"; };
+		39AB75122C93271B00440E5A /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
+		39AB75142C93E10500440E5A /* CompanyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyViewController.swift; sourceTree = "<group>"; };
 		39B7943B2B9896410048C996 /* EditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoViewController.swift; sourceTree = "<group>"; };
 		39B7943D2B989A3E0048C996 /* EditPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoCell.swift; sourceTree = "<group>"; };
 		39E908072C1ECD0C0017B83B /* MineConstrainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineConstrainerView.swift; sourceTree = "<group>"; };
@@ -241,6 +249,10 @@
 				397216BE2B8249E2007D0F2B /* MineViewController.swift */,
 				04F0D1A72BFAEC0D00FFE128 /* EditHomePageViewController.swift */,
 				39A86D1E2C4DF0C7000D4217 /* SettingViewController.swift */,
+				39AB750E2C92F39C00440E5A /* BindPhoneViewController.swift */,
+				39AB75102C93224900440E5A /* InputCodeViewController.swift */,
+				39AB75122C93271B00440E5A /* LanguageViewController.swift */,
+				39AB75142C93E10500440E5A /* CompanyViewController.swift */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -800,6 +812,7 @@
 				39E9080B2C26B15B0017B83B /* SearchTagsView.swift in Sources */,
 				04F23E512C0F00450078809E /* ChatUserInfoView.swift in Sources */,
 				042597FF2C2A951F00482282 /* SearchDetailListViewController.swift in Sources */,
+				39AB750F2C92F39C00440E5A /* BindPhoneViewController.swift in Sources */,
 				397216C52B824A04007D0F2B /* MainViewController.swift in Sources */,
 				392CF1122B8ECA660070637E /* MainView.swift in Sources */,
 				04F23E4A2C0EE7900078809E /* ChatModel.swift in Sources */,
@@ -808,6 +821,7 @@
 				39E908122C26C4200017B83B /* WaterfallCollectionViewCell.swift in Sources */,
 				399952792BA8607500415C46 /* ImageFilterTool.swift in Sources */,
 				39FABA0E2B930B5000A10FE6 /* WaterfallFlowLayout.swift in Sources */,
+				39AB75152C93E10500440E5A /* CompanyViewController.swift in Sources */,
 				39E9081C2C2874EE0017B83B /* TopItemCell.swift in Sources */,
 				04D16F742C1BDC6C00D0BF61 /* ChatUserHomeViewController.swift in Sources */,
 				04F0D1A62BFADC5900FFE128 /* MineHeaderView.swift in Sources */,
@@ -835,6 +849,7 @@
 				392CF1102B8ECA4F0070637E /* MainRecommendView.swift in Sources */,
 				397216B52B81EA79007D0F2B /* BaseViewController.swift in Sources */,
 				397216C12B8249F1007D0F2B /* PublishViewController.swift in Sources */,
+				39AB75132C93271B00440E5A /* LanguageViewController.swift in Sources */,
 				399739552C6B3BA600D4DD8C /* ResponseModel.swift in Sources */,
 				39E9081A2C2874D40017B83B /* SearchResultsViewController.swift in Sources */,
 				042598032C2ABB0400482282 /* InfiniteCarousel.swift in Sources */,
@@ -843,6 +858,7 @@
 				04F23E4F2C0F00050078809E /* ChatViewController.swift in Sources */,
 				04BCDA352C13063100437222 /* TextSizeCalculator.swift in Sources */,
 				39E9080F2C26BAC40017B83B /* SearchTagViewController.swift in Sources */,
+				39AB75112C93224900440E5A /* InputCodeViewController.swift in Sources */,
 				39E908162C2872CF0017B83B /* SearchBarView.swift in Sources */,
 				39066F612C50E2DB003D347E /* LoginViewController.swift in Sources */,
 				3998DE352BB59F0E0000C4DD /* UpdatesEarlierCell.swift in Sources */,

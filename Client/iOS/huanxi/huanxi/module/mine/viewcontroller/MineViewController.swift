@@ -64,8 +64,8 @@ class MineViewController: BaseViewController {
     }
     
     @objc func setAction() {
-//        let vc = SettingViewController()
-//        vc.hidesBottomBarWhenPushed = true
-//        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = SettingViewController()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
