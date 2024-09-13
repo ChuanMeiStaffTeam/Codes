@@ -50,7 +50,7 @@ class CompanyViewController: BaseViewController {
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
         
-        companyNameTF.placeholder = "请输入企业名称（必填）"
+        companyNameTF.placeholder = "请输入企业名称*"
         companyNameTF.font = UIFont.boldSystemFont(ofSize: 16)
         companyNameTF.setPlaceholderColor(.gray)
         companyNameTF.textColor = .white
@@ -72,7 +72,7 @@ class CompanyViewController: BaseViewController {
             make.height.equalTo(0.5)
         }
         
-        companyCodeTF.placeholder = "请输入社会信用代码（选填）"
+        companyCodeTF.placeholder = "请输入社会信用代码"
         companyCodeTF.font = UIFont.boldSystemFont(ofSize: 16)
         companyCodeTF.setPlaceholderColor(.gray)
         companyCodeTF.textColor = .white
@@ -94,7 +94,7 @@ class CompanyViewController: BaseViewController {
             make.height.equalTo(0.5)
         }
         
-        nameTF.placeholder = "请输入联系人姓名（必填）"
+        nameTF.placeholder = "请输入联系人姓名*"
         nameTF.font = UIFont.boldSystemFont(ofSize: 16)
         nameTF.setPlaceholderColor(.gray)
         nameTF.textColor = .white
@@ -116,7 +116,7 @@ class CompanyViewController: BaseViewController {
             make.height.equalTo(0.5)
         }
         
-        phoneTF.placeholder = "请输入联系电话（必填）"
+        phoneTF.placeholder = "请输入联系电话*"
         phoneTF.font = UIFont.boldSystemFont(ofSize: 16)
         phoneTF.setPlaceholderColor(.gray)
         phoneTF.textColor = .white
