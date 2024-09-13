@@ -26,7 +26,7 @@ class SettingViewController: BaseViewController {
     func setupView() {
         title = "设置"
         
-        dataList = ["账号管理", "广告接入", "语言"]
+        dataList = ["账号管理", "广告接入", "语言", "隐私政策"]
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -104,7 +104,11 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.row == 2 {
             let vc = LanguageViewController()
             self.navigationController?.pushViewController(vc, animated: true)
+        } else if indexPath.row == 3 {
+            let vc = PrivateViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
         }
+        
     }
     
 }
