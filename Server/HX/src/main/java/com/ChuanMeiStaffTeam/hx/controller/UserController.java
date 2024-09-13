@@ -160,7 +160,7 @@ public class UserController {
             log.error("验证码错误");
             return AppResult.failed("验证码错误");
         }
-        // 登录成功 更新用户登录时间
+       // 判断手机号是否注册
         User user = userService.getUserByPhone(phone);
         if (user == null) {
             log.error("该手机号未注册");

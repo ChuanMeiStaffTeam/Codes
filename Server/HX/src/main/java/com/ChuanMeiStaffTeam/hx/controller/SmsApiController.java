@@ -1,6 +1,8 @@
 package com.ChuanMeiStaffTeam.hx.controller;
 
 import com.ChuanMeiStaffTeam.hx.common.AppResult;
+import com.ChuanMeiStaffTeam.hx.model.User;
+import com.ChuanMeiStaffTeam.hx.service.IUserService;
 import com.ChuanMeiStaffTeam.hx.service.SendSms;
 import com.ChuanMeiStaffTeam.hx.util.RedisUtil;
 import com.ChuanMeiStaffTeam.hx.util.Uuid;
@@ -35,7 +37,10 @@ public class SmsApiController {
     @Resource
     private RedisUtil redisUtil;
 
-    @ApiOperation(value = "发送用户登录验证码")
+    @Resource
+    private IUserService userService;
+
+    @ApiOperation(value = "发送用户登录/注册验证码")
     @PostMapping("/send")
     public AppResult sendCode(@RequestBody Map<String, String> params) throws Exception {
         String phone = params.get("phone");
