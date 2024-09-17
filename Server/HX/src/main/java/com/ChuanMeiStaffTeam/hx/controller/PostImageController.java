@@ -481,8 +481,28 @@ public class PostImageController {
         return AppResult.success(map);
     }
 
+    // 搜索帖子接口
+    @GetMapping(value = "/searchPosts")
+    @ApiOperation(value = "搜索帖子接口")
+    // keyword 搜索关键字
+    public AppResult searchPosts(@ApiParam("搜索关键字") @RequestBody Map<String,Object> params) {
+        String keyword = (String) params.get("keyword");
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return AppResult.failed("搜索关键字不能为空");
+        }
+        List<SysPostImage> sysPostImages = postsImageService.searchPosts(keyword);
+        if (sysPostImages == null || sysPostImages.isEmpty()) {
+            log.info("没有搜索到相关帖子");
+            return AppResult.failed("没有搜索到相关帖子");
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", sysPostImages);
+        log.info("搜索帖子成功");
+        return AppResult.success(map);
+    }
 
-//    // 评论帖子接口 todo
+
+//    // 评论帖子接口
 //    @PostMapping(value = "/commentPost")
 //    @ApiOperation(value = "评论帖子接口")
 //    public AppResult commentPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId,
@@ -515,7 +535,7 @@ public class PostImageController {
 //        return AppResult.success();
 //    }
 //
-//    // 回复评论接口 todo
+//    // 回复评论接口
 //    @PostMapping(value = "/replyComment")
 //    @ApiOperation(value = "回复评论接口")
 //    public AppResult replyComment(@ApiParam("评论id") @RequestParam("commentId") Integer commentId,
@@ -535,7 +555,7 @@ public class PostImageController {
 //        }
 //
 //
-//        // 判断当前登录用户是否已经评论   todo
+//        // 判断当前登录用户是否已经评论
 //        String token = request.getHeader("token");
 //        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
 //        String username = tokenInfo.getClaim("username").asString();
@@ -549,16 +569,13 @@ public class PostImageController {
 //        return AppResult.success();
 //    }
 //
-//    // 删除评论接口  todo
+//    // 删除评论接口
 //
-//    // 举报评论接口 todo
-//
-//
-//    // 举报帖子接口 todo
-//
-//    // 搜索帖子接口 todo
+//    // 举报评论接口
 //
 //
-//    // 关注用户接口 todo
+//    // 举报帖子接口
+
+//    // 关注用户接口
 
 }

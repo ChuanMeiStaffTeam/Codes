@@ -211,4 +211,37 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
         }
         return sysPostImages;
     }
+
+    @Override
+    public List<SysPostImage> searchPosts(String keyword) {
+        QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
+        String key = "%" + keyword + "%";
+        queryWrapper.like("caption",key);
+        List<SysPost> sysPosts = postMapper.selectList(queryWrapper);  // sql: select * from sys_post where caption like '%keyword%'
+        if(sysPosts == null || sysPosts.size() == 0) {
+            return null;
+        }
+        List<SysPostImage> sysPostImages = new ArrayList<>();
+        for (SysPost sysPost : sysPosts) {
+            SysPostImage sysPostImage = new SysPostImage();
+            sysPostImage.setPostId(sysPost.getPostId());
+            sysPostImage.setUserId(sysPost.getUserId());
+            sysPostImage.setCaption(sysPost.getCaption());
+            sysPostImage.setLocation(sysPost.getLocation());
+            sysPostImage.setLikesCount(sysPost.getLikesCount());
+            sysPostImage.setCreatedAt(sysPost.getCreatedAt());
+            sysPostImage.setUpdatedAt(sysPost.getUpdatedAt());
+            sysPostImage.setCommentsCount(sysPost.getCommentsCount());
+            sysPostImage.setPublic(sysPost.isPublic());
+            sysPostImage.setTags(sysPost.getTags());
+            sysPostImage.setDeleted(sysPost.isDeleted());
+            sysPostImage.setVisibility(sysPost.getVisibility());
+            sysPostImage.setFavoriteCount(sysPost.getFavoriteCount());
+            // 设置图片
+            List<SysImage> sysImages = selectPostImagesByPostId(sysPostImage.getPostId());
+            sysPostImage.setImages(sysImages);
+            sysPostImages.add(sysPostImage);
+        }
+        return sysPostImages;
+    }
 }

@@ -60,4 +60,7 @@ public interface IPostsImage extends IService<SysPost> {
 
     // 根据用户id查询帖子列表
     List<SysPostImage> getPostListByUserId(Integer userId);
+
+    // 搜索帖子
+    List<SysPostImage> searchPosts(String keyword);
 }
