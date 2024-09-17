@@ -56,6 +56,9 @@ public class DeptContactController {
             deptContact.setUserName(userName);
             deptContact.setPhoneNumber(phoneNumber);
             int i = deptContactService.insertDeptContact(deptContact);
+            if(i > 0) {
+                log.info("企业信息添加成功");
+            }
             return i > 0? AppResult.success("添加成功") : AppResult.failed("添加失败,请联系管理员");
         } else {
             return AppResult.failed("参数不能为空");
