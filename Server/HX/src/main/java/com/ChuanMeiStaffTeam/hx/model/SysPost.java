@@ -106,6 +106,9 @@ public class SysPost {
     @TableField(exist = false)   // 不在数据库中创建该字段
     private List<String> imagesUrl;
 
+    @TableField(exist = false)   // 不在数据库中创建该字段
+    private User user;
+
 
 
 

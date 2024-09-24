@@ -128,6 +128,8 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
             sysPostImage.setDeleted(sysPost.isDeleted());
             sysPostImage.setVisibility(sysPost.getVisibility());
             sysPostImage.setFavoriteCount(sysPost.getFavoriteCount());
+            // 设置用户信息
+            sysPostImage.setUser(userService.getUserByUserId(sysPost.getUserId()));
             // 设置图片
             List<SysImage> sysImages = selectPostImagesByPostId(sysPostImage.getPostId());
             sysPostImage.setImages(sysImages);
