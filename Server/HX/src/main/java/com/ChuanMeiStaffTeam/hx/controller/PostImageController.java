@@ -156,7 +156,9 @@ public class PostImageController {
             return AppResult.failed("帖子为空");
         }
         log.info("查询当前用户帖子列表成功");
-        return AppResult.success(sysPostImages);
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", sysPostImages);
+        return AppResult.success(map);
     }
 
     // 用户查询帖子详情接口
