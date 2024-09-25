@@ -109,6 +109,11 @@ public class SysPost {
     @TableField(exist = false)   // 不在数据库中创建该字段
     private User user;
 
+    @TableField(exist = false)   // 不在数据库中创建该字段
+    private boolean isLiked; // 是否点赞
+    @TableField(exist = false)   // 不在数据库中创建该字段
+    private boolean isFavorite; // 是否收藏
+
 
 
 

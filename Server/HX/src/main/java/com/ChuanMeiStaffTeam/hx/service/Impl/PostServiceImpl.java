@@ -6,13 +6,12 @@ import com.ChuanMeiStaffTeam.hx.model.SysImage;
 import com.ChuanMeiStaffTeam.hx.model.SysPost;
 import com.ChuanMeiStaffTeam.hx.model.User;
 import com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage;
-import com.ChuanMeiStaffTeam.hx.service.IImage;
-import com.ChuanMeiStaffTeam.hx.service.IPostsImage;
-import com.ChuanMeiStaffTeam.hx.service.IUserService;
+import com.ChuanMeiStaffTeam.hx.service.*;
 import com.ChuanMeiStaffTeam.hx.util.RedisUtil;
 import com.ChuanMeiStaffTeam.hx.util.UploadUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,6 +40,12 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
 
     @Resource
     private IUserService userService;
+
+    @Resource
+    private ILikeService likeService;
+
+    @Resource
+    private IFavoriteService favoriteService;
 
     @Resource
     private IPostsImage postsImageService;
@@ -106,7 +111,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
     }
 
     @Override
-    public List<SysPostImage> selectAllPosts() {
+    public List<SysPostImage> selectAllPosts(Integer userId) {
         // 查询所有 按照时间降序
         QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("created_at");
@@ -128,6 +133,9 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
             sysPostImage.setDeleted(sysPost.isDeleted());
             sysPostImage.setVisibility(sysPost.getVisibility());
             sysPostImage.setFavoriteCount(sysPost.getFavoriteCount());
+            // 设置用户是否收藏  并设置用户是否点赞
+            sysPostImage.setLiked(!likeService.isLiked(sysPostImage.getPostId(),userId));  // 设置用户是否点赞
+            sysPostImage.setFavorite(favoriteService.isFavorite(sysPostImage.getPostId(),userId));  // 设置用户是否收藏
             // 设置用户信息
             sysPostImage.setUser(userService.getUserByUserId(sysPost.getUserId()));
             // 设置图片
@@ -223,6 +231,35 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
         if(sysPosts == null || sysPosts.size() == 0) {
             return null;
         }
+        List<SysPostImage> sysPostImages = new ArrayList<>();
+        for (SysPost sysPost : sysPosts) {
+            SysPostImage sysPostImage = new SysPostImage();
+            sysPostImage.setPostId(sysPost.getPostId());
+            sysPostImage.setUserId(sysPost.getUserId());
+            sysPostImage.setCaption(sysPost.getCaption());
+            sysPostImage.setLocation(sysPost.getLocation());
+            sysPostImage.setLikesCount(sysPost.getLikesCount());
+            sysPostImage.setCreatedAt(sysPost.getCreatedAt());
+            sysPostImage.setUpdatedAt(sysPost.getUpdatedAt());
+            sysPostImage.setCommentsCount(sysPost.getCommentsCount());
+            sysPostImage.setPublic(sysPost.isPublic());
+            sysPostImage.setTags(sysPost.getTags());
+            sysPostImage.setDeleted(sysPost.isDeleted());
+            sysPostImage.setVisibility(sysPost.getVisibility());
+            sysPostImage.setFavoriteCount(sysPost.getFavoriteCount());
+            // 设置图片
+            List<SysImage> sysImages = selectPostImagesByPostId(sysPostImage.getPostId());
+            sysPostImage.setImages(sysImages);
+            sysPostImages.add(sysPostImage);
+        }
+        return sysPostImages;
+    }
+
+    @Override
+    public List<SysPostImage> selectByUserId(Integer userId) {
+        QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id",userId);
+        List<SysPost> sysPosts = postMapper.selectList(queryWrapper);
         List<SysPostImage> sysPostImages = new ArrayList<>();
         for (SysPost sysPost : sysPosts) {
             SysPostImage sysPostImage = new SysPostImage();

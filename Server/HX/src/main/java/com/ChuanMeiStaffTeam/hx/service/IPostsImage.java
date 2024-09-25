@@ -5,6 +5,7 @@ import com.ChuanMeiStaffTeam.hx.model.SysPost;
 import com.ChuanMeiStaffTeam.hx.model.User;
 import com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,7 +40,7 @@ public interface IPostsImage extends IService<SysPost> {
 
 
     // 查询所有帖子
-    List<SysPostImage> selectAllPosts();
+    List<SysPostImage> selectAllPosts(Integer UserId);
 
 
 
@@ -63,4 +64,9 @@ public interface IPostsImage extends IService<SysPost> {
 
     // 搜索帖子
     List<SysPostImage> searchPosts(String keyword);
+
+
+    // 根据用户id查询帖子列表 (不带具体用户信息)
+    List<SysPostImage> selectByUserId(Integer userId);
+
 }

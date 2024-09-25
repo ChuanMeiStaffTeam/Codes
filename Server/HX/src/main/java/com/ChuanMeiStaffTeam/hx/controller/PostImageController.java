@@ -140,6 +140,25 @@ public class PostImageController {
             return AppResult.success();
         }
 
+
+    // 用户查询帖子列表接口
+    @GetMapping(value = "/queryPosts")
+    @ApiOperation(value = "用户查询帖子列表接口")
+    public AppResult queryPosts(HttpServletRequest request) {
+        // 获取当前登录用户id和username 从token中获取
+        String token = request.getHeader("token");
+        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+        Integer userid = Integer.parseInt(tokenInfo.getClaim("userid").asString());
+        // 查询帖子信息
+        List<SysPostImage> sysPostImages = postsImageService.selectByUserId(userid);
+        if (sysPostImages == null || sysPostImages.isEmpty()) {
+            log.info("帖子为空");
+            return AppResult.failed("帖子为空");
+        }
+        log.info("查询当前用户帖子列表成功");
+        return AppResult.success(sysPostImages);
+    }
+
     // 用户查询帖子详情接口
     @GetMapping(value = "/queryPost")
     @ApiOperation(value = "用户查询帖子接口")
@@ -171,10 +190,14 @@ public class PostImageController {
     // 获取主页帖子信息接口
     @GetMapping(value = "/queryHomePosts")
     @ApiOperation(value = "获取主页帖子接口")
-    public AppResult queryHomePosts() {
+    public AppResult queryHomePosts(HttpServletRequest request) {
+        // 获取当前登录用户id
+        String token = request.getHeader("token");
+        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+        Integer userid = Integer.parseInt(tokenInfo.getClaim("userid").asString());
         // 查询帖子信息
         // 查询所有的帖子信息,并将帖子信息中的图片信息查询出来,设置到SysPostImage对象中
-        List<SysPostImage> sysPostImages = postsImageService.selectAllPosts();
+        List<SysPostImage> sysPostImages = postsImageService.selectAllPosts(userid);
         if (sysPostImages == null || sysPostImages.isEmpty()) {
             log.info("帖子为空");
             return AppResult.failed("帖子为空");
