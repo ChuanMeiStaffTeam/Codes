@@ -7,7 +7,22 @@
 
 import UIKit
 
+protocol MainContentCellDelegate: AnyObject {
+    func didClickMore(_ data: PostModel)
+    
+    func didClickLike(_ data: PostModel)
+    
+    func didClickComment(_ data: PostModel)
+    
+    func didClickShare(_ data: PostModel)
+    
+    func didClickMark(_ data: PostModel)
+}
+
 class MainContentCell: UITableViewCell {
+    
+    weak var delegate: MainContentCellDelegate?
+    var postModel: PostModel?
     
     let icon = UIImageView()
     let nameLabel = UILabel()
@@ -49,6 +64,23 @@ class MainContentCell: UITableViewCell {
         likeNumLabel.text = "65次点赞"
         contentLabel.text = contents[index]
         dateLabel.text = "2024年1月1日"
+        
+    }
+    
+    func reloadData(data: PostModel) {
+        postModel = data
+        
+        if let urlStr = data.user?.profilePictureUrl {
+            icon.kf.setImage(with: URL.init(string: urlStr))
+        }
+        nameLabel.text = data.user?.fullName
+        if let urlStr = data.images?.first?.imageUrl {
+            imgView.kf.setImage(with: URL.init(string: urlStr))
+        }
+        countryLabel.text = data.location
+        likeNumLabel.text = String(format: "%d次点赞", data.likesCount ?? 0)
+        contentLabel.text = data.caption
+        dateLabel.text = data.createdAt
         
     }
     
@@ -101,7 +133,8 @@ class MainContentCell: UITableViewCell {
             make.top.equalToSuperview().offset(14)
         }
         
-        imgView.image = UIImage.init(named: "main_pic_test")
+        imgView.contentMode = .scaleAspectFill
+//        imgView.image = UIImage.init(named: "main_pic_test")
         imgView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().offset(0)
             make.top.equalToSuperview().offset(52)
@@ -168,23 +201,33 @@ class MainContentCell: UITableViewCell {
     
     
     @objc func moreAction() {
-        HUDHelper.showToast("点击了更多")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickMore(model)
+        }
     }
     
     @objc func likeAction() {
-        HUDHelper.showToast("点击了喜欢")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickLike(model)
+        }
     }
     
     @objc func commentAction() {
-        HUDHelper.showToast("点击了评论")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickComment(model)
+        }
     }
     
     @objc func shareAction() {
-        HUDHelper.showToast("点击了分享")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickShare(model)
+        }
     }
     
     @objc func markAction() {
-        HUDHelper.showToast("点击了标记")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickMark(model)
+        }
     }
     
 }

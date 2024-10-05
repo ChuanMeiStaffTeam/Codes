@@ -127,7 +127,7 @@ class LoginViewController: BaseViewController {
     @objc func registerAction() {
         let vc = RegisterViewController()
         vc.modalPresentationStyle = .fullScreen
-        self.present(RegisterViewController(), animated: true)
+        self.present(vc, animated: true)
         
     }
     

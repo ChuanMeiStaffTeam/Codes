@@ -35,5 +35,9 @@ struct PostModel: Codable {
     let updatedAt: String?
     let userId: Int?
     let visibility: String?
+    var liked: Bool? = false
+    var favorite: Bool? = false
+    
+    let user: UserInfoModel?
 
 }

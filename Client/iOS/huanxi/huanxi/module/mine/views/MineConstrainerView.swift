@@ -13,6 +13,10 @@ class MineConstrainerView: UIView {
     let postBtn = UIButton.init(type: .custom)
     let markBtn = UIButton.init(type: .custom)
     let moveView = UIView()
+    
+    var postData: Array<[Int: PostModel.image]> = []
+    var markData: Array<[Int: PostModel.image]> = []
+
 
     var images: [String] = ["list_0", "list_1", "list_2", "list_3", "list_4", "list_5", "list_6", "list_7", "list_8", "list_0", "list_1", "list_2", "list_3", "list_4", "list_5", "list_6", "list_7", "list_8","list_0", "list_1", "list_2", "list_3", "list_4", "list_5", "list_6", "list_7", "list_8","list_0", "list_1", "list_2", "list_3", "list_4", "list_5", "list_6", "list_7", "list_8"]
     
@@ -27,6 +31,15 @@ class MineConstrainerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func reloadPostData(_ data: Array<[Int: PostModel.image]>) {
+        postData = data
+        postCollectionView.reloadData()
+    }
+    
+    func reloadMarkData(_ data: Array<[Int: PostModel.image]>) {
+        markData = data
+        markCollectionView.reloadData()
+    }
     
     @objc func postAction() {
         scrollView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: true)
@@ -100,14 +113,27 @@ class MineConstrainerView: UIView {
 extension MineConstrainerView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        if collectionView == postCollectionView {
+            return postData.count
+        } else {
+            return markData.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ImageCell
-        let imageStr = images[indexPath.item]
-        cell.imgView.image = UIImage.init(named: imageStr)
-        return cell
+        if collectionView == postCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ImageCell
+            if let image = postData[indexPath.item].values.first, let imageStr = image.imageUrl {
+                cell.imgView.kf.setImage(with: URL.init(string: imageStr))
+            }
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ImageCell
+            if let image = markData[indexPath.item].values.first, let imageStr = image.imageUrl {
+                cell.imgView.kf.setImage(with: URL.init(string: imageStr))
+            }
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

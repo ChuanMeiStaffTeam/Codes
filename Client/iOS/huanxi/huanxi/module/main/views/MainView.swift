@@ -9,6 +9,18 @@ import Foundation
 import UIKit
 import SnapKit
 
+protocol MainViewDelegate: AnyObject {
+    func didClickMore(_ data: PostModel)
+    
+    func didClickLike(_ data: PostModel)
+    
+    func didClickComment(_ data: PostModel)
+    
+    func didClickShare(_ data: PostModel)
+    
+    func didClickMark(_ data: PostModel)
+}
+
 class MainView: UIView {
     
     let userCell = "userCell"
@@ -17,6 +29,8 @@ class MainView: UIView {
 
     
     var mainList: [MainModel] = []
+    var data: PostsResponse?
+    var delegate: MainViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,8 +50,8 @@ class MainView: UIView {
         }
     }
     
-    func reloadMainViewData(_ list: [MainModel]) {
-        mainList = list
+    func reloadMainViewData(_ data: PostsResponse) {
+        self.data = data
         tableView.reloadData()
     }
     
@@ -57,40 +71,95 @@ class MainView: UIView {
 
 extension MainView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mainList.count
+        var count = self.data?.list?.count ?? 0
+        if self.data?.users?.count ?? 0 > 0 {
+            count += 1
+        }
+        return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let model = mainList[indexPath.row]
-        if model.type == "user" {
-            let cell = MainUserCell.init(style: .default, reuseIdentifier: userCell)
-            return cell
-        } else if model.type == "content" {
+//        let model = mainList[indexPath.row]
+//        if model.type == "user" {
+//            let cell = MainUserCell.init(style: .default, reuseIdentifier: userCell)
+//            return cell
+//        } else if model.type == "content" {
+//            let cell = MainContentCell.init(style: .default, reuseIdentifier: contentCell)
+//            cell.reloadData(indexPath: indexPath)
+//            return cell
+//        } else if model.type == "recommend" {
+//            let cell = MainRecommendCell.init(style: .default, reuseIdentifier: recommendCell)
+//            return cell
+//        }
+//
+//        return UITableViewCell()
+        
+        if self.data?.users?.count ?? 0 > 0 {
+            if indexPath.row == 0 {
+                let cell = MainUserCell.init(style: .default, reuseIdentifier: userCell)
+                cell.reloadData(self.data?.users ?? [])
+                return cell
+            } else {
+                let cell = MainContentCell.init(style: .default, reuseIdentifier: contentCell)
+                if let post = self.data?.list?[indexPath.row-1] {
+                    cell.reloadData(data: post)
+                    cell.delegate = self
+                }
+                return cell
+            }
+        } else {
             let cell = MainContentCell.init(style: .default, reuseIdentifier: contentCell)
-            cell.reloadData(indexPath: indexPath)
-            return cell
-        } else if model.type == "recommend" {
-            let cell = MainRecommendCell.init(style: .default, reuseIdentifier: recommendCell)
+            if let post = self.data?.list?[indexPath.row] {
+                cell.reloadData(data: post)
+                cell.delegate = self
+            }
             return cell
         }
-        
-        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        let model = mainList[indexPath.row]
-        if model.type == "user" {
-            return 100
-        } else if model.type == "content" {
+        if self.data?.users?.count ?? 0 > 0 {
+            if indexPath.row == 0 {
+                return 100
+            } else {
+                return 585
+            }
+        } else {
             return 585
-        } else if model.type == "recommend" {
-            return 330
         }
-        
-        return 0
     }
     
+}
+
+extension MainView: MainContentCellDelegate {
+    func didClickMore(_ data: PostModel) {
+        if let delegate = self.delegate {
+            delegate.didClickMore(data)
+        }
+    }
     
+    func didClickLike(_ data: PostModel) {
+        if let delegate = self.delegate {
+            delegate.didClickLike(data)
+        }
+    }
+    
+    func didClickComment(_ data: PostModel) {
+        if let delegate = self.delegate {
+            delegate.didClickComment(data)
+        }
+    }
+    
+    func didClickShare(_ data: PostModel) {
+        if let delegate = self.delegate {
+            delegate.didClickShare(data)
+        }
+    }
+    
+    func didClickMark(_ data: PostModel) {
+        if let delegate = self.delegate {
+            delegate.didClickMark(data)
+        }
+    }
 }

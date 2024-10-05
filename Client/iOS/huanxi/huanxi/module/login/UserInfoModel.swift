@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct UserInfoResponse: Codable {
+    let user: UserInfoModel?
+}
+
+
 struct LoginModel: Codable {
     
     let token: String
@@ -20,34 +25,29 @@ struct UserInfoModel: Codable {
     let phoneNumber: String?
     let userId: Int?
     let loginAttempts: Int?
+    let profilePictureUrl: String?
+    let fullName: String?
+    let email: String?
+    let bio: String?
+    let websiteUrl: String?
     
-//    "username" : "003",
-//    "phoneNumber" : null,
-//    "address" : null,
-//    "followingCount" : null,
-//    "lastLoginAt" : "2024-08-07 09:55:28 #æ¥ææ ¼å¼å",
-//    "websiteUrl" : null,
-//    "country" : null,
-//    "lockoutTime" : null,
-//    "dateOfBirth" : null,
-//    "postCount" : null,
-//    "loginAttempts" : 0,
-//    "twitterUrl" : null,
-//    "city" : null,
-//    "bio" : null,
-//    "createdAt" : "2024-07-29 10:51:05 #æ¥ææ ¼å¼å",
-//    "facebookUrl" : null,
-//    "state" : null,
-//    "updatedAt" : "2024-07-29 10:51:14 #æ¥ææ ¼å¼å",
-//    "gender" : null,
-//    "email" : null,
-//    "favoriteCount" : null,
-//    "postalCode" : null,
-//    "profilePictureUrl" : null,
-//    "privacySettings" : null,
-//    "accountLocked" : false,
-//    "followerCount" : null,
-//    "fullName" : "003",
-//    "userId" : 26
+    let address: String?
+    var followingCount: Int? = 0
+    let lastLoginAt: String?
+    let country: String?
+    let lockoutTime: String?
+    let dateOfBirth: String?
+    var postCount: Int? = 0
+    let twitterUrl: String?
+    let city: String?
+    let createdAt: String?
+    let facebookUrl: String?
+    let state: String?
+    let updatedAt: String?
+    let gender: String?
+    var favoriteCount: Int? = 0
+    let postalCode: String?
+    let privacySettings: String?
+    var followerCount: Int? = 0
     
 }

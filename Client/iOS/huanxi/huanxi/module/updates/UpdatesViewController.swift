@@ -22,7 +22,13 @@ class UpdatesViewController: BaseViewController {
         
         setupView()
         
-        mainView.reloadMainViewData(vm.mainList)
+//        mainView.reloadMainViewData(vm.mainList)
+        vm.requestHomePosts { [weak self] result in
+            
+            if let data = self?.vm.data {
+                self?.mainView.reloadMainViewData(data)
+            }
+        }
     }
     
     

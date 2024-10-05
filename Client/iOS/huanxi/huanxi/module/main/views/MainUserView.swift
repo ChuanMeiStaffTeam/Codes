@@ -11,6 +11,12 @@ import SnapKit
 class MainUserView: UIView {
     
     let names: [String] = ["你的快拍", "zixuanooo", "diza", "dnsk", "jack", "rose"]
+    var userInfos: [UserInfoModel] = []
+    
+    func reloadData(_ data: [UserInfoModel]) {
+        userInfos = data
+        collectionView.reloadData()
+    }
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -53,15 +59,14 @@ extension MainUserView: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return names.count
+        return userInfos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCollectionViewCell
         
-        cell.label.text = names[indexPath.row]
-        let nameStr = "avatar_test_" + String(indexPath.row)
-        cell.imageView.image = UIImage.init(named: nameStr)
+        let info = userInfos[indexPath.row]
+        cell.reloadData(info)
         return cell
     }
     
@@ -108,6 +113,13 @@ class CustomCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .center
         return label
     }()
+    
+    func reloadData(_ data: UserInfoModel) {
+        if let urlStr = data.profilePictureUrl {
+            imageView.kf.setImage(with: URL.init(string: urlStr))
+        }
+        label.text = data.username
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

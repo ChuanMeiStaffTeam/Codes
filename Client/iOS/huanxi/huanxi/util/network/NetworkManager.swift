@@ -19,7 +19,7 @@ struct ResponseModel<T: Codable>: Codable {
 // MARK: - NetworkManager
 class NetworkManager {
     static let shared = NetworkManager()
-    private let baseURL = "HTTP://139.196.232.242:8080/api/" // 公共的host
+    private let baseURL = "HTTP://139.196.232.242:8181/api/" // 公共的host
     
     private init() {}
     
@@ -55,14 +55,14 @@ class NetworkManager {
             case .success(let responseModel):
                 if responseModel.code == 200 {
                     completion(true, responseModel.message, responseModel.data)
-                }else if responseModel.code == 404 {
-//                    LoginManager.removeToken()
-//                    let topVC = WindowHelper.topViewController()
-//                    if !((topVC?.isKind(of: LoginViewController.self)) != nil) {
-//                        let loginVC = LoginViewController()
-//                        loginVC.modalPresentationStyle = .fullScreen
-//                        topVC?.present(loginVC, animated: true)
-//                    }
+                }else if responseModel.code == 404 || responseModel.code == 402 {
+                    LoginManager.removeToken()
+                    let topVC = WindowHelper.topViewController()
+                    if !((topVC?.isKind(of: LoginViewController.self)) != nil) {
+                        let loginVC = LoginViewController()
+                        loginVC.modalPresentationStyle = .fullScreen
+                        topVC?.present(loginVC, animated: true)
+                    }
                     
                     completion(false, responseModel.message, responseModel.data)
                 } else {
@@ -174,7 +174,13 @@ class NetworkManager {
                     }
                 }
                 for (index, image) in images.enumerated() {
-                    if let imageData = image.jpegData(compressionQuality: 0.8) {
+                    
+//                    if let originalImage = UIImage(named: "yourImageName"),
+//                       let imageData = compressImage(image: image, toMB: 1) {
+//                        // 使用compressedImage
+//                    }
+                    
+                    if let imageData = self.compressImage(image: image, toMB: 1) {
                         multipartFormData.append(imageData, withName: imageName, fileName: "\(imageName)_\(index).jpg", mimeType: "image/jpeg")
                     }
                 }
@@ -191,8 +197,24 @@ class NetworkManager {
                 }
             }
         }
+    
+    func compressImage(image: UIImage, toMB limit: Int) -> Data? {
+        let bytes = limit * 1024 * 1024
+        var compression: CGFloat = 1.0
+        var imageData = image.jpegData(compressionQuality: compression)
+        
+        while (imageData?.count ?? 0) > bytes && compression > 0 {
+            compression -= 0.1
+            imageData = image.jpegData(compressionQuality: compression)
+        }
+        
+        guard let compressedData = imageData else { return nil }
+        return compressedData
+    }
 
 }
+
+
 
 
 /*

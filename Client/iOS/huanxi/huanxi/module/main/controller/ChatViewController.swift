@@ -159,7 +159,9 @@ extension ChatViewController: NIMChatManagerDelegate {
                 self.messages = messages ?? []
                 self.showUserInfo(!self.messages.isEmpty)
                 self.tableView.reloadData()
-                self.tableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: .bottom, animated: false)
+                if self.messages.count > 0 {
+                    self.tableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: .bottom, animated: false)
+                }
             }
         }
     }

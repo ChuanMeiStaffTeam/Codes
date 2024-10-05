@@ -9,6 +9,10 @@ import Foundation
 
 struct PostsResponse: Codable {
     let list: [PostModel]?
+    let users: [UserInfoModel]?
 }
 
 
+struct ImageResponse: Codable {
+    let list: [String]?
+}
