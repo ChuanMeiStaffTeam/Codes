@@ -14,6 +14,9 @@ class MainRecommendView: UIView, UICollectionViewDataSource, UICollectionViewDel
     private let cellHeight: CGFloat = 275
     private let cellSpacing: CGFloat = 10
     
+    let names: [String] = ["zixuanooo", "diza", "dnsk", "jack", "rose", "zixuanooo", "diza", "dnsk", "jack", "rose"]
+
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -43,11 +46,13 @@ class MainRecommendView: UIView, UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10 // 设置 cell 数量
+        return names.count // 设置 cell 数量
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCell
+        let imageStr = "avatar_test_" + String((indexPath.row % 4 + 1))
+        cell.reloadData(name: names[indexPath.row], imageStr: imageStr)
         return cell
     }
     
@@ -73,7 +78,7 @@ class CustomCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .white
-        label.font = .systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         return label
     }()
     
@@ -92,7 +97,7 @@ class CustomCell: UICollectionViewCell {
         button.layer.masksToBounds = true
         button.setTitle("关注", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.addTarget(self, action: #selector(followButtonTapped), for: .touchUpInside)
+        button.addTarget(CustomCell.self, action: #selector(followButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -129,12 +134,13 @@ class CustomCell: UICollectionViewCell {
             make.height.equalTo(30)
         }
         
-        reloadData()
+//        reloadData()
     }
     
-    func reloadData() {
+    func reloadData(name: String, imageStr: String) {
         
-        nameLabel.text = "jack"
+        avatarImageView.image = UIImage(named: imageStr)
+        nameLabel.text = name
         tagLabel.text = "热门"
         followButton.setTitle("关注", for: .normal)
     }

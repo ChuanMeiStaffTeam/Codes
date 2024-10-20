@@ -10,6 +10,14 @@ import SnapKit
 
 class MainUserView: UIView {
     
+    let names: [String] = ["你的快拍", "zixuanooo", "diza", "dnsk", "jack", "rose"]
+    var userInfos: [UserInfoModel] = []
+    
+    func reloadData(_ data: [UserInfoModel]) {
+        userInfos = data
+        collectionView.reloadData()
+    }
+    
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -51,16 +59,36 @@ extension MainUserView: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return userInfos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath) as! CustomCollectionViewCell
+        
+        let info = userInfos[indexPath.row]
+        cell.reloadData(info)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HUDHelper.showToast("点击了用户")
+        
+        guard let image = UIImage.init(named: "list_7") else { return }
+        // 上传单张图片
+//        NetworkManager.shared.uploadSingleImage(urlStr: "userinfo/updateAvatar", parameters: ["":""], image: image) { model in
+//
+//        } failure: { error in
+//
+//        }
+
+        // 上传多张图片
+//        NetworkManager.shared.uploadMultipleImages(urlStr: "postImage/article", parameters: ["":""], images: [image, image, image]) { model in
+//            
+//        } failure: { error in
+//
+//        }
+
+        
     }
     
 }
@@ -80,11 +108,18 @@ class CustomCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.white
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.text = "用户名"
         label.textAlignment = .center
         return label
     }()
+    
+    func reloadData(_ data: UserInfoModel) {
+        if let urlStr = data.profilePictureUrl {
+            imageView.kf.setImage(with: URL.init(string: urlStr))
+        }
+        label.text = data.username
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

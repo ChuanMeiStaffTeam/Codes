@@ -6,8 +6,16 @@
 //
 
 import UIKit
+import SwiftUI
 
 class EditPhotosView: UIView {
+    
+    var didSelectedItemBlock: ((Int) ->Void)?
+    var currentIndex = 0 {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     var images: [UIImage] = [] {
         didSet {
@@ -62,6 +70,8 @@ class EditPhotosView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
+        imageView.layer.borderColor = UIColor.mainBlueColor.cgColor
+        imageView.layer.borderWidth = 2.0
         return imageView
     }()
 }
@@ -76,10 +86,30 @@ extension EditPhotosView: UICollectionViewDataSource, UICollectionViewDelegate, 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EditPhotosCell
         let image = images[indexPath.row]
         cell.imgView.image = image
+        
+        cell.showBorder(hidden: !(currentIndex==indexPath.row))
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let block = didSelectedItemBlock {
+            block(indexPath.row)
+        }
+        
+        
+        if indexPath.row == images.count - 1 {
+            let offsetX = collectionView.contentSize.width
+            collectionView.setContentOffset(CGPoint.init(x: offsetX-CGFloat.screenWidth, y: 9), animated: true)
+        } else {
+            if indexPath.row == 0 {
+                collectionView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: true)
+            } else {
+                let width = .screenWidth - 32 - 40
+                let offsetX = (width + 16) + (CGFloat(indexPath.row) - 1) * (width + 10)
+                collectionView.setContentOffset(CGPoint.init(x: offsetX, y: 0), animated: true)
+            }
+            
+        }
         
     }
     
@@ -118,6 +148,17 @@ class EditPhotosCell: UICollectionViewCell {
         super.layoutSubviews()
         
         imgView.frame = CGRect(x: 0, y: 0, width: self.width, height: self.height)
+        
+    }
+    
+    func showBorder(hidden: Bool) {
+        if hidden {
+            imgView.layer.borderColor = UIColor.clear.cgColor
+            imgView.layer.borderWidth = 0.0
+        } else {
+            imgView.layer.borderColor = UIColor.mainBlueColor.cgColor
+            imgView.layer.borderWidth = 2.0
+        }
         
     }
     

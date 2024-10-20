@@ -9,6 +9,70 @@ import UIKit
 
 class UpdatesViewController: BaseViewController {
     
+    let vm = MainViewModel()
+    var mainView: MainView!
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupView()
+        
+//        mainView.reloadMainViewData(vm.mainList)
+        vm.requestHomePosts { [weak self] result in
+            
+            if let data = self?.vm.data {
+                self?.mainView.reloadMainViewData(data)
+            }
+        }
+    }
+    
+    
+    func setupView() {
+        setupNavView()
+        
+        mainView = MainView(frame: CGRect.init(x: 0, y: 0, width: .screenWidth, height: .screenHeight - .bottomSafeAreaHeight - .tabBarHeight))
+        view.addSubview(mainView)
+        
+    }
+    
+    func setupNavView() {
+        
+        let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 150, height: 40))
+        view.backgroundColor = .clear
+        
+        let imageView = UIImageView(image: UIImage.init(named: "huanxi.jpg"))
+        imageView.frame = CGRect(x: 39, y: 0, width: 72, height: 36)
+        imageView.contentMode = .scaleAspectFill
+        view.addSubview(imageView)
+//        let leftItem = UIBarButtonItem(customView: imageView)
+        self.navigationItem.titleView = view
+        
+        let button = UIButton(type: .custom)
+        button.frame = CGRect(x: .screenWidth - 46, y: 7, width: 30, height: 30)
+        button.setImage(UIImage.init(named: "main_relay"), for: .normal)
+        button.addTarget(self, action: #selector(gotoDirect), for: .touchUpInside)
+        let rightItem = UIBarButtonItem(customView: button)
+//        self.navigationItem.rightBarButtonItem = rightItem
+        
+    }
+    
+    
+    @objc func gotoDirect() {
+        let vc = DirectViewController()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+/*
+class UpdatesViewController: BaseViewController {
+    
     let updatesThisMonthCell = "UpdatesThisMonthCell"
     let updatesEarlierCell = "UpdatesEarlierCell"
     let updatesRecommendCell = "UpdatesRecommendCell"
@@ -107,3 +171,5 @@ extension UpdatesViewController: UITableViewDelegate, UITableViewDataSource {
     
     
 }
+
+*/

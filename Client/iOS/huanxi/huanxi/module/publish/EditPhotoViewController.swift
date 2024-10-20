@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TOCropViewController
 
 struct FilterImage {
     
@@ -23,7 +24,10 @@ class EditPhotoViewController: BaseViewController {
     let editPhotosView = EditPhotosView()
     
     var filterImages: [FilterImage] = []
+    var currentFliterImage: FilterImage?
     var editedImages: [UIImage] = []
+    
+    var currentIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,15 +43,38 @@ class EditPhotoViewController: BaseViewController {
         editedImages = images
         editPhotosView.frame = CGRect.init(x: 0, y: .topSafeAreaHeight+40, width: .screenWidth, height: .screenWidth - 32)
         editPhotosView.images = editedImages
+        editPhotosView.didSelectedItemBlock = { [weak self] (index) in
+            self?.currentIndex = index
+            self?.editPhotosView.currentIndex = index
+        }
         view.addSubview(editPhotosView)
         
         view.addSubview(collectionView)
+        
+        view.addSubview(fillterButton)
+        fillterButton.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.left.equalToSuperview().offset(CGFloat.screenWidth/4.0-30)
+            make.width.equalTo(60)
+            make.bottom.equalToSuperview().offset(-CGFloat.bottomSafeAreaHeight-60)
+        }
+        
+        view.addSubview(cropButton)
+        cropButton.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.left.equalToSuperview().offset(CGFloat.screenWidth/4.0*3-30)
+            make.width.equalTo(60)
+            make.bottom.equalToSuperview().offset(-CGFloat.bottomSafeAreaHeight-60)
+        }
     }
     
     func configImages()  {
 
-        let filterNames = ["铬黄", "褪色", "即影即逝", "单色照片", "黑白", "冲印", "色调", "岁月痕迹", "晕影", "单色", "伪彩色", "最大组件", "最小组件", "颜色控制"]
-        let filterTypes = ["CIPhotoEffectChrome", "CIPhotoEffectFade", "CIPhotoEffectInstant", "CIPhotoEffectMono", "CIPhotoEffectNoir", "CIPhotoEffectProcess", "CIPhotoEffectTonal", "CIPhotoEffectTransfer", "CIVignette", "CIColorMonochrome", "CIFalseColor", "CIMaximumComponent", "CIMinimumComponent", "CIColorControls"]
+//        let filterNames = ["铬黄", "褪色", "即影即逝", "单色照片", "黑白", "冲印", "色调", "岁月痕迹", "晕影", "单色", "伪彩色", "最大组件", "最小组件", "颜色控制"]
+//        let filterTypes = ["CIPhotoEffectChrome", "CIPhotoEffectFade", "CIPhotoEffectInstant", "CIPhotoEffectMono", "CIPhotoEffectNoir", "CIPhotoEffectProcess", "CIPhotoEffectTonal", "CIPhotoEffectTransfer", "CIVignette", "CIColorMonochrome", "CIFalseColor", "CIMaximumComponent", "CIMinimumComponent", "CIColorControls"]
+        
+        let filterNames = ["冷色调", "暖色调", "黑白", "单色"]
+        let filterTypes = ["CIPhotoEffectProcess", "CIPhotoEffectTransfer", "CIPhotoEffectMono","CIColorMonochrome"]
         
         var index = 0
         if let image = self.images.first {
@@ -60,7 +87,9 @@ class EditPhotoViewController: BaseViewController {
                 index += 1
             }
         }
-        
+        if currentFliterImage == nil {
+            currentFliterImage = filterImages.first
+        }
         collectionView.reloadData()
     }
     
@@ -112,6 +141,14 @@ class EditPhotoViewController: BaseViewController {
         self.present(vc, animated: true)
     }
     
+    @objc func clickFillterAction() {
+        
+    }
+    
+    @objc func clickCropAction() {
+        let image = images[currentIndex]
+        self.presentCropViewController(with: image)
+    }
     
     private let cellIdentifier = "EditPhotoCell"
     
@@ -132,6 +169,23 @@ class EditPhotoViewController: BaseViewController {
         return collectionView
     }()
     
+    private lazy var fillterButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle("滤镜", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.addTarget(self, action: #selector(clickFillterAction), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var cropButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle("裁剪", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.addTarget(self, action: #selector(clickCropAction), for: .touchUpInside)
+        return button
+    }()
 }
 
 
@@ -151,6 +205,7 @@ extension EditPhotoViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let filter = filterImages[indexPath.row]
+        currentFliterImage = filter
         updateEditedImages(type: filter.type)
     }
     
@@ -168,5 +223,33 @@ extension EditPhotoViewController: UICollectionViewDataSource, UICollectionViewD
         }
         self.editedImages = editedImages
         editPhotosView.images = editedImages
+    }
+}
+
+
+extension EditPhotoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, TOCropViewControllerDelegate {
+
+    func presentCropViewController(with image: UIImage) {
+        let cropViewController = TOCropViewController(image: image)
+        cropViewController.delegate = self
+        present(cropViewController, animated: true, completion: nil)
+    }
+
+    // 图片裁剪完成后回调
+    func cropViewController(_ cropViewController: TOCropViewController, didCropTo image: UIImage, with cropRect: CGRect, angle: Int) {
+        // 使用裁剪后的图片
+        cropViewController.dismiss(animated: true, completion: nil)
+        images.replaceSubrange(0...0, with: [image])
+        
+        if let type = currentFliterImage?.type {
+            updateEditedImages(type: type)
+        }
+        
+        configImages()
+    }
+
+    // 图片裁剪取消回调
+    func cropViewController(_ cropViewController: TOCropViewController, didFinishCancelled cancelled: Bool) {
+        cropViewController.dismiss(animated: true, completion: nil)
     }
 }

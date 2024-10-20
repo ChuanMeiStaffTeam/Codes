@@ -30,6 +30,8 @@ class TabBarController: UITabBarController {
         
         self.tabBar.tintColor = UIColor.white // 设置选中的颜色
         self.tabBar.unselectedItemTintColor = UIColor.gray // 设置未选中的颜色
+        
+        self.tabBar.barTintColor = UIColor.black
     }
     
     func setupViewController(_ vc: UIViewController, title: String, iconStr: String, selectedIconStr: String) -> UIViewController {

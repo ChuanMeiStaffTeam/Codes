@@ -7,7 +7,22 @@
 
 import UIKit
 
+protocol MainContentCellDelegate: AnyObject {
+    func didClickMore(_ data: PostModel)
+    
+    func didClickLike(_ data: PostModel)
+    
+    func didClickComment(_ data: PostModel)
+    
+    func didClickShare(_ data: PostModel)
+    
+    func didClickMark(_ data: PostModel)
+}
+
 class MainContentCell: UITableViewCell {
+    
+    weak var delegate: MainContentCellDelegate?
+    var postModel: PostModel?
     
     let icon = UIImageView()
     let nameLabel = UILabel()
@@ -26,20 +41,46 @@ class MainContentCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
         
-        reloadData()
+//        reloadData()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func reloadData() {
+    func reloadData(indexPath: IndexPath) {
         
-        nameLabel.text = "jack"
+        let index = indexPath.row
+        let names = ["zixuanooo", "diza", "dnsk", "jack", "rose", "zixuanooo", "diza", "dnsk", "jack", "rose"]
+        let icons = ["icon0", "icon1", "icon2", "icon3", "icon4", "icon5", "icon0", "icon1", "icon2", "icon3"]
+        let imageStr = "list_" + String(index)
+        let contents = ["电话就是不丢吃不都吃不饿还问", "元旦快乐哈哈哈哈哈😄", "评论123哈说的话说的", "i为u你是看见当年参加考试", "建军节说的那就是承诺", "几句话素材你说你刺猬", "u你说的没时间", "OK从事记单词哦接送", "的产业化丢吃呢", "ID农村建设的奶茶"]
+
+        
+        icon.image = UIImage.init(named: icons[index])
+        nameLabel.text = names[index]
+        imgView.image = UIImage(named: imageStr)
         countryLabel.text = "中国"
         likeNumLabel.text = "65次点赞"
-        contentLabel.text = "元旦快乐哈哈哈哈哈😄"
+        contentLabel.text = contents[index]
         dateLabel.text = "2024年1月1日"
+        
+    }
+    
+    func reloadData(data: PostModel) {
+        postModel = data
+        
+        if let urlStr = data.user?.profilePictureUrl {
+            icon.kf.setImage(with: URL.init(string: urlStr))
+        }
+        nameLabel.text = data.user?.fullName
+        if let urlStr = data.images?.first?.imageUrl {
+            imgView.kf.setImage(with: URL.init(string: urlStr))
+        }
+        countryLabel.text = data.location
+        likeNumLabel.text = String(format: "%d次点赞", data.likesCount ?? 0)
+        contentLabel.text = data.caption
+        dateLabel.text = data.createdAt
         
     }
     
@@ -71,9 +112,9 @@ class MainContentCell: UITableViewCell {
         }
         
         nameLabel.textColor = .white
-        nameLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        nameLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         nameLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
+            make.top.equalToSuperview().offset(8)
             make.left.equalTo(icon.snp.right).offset(10)
         }
         
@@ -92,7 +133,8 @@ class MainContentCell: UITableViewCell {
             make.top.equalToSuperview().offset(14)
         }
         
-        imgView.image = UIImage.init(named: "main_pic_test")
+        imgView.contentMode = .scaleAspectFill
+//        imgView.image = UIImage.init(named: "main_pic_test")
         imgView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().offset(0)
             make.top.equalToSuperview().offset(52)
@@ -151,7 +193,7 @@ class MainContentCell: UITableViewCell {
         dateLabel.font = .systemFont(ofSize: 14)
         dateLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().offset(0)
+            make.bottom.equalToSuperview().offset(-3)
         }
         
     }
@@ -159,23 +201,33 @@ class MainContentCell: UITableViewCell {
     
     
     @objc func moreAction() {
-        HUDHelper.showToast("点击了更多")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickMore(model)
+        }
     }
     
     @objc func likeAction() {
-        HUDHelper.showToast("点击了喜欢")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickLike(model)
+        }
     }
     
     @objc func commentAction() {
-        HUDHelper.showToast("点击了评论")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickComment(model)
+        }
     }
     
     @objc func shareAction() {
-        HUDHelper.showToast("点击了分享")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickShare(model)
+        }
     }
     
     @objc func markAction() {
-        HUDHelper.showToast("点击了标记")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickMark(model)
+        }
     }
     
 }

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import NIMSDK
+//import IQKeyboardManagerSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -18,9 +20,45 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        let tabbar = TabBarController()
-        window?.rootViewController = tabbar
-        window?.makeKeyAndVisible()
+        configNIMSDK()
+//        IQKeyboardManager.shared.enable = true
+        
+        // 自定义导航栏的外观
+        let appearance = UINavigationBarAppearance()
+        
+        // 设置背景色（例如：系统蓝色）
+        appearance.backgroundColor = UIColor.black
+        
+        // 去除毛玻璃效果
+        appearance.backgroundEffect = nil
+        
+        // 可选：设置标题文字颜色和字体
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        	
+        // 将自定义的外观应用到导航栏
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        
+        if LoginManager.isLogin() {
+            let tabbar = TabBarController()
+            window?.rootViewController = tabbar
+            window?.makeKeyAndVisible()
+        } else {
+            let loginVC = LoginViewController()
+            loginVC.closeBtn.isHidden = true
+            window?.rootViewController = loginVC
+            window?.makeKeyAndVisible()
+        }
+        
+        
+    }
+    
+    func configNIMSDK() {
+        
+        let option = NIMSDKOption(appKey: "7b801e694e564050c0a8f344094edfba")
+        NIMSDK.shared().register(with: option)
         
     }
 
