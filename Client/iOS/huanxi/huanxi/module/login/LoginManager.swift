@@ -42,14 +42,14 @@ class LoginManager {
 extension LoginManager {
     
     class func requestUserInfo() {
-        NetworkManager.shared.getRequest(urlStr: "userinfo/getUserInfo",
-                                         parameters: nil,
-                                         responseType: UserInfoModel.self) { success, message, data in
-            if success {
-
-            }
-            HUDHelper.showToast(message)
-        }
+//        NetworkManager.shared.getRequest(urlStr: "userinfo/getUserInfo",
+//                                         parameters: nil,
+//                                         responseType: UserInfoModel.self) { success, message, data in
+//            if success {
+//
+//            }
+//            HUDHelper.showToast(message)
+//        }
         
     }
     

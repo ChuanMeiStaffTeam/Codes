@@ -100,46 +100,7 @@ class ExplainViewController: BaseViewController {
     
     @objc func shareAction() {
         
-        guard let desc = textView.text, !desc.isEmpty else {
-            HUDHelper.showToast("请输入说明")
-            return
-        }
-        HUDHelper.showHUD(self.view, text: "图片上传中")
-        // 上传图片，获取图片地址
-        NetworkManager.shared.uploadMultipleImages(urlStr: "postImage/article",
-                                                   parameters: ["": ""],
-                                                   images: images,
-                                                   imageName: "images",
-                                                   responseType: ImageResponse.self) { success, message, data in
-            HUDHelper.hideHUD(self.view)
-            if success {
-                self.requestPost(desc: desc, imagesUrl: data?.list ?? [])
-                HUDHelper.showToast("图片上传成功")
-            } else {
-                HUDHelper.showToast(message)
-            }
-        }
     }
-    
-    func requestPost(desc: String, imagesUrl: [String]) {
-        let params = [
-            "caption": desc,
-            "location": "上海市",
-            "imagesUrl": imagesUrl
-        ] as [String : Any]
-        NetworkManager.shared.postRequest(urlStr: "postImage/createPost",
-                                          parameters: params,
-                                          responseType: String.self) { success, message, data in
-            if success {
-                HUDHelper.showToast("帖子发布成功")
-                self.view.window?.rootViewController?.dismiss(animated: true)
-            } else {
-                HUDHelper.showToast(message)
-            }
-            
-        }
-    }
-    
     
     lazy var tableView: UITableView = {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)

@@ -27,15 +27,6 @@ class MineHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func reloadData(_ user: UserInfoModel) {
-        if let urlStr = user.profilePictureUrl {
-            iconImgView.kf.setImage(with: URL.init(string: urlStr))
-        }
-        followedItemView.valueLabel.text = String(format: "%d", user.followingCount ?? 0)
-        postsItemView.valueLabel.text = String(format: "%d", user.postCount ?? 0)
-        fansItemView.valueLabel.text = String(format: "%d", user.followerCount ?? 0)
-    }
-    
     
     func setupView() {
         
@@ -50,7 +41,7 @@ class MineHeaderView: UIView {
         }
         
         followedItemView.titleLabel.text = "已关注"
-        followedItemView.valueLabel.text = "0"
+        followedItemView.valueLabel.text = "123"
         self.addSubview(followedItemView)
         followedItemView.snp.makeConstraints { make in
             make.right.equalToSuperview().offset(-32)
@@ -59,7 +50,7 @@ class MineHeaderView: UIView {
         }
         
         fansItemView.titleLabel.text = "粉丝"
-        fansItemView.valueLabel.text = "0"
+        fansItemView.valueLabel.text = "12345"
         self.addSubview(fansItemView)
         fansItemView.snp.makeConstraints { make in
             make.right.equalTo(followedItemView.snp.left).offset(-32)
@@ -68,7 +59,7 @@ class MineHeaderView: UIView {
         }
         
         postsItemView.titleLabel.text = "帖子"
-        postsItemView.valueLabel.text = "0"
+        postsItemView.valueLabel.text = "12"
         self.addSubview(postsItemView)
         postsItemView.snp.makeConstraints { make in
             make.right.equalTo(fansItemView.snp.left).offset(-32)

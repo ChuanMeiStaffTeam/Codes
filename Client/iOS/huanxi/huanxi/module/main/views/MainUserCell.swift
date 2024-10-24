@@ -15,10 +15,6 @@ class MainUserCell: UITableViewCell {
         }
     }
     
-    func reloadData(_ data: [UserInfoModel]) {
-        userView.reloadData(data)
-    }
-    
     let userView = MainUserView(frame: CGRect.init(x: 0, y: 0, width: .screenWidth, height: 100))
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

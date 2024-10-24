@@ -17,12 +17,7 @@ class MainViewController: BaseViewController {
         super.viewWillAppear(animated)
 //        self.navigationController?.isNavigationBarHidden = true
         
-//        vm.requestHomePosts { [weak self] result in
-//
-//            if let data = self?.vm.data {
-//                self?.mainView.reloadMainViewData(data)
-//            }
-//        }
+        vm.requestHomePosts()
     }
     
     override func viewDidLoad() {
@@ -30,18 +25,9 @@ class MainViewController: BaseViewController {
         
         setupView()
         
-        LoginManager.requestUserInfo()
+        mainView.reloadMainViewData(vm.mainList)
         
-        requestMainPostData()
-    }
-    
-    func requestMainPostData() {
-        vm.requestHomePosts { [weak self] result in
-            
-            if let data = self?.vm.data {
-                self?.mainView.reloadMainViewData(data)
-            }
-        }
+        LoginManager.requestUserInfo()
     }
     
     
@@ -49,7 +35,6 @@ class MainViewController: BaseViewController {
         setupNavView()
         
         mainView = MainView(frame: CGRect.init(x: 0, y: 0, width: .screenWidth, height: .screenHeight - .bottomSafeAreaHeight - .tabBarHeight))
-        mainView.delegate = self
         view.addSubview(mainView)
         
     }
@@ -82,51 +67,4 @@ class MainViewController: BaseViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-}
-
-
-extension MainViewController: MainViewDelegate {
-    func didClickMore(_ data: PostModel) {
-        
-    }
-    
-    func didClickLike(_ data: PostModel) {
-        if (data.liked ?? false) {
-            vm.requestCancelLikePost(params: ["postId": data.postId ?? 0]) { success in
-                if success {
-                    self.requestMainPostData()
-                }
-            }
-        } else {
-            vm.requestLikePost(params: ["postId": data.postId ?? 0]) { success in
-                if success {
-                    self.requestMainPostData()
-                }
-            }
-        }
-    }
-    
-    func didClickComment(_ data: PostModel) {
-        
-    }
-    
-    func didClickShare(_ data: PostModel) {
-        
-    }
-    
-    func didClickMark(_ data: PostModel) {
-        if (data.favorite ?? false) {
-            vm.requestCancelCollectPost(params: ["postId": data.postId ?? 0]) { success in
-                if success {
-                    self.requestMainPostData()
-                }
-            }
-        } else {
-            vm.requestCollectPost(params: ["postId": data.postId ?? 0]) { success in
-                if success {
-                    self.requestMainPostData()
-                }
-            }
-        }
-    }
 }

@@ -12,85 +12,23 @@ class MineViewController: BaseViewController {
     
     let mineHeader = MineHeaderView(frame: CGRect(x: 0, y: .topSafeAreaHeight + 40, width: .screenWidth, height: 165))
     var constrainerView: MineConstrainerView!
-    let nameLabel = UILabel()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
-        requestUserInfo()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupView()
-        
-        requestUserPosts()
-        requestUserMark()
     }
     
-    func requestUserInfo() {
-        NetworkManager.shared.getRequest(urlStr: "userinfo/getUserInfo",
-                                         parameters: nil,
-                                         responseType: UserInfoResponse.self) { success, message, data in
-            if success, let user = data?.user {
-                self.updateData(user)
-            }
-//            HUDHelper.showToast(message)
-        }
-    }
-    
-    func requestUserPosts() {
-        NetworkManager.shared.getRequest(urlStr: "postImage/queryPosts",
-                                         parameters: nil,
-                                         responseType: PostsResponse.self) { success, message, data in
-            if success, let list = data?.list {
-                var postImages: Array<[Int: PostModel.image]> = []
-                for item in list {
-                    for image in (item.images ?? []) {
-                        if let postId = item.postId {
-                            let postImage: [Int: PostModel.image] = [postId: image]
-                            postImages.append(postImage)
-                        }
-                    }
-                }
-                
-                self.constrainerView.reloadPostData(postImages)
-            }
-        }
-    }
-    
-    func requestUserMark() {
-        NetworkManager.shared.getRequest(urlStr: "postImage/queryCollectedPosts",
-                                         parameters: nil,
-                                         responseType: PostsResponse.self) { success, message, data in
-            if success, let list = data?.list {
-                var postImages: Array<[Int: PostModel.image]> = []
-                for item in list {
-                    for image in (item.images ?? []) {
-                        if let postId = item.postId {
-                            let postImage: [Int: PostModel.image] = [postId: image]
-                            postImages.append(postImage)
-                        }
-                    }
-                }
-                
-                self.constrainerView.reloadMarkData(postImages)
-            }
-        }
-    }
-    
-    func updateData(_ info: UserInfoModel) {
-        
-        nameLabel.text = info.fullName
-        
-        mineHeader.reloadData(info)
-    }
     
     func setupView() {
         
-        nameLabel.frame = CGRect(x: 16, y: .topSafeAreaHeight, width: 200, height: 40)
-        nameLabel.text = "--"
+        let nameLabel = UILabel(frame: CGRect(x: 16, y: .topSafeAreaHeight, width: 200, height: 40))
+        nameLabel.text = "Jack"
         nameLabel.textColor = .white
         nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
         view.addSubview(nameLabel)

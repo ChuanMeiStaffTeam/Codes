@@ -33,7 +33,7 @@ class EditHomePageViewController: BaseViewController {
         super.viewDidLoad()
         
         setupView()
-        requestUserInfo()
+//        requestUserInfo()
     }
     
     func requestUserInfo() {
@@ -196,22 +196,22 @@ class EditHomePageViewController: BaseViewController {
     
     
     @objc func completeAction() {
-        
-        let params = [
-            "fullName": nameTF.text,
-            "websiteUrl": webUrlTF.text,
-            "bio": bioTF.text
-        ]
-        
-        NetworkManager.shared.postRequest(urlStr: "userinfo/updateInfo",
-                                         parameters: params,
-                                         responseType: UserInfoResponse.self) { success, message, data in
-            if success, let user = data?.user {
-                self.updateData(user)
-            }
-            HUDHelper.showToast(message)
-        }
-        
+        backAction()
+//        let params = [
+//            "fullName": nameTF.text,
+//            "websiteUrl": webUrlTF.text,
+//            "bio": bioTF.text
+//        ]
+//
+//        NetworkManager.shared.postRequest(urlStr: "userinfo/updateInfo",
+//                                         parameters: params,
+//                                         responseType: UserInfoResponse.self) { success, message, data in
+//            if success, let user = data?.user {
+//                self.updateData(user)
+//            }
+//            HUDHelper.showToast(message)
+//        }
+//
         
     }
 }
@@ -225,18 +225,18 @@ extension EditHomePageViewController: UIImagePickerControllerDelegate, UINavigat
         if let image = info[.originalImage] as? UIImage {
             // 处理图片，例如显示在UIImageView上
             // imageView.image = image
-            
+            self.iconImgView.image = image
             // 上传单张图片
-            NetworkManager.shared.uploadSingleImage(urlStr: "userinfo/updateAvatar",
-                                                    parameters: ["": ""],
-                                                    image: image,
-                                                    responseType: AvatarResponse.self) { success, message, data in
-                if success {
-                    self.iconImgView.image = image
-                } else {
-                }
-                HUDHelper.showToast(message)
-            }
+//            NetworkManager.shared.uploadSingleImage(urlStr: "userinfo/updateAvatar",
+//                                                    parameters: ["": ""],
+//                                                    image: image,
+//                                                    responseType: AvatarResponse.self) { success, message, data in
+//                if success {
+//                    self.iconImgView.image = image
+//                } else {
+//                }
+//                HUDHelper.showToast(message)
+//            }
         }
         // 关闭图片选择器
         picker.dismiss(animated: true)
