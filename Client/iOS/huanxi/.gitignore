@@ -1,2 +1,7 @@
 # 忽略 CocoaPods 目录
-/Pods/
+Pods/
+Podfile.lock
+
+.DS_Store
+huanxi.xcodeproj/
+/huanxi.xcworkspace/xcuserdata/
