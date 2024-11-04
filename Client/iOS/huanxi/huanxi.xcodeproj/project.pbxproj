@@ -98,6 +98,7 @@
 		39FABA102B931C4600A10FE6 /* PhotoAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA0F2B931C4600A10FE6 /* PhotoAlbumView.swift */; };
 		39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA112B931D3D00A10FE6 /* PhotoAlbumManager.swift */; };
 		E4F67917F7CC2921539ABE7B /* Pods_huanxi_huanxiUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 732438BDA74AF7212978F584 /* Pods_huanxi_huanxiUITests.framework */; };
+		F39F6DD22CD962D200CFF8B5 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DD12CD962D200CFF8B5 /* Api.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -219,6 +220,7 @@
 		C60B1A1F77B1831E0BD3F5E8 /* Pods-huanxiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanxiTests.debug.xcconfig"; path = "Target Support Files/Pods-huanxiTests/Pods-huanxiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CA729ABFB7BAA4ADCD4DD472 /* Pods_huanxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_huanxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA9A2110F87E34A74D9BC07 /* Pods-huanxi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanxi.release.xcconfig"; path = "Target Support Files/Pods-huanxi/Pods-huanxi.release.xcconfig"; sourceTree = "<group>"; };
+		F39F6DD12CD962D200CFF8B5 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +301,7 @@
 		392CF1022B8D789E0070637E /* network */ = {
 			isa = PBXGroup;
 			children = (
+				F39F6DD12CD962D200CFF8B5 /* Api.swift */,
 				392CF1032B8D78BB0070637E /* NetworkManager.swift */,
 				399739542C6B3BA600D4DD8C /* ResponseModel.swift */,
 				39066F642C514852003D347E /* DataUtil.swift */,
@@ -846,6 +849,7 @@
 				39E9080D2C26B9070017B83B /* SearchHeaderView.swift in Sources */,
 				04F23E452C0EE4330078809E /* DirectViewController.swift in Sources */,
 				399739572C6B3D6700D4DD8C /* PostModel.swift in Sources */,
+				F39F6DD22CD962D200CFF8B5 /* Api.swift in Sources */,
 				3999527B2BA9B30300415C46 /* ExplainViewController.swift in Sources */,
 				397216BF2B8249E2007D0F2B /* MineViewController.swift in Sources */,
 				392CF1182B8ECE720070637E /* MainContentCell.swift in Sources */,
