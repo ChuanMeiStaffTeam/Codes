@@ -3,5 +3,7 @@ Pods/
 Podfile.lock
 
 .DS_Store
-huanxi.xcodeproj/
-/huanxi.xcworkspace/xcuserdata/
+huanxi.xcodeproj/xcuserdata/
+huanxi.xcodeproj/project.xcworkspace/xcshareddata/
+huanxi.xcodeproj/project.xcworkspace/xcuserdata/
+huanxi.xcworkspace/xcuserdata/
