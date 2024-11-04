@@ -148,7 +148,7 @@ class LoginViewController: BaseViewController {
             "password": pwd
         ]
         
-        NetworkManager.shared.postRequest(urlStr: "user/login/username",
+        NetworkManager.shared.postRequest(path: "user/login/username",
                                           parameters: params,
                                           responseType: LoginModel.self) { success, message, data in
             if success {

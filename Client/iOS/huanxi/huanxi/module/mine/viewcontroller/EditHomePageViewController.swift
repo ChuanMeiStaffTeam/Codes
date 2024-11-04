@@ -37,7 +37,7 @@ class EditHomePageViewController: BaseViewController {
     }
     
     func requestUserInfo() {
-        NetworkManager.shared.getRequest(urlStr: "userinfo/getUserInfo",
+        NetworkManager.shared.getRequest(path: "userinfo/getUserInfo",
                                          parameters: nil,
                                          responseType: UserInfoResponse.self) { success, message, data in
             if success, let user = data?.user {
@@ -203,7 +203,7 @@ class EditHomePageViewController: BaseViewController {
 //            "bio": bioTF.text
 //        ]
 //
-//        NetworkManager.shared.postRequest(urlStr: "userinfo/updateInfo",
+//        NetworkManager.shared.postRequest(path: "userinfo/updateInfo",
 //                                         parameters: params,
 //                                         responseType: UserInfoResponse.self) { success, message, data in
 //            if success, let user = data?.user {

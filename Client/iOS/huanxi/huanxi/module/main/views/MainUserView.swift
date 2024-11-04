@@ -70,14 +70,14 @@ extension MainUserView: UICollectionViewDataSource, UICollectionViewDelegate {
         
         guard let image = UIImage.init(named: "list_7") else { return }
         // 上传单张图片
-//        NetworkManager.shared.uploadSingleImage(urlStr: "userinfo/updateAvatar", parameters: ["":""], image: image) { model in
+//        NetworkManager.shared.uploadSingleImage(path: "userinfo/updateAvatar", parameters: ["":""], image: image) { model in
 //
 //        } failure: { error in
 //
 //        }
 
         // 上传多张图片
-//        NetworkManager.shared.uploadMultipleImages(urlStr: "postImage/article", parameters: ["":""], images: [image, image, image]) { model in
+//        NetworkManager.shared.uploadMultipleImages(path: "postImage/article", parameters: ["":""], images: [image, image, image]) { model in
 //            
 //        } failure: { error in
 //

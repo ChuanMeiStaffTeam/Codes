@@ -10,14 +10,13 @@ import SwiftUI
 
 class MainViewController: BaseViewController {
     
-    let vm = MainViewModel()
+    private let viewModel = MainViewModel()
     var mainView: MainView!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        self.navigationController?.isNavigationBarHidden = true
         
-        vm.requestHomePosts()
     }
     
     override func viewDidLoad() {
@@ -25,7 +24,7 @@ class MainViewController: BaseViewController {
         
         setupView()
         
-        mainView.reloadMainViewData(vm.mainList)
+        setupViewModel()
         
         LoginManager.requestUserInfo()
     }
@@ -60,6 +59,12 @@ class MainViewController: BaseViewController {
         
     }
     
+    private func setupViewModel() {
+        viewModel.requestHomePosts { [weak self] result in
+            guard let strongSelf = self else { return }
+            strongSelf.mainView.reloadMainViewData(strongSelf.viewModel.mainList)
+        }
+    }
     
     @objc func gotoDirect() {
         let vc = DirectViewController()

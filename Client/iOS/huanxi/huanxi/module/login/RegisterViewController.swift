@@ -171,7 +171,7 @@ class RegisterViewController: BaseViewController {
             "password2": pwd
         ]
         
-        NetworkManager.shared.postRequest(urlStr: "user/register/username",
+        NetworkManager.shared.postRequest(path: "user/register/username",
                                           parameters: params,
                                           responseType: String.self) { success, message, data in
             if success {

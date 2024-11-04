@@ -19,22 +19,23 @@ struct ResponseModel<T: Codable>: Codable {
 // MARK: - NetworkManager
 class NetworkManager {
     static let shared = NetworkManager()
-    private let baseURL = "HTTP://139.196.232.242:8080/api/" // 公共的host
     
     private init() {}
     
     // 公共的请求处理方法
     private func request<T: Codable>(
-        urlStr: String,
+        _ path: String,
         method: HTTPMethod,
         parameters: [String: Any]?,
         headers: HTTPHeaders?,
         responseType: T.Type,
         completion: @escaping (Bool, String, T?) -> Void) {
-        guard let url = URL(string: "\(baseURL)\(urlStr)") else {
+            
+        guard let url = URL(string: buildURL(path)) else {
             completion(false, "URL无效", nil)
             return
         }
+        logRequest(url.absoluteString, parameters: parameters, headers: headers) // 打印请求日志
 
         var allHeaders = HTTPHeaders()
         headers?.dictionary.forEach({ (key: String, value: String) in
@@ -46,24 +47,19 @@ class NetworkManager {
         }
             
         AF.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: allHeaders).responseDecodable(of: ResponseModel<T>.self) { response in
-            if let data = response.data {
-                let jsonDic = DataUtil.dataToDictionary(data: data)
-                let jsonStr = DataUtil.dataToJSONString(data: data)
-                print(jsonStr)
-            }
+            self.logResponse(response) // 打印响应日志
             switch response.result {
             case .success(let responseModel):
                 if responseModel.code == 200 {
                     completion(true, responseModel.message, responseModel.data)
                 }else if responseModel.code == 404 {
-//                    LoginManager.removeToken()
-//                    let topVC = WindowHelper.topViewController()
-//                    if !((topVC?.isKind(of: LoginViewController.self)) != nil) {
-//                        let loginVC = LoginViewController()
-//                        loginVC.modalPresentationStyle = .fullScreen
-//                        topVC?.present(loginVC, animated: true)
-//                    }
-                    
+                    LoginManager.removeToken()
+                    let topVC = WindowHelper.topViewController()
+                    if !((topVC?.isKind(of: LoginViewController.self)) != nil) {
+                        let loginVC = LoginViewController()
+                        loginVC.modalPresentationStyle = .fullScreen
+                        topVC?.present(loginVC, animated: true)
+                    }
                     completion(false, responseModel.message, responseModel.data)
                 } else {
                     completion(false, responseModel.message, responseModel.data)
@@ -77,12 +73,12 @@ class NetworkManager {
     
     // GET request
     func getRequest<T: Codable>(
-        urlStr: String,
+        path: String,
         parameters: [String: Any]?,
         headers: HTTPHeaders? = nil,
         responseType: T.Type,
         completion: @escaping (Bool, String, T?) -> Void) {
-        request(urlStr: urlStr,
+        request(path,
                 method: .get,
                 parameters: parameters,
                 headers: headers,
@@ -92,12 +88,12 @@ class NetworkManager {
     
     // POST request
     func postRequest<T: Codable>(
-        urlStr: String,
+        path: String,
         parameters: [String: Any]?,
         headers: HTTPHeaders? = nil,
         responseType: T.Type,
         completion: @escaping (Bool, String, T?) -> Void) {
-        request(urlStr: urlStr,
+        request(path,
                 method: .post,
                 parameters: parameters,
                 headers: headers,
@@ -107,12 +103,12 @@ class NetworkManager {
     
     // DELETE request
     func deleteRequest<T: Codable>(
-        urlStr: String,
+        path: String,
         parameters: [String: Any]?,
         headers: HTTPHeaders? = nil,
         responseType: T.Type,
         completion: @escaping (Bool, String, T?) -> Void) {
-        request(urlStr: urlStr,
+        request(path,
                 method: .delete,
                 parameters: parameters,
                 headers: headers,
@@ -120,9 +116,10 @@ class NetworkManager {
                 completion: completion)
     }
     
-    func uploadSingleImage<T: Codable>(urlStr: String, parameters: [String: Any], image: UIImage, imageName: String = "file", responseType: T.Type, completion: @escaping (Bool, String, T?) -> Void) {
+    func uploadSingleImage<T: Codable>(path: String, parameters: [String: Any], image: UIImage, imageName: String = "file", responseType: T.Type, completion: @escaping (Bool, String, T?) -> Void) {
 //        let url = "https://yourapi.com/\(urlStr)"
-        guard let url = URL(string: "\(baseURL)\(urlStr)") else {
+
+        guard let url = URL(string: buildURL(path)) else {
             completion(false, "URL无效", nil)
             return
         }
@@ -155,9 +152,11 @@ class NetworkManager {
         }
     }
     
-    func uploadMultipleImages<T: Codable>(urlStr: String, parameters: [String: Any], images: [UIImage], imageName: String = "images", responseType: T.Type, completion: @escaping (Bool, String, T?) -> Void) {
+    func uploadMultipleImages<T: Codable>(path: String, parameters: [String: Any], images: [UIImage], imageName: String = "images", responseType: T.Type, completion: @escaping (Bool, String, T?) -> Void) {
     //        let url = "https://yourapi.com/\(urlStr)"
-            guard let url = URL(string: "\(baseURL)\(urlStr)") else {
+    
+        
+            guard let url = URL(string: buildURL(path)) else {
                 completion(false, "URL无效", nil)
                 return
             }
@@ -191,6 +190,37 @@ class NetworkManager {
                 }
             }
         }
+    
+    // MARK: - URL 构建
+    private func buildURL(_ path: String) -> String {
+        return Api.baseURL + "/api/" + path
+    }
+
+    
+    // MARK: - 错误处理
+    private func handleError(_ error: AFError) {
+        print("Network Error: \(error.localizedDescription)")
+        // 可以在这里扩展全局错误处理，比如提示用户，处理特定的错误码等
+    }
+    
+    // MARK: - 日志记录（请求）
+    private func logRequest(_ url: String, parameters: [String: Any]?, headers: HTTPHeaders?) {
+        print("Request URL: \(url)")
+        if let params = parameters {
+            print("Parameters: \(params)")
+        }
+        if let headers = headers {
+            print("Headers: \(headers)")
+        }
+    }
+    
+    // MARK: - 日志记录（响应）
+    private func logResponse<T>(_ response: DataResponse<T, AFError>) {
+        if let data = response.data {
+            let responseString = String(data: data, encoding: .utf8) ?? "No response data"
+            print("Response: \(responseString)")
+        }
+    }
 
 }
 
