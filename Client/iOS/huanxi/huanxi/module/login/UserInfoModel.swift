@@ -21,33 +21,33 @@ struct LoginModel: Codable {
 
 struct UserInfoModel: Codable {
     
-    let username: String?
-    let phoneNumber: String?
-    let userId: Int?
-    let loginAttempts: Int?
-    let profilePictureUrl: String?
-    let fullName: String?
-    let email: String?
-    let bio: String?
-    let websiteUrl: String?
+    var username: String?
+    var phoneNumber: String?
+    var userId: Int?
+    var loginAttempts: Int?
+    var profilePictureUrl: String?
+    var fullName: String?
+    var email: String?
+    var bio: String?
+    var websiteUrl: String?
     
-    let address: String?
+    var address: String?
     var followingCount: Int? = 0
-    let lastLoginAt: String?
-    let country: String?
-    let lockoutTime: String?
-    let dateOfBirth: String?
+    var lastLoginAt: String?
+    var country: String?
+    var lockoutTime: String?
+    var dateOfBirth: String?
     var postCount: Int? = 0
-    let twitterUrl: String?
-    let city: String?
-    let createdAt: String?
-    let facebookUrl: String?
-    let state: String?
-    let updatedAt: String?
-    let gender: String?
+    var twitterUrl: String?
+    var city: String?
+    var createdAt: String?
+    var facebookUrl: String?
+    var state: String?
+    var updatedAt: String?
+    var gender: String?
     var favoriteCount: Int? = 0
-    let postalCode: String?
-    let privacySettings: String?
+    var postalCode: String?
+    var privacySettings: String?
     var followerCount: Int? = 0
     
 }

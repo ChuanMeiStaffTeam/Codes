@@ -11,31 +11,35 @@ import SwiftUI
 class MainViewController: BaseViewController {
     
     private let viewModel = MainViewModel()
-    var mainView: MainView!
+    private var mainList: [MainModel] = []
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        self.navigationController?.isNavigationBarHidden = true
-        
-    }
+    lazy var tableView: UITableView = {
+        let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
+        view.backgroundColor = .clear
+        view.delegate = self
+        view.dataSource = self
+        view.register(MainUserCell.self, forCellReuseIdentifier: MainUserCell.identifier)
+        view.register(MainContentCell.self, forCellReuseIdentifier: MainContentCell.identifier)
+        view.register(MainRecommendCell.self, forCellReuseIdentifier: MainRecommendCell.identifier)
+        return view
+    }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupView()
-        
         setupViewModel()
-        
         LoginManager.requestUserInfo()
     }
     
     
     func setupView() {
         setupNavView()
-        
-        mainView = MainView(frame: CGRect.init(x: 0, y: 0, width: .screenWidth, height: .screenHeight - .bottomSafeAreaHeight - .tabBarHeight))
-        view.addSubview(mainView)
-        
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.edges.equalTo(0)
+        }
     }
     
     func setupNavView() {
@@ -62,7 +66,10 @@ class MainViewController: BaseViewController {
     private func setupViewModel() {
         viewModel.requestHomePosts { [weak self] result in
             guard let strongSelf = self else { return }
-            strongSelf.mainView.reloadMainViewData(strongSelf.viewModel.mainList)
+            strongSelf.mainList = strongSelf.viewModel.mainList
+            DispatchQueue.main.async {
+                strongSelf.tableView.reloadData()
+            }
         }
     }
     
@@ -72,4 +79,66 @@ class MainViewController: BaseViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+}
+
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return mainList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let model = mainList[indexPath.row]
+        if model.type == "user" {
+            let cell = tableView.dequeueReusableCell(withIdentifier: MainUserCell.identifier, for: indexPath) as! MainUserCell
+            return cell
+        } else if model.type == "content" {
+            let cell = tableView.dequeueReusableCell(withIdentifier: MainContentCell.identifier, for: indexPath) as! MainContentCell
+            cell.delegate = self
+            let post = self.viewModel.postsList[indexPath.row]
+            cell.configure(post: post)
+            return cell
+        } else if model.type == "recommend" {
+            let cell = tableView.dequeueReusableCell(withIdentifier: MainRecommendCell.identifier, for: indexPath) as! MainRecommendCell
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        let model = mainList[indexPath.row]
+        if model.type == "user" {
+            return 100
+        } else if model.type == "content" {
+            return 585
+        } else if model.type == "recommend" {
+            return 330
+        }
+        return 0
+    }
+    
+}
+
+
+extension MainViewController: MainContentCellDelegate {
+    func didClickMore(_ data: PostModel) {
+
+    }
+    
+    func didClickLike(_ data: PostModel) {
+        HUDHelper.showToast("点击了喜欢")
+    }
+    
+    func didClickComment(_ data: PostModel) {
+     
+    }
+    
+    func didClickShare(_ data: PostModel) {
+  
+    }
+    
+    func didClickMark(_ data: PostModel) {
+   
+    }
 }

@@ -11,11 +11,6 @@ import SnapKit
 
 class MainView: UIView {
     
-    let userCell = "userCell"
-    let contentCell = "contentCell"
-    let recommendCell = "recommendCell"
-
-    
     var mainList: [MainModel] = []
     
     override init(frame: CGRect) {
@@ -46,9 +41,9 @@ class MainView: UIView {
         view.backgroundColor = .clear
         view.delegate = self
         view.dataSource = self
-        view.register(MainUserCell.self, forCellReuseIdentifier: userCell)
-        view.register(MainContentCell.self, forCellReuseIdentifier: contentCell)
-        view.register(MainRecommendCell.self, forCellReuseIdentifier: recommendCell)
+        view.register(MainUserCell.self, forCellReuseIdentifier: "userCell")
+        view.register(MainContentCell.self, forCellReuseIdentifier: "contentCell")
+        view.register(MainRecommendCell.self, forCellReuseIdentifier: "recommendCell")
         return view
     }()
     
@@ -62,18 +57,18 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let model = mainList[indexPath.row]
-        if model.type == "user" {
-            let cell = MainUserCell.init(style: .default, reuseIdentifier: userCell)
-            return cell
-        } else if model.type == "content" {
-            let cell = MainContentCell.init(style: .default, reuseIdentifier: contentCell)
-            cell.reloadData(indexPath: indexPath)
-            return cell
-        } else if model.type == "recommend" {
-            let cell = MainRecommendCell.init(style: .default, reuseIdentifier: recommendCell)
-            return cell
-        }
+//        let model = mainList[indexPath.row]
+//        if model.type == "user" {
+//            let cell = MainUserCell.init(style: .default, reuseIdentifier: userCell)
+//            return cell
+//        } else if model.type == "content" {
+//            let cell = MainContentCell.init(style: .default, reuseIdentifier: contentCell)
+//            cell.reloadData(indexPath: indexPath)
+//            return cell
+//        } else if model.type == "recommend" {
+//            let cell = MainRecommendCell.init(style: .default, reuseIdentifier: recommendCell)
+//            return cell
+//        }
         
         return UITableViewCell()
     }

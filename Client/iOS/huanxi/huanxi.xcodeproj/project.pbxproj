@@ -36,7 +36,6 @@
 		392CF10C2B8EC8E60070637E /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392CF10B2B8EC8E60070637E /* MainModel.swift */; };
 		392CF10E2B8ECA230070637E /* MainUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392CF10D2B8ECA230070637E /* MainUserView.swift */; };
 		392CF1102B8ECA4F0070637E /* MainRecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392CF10F2B8ECA4F0070637E /* MainRecommendView.swift */; };
-		392CF1122B8ECA660070637E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392CF1112B8ECA660070637E /* MainView.swift */; };
 		392CF1142B8ECE570070637E /* MainUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392CF1132B8ECE570070637E /* MainUserCell.swift */; };
 		392CF1162B8ECE640070637E /* MainRecommendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392CF1152B8ECE640070637E /* MainRecommendCell.swift */; };
 		392CF1182B8ECE720070637E /* MainContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392CF1172B8ECE720070637E /* MainContentCell.swift */; };
@@ -99,6 +98,8 @@
 		39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA112B931D3D00A10FE6 /* PhotoAlbumManager.swift */; };
 		E4F67917F7CC2921539ABE7B /* Pods_huanxi_huanxiUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 732438BDA74AF7212978F584 /* Pods_huanxi_huanxiUITests.framework */; };
 		F39F6DD22CD962D200CFF8B5 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DD12CD962D200CFF8B5 /* Api.swift */; };
+		F39F6DD42CDA753A00CFF8B5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DD32CDA753A00CFF8B5 /* MainView.swift */; };
+		F39F6DD72CDA7B2100CFF8B5 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DD62CDA7B2100CFF8B5 /* CommentModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,7 +149,6 @@
 		392CF10B2B8EC8E60070637E /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		392CF10D2B8ECA230070637E /* MainUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUserView.swift; sourceTree = "<group>"; };
 		392CF10F2B8ECA4F0070637E /* MainRecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRecommendView.swift; sourceTree = "<group>"; };
-		392CF1112B8ECA660070637E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		392CF1132B8ECE570070637E /* MainUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUserCell.swift; sourceTree = "<group>"; };
 		392CF1152B8ECE640070637E /* MainRecommendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRecommendCell.swift; sourceTree = "<group>"; };
 		392CF1172B8ECE720070637E /* MainContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentCell.swift; sourceTree = "<group>"; };
@@ -221,6 +221,8 @@
 		CA729ABFB7BAA4ADCD4DD472 /* Pods_huanxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_huanxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA9A2110F87E34A74D9BC07 /* Pods-huanxi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanxi.release.xcconfig"; path = "Target Support Files/Pods-huanxi/Pods-huanxi.release.xcconfig"; sourceTree = "<group>"; };
 		F39F6DD12CD962D200CFF8B5 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		F39F6DD32CDA753A00CFF8B5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		F39F6DD62CDA7B2100CFF8B5 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,10 +314,10 @@
 		392CF1192B8F15100070637E /* views */ = {
 			isa = PBXGroup;
 			children = (
+				F39F6DD32CDA753A00CFF8B5 /* MainView.swift */,
 				04F23E462C0EE69B0078809E /* direct */,
 				392CF10D2B8ECA230070637E /* MainUserView.swift */,
 				392CF10F2B8ECA4F0070637E /* MainRecommendView.swift */,
-				392CF1112B8ECA660070637E /* MainView.swift */,
 				392CF1132B8ECE570070637E /* MainUserCell.swift */,
 				392CF1152B8ECE640070637E /* MainRecommendCell.swift */,
 				392CF1172B8ECE720070637E /* MainContentCell.swift */,
@@ -326,10 +328,7 @@
 		392CF11A2B8F15240070637E /* viewModel */ = {
 			isa = PBXGroup;
 			children = (
-				399739562C6B3D6700D4DD8C /* PostModel.swift */,
 				392CF1092B8EC8700070637E /* MainViewModel.swift */,
-				392CF10B2B8EC8E60070637E /* MainModel.swift */,
-				04F23E492C0EE7900078809E /* ChatModel.swift */,
 				04BCDA322C1301AA00437222 /* ChatMessageManager.swift */,
 			);
 			path = viewModel;
@@ -430,6 +429,7 @@
 		397216B72B820F91007D0F2B /* main */ = {
 			isa = PBXGroup;
 			children = (
+				F39F6DD52CDA7ADB00CFF8B5 /* model */,
 				392CF11B2B8F15370070637E /* controller */,
 				392CF11A2B8F15240070637E /* viewModel */,
 				392CF1192B8F15100070637E /* views */,
@@ -557,6 +557,17 @@
 				0E29E7310307A6B5C6ADA6A5 /* Pods_huanxiTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F39F6DD52CDA7ADB00CFF8B5 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				399739562C6B3D6700D4DD8C /* PostModel.swift */,
+				392CF10B2B8EC8E60070637E /* MainModel.swift */,
+				04F23E492C0EE7900078809E /* ChatModel.swift */,
+				F39F6DD62CDA7B2100CFF8B5 /* CommentModel.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -816,6 +827,7 @@
 				392CF1082B8D7E8F0070637E /* CGFloat+LayoutExtension.swift in Sources */,
 				39A86D1F2C4DF0C7000D4217 /* SettingViewController.swift in Sources */,
 				3998DE2F2BB00B4B0000C4DD /* EditImagesView.swift in Sources */,
+				F39F6DD42CDA753A00CFF8B5 /* MainView.swift in Sources */,
 				39FABA102B931C4600A10FE6 /* PhotoAlbumView.swift in Sources */,
 				39066F692C51E1A3003D347E /* UserInfoModel.swift in Sources */,
 				392CF1042B8D78BB0070637E /* NetworkManager.swift in Sources */,
@@ -827,7 +839,6 @@
 				042597FF2C2A951F00482282 /* SearchDetailListViewController.swift in Sources */,
 				39AB750F2C92F39C00440E5A /* BindPhoneViewController.swift in Sources */,
 				397216C52B824A04007D0F2B /* MainViewController.swift in Sources */,
-				392CF1122B8ECA660070637E /* MainView.swift in Sources */,
 				04F23E4A2C0EE7900078809E /* ChatModel.swift in Sources */,
 				39E908182C2872DC0017B83B /* SearchResultView.swift in Sources */,
 				04BCDA332C1301AA00437222 /* ChatMessageManager.swift in Sources */,
@@ -862,6 +873,7 @@
 				39E9081E2C2874F80017B83B /* BottomContentCell.swift in Sources */,
 				397216822B81E8EC007D0F2B /* SceneDelegate.swift in Sources */,
 				392CF1102B8ECA4F0070637E /* MainRecommendView.swift in Sources */,
+				F39F6DD72CDA7B2100CFF8B5 /* CommentModel.swift in Sources */,
 				397216B52B81EA79007D0F2B /* BaseViewController.swift in Sources */,
 				397216C12B8249F1007D0F2B /* PublishViewController.swift in Sources */,
 				39AB75172C94342100440E5A /* WebViewController.swift in Sources */,

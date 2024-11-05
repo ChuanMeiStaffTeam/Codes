@@ -7,7 +7,24 @@
 
 import UIKit
 
+protocol MainContentCellDelegate: AnyObject {
+    func didClickMore(_ data: PostModel)
+    
+    func didClickLike(_ data: PostModel)
+    
+    func didClickComment(_ data: PostModel)
+    
+    func didClickShare(_ data: PostModel)
+    
+    func didClickMark(_ data: PostModel)
+}
+
 class MainContentCell: UITableViewCell {
+    
+    static let identifier = "MainContentCell"  // 标识符，用于复用
+    
+    weak var delegate: MainContentCellDelegate?
+    var postModel: PostModel?
     
     let icon = UIImageView()
     let nameLabel = UILabel()
@@ -25,31 +42,26 @@ class MainContentCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
-        
-//        reloadData()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func reloadData(indexPath: IndexPath) {
-        
-        let index = indexPath.row
-        let names = ["zixuanooo", "diza", "dnsk", "jack", "rose", "zixuanooo", "diza", "dnsk", "jack", "rose"]
-        let icons = ["icon0", "icon1", "icon2", "icon3", "icon4", "icon5", "icon0", "icon1", "icon2", "icon3"]
-        let imageStr = "list_" + String(index)
-        let contents = ["电话就是不丢吃不都吃不饿还问", "元旦快乐哈哈哈哈哈😄", "评论123哈说的话说的", "i为u你是看见当年参加考试", "建军节说的那就是承诺", "几句话素材你说你刺猬", "u你说的没时间", "OK从事记单词哦接送", "的产业化丢吃呢", "ID农村建设的奶茶"]
-
-        
-        icon.image = UIImage.init(named: icons[index])
-        nameLabel.text = names[index]
-        imgView.image = UIImage(named: imageStr)
-        countryLabel.text = "中国"
-        likeNumLabel.text = "65次点赞"
-        contentLabel.text = contents[index]
-        dateLabel.text = "2024年1月1日"
-        
+    
+    func configure(post: PostModel){
+        postModel = post
+        if let urlStr = post.user?.profilePictureUrl {
+            icon.image = UIImage.init(named: urlStr)
+        }
+        nameLabel.text = post.user?.fullName
+        if let urlStr = post.images?.first?.imageUrl {
+            imgView.image = UIImage.init(named: urlStr)
+        }
+        countryLabel.text = post.location
+        likeNumLabel.text = String(format: "%d次点赞", post.likesCount ?? 0)
+        contentLabel.text = post.caption
+        dateLabel.text = post.createdAt
     }
     
     func setupView() {
@@ -169,22 +181,36 @@ class MainContentCell: UITableViewCell {
     
     @objc func moreAction() {
         HUDHelper.showToast("点击了更多")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickMore(model)
+        }
     }
     
     @objc func likeAction() {
-        HUDHelper.showToast("点击了喜欢")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickLike(model)
+        }
     }
     
     @objc func commentAction() {
         HUDHelper.showToast("点击了评论")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickComment(model)
+        }
     }
     
     @objc func shareAction() {
         HUDHelper.showToast("点击了分享")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickShare(model)
+        }
     }
     
     @objc func markAction() {
         HUDHelper.showToast("点击了标记")
+        if let delegate = self.delegate, let model = postModel {
+            delegate.didClickMark(model)
+        }
     }
     
 }

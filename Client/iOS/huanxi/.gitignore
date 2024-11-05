@@ -1,6 +1,5 @@
 # 忽略 CocoaPods 目录
 Pods/
-Podfile.lock
 
 .DS_Store
 huanxi.xcodeproj/xcuserdata/

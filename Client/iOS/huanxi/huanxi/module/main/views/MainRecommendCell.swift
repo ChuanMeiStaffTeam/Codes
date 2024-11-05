@@ -9,6 +9,8 @@ import UIKit
 
 class MainRecommendCell: UITableViewCell {
     
+    static let identifier = "MainRecommendCell"  // 标识符，用于复用
+
     var mainRecommendView: MainRecommendView!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

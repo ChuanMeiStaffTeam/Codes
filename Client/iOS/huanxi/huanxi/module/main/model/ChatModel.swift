@@ -8,7 +8,6 @@
 import Foundation
 
 struct ChatModel {
-    
     let name: String
     let icon: String
     let content: String

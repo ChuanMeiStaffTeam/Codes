@@ -28,6 +28,26 @@ class MainViewModel {
             user, content, content, content, recommend, content, content,
             content, content,
         ]
+        
+        let icons = ["icon0", "icon1", "icon2", "icon3", "icon4", "icon5", "icon0", "icon1", "icon2", "icon3"]
+        let names = ["zixuanooo", "diza", "dnsk", "jack", "rose", "zixuanooo", "diza", "dnsk", "jack", "rose"]
+        let contents = ["电话就是不丢吃不都吃不饿还问", "元旦快乐哈哈哈哈哈😄", "评论123哈说的话说的", "i为u你是看见当年参加考试", "建军节说的那就是承诺", "几句话素材你说你刺猬", "u你说的没时间", "OK从事记单词哦接送", "的产业化丢吃呢", "ID农村建设的奶茶"]
+        let likesCounts = [65, 86, 35, 69, 22, 56, 77, 89, 81, 23]
+        for i in 0..<10 {
+            var post = PostModel()
+            var postUser = UserInfoModel()
+            postUser.profilePictureUrl = icons[i]
+            postUser.fullName = names[i]
+            post.user = postUser
+            var postImage = PostImage()
+            postImage.imageUrl = "list_" + String(i)
+            post.images = [postImage]
+            post.location = "中国"
+            post.likesCount = likesCounts[i]
+            post.caption = contents[i]
+            post.createdAt = "2024年1月1日"
+            postsList.append(post)
+        }
     }
 
     func requestHomePosts(completion: @escaping (Bool) -> Void) {
@@ -37,7 +57,7 @@ class MainViewModel {
             responseType: PostsResponse.self
         ) { success, message, data in
             if success {
-                self.postsList = data?.list ?? []
+//                self.postsList = data?.list ?? []
             } else {
                 HUDHelper.showToast(message)
             }
