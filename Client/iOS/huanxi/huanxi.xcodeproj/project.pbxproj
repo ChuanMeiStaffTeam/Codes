@@ -100,6 +100,7 @@
 		F39F6DD22CD962D200CFF8B5 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DD12CD962D200CFF8B5 /* Api.swift */; };
 		F39F6DD42CDA753A00CFF8B5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DD32CDA753A00CFF8B5 /* MainView.swift */; };
 		F39F6DD72CDA7B2100CFF8B5 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DD62CDA7B2100CFF8B5 /* CommentModel.swift */; };
+		F39F6DDB2CDBCDAD00CFF8B5 /* heart.json in Resources */ = {isa = PBXBuildFile; fileRef = F39F6DD92CDBCDAD00CFF8B5 /* heart.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,6 +224,7 @@
 		F39F6DD12CD962D200CFF8B5 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		F39F6DD32CDA753A00CFF8B5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F39F6DD62CDA7B2100CFF8B5 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		F39F6DD92CDBCDAD00CFF8B5 /* heart.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = heart.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +372,7 @@
 		3972167E2B81E8EC007D0F2B /* huanxi */ = {
 			isa = PBXGroup;
 			children = (
+				F39F6DD82CDBCCF700CFF8B5 /* resources */,
 				399318312B82E9F500F6D069 /* category */,
 				399318302B82E9E200F6D069 /* util */,
 				397216B62B820F6C007D0F2B /* module */,
@@ -570,6 +573,22 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		F39F6DD82CDBCCF700CFF8B5 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				F39F6DDA2CDBCDAD00CFF8B5 /* Lottie Files */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		F39F6DDA2CDBCDAD00CFF8B5 /* Lottie Files */ = {
+			isa = PBXGroup;
+			children = (
+				F39F6DD92CDBCDAD00CFF8B5 /* heart.json */,
+			);
+			path = "Lottie Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -682,6 +701,7 @@
 				3972168C2B81E8F1007D0F2B /* LaunchScreen.storyboard in Resources */,
 				397216892B81E8F1007D0F2B /* Assets.xcassets in Resources */,
 				397216872B81E8EC007D0F2B /* Main.storyboard in Resources */,
+				F39F6DDB2CDBCDAD00CFF8B5 /* heart.json in Resources */,
 				39AB751B2C9443BF00440E5A /* private.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

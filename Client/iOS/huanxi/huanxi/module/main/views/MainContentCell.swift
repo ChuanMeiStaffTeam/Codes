@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 protocol MainContentCellDelegate: AnyObject {
     func didClickMore(_ data: PostModel)
@@ -22,7 +23,6 @@ protocol MainContentCellDelegate: AnyObject {
 class MainContentCell: UITableViewCell {
     
     static let identifier = "MainContentCell"  // 标识符，用于复用
-    
     weak var delegate: MainContentCellDelegate?
     var postModel: PostModel?
     
@@ -38,10 +38,21 @@ class MainContentCell: UITableViewCell {
     let likeNumLabel = UILabel()
     let contentLabel = UILabel()
     let dateLabel = UILabel()
+    private let likeAnimationView: LottieAnimationView = {
+        let animationView = LottieAnimationView(name: "heart")
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .playOnce // 播放一次
+        animationView.animationSpeed = 1.0 // 动画速度
+        return animationView
+    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
+        
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(self.playLikeAnimation))
+        doubleTap.numberOfTapsRequired = 2
+        imgView.addGestureRecognizer(doubleTap)
     }
     
     required init?(coder: NSCoder) {
@@ -62,6 +73,13 @@ class MainContentCell: UITableViewCell {
         likeNumLabel.text = String(format: "%d次点赞", post.likesCount ?? 0)
         contentLabel.text = post.caption
         dateLabel.text = post.createdAt
+        if postModel!.liked {
+            likeBtn.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            likeBtn.tintColor = .systemRed
+        } else {
+            likeBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            likeBtn.tintColor = UIColor(named: "diffBgColor")
+        }
     }
     
     func setupView() {
@@ -81,6 +99,8 @@ class MainContentCell: UITableViewCell {
         contentView.addSubview(likeNumLabel)
         contentView.addSubview(contentLabel)
         contentView.addSubview(dateLabel)
+        imgView.addSubview(likeAnimationView)
+
         
         icon.image = UIImage.init(named: "main_pic_test")
         icon.layer.cornerRadius = 16
@@ -114,13 +134,16 @@ class MainContentCell: UITableViewCell {
         }
         
         imgView.image = UIImage.init(named: "main_pic_test")
+        imgView.isUserInteractionEnabled = true
         imgView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().offset(0)
             make.top.equalToSuperview().offset(52)
             make.height.equalTo(410)
         }
         
-        likeBtn.setImage(UIImage.init(named: "main_like"), for: .normal)
+//        likeBtn.setImage(UIImage.init(named: "main_like"), for: .normal)
+        likeBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+        likeBtn.tintColor = UIColor(named: "diffBgColor")
         likeBtn.addTarget(self, action: #selector(likeAction), for: .touchUpInside)
         likeBtn.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(12)
@@ -175,6 +198,10 @@ class MainContentCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-3)
         }
         
+        likeAnimationView.snp.makeConstraints({ make in
+            make.height.width.equalTo(120)
+            make.center.equalTo(imgView)
+        })
     }
     
     
@@ -187,8 +214,28 @@ class MainContentCell: UITableViewCell {
     }
     
     @objc func likeAction() {
-        if let delegate = self.delegate, let model = postModel {
-            delegate.didClickLike(model)
+//        if let delegate = self.delegate, let model = postModel {
+//            delegate.didClickLike(model)
+//        }
+        if postModel!.liked {
+            likeBtn.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            likeBtn.tintColor = .systemRed
+        } else {
+            likeBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            likeBtn.tintColor = UIColor(named: "diffBgColor")
+        }
+        postModel!.liked = !postModel!.liked
+    }
+
+    
+    // 播放点赞动画
+    @objc private func playLikeAnimation() {
+        likeAnimationView.play { (finished) in
+            if finished {
+                self.likeBtn.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+                self.likeBtn.tintColor = .systemRed
+                self.postModel!.liked = true
+            }
         }
     }
     

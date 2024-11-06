@@ -34,7 +34,7 @@ class MainViewModel {
         let contents = ["电话就是不丢吃不都吃不饿还问", "元旦快乐哈哈哈哈哈😄", "评论123哈说的话说的", "i为u你是看见当年参加考试", "建军节说的那就是承诺", "几句话素材你说你刺猬", "u你说的没时间", "OK从事记单词哦接送", "的产业化丢吃呢", "ID农村建设的奶茶"]
         let likesCounts = [65, 86, 35, 69, 22, 56, 77, 89, 81, 23]
         for i in 0..<10 {
-            var post = PostModel()
+            var post = PostModel(liked: false)
             var postUser = UserInfoModel()
             postUser.profilePictureUrl = icons[i]
             postUser.fullName = names[i]
