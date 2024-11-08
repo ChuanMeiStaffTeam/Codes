@@ -34,17 +34,13 @@ class MainContentCell: UITableViewCell {
     let likeBtn = UIButton()
     let commentBtn = UIButton()
     let shareBtn = UIButton()
-    let markBtn = UIButton()
+    let collectBtn = UIButton()
+    let floatingLabel = PaddedLabel() // 浮层提示
     let likeNumLabel = UILabel()
     let contentLabel = UILabel()
     let dateLabel = UILabel()
-    private let likeAnimationView: LottieAnimationView = {
-        let animationView = LottieAnimationView(name: "heart")
-        animationView.contentMode = .scaleAspectFit
-        animationView.loopMode = .playOnce // 播放一次
-        animationView.animationSpeed = 1.0 // 动画速度
-        return animationView
-    }()
+    let likeAnimationView = LottieAnimationView(name: "heart")
+
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -73,13 +69,10 @@ class MainContentCell: UITableViewCell {
         likeNumLabel.text = String(format: "%d次点赞", post.likesCount ?? 0)
         contentLabel.text = post.caption
         dateLabel.text = post.createdAt
-        if postModel!.liked {
-            likeBtn.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
-            likeBtn.tintColor = .systemRed
-        } else {
-            likeBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
-            likeBtn.tintColor = UIColor(named: "diffBgColor")
-        }
+        
+        likeBtn.setImage(UIImage.init(named: postModel!.liked ? "post_like" : "post_unlike"), for: .normal)
+        collectBtn.isSelected = postModel!.collected
+
     }
     
     func setupView() {
@@ -95,10 +88,11 @@ class MainContentCell: UITableViewCell {
         contentView.addSubview(likeBtn)
         contentView.addSubview(commentBtn)
         contentView.addSubview(shareBtn)
-        contentView.addSubview(markBtn)
+        contentView.addSubview(collectBtn)
         contentView.addSubview(likeNumLabel)
         contentView.addSubview(contentLabel)
         contentView.addSubview(dateLabel)
+        imgView.addSubview(floatingLabel)
         imgView.addSubview(likeAnimationView)
 
         
@@ -135,15 +129,15 @@ class MainContentCell: UITableViewCell {
         
         imgView.image = UIImage.init(named: "main_pic_test")
         imgView.isUserInteractionEnabled = true
+        imgView.clipsToBounds = true
         imgView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().offset(0)
             make.top.equalToSuperview().offset(52)
             make.height.equalTo(410)
         }
         
-//        likeBtn.setImage(UIImage.init(named: "main_like"), for: .normal)
-        likeBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
-        likeBtn.tintColor = UIColor(named: "diffBgColor")
+
+        likeBtn.setImage(UIImage.init(named: "post_unlike"), for: .normal)
         likeBtn.addTarget(self, action: #selector(likeAction), for: .touchUpInside)
         likeBtn.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(12)
@@ -167,9 +161,10 @@ class MainContentCell: UITableViewCell {
             make.top.equalTo(imgView.snp.bottom).offset(10)
         }
         
-        markBtn.setImage(UIImage.init(named: "main_mark"), for: .normal)
-        markBtn.addTarget(self, action: #selector(markAction), for: .touchUpInside)
-        markBtn.snp.makeConstraints { make in
+        collectBtn.setImage(UIImage.init(named: "post_collect"), for: .normal)
+        collectBtn.setImage(UIImage.init(named: "post_collected"), for: .selected)
+        collectBtn.addTarget(self, action: #selector(collectAction), for: .touchUpInside)
+        collectBtn.snp.makeConstraints { make in
             make.right.equalToSuperview().offset(-12)
             make.width.height.equalTo(24)
             make.top.equalTo(imgView.snp.bottom).offset(10)
@@ -179,7 +174,7 @@ class MainContentCell: UITableViewCell {
         likeNumLabel.font = .systemFont(ofSize: 14)
         likeNumLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(10)
-            make.top.equalTo(markBtn.snp.bottom).offset(16)
+            make.top.equalTo(collectBtn.snp.bottom).offset(16)
         }
         
         contentLabel.textColor = .white
@@ -198,6 +193,25 @@ class MainContentCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-3)
         }
         
+        
+        // 配置浮层提示
+        floatingLabel.text = "已保存到收藏"
+        floatingLabel.textColor = UIColor.postBlueColor
+        floatingLabel.backgroundColor = UIColor.postBgColor
+        floatingLabel.textAlignment = .left
+        likeNumLabel.font = .systemFont(ofSize: 15)
+        floatingLabel.padding = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 16) // 设置内边距
+        floatingLabel.transform = CGAffineTransform(translationX: 0, y: 40) // 初始下移位置
+        floatingLabel.snp.makeConstraints({ make in
+            make.left.right.equalTo(imgView)
+            make.bottom.equalTo(imgView)
+            make.height.equalTo(40)
+        })
+        
+        // 点赞动画
+        likeAnimationView.contentMode = .scaleAspectFit
+        likeAnimationView.loopMode = .playOnce // 播放一次
+        likeAnimationView.animationSpeed = 1.0 // 动画速度
         likeAnimationView.snp.makeConstraints({ make in
             make.height.width.equalTo(120)
             make.center.equalTo(imgView)
@@ -214,16 +228,7 @@ class MainContentCell: UITableViewCell {
     }
     
     @objc func likeAction() {
-//        if let delegate = self.delegate, let model = postModel {
-//            delegate.didClickLike(model)
-//        }
-        if postModel!.liked {
-            likeBtn.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
-            likeBtn.tintColor = .systemRed
-        } else {
-            likeBtn.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
-            likeBtn.tintColor = UIColor(named: "diffBgColor")
-        }
+        likeBtn.setImage(UIImage.init(named: postModel!.liked ? "post_like" : "post_unlike"), for: .normal)
         postModel!.liked = !postModel!.liked
     }
 
@@ -232,8 +237,7 @@ class MainContentCell: UITableViewCell {
     @objc private func playLikeAnimation() {
         likeAnimationView.play { (finished) in
             if finished {
-                self.likeBtn.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
-                self.likeBtn.tintColor = .systemRed
+                self.likeBtn.setImage(UIImage.init(named: "post_like"), for: .normal)
                 self.postModel!.liked = true
             }
         }
@@ -253,11 +257,23 @@ class MainContentCell: UITableViewCell {
         }
     }
     
-    @objc func markAction() {
-        HUDHelper.showToast("点击了标记")
-        if let delegate = self.delegate, let model = postModel {
-            delegate.didClickMark(model)
+    @objc func collectAction() {
+        collectBtn.isSelected.toggle()
+        postModel!.collected = collectBtn.isSelected
+        if collectBtn.isSelected {
+            showFloatingLabel()
         }
+    }
+    
+    // 帖子上方的浮层动画
+    func showFloatingLabel() {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+             self.floatingLabel.transform = .identity // 回到原始位置
+         }) { _ in
+             UIView.animate(withDuration: 0.3, delay: 1.5, options: .curveEaseIn, animations: {
+                 self.floatingLabel.transform = CGAffineTransform(translationX: 0, y: 40)
+             }, completion: nil)
+         }
     }
     
 }

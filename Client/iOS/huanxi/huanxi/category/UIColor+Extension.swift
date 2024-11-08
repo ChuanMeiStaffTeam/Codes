@@ -33,5 +33,13 @@ extension UIColor {
     static var mainBlueColor: UIColor {
         return .init(hexString: "#009DFF")
     }
+    
+    static var postBlueColor: UIColor {
+        return .init(hexString: "#0098FE")
+    }
+    
+    static var postBgColor: UIColor {
+        return .init(hexString: "#212328")
+    }
 }
 

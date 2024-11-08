@@ -14,6 +14,7 @@ struct PostModel: Codable {
     var caption: String?
     var comments: [CommentModel]?
     var liked : Bool
+    var collected : Bool
     var bookmarked: Bool?
     var postTime: Date?
     var likesCount: Int?
