@@ -251,10 +251,11 @@ class MainContentCell: UITableViewCell {
     }
     
     @objc func shareAction() {
-        HUDHelper.showToast("点击了分享")
-        if let delegate = self.delegate, let model = postModel {
-            delegate.didClickShare(model)
-        }
+//        HUDHelper.showToast("点击了分享")
+//        if let delegate = self.delegate, let model = postModel {
+//            delegate.didClickShare(model)
+//        }
+        shareContent()
     }
     
     @objc func collectAction() {
@@ -276,5 +277,30 @@ class MainContentCell: UITableViewCell {
          }
     }
     
+    // 分享
+    @objc func shareContent() {
+        // 要分享的内容
+        let textToShare = "这是一个示例文本。"
+        let urlToShare = URL(string: "https://www.example.com")!
+        let imageToShare = UIImage(named: "exampleImage") // 确保图片已添加到项目中
+        
+        // 将内容放入一个数组
+        let itemsToShare: [Any] = [textToShare, urlToShare, imageToShare as Any]
+        
+        // 创建UIActivityViewController
+        let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+        
+        // 对于iPad设备，需要指定一个弹出位置
+        if let popoverController = activityViewController.popoverPresentationController {
+            popoverController.sourceView = self
+            popoverController.sourceRect = CGRect(x: self.bounds.midX, y: self.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        
+        if let vc = self.parentViewController {
+            vc.present(activityViewController, animated: true, completion: nil)
+        }
+
+    }
 }
 
