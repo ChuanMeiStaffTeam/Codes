@@ -244,17 +244,11 @@ class MainContentCell: UITableViewCell {
     }
     
     @objc func commentAction() {
-        HUDHelper.showToast("点击了评论")
-        if let delegate = self.delegate, let model = postModel {
-            delegate.didClickComment(model)
-        }
+        PostCommentsPopView.init(awemeId: "099").show(view: self.parentViewController!.view)
+
     }
     
     @objc func shareAction() {
-//        HUDHelper.showToast("点击了分享")
-//        if let delegate = self.delegate, let model = postModel {
-//            delegate.didClickShare(model)
-//        }
         shareContent()
     }
     

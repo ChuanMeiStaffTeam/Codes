@@ -41,5 +41,25 @@ extension UIColor {
     static var postBgColor: UIColor {
         return .init(hexString: "#212328")
     }
+    
+    static var white_10: UIColor {
+        return .init(hexString: "#FFFFFF",alpha: 0.1)
+    }
+    
+    static var white_60: UIColor {
+        return .init(hexString: "#FFFFFF",alpha: 0.6)
+    }
+    
+    static var white_80: UIColor {
+        return .init(hexString: "#FFFFFF",alpha: 0.8)
+    }
+    
+    static var black_40: UIColor {
+        return .init(hexString: "#000000",alpha: 0.4)
+    }
+    
+    static var black_60: UIColor {
+        return .init(hexString: "#000000",alpha: 0.6)
+    }
 }
 

@@ -22,6 +22,7 @@ struct LoginModel: Codable {
 struct UserInfoModel: Codable {
     
     var username: String?
+    var nickname: String?
     var phoneNumber: String?
     var userId: Int?
     var loginAttempts: Int?
@@ -30,8 +31,8 @@ struct UserInfoModel: Codable {
     var email: String?
     var bio: String?
     var websiteUrl: String?
-    
     var address: String?
+    var avatar: String?
     var followingCount: Int? = 0
     var lastLoginAt: String?
     var country: String?
