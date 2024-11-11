@@ -127,7 +127,14 @@ extension MainViewController: MainContentCellDelegate {
     }
     
     func didClickLike(_ data: PostModel) {
-        HUDHelper.showToast("点击了喜欢")
+        if let index = self.viewModel.postsList.firstIndex(where: { $0.postId == data.postId }) {
+            var post = self.viewModel.postsList[index]
+            post.liked = data.liked
+            post.likesCount = data.liked ? (post.likesCount ?? 0) + 1 : (post.likesCount ?? 0) - 1
+            self.viewModel.postsList[index] = post
+            let indexPath = IndexPath(row: index, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
     }
     
     func didClickComment(_ data: PostModel) {

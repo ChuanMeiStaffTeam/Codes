@@ -35,6 +35,7 @@ class MainViewModel {
         let likesCounts = [65, 86, 35, 69, 22, 56, 77, 89, 81, 23]
         for i in 0..<10 {
             var post = PostModel(liked: false, collected: false)
+            post.postId = i
             var postUser = UserInfoModel()
             postUser.profilePictureUrl = icons[i]
             postUser.fullName = names[i]

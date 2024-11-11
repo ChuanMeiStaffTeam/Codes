@@ -230,6 +230,9 @@ class MainContentCell: UITableViewCell {
     @objc func likeAction() {
         likeBtn.setImage(UIImage.init(named: postModel.liked ? "post_like" : "post_unlike"), for: .normal)
         postModel.liked = !postModel.liked
+        if let delegate = self.delegate {
+            delegate.didClickLike(postModel)
+        }
     }
 
     
@@ -237,8 +240,13 @@ class MainContentCell: UITableViewCell {
     @objc private func playLikeAnimation() {
         likeAnimationView.play { (finished) in
             if finished {
-                self.likeBtn.setImage(UIImage.init(named: "post_like"), for: .normal)
-                self.postModel.liked = true
+                if !self.postModel.liked {
+                    self.likeBtn.setImage(UIImage.init(named: "post_like"), for: .normal)
+                    self.postModel.liked = true
+                    if let delegate = self.delegate {
+                        delegate.didClickLike(self.postModel)
+                    }
+                }
             }
         }
     }
@@ -249,7 +257,6 @@ class MainContentCell: UITableViewCell {
     }
     
     @objc func shareAction() {
-//        shareContent()
         PostSharePopView.init().show(self.postModel)
     }
     

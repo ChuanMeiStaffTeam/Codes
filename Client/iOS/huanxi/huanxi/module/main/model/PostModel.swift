@@ -20,6 +20,8 @@ struct PostModel: Codable {
     var likesCount: Int?
     var location: String?
     var createdAt: String?
+    var postId: Int?
+
 }
 
 struct PostImage: Codable {
