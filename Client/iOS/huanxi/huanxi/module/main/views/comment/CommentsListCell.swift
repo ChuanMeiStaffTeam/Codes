@@ -1,5 +1,5 @@
 //
-//  CommentsListCell.swift
+//  CommentListCell.swift
 //  huanxi
 //
 //  Created by rslz on 2024/11/11.
@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 
-class CommentsListCell:UITableViewCell {
+class CommentListCell:UITableViewCell {
     
-    static let identifier:String = "CommentsListCell"
+    static let identifier:String = "CommentListCell"
 
     static let MaxContentWidth:CGFloat = screenWidth - 55 - 35
     
@@ -85,7 +85,7 @@ class CommentsListCell:UITableViewCell {
         content.snp.makeConstraints { make in
             make.top.equalTo(self.nickName.snp.bottom).offset(5)
             make.left.equalTo(self.nickName)
-            make.width.lessThanOrEqualTo(CommentsListCell.MaxContentWidth)
+            make.width.lessThanOrEqualTo(CommentListCell.MaxContentWidth)
         }
         date.snp.makeConstraints { make in
             make.top.equalTo(self.content.snp.bottom).offset(5)

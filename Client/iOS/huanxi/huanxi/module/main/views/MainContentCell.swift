@@ -24,9 +24,9 @@ class MainContentCell: UITableViewCell {
     
     static let identifier = "MainContentCell"  // 标识符，用于复用
     weak var delegate: MainContentCellDelegate?
-    var postModel: PostModel?
+    var postModel: PostModel = PostModel(liked: false, collected: false)
     
-    let icon = UIImageView()
+    let avatar = UIImageView()
     let nameLabel = UILabel()
     let countryLabel = UILabel()
     let moreBtn = UIButton()
@@ -59,7 +59,7 @@ class MainContentCell: UITableViewCell {
     func configure(post: PostModel){
         postModel = post
         if let urlStr = post.user?.profilePictureUrl {
-            icon.image = UIImage.init(named: urlStr)
+            avatar.image = UIImage.init(named: urlStr)
         }
         nameLabel.text = post.user?.fullName
         if let urlStr = post.images?.first?.imageUrl {
@@ -70,8 +70,8 @@ class MainContentCell: UITableViewCell {
         contentLabel.text = post.caption
         dateLabel.text = post.createdAt
         
-        likeBtn.setImage(UIImage.init(named: postModel!.liked ? "post_like" : "post_unlike"), for: .normal)
-        collectBtn.isSelected = postModel!.collected
+        likeBtn.setImage(UIImage.init(named: postModel.liked ? "post_like" : "post_unlike"), for: .normal)
+        collectBtn.isSelected = postModel.collected
 
     }
     
@@ -80,7 +80,7 @@ class MainContentCell: UITableViewCell {
         selectionStyle = .none
         backgroundColor = .clear
         
-        contentView.addSubview(icon)
+        contentView.addSubview(avatar)
         contentView.addSubview(nameLabel)
         contentView.addSubview(countryLabel)
         contentView.addSubview(moreBtn)
@@ -96,10 +96,10 @@ class MainContentCell: UITableViewCell {
         imgView.addSubview(likeAnimationView)
 
         
-        icon.image = UIImage.init(named: "main_pic_test")
-        icon.layer.cornerRadius = 16
-        icon.layer.masksToBounds = true
-        icon.snp.makeConstraints { make in
+        avatar.image = UIImage.init(named: "main_pic_test")
+        avatar.layer.cornerRadius = 16
+        avatar.layer.masksToBounds = true
+        avatar.snp.makeConstraints { make in
             make.width.height.equalTo(32)
             make.left.equalTo(10)
             make.top.equalTo(10)
@@ -109,14 +109,14 @@ class MainContentCell: UITableViewCell {
         nameLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         nameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
-            make.left.equalTo(icon.snp.right).offset(10)
+            make.left.equalTo(avatar.snp.right).offset(10)
         }
         
         countryLabel.textColor = .white
         countryLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         countryLabel.snp.makeConstraints { make in
-            make.left.equalTo(icon.snp.right).offset(10)
-            make.bottom.equalTo(icon.snp.bottom).offset(0)
+            make.left.equalTo(avatar.snp.right).offset(10)
+            make.bottom.equalTo(avatar.snp.bottom).offset(0)
         }
         
         moreBtn.setImage(UIImage.init(named: "main_more"), for: .normal)
@@ -221,15 +221,15 @@ class MainContentCell: UITableViewCell {
     
     
     @objc func moreAction() {
-        HUDHelper.showToast("点击了更多")
-        if let delegate = self.delegate, let model = postModel {
-            delegate.didClickMore(model)
-        }
+//        HUDHelper.showToast("点击了更多")
+//        if let delegate = self.delegate {
+//            delegate.didClickMore(model)
+//        }
     }
     
     @objc func likeAction() {
-        likeBtn.setImage(UIImage.init(named: postModel!.liked ? "post_like" : "post_unlike"), for: .normal)
-        postModel!.liked = !postModel!.liked
+        likeBtn.setImage(UIImage.init(named: postModel.liked ? "post_like" : "post_unlike"), for: .normal)
+        postModel.liked = !postModel.liked
     }
 
     
@@ -238,13 +238,13 @@ class MainContentCell: UITableViewCell {
         likeAnimationView.play { (finished) in
             if finished {
                 self.likeBtn.setImage(UIImage.init(named: "post_like"), for: .normal)
-                self.postModel!.liked = true
+                self.postModel.liked = true
             }
         }
     }
     
     @objc func commentAction() {
-        PostCommentsPopView.init(awemeId: "099").show(view: self.parentViewController!.view)
+        PostCommentPopView.init(awemeId: "099").show(self.postModel)
 
     }
     
@@ -254,7 +254,7 @@ class MainContentCell: UITableViewCell {
     
     @objc func collectAction() {
         collectBtn.isSelected.toggle()
-        postModel!.collected = collectBtn.isSelected
+        postModel.collected = collectBtn.isSelected
         if collectBtn.isSelected {
             showFloatingLabel()
         }

@@ -104,7 +104,7 @@
 		F39F6DE92CE1277400CFF8B5 /* DrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DE82CE1277400CFF8B5 /* DrawerView.swift */; };
 		F39F6DEB2CE127B300CFF8B5 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DEA2CE127B300CFF8B5 /* Overlay.swift */; };
 		F39F6DED2CE1280F00CFF8B5 /* Interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DEC2CE1280F00CFF8B5 /* Interpolation.swift */; };
-		F39F6DF02CE128DD00CFF8B5 /* PostCommentsPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DEF2CE128DD00CFF8B5 /* PostCommentsPopView.swift */; };
+		F39F6DF02CE128DD00CFF8B5 /* PostCommentPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DEF2CE128DD00CFF8B5 /* PostCommentPopView.swift */; };
 		F39F6DF42CE12C6700CFF8B5 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DF32CE12C6700CFF8B5 /* CommentModel.swift */; };
 		F39F6DF62CE12C8700CFF8B5 /* VisitorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DF52CE12C8700CFF8B5 /* VisitorModel.swift */; };
 		F39F6DF82CE1304D00CFF8B5 /* Codable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DF72CE1304D00CFF8B5 /* Codable+Extension.swift */; };
@@ -115,6 +115,7 @@
 		F39F6E022CE1465500CFF8B5 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E012CE1465500CFF8B5 /* Date+Extension.swift */; };
 		F39F6E042CE14A6400CFF8B5 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E032CE14A6400CFF8B5 /* Notification+Extension.swift */; };
 		F39F6E062CE1727800CFF8B5 /* CommentsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E052CE1727800CFF8B5 /* CommentsListCell.swift */; };
+		F39F6E092CE22D8600CFF8B5 /* CommentTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E082CE22D8600CFF8B5 /* CommentTextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -242,7 +243,7 @@
 		F39F6DE82CE1277400CFF8B5 /* DrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerView.swift; sourceTree = "<group>"; };
 		F39F6DEA2CE127B300CFF8B5 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		F39F6DEC2CE1280F00CFF8B5 /* Interpolation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpolation.swift; sourceTree = "<group>"; };
-		F39F6DEF2CE128DD00CFF8B5 /* PostCommentsPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentsPopView.swift; sourceTree = "<group>"; };
+		F39F6DEF2CE128DD00CFF8B5 /* PostCommentPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentPopView.swift; sourceTree = "<group>"; };
 		F39F6DF32CE12C6700CFF8B5 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		F39F6DF52CE12C8700CFF8B5 /* VisitorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitorModel.swift; sourceTree = "<group>"; };
 		F39F6DF72CE1304D00CFF8B5 /* Codable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Extension.swift"; sourceTree = "<group>"; };
@@ -253,6 +254,7 @@
 		F39F6E012CE1465500CFF8B5 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		F39F6E032CE14A6400CFF8B5 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
 		F39F6E052CE1727800CFF8B5 /* CommentsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsListCell.swift; sourceTree = "<group>"; };
+		F39F6E082CE22D8600CFF8B5 /* CommentTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +346,7 @@
 		392CF1192B8F15100070637E /* views */ = {
 			isa = PBXGroup;
 			children = (
+				F39F6E072CE22D4C00CFF8B5 /* comment */,
 				F39F6DD32CDA753A00CFF8B5 /* MainView.swift */,
 				04F23E462C0EE69B0078809E /* direct */,
 				392CF10D2B8ECA230070637E /* MainUserView.swift */,
@@ -351,8 +354,6 @@
 				392CF1132B8ECE570070637E /* MainUserCell.swift */,
 				392CF1152B8ECE640070637E /* MainRecommendCell.swift */,
 				392CF1172B8ECE720070637E /* MainContentCell.swift */,
-				F39F6DEF2CE128DD00CFF8B5 /* PostCommentsPopView.swift */,
-				F39F6E052CE1727800CFF8B5 /* CommentsListCell.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -655,6 +656,16 @@
 			path = customLabel;
 			sourceTree = "<group>";
 		};
+		F39F6E072CE22D4C00CFF8B5 /* comment */ = {
+			isa = PBXGroup;
+			children = (
+				F39F6DEF2CE128DD00CFF8B5 /* PostCommentPopView.swift */,
+				F39F6E052CE1727800CFF8B5 /* CommentsListCell.swift */,
+				F39F6E082CE22D8600CFF8B5 /* CommentTextView.swift */,
+			);
+			path = comment;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -953,7 +964,7 @@
 				397216BD2B8249D9007D0F2B /* UpdatesViewController.swift in Sources */,
 				F39F6DE92CE1277400CFF8B5 /* DrawerView.swift in Sources */,
 				F39F6E022CE1465500CFF8B5 /* Date+Extension.swift in Sources */,
-				F39F6DF02CE128DD00CFF8B5 /* PostCommentsPopView.swift in Sources */,
+				F39F6DF02CE128DD00CFF8B5 /* PostCommentPopView.swift in Sources */,
 				39E9080D2C26B9070017B83B /* SearchHeaderView.swift in Sources */,
 				04F23E452C0EE4330078809E /* DirectViewController.swift in Sources */,
 				399739572C6B3D6700D4DD8C /* PostModel.swift in Sources */,
@@ -967,6 +978,7 @@
 				F39F6E062CE1727800CFF8B5 /* CommentsListCell.swift in Sources */,
 				04F0D1A82BFAEC0D00FFE128 /* EditHomePageViewController.swift in Sources */,
 				397216B32B81EA6A007D0F2B /* TabBarController.swift in Sources */,
+				F39F6E092CE22D8600CFF8B5 /* CommentTextView.swift in Sources */,
 				04BCDA312C12F80400437222 /* ChatTextCell.swift in Sources */,
 				39E9081E2C2874F80017B83B /* BottomContentCell.swift in Sources */,
 				397216822B81E8EC007D0F2B /* SceneDelegate.swift in Sources */,
