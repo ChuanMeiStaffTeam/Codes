@@ -239,6 +239,7 @@ extension PostCommentPopView: DrawerViewDelegate {
     
     func drawer(_ drawerView: DrawerView, willTransitionFrom startPosition: DrawerPosition, to targetPosition: DrawerPosition) {
         if targetPosition == .closed {
+            self.removeFromSuperview()
             self.textView.dismiss()
         }
     }

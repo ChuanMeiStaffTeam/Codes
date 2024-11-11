@@ -19,3 +19,13 @@ enum RefreshingType: Int {
     case RefreshHeaderStateRefreshing
     case RefreshHeaderStateAll
 }
+
+enum ShartType: Int {
+    case none
+    case copy
+    case wx
+    case qq
+    case facebook
+    case ins
+    case whatsapp
+}

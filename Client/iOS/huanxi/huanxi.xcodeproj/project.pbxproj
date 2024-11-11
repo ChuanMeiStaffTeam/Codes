@@ -116,6 +116,8 @@
 		F39F6E042CE14A6400CFF8B5 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E032CE14A6400CFF8B5 /* Notification+Extension.swift */; };
 		F39F6E062CE1727800CFF8B5 /* CommentsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E052CE1727800CFF8B5 /* CommentsListCell.swift */; };
 		F39F6E092CE22D8600CFF8B5 /* CommentTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E082CE22D8600CFF8B5 /* CommentTextView.swift */; };
+		F39F6E0C2CE2404E00CFF8B5 /* PostSharePopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E0B2CE2404E00CFF8B5 /* PostSharePopView.swift */; };
+		F39F6E0E2CE26F4100CFF8B5 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -255,6 +257,8 @@
 		F39F6E032CE14A6400CFF8B5 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
 		F39F6E052CE1727800CFF8B5 /* CommentsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsListCell.swift; sourceTree = "<group>"; };
 		F39F6E082CE22D8600CFF8B5 /* CommentTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTextView.swift; sourceTree = "<group>"; };
+		F39F6E0B2CE2404E00CFF8B5 /* PostSharePopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSharePopView.swift; sourceTree = "<group>"; };
+		F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -546,6 +550,7 @@
 				F39F6DF92CE1323F00CFF8B5 /* String+Extension.swift */,
 				F39F6E012CE1465500CFF8B5 /* Date+Extension.swift */,
 				F39F6E032CE14A6400CFF8B5 /* Notification+Extension.swift */,
+				F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */,
 			);
 			path = category;
 			sourceTree = "<group>";
@@ -631,6 +636,7 @@
 		F39F6DDC2CDE792900CFF8B5 /* widget */ = {
 			isa = PBXGroup;
 			children = (
+				F39F6E0A2CE2400500CFF8B5 /* share */,
 				F39F6DFB2CE133AD00CFF8B5 /* LoadMoreControl.swift */,
 				F39F6DEE2CE1284200CFF8B5 /* customLabel */,
 				F39F6DE72CE1274200CFF8B5 /* drawerView */,
@@ -664,6 +670,14 @@
 				F39F6E082CE22D8600CFF8B5 /* CommentTextView.swift */,
 			);
 			path = comment;
+			sourceTree = "<group>";
+		};
+		F39F6E0A2CE2400500CFF8B5 /* share */ = {
+			isa = PBXGroup;
+			children = (
+				F39F6E0B2CE2404E00CFF8B5 /* PostSharePopView.swift */,
+			);
+			path = share;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -962,6 +976,7 @@
 				39066F672C51E15B003D347E /* LoginManager.swift in Sources */,
 				397216B12B81EA57007D0F2B /* NavigationController.swift in Sources */,
 				397216BD2B8249D9007D0F2B /* UpdatesViewController.swift in Sources */,
+				F39F6E0C2CE2404E00CFF8B5 /* PostSharePopView.swift in Sources */,
 				F39F6DE92CE1277400CFF8B5 /* DrawerView.swift in Sources */,
 				F39F6E022CE1465500CFF8B5 /* Date+Extension.swift in Sources */,
 				F39F6DF02CE128DD00CFF8B5 /* PostCommentPopView.swift in Sources */,
@@ -973,6 +988,7 @@
 				397216BF2B8249E2007D0F2B /* MineViewController.swift in Sources */,
 				392CF1182B8ECE720070637E /* MainContentCell.swift in Sources */,
 				392CF10E2B8ECA230070637E /* MainUserView.swift in Sources */,
+				F39F6E0E2CE26F4100CFF8B5 /* UIImage+Extension.swift in Sources */,
 				398FF3492B901BEA00565C8C /* UIColor+Extension.swift in Sources */,
 				397216802B81E8EC007D0F2B /* AppDelegate.swift in Sources */,
 				F39F6E062CE1727800CFF8B5 /* CommentsListCell.swift in Sources */,
