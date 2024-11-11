@@ -199,7 +199,7 @@ class MainContentCell: UITableViewCell {
         floatingLabel.textColor = UIColor.postBlueColor
         floatingLabel.backgroundColor = UIColor.postBgColor
         floatingLabel.textAlignment = .left
-        likeNumLabel.font = .systemFont(ofSize: 15)
+        likeNumLabel.font = .systemFont(ofSize: 14)
         floatingLabel.padding = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 16) // 设置内边距
         floatingLabel.transform = CGAffineTransform(translationX: 0, y: 40) // 初始下移位置
         floatingLabel.snp.makeConstraints({ make in
