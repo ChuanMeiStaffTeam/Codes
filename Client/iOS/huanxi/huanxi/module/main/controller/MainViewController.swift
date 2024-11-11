@@ -64,12 +64,16 @@ class MainViewController: BaseViewController {
     }
     
     private func setupViewModel() {
-        viewModel.requestHomePosts { [weak self] result in
-            guard let strongSelf = self else { return }
-            strongSelf.mainList = strongSelf.viewModel.mainList
-            DispatchQueue.main.async {
-                strongSelf.tableView.reloadData()
-            }
+//        viewModel.requestHomePosts { [weak self] result in
+//            guard let strongSelf = self else { return }
+//            strongSelf.mainList = strongSelf.viewModel.mainList
+//            DispatchQueue.main.async {
+//                strongSelf.tableView.reloadData()
+//            }
+//        }
+        self.mainList = self.viewModel.mainList
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
     
