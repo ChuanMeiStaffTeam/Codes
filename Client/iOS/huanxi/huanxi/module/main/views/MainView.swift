@@ -11,6 +11,7 @@ import SnapKit
 
 class MainView: UIView {
     
+    private let viewModel = MainViewModel()
     var mainList: [MainModel] = []
     
     override init(frame: CGRect) {
@@ -57,18 +58,20 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        let model = mainList[indexPath.row]
-//        if model.type == "user" {
-//            let cell = MainUserCell.init(style: .default, reuseIdentifier: userCell)
-//            return cell
-//        } else if model.type == "content" {
-//            let cell = MainContentCell.init(style: .default, reuseIdentifier: contentCell)
-//            cell.reloadData(indexPath: indexPath)
-//            return cell
-//        } else if model.type == "recommend" {
-//            let cell = MainRecommendCell.init(style: .default, reuseIdentifier: recommendCell)
-//            return cell
-//        }
+        let model = mainList[indexPath.row]
+        if model.type == "user" {
+            let cell = MainUserCell.init(style: .default, reuseIdentifier: MainUserCell.identifier)
+            return cell
+        } else if model.type == "content" {
+            let cell = MainContentCell.init(style: .default, reuseIdentifier: MainContentCell.identifier)
+            cell.delegate = self
+            let post = self.viewModel.postsList[indexPath.row]
+            cell.configure(post: post)
+            return cell
+        } else if model.type == "recommend" {
+            let cell = MainRecommendCell.init(style: .default, reuseIdentifier: MainRecommendCell.identifier)
+            return cell
+        }
         
         return UITableViewCell()
     }
@@ -88,4 +91,33 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
     }
     
     
+}
+
+extension MainView: MainContentCellDelegate {
+    func didClickMore(_ data: PostModel) {
+
+    }
+    
+    func didClickLike(_ data: PostModel) {
+        if let index = self.viewModel.postsList.firstIndex(where: { $0.postId == data.postId }) {
+            var post = self.viewModel.postsList[index]
+            post.liked = data.liked
+            post.likesCount = data.liked ? (post.likesCount ?? 0) + 1 : (post.likesCount ?? 0) - 1
+            self.viewModel.postsList[index] = post
+            let indexPath = IndexPath(row: index, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
+    }
+    
+    func didClickComment(_ data: PostModel) {
+     
+    }
+    
+    func didClickShare(_ data: PostModel) {
+  
+    }
+    
+    func didClickMark(_ data: PostModel) {
+   
+    }
 }
