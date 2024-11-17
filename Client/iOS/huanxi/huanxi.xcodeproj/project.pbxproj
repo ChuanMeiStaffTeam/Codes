@@ -407,6 +407,7 @@
 		3972167E2B81E8EC007D0F2B /* huanxi */ = {
 			isa = PBXGroup;
 			children = (
+				F39F6E0F2CEA01F800CFF8B5 /* launch */,
 				392CF1022B8D789E0070637E /* network */,
 				F39F6DDC2CDE792900CFF8B5 /* widget */,
 				F39F6DD82CDBCCF700CFF8B5 /* resources */,
@@ -678,6 +679,13 @@
 				F39F6E0B2CE2404E00CFF8B5 /* PostSharePopView.swift */,
 			);
 			path = share;
+			sourceTree = "<group>";
+		};
+		F39F6E0F2CEA01F800CFF8B5 /* launch */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = launch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1201,7 +1209,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = ZFV4P6788U;
+				DEVELOPMENT_TEAM = CH2X87N5DP;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1240,7 +1248,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = ZFV4P6788U;
+				DEVELOPMENT_TEAM = CH2X87N5DP;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;

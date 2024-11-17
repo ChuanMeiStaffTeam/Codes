@@ -33,11 +33,13 @@ class MineViewController: BaseViewController {
         nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
         view.addSubview(nameLabel)
         
-        let addButton = UIButton(type: .custom)
-        addButton.setImage(UIImage(named: "main_snapshot_add"), for: .normal)
-        addButton.frame = CGRect(x: .screenWidth - 80, y: .topSafeAreaHeight + 5, width: 30, height:30)
-        addButton.addTarget(self, action: #selector(addAction), for: .touchUpInside)
-        view.addSubview(addButton)
+        /*
+         let addButton = UIButton(type: .custom)
+         addButton.setImage(UIImage(named: "main_snapshot_add"), for: .normal)
+         addButton.frame = CGRect(x: .screenWidth - 80, y: .topSafeAreaHeight + 5, width: 30, height:30)
+         addButton.addTarget(self, action: #selector(addAction), for: .touchUpInside)
+         view.addSubview(addButton)
+         */
         
         let setButton = UIButton(type: .custom)
         setButton.setImage(UIImage(named: "main_more"), for: .normal)

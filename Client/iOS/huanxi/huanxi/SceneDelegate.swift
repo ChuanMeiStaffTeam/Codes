@@ -41,6 +41,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         
+        // 全局设置暗黑模式
+        if #available(iOS 13.0, *) {
+            window?.overrideUserInterfaceStyle = .dark;
+        }
+        
 //        if LoginManager.isLogin() {
             let tabbar = TabBarController()
             window?.rootViewController = tabbar
