@@ -27,7 +27,8 @@ class MainViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // dismiss手动加载的LaunchWindow
+        LaunchManager.shared.dismissLaunchWindow()
         setupView()
         setupViewModel()
         LoginManager.requestUserInfo()

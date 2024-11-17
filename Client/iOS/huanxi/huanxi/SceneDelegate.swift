@@ -5,66 +5,65 @@
 //  Created by jack on 2024/2/18.
 //
 
-import UIKit
 import NIMSDK
-//import IQKeyboardManagerSwift
+import UIKit
+// import IQKeyboardManagerSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
-        
-        configNIMSDK()
+
 //        IQKeyboardManager.shared.enable = true
-        
+
         // 自定义导航栏的外观
         let appearance = UINavigationBarAppearance()
-        
+
         // 设置背景色（例如：系统蓝色）
         appearance.backgroundColor = UIColor.black
-        
+
         // 去除毛玻璃效果
         appearance.backgroundEffect = nil
-        
+
         // 可选：设置标题文字颜色和字体
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        	
+
         // 将自定义的外观应用到导航栏
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        
+
         // 全局设置暗黑模式
         if #available(iOS 13.0, *) {
-            window?.overrideUserInterfaceStyle = .dark;
+            window?.overrideUserInterfaceStyle = .dark
         }
-        
-//        if LoginManager.isLogin() {
+
+        // Launch配置
+        LaunchManager.shared.configLaunchHandler { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.window?.makeKeyAndVisible()
+            //        if LoginManager.isLogin() {
             let tabbar = TabBarController()
-            window?.rootViewController = tabbar
-            window?.makeKeyAndVisible()
-//        } else {
-//            let loginVC = LoginViewController()
-//            loginVC.closeBtn.isHidden = true
-//            window?.rootViewController = loginVC
-//            window?.makeKeyAndVisible()
-//        }
-        
-        
+            strongSelf.window?.rootViewController = tabbar
+            //        } else {
+            //            let loginVC = LoginViewController()
+            //            loginVC.closeBtn.isHidden = true
+            //            window?.rootViewController = loginVC
+            //            window?.makeKeyAndVisible()
+            //        }
+            strongSelf.configNIMSDK()
+        } adHandler: {
+        }
     }
-    
+
     func configNIMSDK() {
-        
         let option = NIMSDKOption(appKey: "7b801e694e564050c0a8f344094edfba")
         NIMSDK.shared().register(with: option)
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -94,7 +93,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
-
