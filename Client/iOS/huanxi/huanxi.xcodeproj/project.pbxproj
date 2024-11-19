@@ -118,6 +118,9 @@
 		F39F6E0C2CE2404E00CFF8B5 /* PostSharePopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E0B2CE2404E00CFF8B5 /* PostSharePopView.swift */; };
 		F39F6E0E2CE26F4100CFF8B5 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */; };
 		F3E7860F2CEC5C1300EC2251 /* RichTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E7860E2CEC5C1300EC2251 /* RichTextLabel.swift */; };
+		F3E7861A2CEC6FBE00EC2251 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E786182CEC6FBE00EC2251 /* Localizable.strings */; };
+		F3E7861E2CEC761700EC2251 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E7861C2CEC761700EC2251 /* InfoPlist.strings */; };
+		F3E786222CEC8B0000EC2251 /* WebVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E786212CEC8B0000EC2251 /* WebVC.swift */; };
 		F3F80E822CEA038C00008887 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E812CEA038C00008887 /* LaunchViewController.swift */; };
 		F3F80E842CEA064E00008887 /* PrivacyPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E832CEA064E00008887 /* PrivacyPopupViewController.swift */; };
 		F3F80E862CEA087F00008887 /* LaunchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E852CEA087F00008887 /* LaunchManager.swift */; };
@@ -264,6 +267,11 @@
 		F39F6E0B2CE2404E00CFF8B5 /* PostSharePopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSharePopView.swift; sourceTree = "<group>"; };
 		F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		F3E7860E2CEC5C1300EC2251 /* RichTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextLabel.swift; sourceTree = "<group>"; };
+		F3E786192CEC6FBE00EC2251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F3E7861B2CEC700500EC2251 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		F3E7861D2CEC761700EC2251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F3E7861F2CEC762F00EC2251 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		F3E786212CEC8B0000EC2251 /* WebVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebVC.swift; sourceTree = "<group>"; };
 		F3F80E812CEA038C00008887 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		F3F80E832CEA064E00008887 /* PrivacyPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPopupViewController.swift; sourceTree = "<group>"; };
 		F3F80E852CEA087F00008887 /* LaunchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchManager.swift; sourceTree = "<group>"; };
@@ -432,6 +440,8 @@
 				397216882B81E8F1007D0F2B /* Assets.xcassets */,
 				F3F80E872CEA17C900008887 /* LaunchScreen.xib */,
 				3972168D2B81E8F1007D0F2B /* Info.plist */,
+				F3E7861C2CEC761700EC2251 /* InfoPlist.strings */,
+				F3E786182CEC6FBE00EC2251 /* Localizable.strings */,
 			);
 			path = huanxi;
 			sourceTree = "<group>";
@@ -467,6 +477,7 @@
 		397216B62B820F6C007D0F2B /* module */ = {
 			isa = PBXGroup;
 			children = (
+				F3E786202CEC8A7F00EC2251 /* web */,
 				39066F5F2C50E2C9003D347E /* login */,
 				397216BB2B821087007D0F2B /* updates */,
 				397216BA2B820FC9007D0F2B /* mine */,
@@ -703,6 +714,14 @@
 			path = launch;
 			sourceTree = "<group>";
 		};
+		F3E786202CEC8A7F00EC2251 /* web */ = {
+			isa = PBXGroup;
+			children = (
+				F3E786212CEC8B0000EC2251 /* WebVC.swift */,
+			);
+			path = web;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -794,6 +813,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 397216732B81E8EC007D0F2B;
 			productRefGroup = 3972167D2B81E8EC007D0F2B /* Products */;
@@ -813,6 +833,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				397216892B81E8F1007D0F2B /* Assets.xcassets in Resources */,
+				F3E7861E2CEC761700EC2251 /* InfoPlist.strings in Resources */,
+				F3E7861A2CEC6FBE00EC2251 /* Localizable.strings in Resources */,
 				397216872B81E8EC007D0F2B /* Main.storyboard in Resources */,
 				F39F6DDB2CDBCDAD00CFF8B5 /* heart.json in Resources */,
 				F3F80E882CEA17C900008887 /* LaunchScreen.xib in Resources */,
@@ -963,6 +985,7 @@
 				39A86D1F2C4DF0C7000D4217 /* SettingViewController.swift in Sources */,
 				3998DE2F2BB00B4B0000C4DD /* EditImagesView.swift in Sources */,
 				F39F6DF82CE1304D00CFF8B5 /* Codable+Extension.swift in Sources */,
+				F3E786222CEC8B0000EC2251 /* WebVC.swift in Sources */,
 				F39F6DF62CE12C8700CFF8B5 /* VisitorModel.swift in Sources */,
 				F39F6DD42CDA753A00CFF8B5 /* MainView.swift in Sources */,
 				F39F6DDE2CDE793C00CFF8B5 /* PaddedLabel.swift in Sources */,
@@ -1091,6 +1114,24 @@
 				397216862B81E8EC007D0F2B /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F3E786182CEC6FBE00EC2251 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3E786192CEC6FBE00EC2251 /* en */,
+				F3E7861B2CEC700500EC2251 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		F3E7861C2CEC761700EC2251 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3E7861D2CEC761700EC2251 /* en */,
+				F3E7861F2CEC762F00EC2251 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  huanxi
+
+  Created by rslz on 2024/11/19.
+  
+*/
+
+"UILaunchStoryboardName" = "LaunchScreen";
+"CFBundleDisplayName" = "欢喜";

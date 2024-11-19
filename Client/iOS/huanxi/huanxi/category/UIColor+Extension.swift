@@ -34,6 +34,10 @@ extension UIColor {
         return .init(hexString: "#009DFF")
     }
     
+    static var linkColor: UIColor {
+        return .init(hexString: "#0098FE")
+    }
+    
     static var postBlueColor: UIColor {
         return .init(hexString: "#0098FE")
     }

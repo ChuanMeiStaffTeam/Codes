@@ -21,24 +21,59 @@ class PrivacyPopupViewController: UIViewController {
         view.backgroundColor = .white
         view.layer.cornerRadius = 5
         view.bounds = CGRect.init(
-            x: 0, y: 0, width: screenWidth - 50, height: 250)
+            x: 0, y: 0, width: screenWidth - 50, height: 500)
 
         let titleLabel = UILabel()
-        titleLabel.text = "Privacy Policy"
+        let title = NSLocalizedString("title_reminder", comment: "")
+        titleLabel.text = title
         titleLabel.font = .boldSystemFont(ofSize: 18)
 
-        let messageLabel = UILabel()
-        messageLabel.text = "We value your privacy. Please accept our Privacy Policy to proceed."
+        let messageLabel = RichTextLabel()
+        let message = NSLocalizedString("privacy_tips", comment: "")
+        messageLabel.text = message
         messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
+        messageLabel.font = .systemFont(ofSize: 14)
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 14),
+            .foregroundColor: UIColor.black
+        ]
+        
+        let userTitle = NSLocalizedString("protocol_user_title", comment: "")
+        let privacyTitle = NSLocalizedString("protocol_privacy_title", comment: "")
+        let tapStyles: [(String, UIColor)] = [
+            (userTitle, UIColor.linkColor),
+            (privacyTitle, UIColor.linkColor)
+        ]
+        messageLabel.setRichText(message, attributes: attributes, tapStyles: tapStyles)
+        messageLabel.onTextTapped = { string, range, index in
+            print("点击了: \(string), 范围: \(range), 索引: \(index)")
+            let protocolStr = NSLocalizedString("protocol_privacy", comment: "")
+            let webVC = WebVC()
+            webVC.contentStr = protocolStr
+            webVC.pageTitle = string
+            let nav = NavigationController(rootViewController: webVC)
+            self.present(nav, animated: true, completion: nil)
+        }
+        
+    
+        let accept = NSLocalizedString("agree_and_continue", comment: "")
+        let acceptButton = createButton(
+            title: accept, // 替换为实际文本
+            backgroundColor: UIColor.black, // 替换为主题颜色
+            textColor: UIColor.white,
+            action: #selector(acceptTapped)
+        )
 
-        let acceptButton = UIButton(type: .system)
-        acceptButton.setTitle("Accept", for: .normal)
-        acceptButton.addTarget(self, action: #selector(acceptTapped), for: .touchUpInside)
-
-        let declineButton = UIButton(type: .system)
-        declineButton.setTitle("Decline", for: .normal)
-        declineButton.addTarget(self, action: #selector(declineTapped), for: .touchUpInside)
+        let disagree = NSLocalizedString("disagree_and_quit", comment: "")
+        let declineButton = createButton(
+            title: disagree, // 替换为实际文本
+            backgroundColor: UIColor(hex: 0xFAFAFA),
+            textColor: UIColor(hex: 0x323232),
+            action: #selector(declineTapped)
+        )
+        declineButton.layer.borderWidth = 0.5
+        declineButton.layer.borderColor = UIColor.gray.cgColor
+    
 
         // 将子视图添加到父视图
         view.addSubview(titleLabel)
@@ -61,14 +96,18 @@ class PrivacyPopupViewController: UIViewController {
         acceptButton.snp.makeConstraints { make in
             make.bottom.equalTo(view).offset(-16)
             make.trailing.equalTo(view).offset(-16)
+            make.width.equalTo((screenWidth - 50 - 30 - 30) / 2)
+            make.height.equalTo(40)
         }
 
         declineButton.snp.makeConstraints { make in
             make.bottom.equalTo(view).offset(-16)
             make.leading.equalTo(view).offset(16)
+            make.width.height.equalTo(acceptButton)
         }
     }
 
+        
     @objc func acceptTapped() {
 
         dismiss(animated: false) {
@@ -85,5 +124,18 @@ class PrivacyPopupViewController: UIViewController {
     @objc func declineTapped() {
         // 处理拒绝逻辑
         exit(0)
+    }
+    
+    // 通用按钮创建方法
+    func createButton(title: String, backgroundColor: UIColor, textColor: UIColor, action: Selector) -> UIButton {
+        let button = UIButton(type: .custom)
+        button.setTitle(title, for: .normal)
+        button.backgroundColor = backgroundColor
+        button.setTitleColor(textColor, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.layer.cornerRadius = 2.0
+        button.layer.masksToBounds = true
+        button.addTarget(self, action: action, for: .touchUpInside)
+        return button
     }
 }
