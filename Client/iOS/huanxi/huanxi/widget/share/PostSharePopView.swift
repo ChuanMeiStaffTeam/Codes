@@ -264,9 +264,9 @@ class ShareOptionsView: UIView {
         ["icon_share_copy", "复制链接", ShartType.copy],
         ["icon_share_wx", "微信", ShartType.wx],
         ["icon_share_qq", "QQ", ShartType.qq],
-        ["icon_share_facebook", "Facebook", ShartType.facebook],
-        ["icon_share_ins", "instagram", ShartType.ins],
-        ["icon_share_whatsapp", "WhatsApp", ShartType.whatsapp],
+//        ["icon_share_facebook", "Facebook", ShartType.facebook],
+//        ["icon_share_ins", "instagram", ShartType.ins],
+//        ["icon_share_whatsapp", "WhatsApp", ShartType.whatsapp],
     ]
     let shareOptionsScrollView = UIScrollView()
 
