@@ -117,6 +117,7 @@
 		F39F6E092CE22D8600CFF8B5 /* CommentTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E082CE22D8600CFF8B5 /* CommentTextView.swift */; };
 		F39F6E0C2CE2404E00CFF8B5 /* PostSharePopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E0B2CE2404E00CFF8B5 /* PostSharePopView.swift */; };
 		F39F6E0E2CE26F4100CFF8B5 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */; };
+		F3E7860F2CEC5C1300EC2251 /* RichTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E7860E2CEC5C1300EC2251 /* RichTextLabel.swift */; };
 		F3F80E822CEA038C00008887 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E812CEA038C00008887 /* LaunchViewController.swift */; };
 		F3F80E842CEA064E00008887 /* PrivacyPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E832CEA064E00008887 /* PrivacyPopupViewController.swift */; };
 		F3F80E862CEA087F00008887 /* LaunchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E852CEA087F00008887 /* LaunchManager.swift */; };
@@ -262,6 +263,7 @@
 		F39F6E082CE22D8600CFF8B5 /* CommentTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTextView.swift; sourceTree = "<group>"; };
 		F39F6E0B2CE2404E00CFF8B5 /* PostSharePopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSharePopView.swift; sourceTree = "<group>"; };
 		F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		F3E7860E2CEC5C1300EC2251 /* RichTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextLabel.swift; sourceTree = "<group>"; };
 		F3F80E812CEA038C00008887 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		F3F80E832CEA064E00008887 /* PrivacyPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPopupViewController.swift; sourceTree = "<group>"; };
 		F3F80E852CEA087F00008887 /* LaunchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchManager.swift; sourceTree = "<group>"; };
@@ -668,6 +670,7 @@
 			isa = PBXGroup;
 			children = (
 				F39F6DDD2CDE793C00CFF8B5 /* PaddedLabel.swift */,
+				F3E7860E2CEC5C1300EC2251 /* RichTextLabel.swift */,
 			);
 			path = customLabel;
 			sourceTree = "<group>";
@@ -1012,6 +1015,7 @@
 				392CF10E2B8ECA230070637E /* MainUserView.swift in Sources */,
 				F39F6E0E2CE26F4100CFF8B5 /* UIImage+Extension.swift in Sources */,
 				398FF3492B901BEA00565C8C /* UIColor+Extension.swift in Sources */,
+				F3E7860F2CEC5C1300EC2251 /* RichTextLabel.swift in Sources */,
 				397216802B81E8EC007D0F2B /* AppDelegate.swift in Sources */,
 				F39F6E062CE1727800CFF8B5 /* CommentsListCell.swift in Sources */,
 				F3F80E8A2CEA3EF700008887 /* TransAnimator.swift in Sources */,
@@ -1096,6 +1100,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1157,6 +1162,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
