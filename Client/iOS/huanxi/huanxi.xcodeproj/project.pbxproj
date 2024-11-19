@@ -121,6 +121,7 @@
 		F3E7861A2CEC6FBE00EC2251 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E786182CEC6FBE00EC2251 /* Localizable.strings */; };
 		F3E7861E2CEC761700EC2251 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E7861C2CEC761700EC2251 /* InfoPlist.strings */; };
 		F3E786222CEC8B0000EC2251 /* WebVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E786212CEC8B0000EC2251 /* WebVC.swift */; };
+		F3E786242CECB58F00EC2251 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E786232CECB58F00EC2251 /* UIDevice+Extension.swift */; };
 		F3F80E822CEA038C00008887 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E812CEA038C00008887 /* LaunchViewController.swift */; };
 		F3F80E842CEA064E00008887 /* PrivacyPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E832CEA064E00008887 /* PrivacyPopupViewController.swift */; };
 		F3F80E862CEA087F00008887 /* LaunchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E852CEA087F00008887 /* LaunchManager.swift */; };
@@ -272,6 +273,7 @@
 		F3E7861D2CEC761700EC2251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F3E7861F2CEC762F00EC2251 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		F3E786212CEC8B0000EC2251 /* WebVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebVC.swift; sourceTree = "<group>"; };
+		F3E786232CECB58F00EC2251 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		F3F80E812CEA038C00008887 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		F3F80E832CEA064E00008887 /* PrivacyPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPopupViewController.swift; sourceTree = "<group>"; };
 		F3F80E852CEA087F00008887 /* LaunchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchManager.swift; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 				F39F6E012CE1465500CFF8B5 /* Date+Extension.swift */,
 				F39F6E032CE14A6400CFF8B5 /* Notification+Extension.swift */,
 				F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */,
+				F3E786232CECB58F00EC2251 /* UIDevice+Extension.swift */,
 			);
 			path = category;
 			sourceTree = "<group>";
@@ -967,6 +970,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				392CF10C2B8EC8E60070637E /* MainModel.swift in Sources */,
+				F3E786242CECB58F00EC2251 /* UIDevice+Extension.swift in Sources */,
 				F39F6DF42CE12C6700CFF8B5 /* CommentModel.swift in Sources */,
 				3998DE392BB59F5D0000C4DD /* UpdatesRecommendCell.swift in Sources */,
 				39E908202C2875010017B83B /* ContentTableViewCell.swift in Sources */,

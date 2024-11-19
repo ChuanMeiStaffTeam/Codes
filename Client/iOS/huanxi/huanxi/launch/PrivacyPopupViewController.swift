@@ -21,11 +21,12 @@ class PrivacyPopupViewController: UIViewController {
         view.backgroundColor = .white
         view.layer.cornerRadius = 5
         view.bounds = CGRect.init(
-            x: 0, y: 0, width: screenWidth - 50, height: 500)
+            x: 0, y: 0, width: screenWidth - UIDevice.screenWidthScale(50), height: 520)
 
         let titleLabel = UILabel()
         let title = NSLocalizedString("title_reminder", comment: "")
         titleLabel.text = title
+        titleLabel.textColor = UIColor.black
         titleLabel.font = .boldSystemFont(ofSize: 18)
 
         let messageLabel = RichTextLabel()

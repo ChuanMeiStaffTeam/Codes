@@ -45,7 +45,7 @@ class WebVC: BaseViewController {
         </head>
         <body>
             <h1>\(content)</h1>
-            <p>欢喜.happy</p>
+            <p>Shanghai Chuanmei Information Technology Co., Ltd</p>
         </body>
         </html>
         """
