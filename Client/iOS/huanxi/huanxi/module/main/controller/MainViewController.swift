@@ -16,6 +16,7 @@ class MainViewController: BaseViewController {
     lazy var tableView: UITableView = {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
         view.backgroundColor = .clear
+        view.separatorColor = .clear
         view.delegate = self
         view.dataSource = self
         view.register(MainUserCell.self, forCellReuseIdentifier: MainUserCell.identifier)
