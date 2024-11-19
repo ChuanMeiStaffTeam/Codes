@@ -53,6 +53,16 @@ class UpdatesViewController: BaseViewController {
         let rightItem = UIBarButtonItem(customView: button)
 //        self.navigationItem.rightBarButtonItem = rightItem
         
+        // 隐藏导航栏底部的分割线
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.shadowImage = UIImage() // 隐藏分割线
+        appearance.shadowColor = nil       // 确保无颜色
+        appearance.backgroundColor = UIColor.black // 可选，设置导航栏背景颜色
+
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        
     }
     
     
