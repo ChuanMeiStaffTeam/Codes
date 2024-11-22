@@ -46,16 +46,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Launch配置
         LaunchManager.shared.configLaunchHandler { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.window?.makeKeyAndVisible()
-            //        if LoginManager.isLogin() {
-            let tabbar = TabBarController()
-            strongSelf.window?.rootViewController = tabbar
-            //        } else {
-            //            let loginVC = LoginViewController()
-            //            loginVC.closeBtn.isHidden = true
-            //            window?.rootViewController = loginVC
-            //            window?.makeKeyAndVisible()
-            //        }
+            DispatchQueue.main.async {
+                strongSelf.window?.makeKeyAndVisible()
+                if LoginManager.isLogin() {
+                    let tabbar = TabBarController()
+                    strongSelf.window?.rootViewController = tabbar
+                } else {
+                    let loginVC = LoginViewController()
+                    loginVC.closeBtn.isHidden = true
+                    strongSelf.window?.rootViewController = loginVC
+                }
+            }
             strongSelf.configNIMSDK()
         } adHandler: {
         }

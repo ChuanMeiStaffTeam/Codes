@@ -44,10 +44,11 @@ class LaunchManager {
             DispatchQueue.main.async {
                 let privacyPopup = PrivacyPopupViewController()
                 privacyPopup.modalPresentationStyle = .overFullScreen
-//                privacyPopup.modalTransitionStyle = .crossDissolve
                 privacyPopup.transitioningDelegate = self.animator
-                privacyPopup.onAgreeTap = {
+                privacyPopup.onAgreeTap = { [weak self] in
+                    guard let strongSelf = self else { return }
                     handler()
+                    strongSelf.dismissLaunchWindow()
                     UserDefaults.standard.set(true, forKey: "PrivacyAccepted")
                 }
                 self.launchViewController.present(privacyPopup, animated: true, completion: nil)
@@ -69,12 +70,14 @@ class LaunchManager {
     private func configGuidePageView(handler: @escaping LaunchHandler, adHandler: @escaping LaunchAdHandler) {
         launchHandler = handler
         launchAdHandler = adHandler
-//        if Util.isFirstInstall() {
-//            // 显示引导页
-//        } else {
-        configLaunchAd()
-        fetchLaunchAd()
-//        }
+        // 显示引导页
+        
+        
+        if let block = launchHandler {
+            block()
+            dismissLaunchWindow()
+        }
+        
     }
 
     // 保存版本信息
@@ -85,16 +88,4 @@ class LaunchManager {
         UserDefaults.standard.synchronize()
     }
 
-    // 配置广告
-    private func configLaunchAd() {
-        // 配置广告逻辑...
-        if let block = launchHandler {
-            block()
-        }
-    }
-
-    // 拉取广告
-    private func fetchLaunchAd() {
-        // 拉取广告逻辑...
-    }
 }
