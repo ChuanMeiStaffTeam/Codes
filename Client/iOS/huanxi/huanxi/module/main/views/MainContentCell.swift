@@ -75,7 +75,6 @@ class MainContentCell: UITableViewCell {
 
     }
     
-    
     func setupView() {
         
         selectionStyle = .none

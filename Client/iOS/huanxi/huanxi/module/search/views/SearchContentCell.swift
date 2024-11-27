@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import iCarousel
+//import iCarousel
 
 class SearchContentCell: UITableViewCell {
     
