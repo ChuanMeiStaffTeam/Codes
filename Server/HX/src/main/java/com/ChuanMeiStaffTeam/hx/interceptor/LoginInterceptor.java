@@ -2,16 +2,22 @@ package com.ChuanMeiStaffTeam.hx.interceptor;
 
 
 
+import com.ChuanMeiStaffTeam.hx.dao.UserMapper;
+import com.ChuanMeiStaffTeam.hx.exception.ApplicationException;
+import com.ChuanMeiStaffTeam.hx.model.User;
 import com.ChuanMeiStaffTeam.hx.util.JwtUtil;
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,6 +31,10 @@ import java.util.Map;
 @Slf4j
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
+
+    @Resource
+    private UserMapper userMapper;
+
 
 
     /**
@@ -42,7 +52,18 @@ public class LoginInterceptor implements HandlerInterceptor {
             JwtUtil.verifyToken(token);
             log.info("token验证成功");
             // 验证成功，放行
-            return true;
+            // 校验用户是否被锁定 拉黑
+            DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+            String userid = tokenInfo.getClaim("userid").asString();
+            User user = userMapper.selectByUserId(Integer.parseInt(userid));
+            if(user.getAccountLocked() == 0) {
+                return true;
+            } else {
+                map.put("code", 405);
+                map.put("message", "用户被锁定");
+                log.error("用户被锁定");
+            }
+
         } catch (SignatureVerificationException e) {
             e.printStackTrace();
             map.put("code", 401);

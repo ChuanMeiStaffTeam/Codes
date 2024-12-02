@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.models.auth.In;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -59,7 +60,7 @@ public class User implements Serializable {
     private Timestamp createdAt; // 账户创建时间
     private Timestamp updatedAt; // 账户更新时间
     private Integer loginAttempts; // 登录尝试次数
-    private Boolean accountLocked; // 账户是否被锁定
+    private Integer accountLocked; // 账户是否被锁定   0：未锁定   1：已锁定
     private Timestamp lockoutTime; // 账户锁定时间
     private String facebookUrl; // Facebook URL
     private String twitterUrl; // Twitter URL
