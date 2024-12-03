@@ -39,6 +39,7 @@ class LanguageViewController: BaseViewController {
     lazy var tableView: UITableView = {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
         view.backgroundColor = .clear
+        view.separatorStyle = .none
         view.delegate = self
         view.dataSource = self
         view.register(SettingItemCell.self, forCellReuseIdentifier: "cell")

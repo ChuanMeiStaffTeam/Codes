@@ -11,7 +11,7 @@ import Lottie
 protocol MainContentCellDelegate: AnyObject {
     func didClickMore(_ data: PostModel)
     
-    func didClickLike(_ data: PostModel)
+    func didClickLike(_ data: PostModel, indexPath: IndexPath?)
     
     func didClickComment(_ data: PostModel)
     
@@ -24,7 +24,6 @@ class MainContentCell: UITableViewCell {
     
     static let identifier = "MainContentCell"  // 标识符，用于复用
     weak var delegate: MainContentCellDelegate?
-    var postModel: PostModel = PostModel(liked: false, collected: false)
     
     let avatar = UIImageView()
     let nameLabel = UILabel()
@@ -55,24 +54,36 @@ class MainContentCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var model: PostModel? {
+        didSet {
+            if let urlStr = model?.user?.profilePictureUrl {
+                if urlStr.contains("http") {
+                    avatar.kf.setImage(with: URL.init(string: urlStr))
+                } else {
+                    avatar.image = UIImage.init(named: urlStr)
+                }
+            }
+            nameLabel.text = model?.user?.username
+            if let urlStr = model?.images?.first?.imageUrl {
+                if urlStr.contains("http") {
+                    imgView.kf.setImage(with: URL.init(string: urlStr))
+                } else {
+                    imgView.image = UIImage.init(named: urlStr)
+                }
+            }
+            countryLabel.text = model?.location
+            likeNumLabel.text = String(format: "%d次点赞", model?.likesCount ?? 0)
+            contentLabel.text = model?.caption
+            dateLabel.text = model?.createdAt
+            
+            likeBtn.setImage(UIImage.init(named: (model?.liked ?? false) ? "post_like" : "post_unlike"), for: .normal)
+            collectBtn.isSelected = model?.favorite ?? false
+        }
+    }
     
-    func configure(post: PostModel){
-        postModel = post
-        if let urlStr = post.user?.profilePictureUrl {
-            avatar.image = UIImage.init(named: urlStr)
+    var indexPath: IndexPath? {
+        didSet {
         }
-        nameLabel.text = post.user?.fullName
-        if let urlStr = post.images?.first?.imageUrl {
-            imgView.image = UIImage.init(named: urlStr)
-        }
-        countryLabel.text = post.location
-        likeNumLabel.text = String(format: "%d次点赞", post.likesCount ?? 0)
-        contentLabel.text = post.caption
-        dateLabel.text = post.createdAt
-        
-        likeBtn.setImage(UIImage.init(named: postModel.liked ? "post_like" : "post_unlike"), for: .normal)
-        collectBtn.isSelected = postModel.collected
-
     }
     
     func setupView() {
@@ -228,10 +239,8 @@ class MainContentCell: UITableViewCell {
     }
     
     @objc func likeAction() {
-        likeBtn.setImage(UIImage.init(named: postModel.liked ? "post_like" : "post_unlike"), for: .normal)
-        postModel.liked = !postModel.liked
         if let delegate = self.delegate {
-            delegate.didClickLike(postModel)
+            delegate.didClickLike(model ?? PostModel(liked: false), indexPath: indexPath)
         }
     }
 
@@ -240,11 +249,9 @@ class MainContentCell: UITableViewCell {
     @objc private func playLikeAnimation() {
         likeAnimationView.play { (finished) in
             if finished {
-                if !self.postModel.liked {
-                    self.likeBtn.setImage(UIImage.init(named: "post_like"), for: .normal)
-                    self.postModel.liked = true
+                if !(self.model?.liked ?? false) {
                     if let delegate = self.delegate {
-                        delegate.didClickLike(self.postModel)
+                        delegate.didClickLike(self.model ?? PostModel(liked: false), indexPath: self.indexPath)
                     }
                 }
             }
@@ -252,17 +259,17 @@ class MainContentCell: UITableViewCell {
     }
     
     @objc func commentAction() {
-        PostCommentPopView.init(awemeId: "099").show(self.postModel)
+        PostCommentPopView.init(awemeId: "099").show(model ?? PostModel(liked: false))
 
     }
     
     @objc func shareAction() {
-        PostSharePopView.init().show(self.postModel)
+        PostSharePopView.init().show(model ?? PostModel(liked: false))
     }
     
     @objc func collectAction() {
         collectBtn.isSelected.toggle()
-        postModel.collected = collectBtn.isSelected
+        model?.favorite = collectBtn.isSelected
         if collectBtn.isSelected {
             showFloatingLabel()
         }

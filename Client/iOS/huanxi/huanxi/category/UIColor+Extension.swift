@@ -65,5 +65,10 @@ extension UIColor {
     static var black_60: UIColor {
         return .init(hexString: "#000000",alpha: 0.6)
     }
+    
+    static var black_forground: UIColor {
+        return .init(hexString: "#191919",alpha: 1)
+    }
+    
 }
 

@@ -11,7 +11,6 @@ import SwiftUI
 class MainViewController: BaseViewController {
     
     private let viewModel = MainViewModel()
-    private var mainList: [MainModel] = []
 
     lazy var tableView: UITableView = {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
@@ -74,17 +73,17 @@ class MainViewController: BaseViewController {
     }
     
     private func setupViewModel() {
-//        viewModel.requestHomePosts { [weak self] result in
-//            guard let strongSelf = self else { return }
-//            strongSelf.mainList = strongSelf.viewModel.mainList
-//            DispatchQueue.main.async {
-//                strongSelf.tableView.reloadData()
-//            }
-//        }
-        self.mainList = self.viewModel.mainList
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+        viewModel.requestHomePosts { [weak self] result in
+            guard let `self` = self else { return }
+//            self.mainList = self.viewModel.mainList
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
+//        self.mainList = self.viewModel.mainList
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
     }
     
     @objc func gotoDirect() {
@@ -97,38 +96,41 @@ class MainViewController: BaseViewController {
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mainList.count
+        return self.viewModel.dataList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let model = mainList[indexPath.row]
-        if model.type == "user" {
+        let model = self.viewModel.dataList[indexPath.row]
+        if model is Array<Any> {
             let cell = tableView.dequeueReusableCell(withIdentifier: MainUserCell.identifier, for: indexPath) as! MainUserCell
             return cell
-        } else if model.type == "content" {
+        } else if model is PostModel {
             let cell = tableView.dequeueReusableCell(withIdentifier: MainContentCell.identifier, for: indexPath) as! MainContentCell
             cell.delegate = self
-            let post = self.viewModel.postsList[indexPath.row]
-            cell.configure(post: post)
-            return cell
-        } else if model.type == "recommend" {
-            let cell = tableView.dequeueReusableCell(withIdentifier: MainRecommendCell.identifier, for: indexPath) as! MainRecommendCell
+            let post = self.viewModel.dataList[indexPath.row] as! PostModel
+            cell.model = post
+            cell.indexPath = indexPath
             return cell
         }
+//        else if model.type == "recommend" {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: MainRecommendCell.identifier, for: indexPath) as! MainRecommendCell
+//            return cell
+//        }
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let model = mainList[indexPath.row]
-        if model.type == "user" {
+        let model = self.viewModel.dataList[indexPath.row]
+        if model is Array<Any> {
             return 100
-        } else if model.type == "content" {
+        } else if model is PostModel {
             return 585
-        } else if model.type == "recommend" {
-            return 330
         }
+//        else if model.type == "recommend" {
+//            return 330
+//        }
         return 0
     }
     
@@ -140,14 +142,35 @@ extension MainViewController: MainContentCellDelegate {
 
     }
     
-    func didClickLike(_ data: PostModel) {
-        if let index = self.viewModel.postsList.firstIndex(where: { $0.postId == data.postId }) {
-            var post = self.viewModel.postsList[index]
-            post.liked = data.liked
-            post.likesCount = data.liked ? (post.likesCount ?? 0) + 1 : (post.likesCount ?? 0) - 1
-            self.viewModel.postsList[index] = post
-            let indexPath = IndexPath(row: index, section: 0)
-            tableView.reloadRows(at: [indexPath], with: .none)
+    func didClickLike(_ data: PostModel, indexPath: IndexPath?) {
+        if !data.liked {
+            viewModel.requestLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
+                guard let `self` = self else { return }
+                if success {
+                    DispatchQueue.main.async {
+                        let index = indexPath?.row ?? 0
+                        var post = self.viewModel.dataList[index] as! PostModel
+                        post.liked = true
+                        post.likesCount = (post.likesCount ?? 0) + 1
+                        self.viewModel.dataList[index] = post
+                        let indexPath = IndexPath(row: index, section: 0)
+                        self.tableView.reloadRows(at: [indexPath], with: .none)
+                    }
+                }
+            }
+        } else {
+            viewModel.requestCancelLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
+                guard let `self` = self else { return }
+                if success {
+                    let index = indexPath?.row ?? 0
+                    var post = self.viewModel.dataList[index] as! PostModel
+                    post.liked = false
+                    post.likesCount = (post.likesCount ?? 0) - 1
+                    self.viewModel.dataList[index] = post
+                    let indexPath = IndexPath(row: index, section: 0)
+                    self.tableView.reloadRows(at: [indexPath], with: .none)
+                }
+            }
         }
     }
     

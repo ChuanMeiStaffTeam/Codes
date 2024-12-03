@@ -16,7 +16,7 @@ class PostCommentPopView: UIView {
     var awemeId:String?
     var visitor:VisitorModel = VisitorModel.read()
     var data = [CommentModel]()
-    var postModel: PostModel = PostModel(liked: false, collected: false)
+    var postModel: PostModel = PostModel(liked: false)
 
     let topLine = UIView()
     let titlelabel = UILabel()

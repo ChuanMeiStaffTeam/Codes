@@ -10,7 +10,7 @@ import Kingfisher
 import UIKit
 
 class PostSharePopView: UIView {
-    var postModel: PostModel = PostModel(liked: false, collected: false)
+    var postModel: PostModel = PostModel(liked: false)
     var names: [String] = []
     private let topLine: UIView = {
         let view = UIView()

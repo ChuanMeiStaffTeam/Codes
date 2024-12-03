@@ -26,7 +26,7 @@ class SettingViewController: BaseViewController {
     func setupView() {
         title = "设置"
         
-        dataList = ["账号管理", "广告接入", "语言", "隐私政策"]
+        dataList = ["账号管理", "广告接入", "语言", "用户协议", "隐私政策", "账户注销"]
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -48,10 +48,22 @@ class SettingViewController: BaseViewController {
         present(alert, animated: true)
     }
     
+    @objc func logoff() {
+        let alert = UIAlertController(title: "提示", message: "账号注销后，您的信息将被清空且无法找回，您确定要注销账户吗？", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "确定", style: .default) { _ in
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
+        }
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+    
     
     lazy var tableView: UITableView = {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
         view.backgroundColor = .clear
+        view.separatorStyle = .none
         view.delegate = self
         view.dataSource = self
         view.register(SettingItemCell.self, forCellReuseIdentifier: "cell")
@@ -77,17 +89,22 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
+        return 58
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let bgView: UIView = UIView()
+        bgView.frame = CGRect.init(x: 0, y: 0, width: .screenWidth, height: 60)
+
         let btn = UIButton.init(type: .custom)
-        btn.frame = CGRect.init(x: 0, y: 0, width: .screenWidth, height: 40)
+        btn.backgroundColor = UIColor.black_forground
+        btn.frame = CGRect.init(x: 0, y: 10, width: .screenWidth, height: 50)
         btn.setTitle("退出登录", for: .normal)
         btn.setTitleColor(.red, for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         btn.addTarget(self, action: #selector(logout), for: .touchUpInside)
-        return btn
+        bgView.addSubview(btn)
+        return bgView
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -95,22 +112,28 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
+        switch indexPath.row {
+        case 0:
             let vc = BindPhoneViewController()
             self.navigationController?.pushViewController(vc, animated: true)
-        } else if indexPath.row == 1 {
+        case 1:
             let vc = CompanyViewController()
             self.navigationController?.pushViewController(vc, animated: true)
-        } else if indexPath.row == 2 {
+        case 2:
             let vc = LanguageViewController()
             self.navigationController?.pushViewController(vc, animated: true)
-        } else if indexPath.row == 3 {
-            let docxName = "欢喜隐私协议"
+        case 3,4:
+            let docxName = indexPath.row == 3 ? "欢喜用户协议" : "欢喜隐私协议"
             let filePath = Bundle.main.path(forResource: docxName, ofType: "docx") ?? ""
             DocumentPreviewer.shared.show(from: self, filePaths: [filePath]) {
                 print("文件预览完成")
             }
+        case 5:
+            logoff()
+        default:
+            break
         }
+
         
     }
     
@@ -119,6 +142,12 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 class SettingItemCell: UITableViewCell {
+    
+    let bgView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black_forground
+        return view
+    }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -139,33 +168,27 @@ class SettingItemCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .none
-        
         self.backgroundColor = .clear
         self.contentView.backgroundColor = .clear
         
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(arrow)
-
+        contentView.addSubview(bgView)
+        bgView.snp.makeConstraints { make in
+            make.edges.equalTo(UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0))
+        }
+        
+        bgView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(0)
+            make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(16)
         }
         
+        bgView.addSubview(arrow)
         arrow.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(0)
+            make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-16)
-            make.width.height.equalTo(16)
+            make.width.height.equalTo(12)
         }
         
-        let line = UIView()
-        line.backgroundColor = UIColor.init(hexString: "#666666")
-        contentView.addSubview(line)
-        line.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview().offset(0)
-            make.right.equalToSuperview().offset(0)
-            make.height.equalTo(0.5)
-        }
     }
     
     required init?(coder: NSCoder) {

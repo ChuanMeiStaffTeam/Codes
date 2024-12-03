@@ -9,12 +9,18 @@ import Foundation
 
 class MainViewModel {
 
-    var mainList: [MainModel] = []
+    var dataList: [Any] = []
     var postsList: [PostModel] = []
+    var userList: [UserInfoModel] = []
+
+    //mock
+    var mainList: [MainModel] = []
+
 
     required init() {
         configData()
     }
+
 
     func configData() {
 
@@ -34,7 +40,7 @@ class MainViewModel {
         let contents = ["电话就是不丢吃不都吃不饿还问", "元旦快乐哈哈哈哈哈😄", "评论123哈说的话说的", "i为u你是看见当年参加考试", "建军节说的那就是承诺", "几句话素材你说你刺猬", "u你说的没时间", "OK从事记单词哦接送", "的产业化丢吃呢", "ID农村建设的奶茶"]
         let likesCounts = [65, 86, 35, 69, 22, 56, 77, 89, 81, 23]
         for i in 0..<10 {
-            var post = PostModel(liked: false, collected: false)
+            var post = PostModel(liked: false)
             post.postId = i
             var postUser = UserInfoModel()
             postUser.profilePictureUrl = icons[i]
@@ -51,83 +57,88 @@ class MainViewModel {
         }
     }
 
+
     func requestHomePosts(completion: @escaping (Bool) -> Void) {
         NetworkManager.shared.getRequest(
             path: "postImage/queryHomePosts",
             parameters: nil,
             responseType: PostsResponse.self
-        ) { success, message, data in
+        ) { [weak self] success, message, data in
+            guard let `self` = self else { return }
             if success {
-//                self.postsList = data?.list ?? []
+                self.dataList = []
+                self.postsList = data?.list ?? []
+                self.userList = data?.users ?? []
+                self.dataList.append(self.userList)
+                self.dataList.append(contentsOf: self.postsList)
             } else {
                 HUDHelper.showToast(message)
             }
             completion(success)
         }
+    }
+    
+    func requestLikePost(
+        params: [String: Any], completion: @escaping (Bool) -> Void
+    ) {
+        NetworkManager.shared.postRequest(
+            path: "postImage/likePost",
+            parameters: params,
+            responseType: String.self
+        ) { success, message, data in
+            if success {
 
-        func requestLikePost(
-            params: [String: Any], completion: @escaping (Bool) -> Void
-        ) {
-            NetworkManager.shared.postRequest(
-                path: "postImage/likePost",
-                parameters: params,
-                responseType: String.self
-            ) { success, message, data in
-                if success {
-
-                }
-                HUDHelper.showToast(message)
-                completion(success)
             }
+            HUDHelper.showToast(message)
+            completion(success)
         }
+    }
 
-        func requestCancelLikePost(
-            params: [String: Any], completion: @escaping (Bool) -> Void
-        ) {
-            NetworkManager.shared.postRequest(
-                path: "postImage/cancelLikePost",
-                parameters: params,
-                responseType: String.self
-            ) { success, message, data in
-                if success {
+    func requestCancelLikePost(
+        params: [String: Any], completion: @escaping (Bool) -> Void
+    ) {
+        NetworkManager.shared.postRequest(
+            path: "postImage/cancelLikePost",
+            parameters: params,
+            responseType: String.self
+        ) { success, message, data in
+            if success {
 
-                }
-                HUDHelper.showToast(message)
-                completion(success)
             }
+            HUDHelper.showToast(message)
+            completion(success)
         }
+    }
 
-        func requestCollectPost(
-            params: [String: Any], completion: @escaping (Bool) -> Void
-        ) {
-            NetworkManager.shared.postRequest(
-                path: "postImage/collectPost",
-                parameters: params,
-                responseType: String.self
-            ) { success, message, data in
-                if success {
+    func requestCollectPost(
+        params: [String: Any], completion: @escaping (Bool) -> Void
+    ) {
+        NetworkManager.shared.postRequest(
+            path: "postImage/collectPost",
+            parameters: params,
+            responseType: String.self
+        ) { success, message, data in
+            if success {
 
-                }
-                HUDHelper.showToast(message)
-                completion(success)
             }
+            HUDHelper.showToast(message)
+            completion(success)
         }
+    }
 
-        func requestCancelCollectPost(
-            params: [String: Any], completion: @escaping (Bool) -> Void
-        ) {
-            NetworkManager.shared.deleteRequest(
-                path: "postImage/cancelCollectPost",
-                parameters: params,
-                responseType: String.self
-            ) { success, message, data in
-                if success {
+    func requestCancelCollectPost(
+        params: [String: Any], completion: @escaping (Bool) -> Void
+    ) {
+        NetworkManager.shared.deleteRequest(
+            path: "postImage/cancelCollectPost",
+            parameters: params,
+            responseType: String.self
+        ) { success, message, data in
+            if success {
 
-                }
-                HUDHelper.showToast(message)
-                completion(success)
             }
+            HUDHelper.showToast(message)
+            completion(success)
         }
-
     }
 }

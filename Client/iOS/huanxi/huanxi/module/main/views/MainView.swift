@@ -67,7 +67,7 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
             let cell = MainContentCell.init(style: .default, reuseIdentifier: MainContentCell.identifier)
             cell.delegate = self
             let post = self.viewModel.postsList[indexPath.row]
-            cell.configure(post: post)
+            cell.model = post
             return cell
         } else if model.type == "recommend" {
             let cell = MainRecommendCell.init(style: .default, reuseIdentifier: MainRecommendCell.identifier)
@@ -99,7 +99,7 @@ extension MainView: MainContentCellDelegate {
 
     }
     
-    func didClickLike(_ data: PostModel) {
+    func didClickLike(_ data: PostModel, indexPath: IndexPath?) {
         if let index = self.viewModel.postsList.firstIndex(where: { $0.postId == data.postId }) {
             var post = self.viewModel.postsList[index]
             post.liked = data.liked
