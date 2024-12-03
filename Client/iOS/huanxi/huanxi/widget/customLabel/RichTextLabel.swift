@@ -21,7 +21,7 @@ class RichTextLabel: UILabel {
         let attributedString = NSMutableAttributedString(string: text, attributes: attributes)
         tapRanges.removeAll()
 
-        for (index, (substring, color)) in tapStyles.enumerated() {
+        for (_, (substring, color)) in tapStyles.enumerated() {
             if let range = text.range(of: substring) {
                 let nsRange = NSRange(range, in: text)
                 attributedString.addAttributes([

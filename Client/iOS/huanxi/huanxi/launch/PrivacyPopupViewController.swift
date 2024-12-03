@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import QuickLook
 
 class PrivacyPopupViewController: UIViewController {
     var onAgreeTap: (() -> Void)?
@@ -46,16 +47,15 @@ class PrivacyPopupViewController: UIViewController {
             (privacyTitle, UIColor.linkColor)
         ]
         messageLabel.setRichText(message, attributes: attributes, tapStyles: tapStyles)
-        messageLabel.onTextTapped = { string, range, index in
+        messageLabel.onTextTapped = { [weak self] string, range, index in
+            guard let `self` = self else { return }
             print("点击了: \(string), 范围: \(range), 索引: \(index)")
-            let protocolStr = NSLocalizedString("protocol_privacy", comment: "")
-            let webVC = WebVC()
-            webVC.contentStr = protocolStr
-            webVC.pageTitle = string
-            let nav = NavigationController(rootViewController: webVC)
-            self.present(nav, animated: true, completion: nil)
+            let docxName = string.contains("用户协议") ? "欢喜用户协议" : "欢喜隐私协议"
+            let filePath = Bundle.main.path(forResource: docxName, ofType: "docx") ?? ""
+            DocumentPreviewer.shared.show(from: self, filePaths: [filePath]) {
+                print("文件预览完成")
+            }
         }
-        
     
         let accept = NSLocalizedString("agree_and_continue", comment: "")
         let acceptButton = createButton(
@@ -139,4 +139,6 @@ class PrivacyPopupViewController: UIViewController {
         button.addTarget(self, action: action, for: .touchUpInside)
         return button
     }
+    
 }
+

@@ -105,8 +105,11 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             let vc = LanguageViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         } else if indexPath.row == 3 {
-            let vc = PrivateViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
+            let docxName = "欢喜隐私协议"
+            let filePath = Bundle.main.path(forResource: docxName, ofType: "docx") ?? ""
+            DocumentPreviewer.shared.show(from: self, filePaths: [filePath]) {
+                print("文件预览完成")
+            }
         }
         
     }

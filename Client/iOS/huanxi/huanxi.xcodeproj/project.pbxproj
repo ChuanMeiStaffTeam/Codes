@@ -94,6 +94,10 @@
 		39FABA102B931C4600A10FE6 /* PhotoAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA0F2B931C4600A10FE6 /* PhotoAlbumView.swift */; };
 		39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA112B931D3D00A10FE6 /* PhotoAlbumManager.swift */; };
 		F3245DCE2CF6F6BD006657B3 /* Pods_huanxi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3245DCD2CF6F6BD006657B3 /* Pods_huanxi.framework */; };
+		F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */; };
+		F333FB852CFE9C0B00E0E0B2 /* DocumentPreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */; };
+		F333FB902CFEA34500E0E0B2 /* 欢喜隐私协议.docx in Resources */ = {isa = PBXBuildFile; fileRef = F333FB8E2CFEA34500E0E0B2 /* 欢喜隐私协议.docx */; };
+		F333FB912CFEA34500E0E0B2 /* 欢喜用户协议.docx in Resources */ = {isa = PBXBuildFile; fileRef = F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */; };
 		F39F6DD22CD962D200CFF8B5 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DD12CD962D200CFF8B5 /* Api.swift */; };
 		F39F6DD42CDA753A00CFF8B5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DD32CDA753A00CFF8B5 /* MainView.swift */; };
 		F39F6DDB2CDBCDAD00CFF8B5 /* heart.json in Resources */ = {isa = PBXBuildFile; fileRef = F39F6DD92CDBCDAD00CFF8B5 /* heart.json */; };
@@ -239,6 +243,10 @@
 		CA729ABFB7BAA4ADCD4DD472 /* Pods_huanxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_huanxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA9A2110F87E34A74D9BC07 /* Pods-huanxi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanxi.release.xcconfig"; path = "Target Support Files/Pods-huanxi/Pods-huanxi.release.xcconfig"; sourceTree = "<group>"; };
 		F3245DCD2CF6F6BD006657B3 /* Pods_huanxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_huanxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxQLPreviewController.swift; sourceTree = "<group>"; };
+		F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreviewer.swift; sourceTree = "<group>"; };
+		F333FB8E2CFEA34500E0E0B2 /* 欢喜隐私协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "欢喜隐私协议.docx"; sourceTree = "<group>"; };
+		F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "欢喜用户协议.docx"; sourceTree = "<group>"; };
 		F39F6DD12CD962D200CFF8B5 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		F39F6DD32CDA753A00CFF8B5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F39F6DD92CDBCDAD00CFF8B5 /* heart.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = heart.json; sourceTree = "<group>"; };
@@ -632,6 +640,8 @@
 			isa = PBXGroup;
 			children = (
 				F39F6DDA2CDBCDAD00CFF8B5 /* Lottie Files */,
+				F333FB8E2CFEA34500E0E0B2 /* 欢喜隐私协议.docx */,
+				F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -707,6 +717,8 @@
 			isa = PBXGroup;
 			children = (
 				F3E786212CEC8B0000EC2251 /* WebVC.swift */,
+				F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */,
+				F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */,
 			);
 			path = web;
 			sourceTree = "<group>";
@@ -822,6 +834,8 @@
 				F3E7861E2CEC761700EC2251 /* InfoPlist.strings in Resources */,
 				F3E7861A2CEC6FBE00EC2251 /* Localizable.strings in Resources */,
 				397216872B81E8EC007D0F2B /* Main.storyboard in Resources */,
+				F333FB902CFEA34500E0E0B2 /* 欢喜隐私协议.docx in Resources */,
+				F333FB912CFEA34500E0E0B2 /* 欢喜用户协议.docx in Resources */,
 				F39F6DDB2CDBCDAD00CFF8B5 /* heart.json in Resources */,
 				F3F80E882CEA17C900008887 /* LaunchScreen.xib in Resources */,
 				39AB751B2C9443BF00440E5A /* private.jpeg in Resources */,
@@ -939,8 +953,10 @@
 				F39F6DFC2CE133AD00CFF8B5 /* LoadMoreControl.swift in Sources */,
 				39AB75152C93E10500440E5A /* CompanyViewController.swift in Sources */,
 				39E9081C2C2874EE0017B83B /* TopItemCell.swift in Sources */,
+				F333FB852CFE9C0B00E0E0B2 /* DocumentPreviewer.swift in Sources */,
 				04D16F742C1BDC6C00D0BF61 /* ChatUserHomeViewController.swift in Sources */,
 				04F0D1A62BFADC5900FFE128 /* MineHeaderView.swift in Sources */,
+				F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */,
 				39E908142C26C46F0017B83B /* WaterfallCollectionView.swift in Sources */,
 				39E908222C28791C0017B83B /* SearchResultHeaderView.swift in Sources */,
 				39AB75192C94430000440E5A /* PrivateViewController.swift in Sources */,
@@ -1233,7 +1249,7 @@
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = CH2X87N5DP;
 				ENABLE_BITCODE = NO;
-				EXCLUDED_ARCHS = armv7;
+				EXCLUDED_ARCHS = "armv7 arm64";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "armv7 arm64";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = huanxi/Info.plist;
