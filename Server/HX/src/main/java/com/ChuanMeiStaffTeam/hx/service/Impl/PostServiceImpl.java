@@ -10,6 +10,7 @@ import com.ChuanMeiStaffTeam.hx.service.*;
 import com.ChuanMeiStaffTeam.hx.util.RedisUtil;
 import com.ChuanMeiStaffTeam.hx.util.UploadUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -282,5 +283,15 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
             sysPostImages.add(sysPostImage);
         }
         return sysPostImages;
+    }
+
+    @Override
+    public int deleteUserPostAll(Integer userId) {
+        return postMapper.update(null,
+                new UpdateWrapper<SysPost>()
+                        .eq("user_id", userId)
+                        .set("is_deleted", true)
+        );
+
     }
 }

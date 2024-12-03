@@ -69,4 +69,8 @@ public interface IPostsImage extends IService<SysPost> {
     // 根据用户id查询帖子列表 (不带具体用户信息)
     List<SysPostImage> selectByUserId(Integer userId);
 
+
+    // 根据用户id删除用户所有帖子
+    int deleteUserPostAll(Integer userId);
+
 }

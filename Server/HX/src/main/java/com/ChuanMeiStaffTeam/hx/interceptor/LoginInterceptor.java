@@ -56,7 +56,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
             String userid = tokenInfo.getClaim("userid").asString();
             User user = userMapper.selectByUserId(Integer.parseInt(userid));
-            if(user.getAccountLocked() == 0) {
+            if(!user.getAccountLocked()) {
                 return true;
             } else {
                 map.put("code", 405);

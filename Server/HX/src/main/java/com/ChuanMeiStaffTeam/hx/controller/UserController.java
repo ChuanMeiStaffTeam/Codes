@@ -221,4 +221,32 @@ public class UserController {
         return AppResult.success();
     }
 
+
+    // 账号注销接口
+    @DeleteMapping("/account/delete")
+    public AppResult accountLogout(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        // 从token中获取username
+        JwtUtil.verifyToken(token);
+        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
+        String userid = tokenInfo.getClaim("userid").asString();
+        User user = userService.getUserByUserId(Integer.parseInt(userid));
+        if(user == null) {
+            log.info("该账号不存在");
+            return AppResult.failed("该账号不存在");
+        }
+        // 删除redis缓存
+        redisTemplate.delete(user.getUsername());
+        redisTemplate.delete(user.getUsername() + ": token");
+        request.getSession().invalidate(); // 销毁session 同时删除session中的token
+        boolean b = userService.deleteUser(user);
+        if(b) {
+            log.info("账号注销成功");
+            return AppResult.success();
+        } else {
+            log.info("账号注销失败");
+            return AppResult.failed("账号注销失败");
+        }
+    }
+
 }

@@ -2,14 +2,19 @@ package com.ChuanMeiStaffTeam.hx.service.Impl;
 
 import com.ChuanMeiStaffTeam.hx.exception.ApplicationException;
 import com.ChuanMeiStaffTeam.hx.model.SysFollows;
+import com.ChuanMeiStaffTeam.hx.model.SysPost;
+import com.ChuanMeiStaffTeam.hx.service.ICommentService;
+import com.ChuanMeiStaffTeam.hx.service.IPostsImage;
 import com.ChuanMeiStaffTeam.hx.service.IUserService;
 import com.ChuanMeiStaffTeam.hx.dao.UserMapper;
 import com.ChuanMeiStaffTeam.hx.model.User;
 import com.ChuanMeiStaffTeam.hx.util.RedisUtil;
 import com.ChuanMeiStaffTeam.hx.util.TimeUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.swagger.models.auth.In;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -27,6 +32,7 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2024/05/20/15:32
  * @Description:
  */
+@Slf4j
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
@@ -39,6 +45,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
+    @Autowired
+    private IPostsImage postsImage;
+
+    @Autowired
+    private ICommentService commentService;
 
     @Override
     public User getUserByUserName(String userName) {
@@ -212,5 +223,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         queryWrapper.last("LIMIT " + count);
         // 使用 list() 方法返回结果
         return this.list(queryWrapper);  // sql: select * from user order by RAND() limit count
+    }
+
+    @Override
+    public boolean deleteUser(User user) {
+        // 删除帖子
+        int i = postsImage.deleteUserPostAll(user.getUserId());
+        log.info("删除用户帖子成功，帖子数量：" + i);
+        // 删除评论
+        int i1 = commentService.deleteCommentsByUserId(user.getUserId());
+        log.info("删除用户评论成功，评论数量：" + i1);
+        // 删除用户
+        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("user_id", user.getUserId());
+        updateWrapper.set("is_delete", 1);
+        int i2 = userMapper.update(null, updateWrapper);
+        log.info("删除用户成功，影响行数：" + i2);
+        return true;
     }
 }

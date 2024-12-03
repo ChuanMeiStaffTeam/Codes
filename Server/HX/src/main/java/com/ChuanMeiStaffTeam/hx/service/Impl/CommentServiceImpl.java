@@ -7,6 +7,7 @@ import com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage;
 import com.ChuanMeiStaffTeam.hx.service.ICommentService;
 import com.ChuanMeiStaffTeam.hx.service.IPostsImage;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,6 +139,16 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, SysComment> i
         QueryWrapper<SysComment> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("post_id", postId);
         return commentMapper.selectList(queryWrapper); // 查询该帖子的所有评论 返回List<SysComment>
+    }
+
+    @Override
+    public int deleteCommentsByUserId(Integer userId) {
+        // 逻辑删除用户的所有评论
+        return commentMapper.update(null,
+                new UpdateWrapper<SysComment>()
+                        .eq("user_id", userId)
+                        .set("is_active", 1)
+        );
     }
 
 }

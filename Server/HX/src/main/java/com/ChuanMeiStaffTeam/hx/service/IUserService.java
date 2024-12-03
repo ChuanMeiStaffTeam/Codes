@@ -4,6 +4,7 @@ import com.ChuanMeiStaffTeam.hx.model.SysFollows;
 import com.ChuanMeiStaffTeam.hx.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -80,4 +81,8 @@ public interface IUserService extends IService<User> {
 
     //随机获取用户数量count个
     List<User> RandomUser(int count);
+
+
+    @Transactional
+    boolean deleteUser(User user);
 }

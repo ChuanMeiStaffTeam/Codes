@@ -32,4 +32,7 @@ public interface ICommentService extends IService<SysComment> {
 
     // 根据帖子ID获取评论列表
     List<SysComment> getCommentsByPostId(Integer postId);
+
+    // 删除该用户的所有评论
+    int deleteCommentsByUserId(Integer userId);
 }

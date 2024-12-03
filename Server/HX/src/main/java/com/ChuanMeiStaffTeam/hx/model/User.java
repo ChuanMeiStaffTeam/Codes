@@ -60,11 +60,15 @@ public class User implements Serializable {
     private Timestamp createdAt; // 账户创建时间
     private Timestamp updatedAt; // 账户更新时间
     private Integer loginAttempts; // 登录尝试次数
-    private Integer accountLocked; // 账户是否被锁定   0：未锁定   1：已锁定
+    private Boolean accountLocked; // 账户是否被锁定   0：未锁定   1：已锁定
     private Timestamp lockoutTime; // 账户锁定时间
     private String facebookUrl; // Facebook URL
     private String twitterUrl; // Twitter URL
     private String privacySettings; // 隐私设置
+
+    @TableField("is_delete")
+    @TableLogic // 逻辑删除注解
+    private int deleted; // 是否删除 0：未删除 1：已删除
 
     // 省略Getter和Setter方法
 
