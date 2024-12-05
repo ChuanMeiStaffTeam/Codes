@@ -20,7 +20,8 @@ class ExplainViewController: BaseViewController {
     
     var explainItems: [ExplainItem] = []
     var images: [UIImage] = []
-    
+    var locationCity: String = "上海市"
+
     let textView = UITextView()
     
     override func viewDidLoad() {
@@ -28,6 +29,7 @@ class ExplainViewController: BaseViewController {
         setupData()
         setupView()
         setupNavView()
+        requesLocation()
     }
     
     func setupData() {
@@ -100,7 +102,60 @@ class ExplainViewController: BaseViewController {
     
     @objc func shareAction() {
         
+        guard let desc = textView.text, !desc.isEmpty else {
+            HUDHelper.showToast("请输入说明")
+            return
+        }
+        HUDHelper.showHUD(self.view, text: "图片上传中")
+        // 上传图片，获取图片地址
+        NetworkManager.shared.uploadMultipleImages(path: "postImage/article",
+                                                   parameters: ["": ""],
+                                                   images: images,
+                                                   imageName: "images",
+                                                   responseType: ImageResponse.self) { success, message, data in
+            HUDHelper.hideHUD(self.view)
+            if success {
+                self.requestPost(desc: desc, imagesUrl: data?.list ?? [])
+                HUDHelper.showToast("图片上传成功")
+            } else {
+                HUDHelper.showToast(message)
+            }
+        }
     }
+    
+    func requestPost(desc: String, imagesUrl: [String]) {
+        let params = [
+            "caption": desc,
+            "location": locationCity,
+            "imagesUrl": imagesUrl
+        ] as [String : Any]
+        NetworkManager.shared.postRequest(path: "postImage/createPost",
+                                          parameters: params,
+                                          responseType: String.self) { success, message, data in
+            if success {
+                HUDHelper.showToast("帖子发布成功")
+                self.view.window?.rootViewController?.dismiss(animated: true)
+            } else {
+                HUDHelper.showToast(message)
+            }
+            
+        }
+    }
+    
+    //ip定位
+    func requesLocation() {
+        Tools.fetchIPLocation { [weak self] result in
+            guard let `self` = self else { return }
+            switch result {
+            case .success(let locationData):
+                self.locationCity = locationData["regionName"] as? String ?? "上海市"
+                print("Location Data: \(self.locationCity)")
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+            }
+        }
+    }
+
     
     lazy var tableView: UITableView = {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)

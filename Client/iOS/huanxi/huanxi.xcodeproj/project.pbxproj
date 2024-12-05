@@ -94,6 +94,7 @@
 		39FABA102B931C4600A10FE6 /* PhotoAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA0F2B931C4600A10FE6 /* PhotoAlbumView.swift */; };
 		39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA112B931D3D00A10FE6 /* PhotoAlbumManager.swift */; };
 		F3223B7A2D016D8C00E74574 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B792D016D8C00E74574 /* MineViewModel.swift */; };
+		F3223B7C2D01848F00E74574 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B7B2D01848F00E74574 /* Tools.swift */; };
 		F3245DCE2CF6F6BD006657B3 /* Pods_huanxi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3245DCD2CF6F6BD006657B3 /* Pods_huanxi.framework */; };
 		F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */; };
 		F333FB852CFE9C0B00E0E0B2 /* DocumentPreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */; };
@@ -244,6 +245,7 @@
 		CA729ABFB7BAA4ADCD4DD472 /* Pods_huanxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_huanxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA9A2110F87E34A74D9BC07 /* Pods-huanxi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanxi.release.xcconfig"; path = "Target Support Files/Pods-huanxi/Pods-huanxi.release.xcconfig"; sourceTree = "<group>"; };
 		F3223B792D016D8C00E74574 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
+		F3223B7B2D01848F00E74574 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		F3245DCD2CF6F6BD006657B3 /* Pods_huanxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_huanxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxQLPreviewController.swift; sourceTree = "<group>"; };
 		F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreviewer.swift; sourceTree = "<group>"; };
@@ -560,6 +562,7 @@
 				399739522C61C04A00D4DD8C /* WindowHelper.swift */,
 				F39F6DFD2CE1350B00CFF8B5 /* Enum.swift */,
 				F39F6DFF2CE136E800CFF8B5 /* Constants.swift */,
+				F3223B7B2D01848F00E74574 /* Tools.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -919,6 +922,7 @@
 				392CF10C2B8EC8E60070637E /* MainModel.swift in Sources */,
 				F3E786242CECB58F00EC2251 /* UIDevice+Extension.swift in Sources */,
 				F39F6DF42CE12C6700CFF8B5 /* CommentModel.swift in Sources */,
+				F3223B7C2D01848F00E74574 /* Tools.swift in Sources */,
 				3998DE392BB59F5D0000C4DD /* UpdatesRecommendCell.swift in Sources */,
 				39E908202C2875010017B83B /* ContentTableViewCell.swift in Sources */,
 				392CF1162B8ECE640070637E /* MainRecommendCell.swift in Sources */,
