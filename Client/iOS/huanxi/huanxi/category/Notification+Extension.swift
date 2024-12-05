@@ -21,3 +21,8 @@ extension Notification {
     }
     
 }
+
+
+extension Notification.Name {
+    static let postPublishSuccessNotification = Notification.Name("postPublishSuccessNotification")
+}

@@ -87,9 +87,10 @@ extension LoginManager {
                 if let userInfo = data?.userinfo {
                     LoginManager.shared.updateUserInfo(info: userInfo)
                 }
+            } else {
+                HUDHelper.showToast(message)
             }
             completion(success)
-            HUDHelper.showToast(message)
         }
         
     }
@@ -102,9 +103,10 @@ extension LoginManager {
                 if let userInfo = data?.user {
                     LoginManager.shared.updateUserInfo(info: userInfo)
                 }
+            } else {
+                HUDHelper.showToast(message)
             }
             completion(success)
-            HUDHelper.showToast(message)
         }
         
     }
@@ -120,9 +122,10 @@ extension LoginManager {
                 let topVC = WindowHelper.topViewController()
                 loginVC.modalPresentationStyle = .fullScreen
                 topVC?.present(loginVC, animated: true)
+            } else {
+                HUDHelper.showToast(message)
             }
             completion(success)
-            HUDHelper.showToast(message)
         }
     }
     
@@ -137,9 +140,10 @@ extension LoginManager {
                 let topVC = WindowHelper.topViewController()
                 loginVC.modalPresentationStyle = .fullScreen
                 topVC?.present(loginVC, animated: true)
+            } else {
+                HUDHelper.showToast(message)
             }
             completion(success)
-            HUDHelper.showToast(message)
         }
     }
     

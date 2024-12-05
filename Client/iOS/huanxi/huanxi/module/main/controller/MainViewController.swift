@@ -7,9 +7,12 @@
 
 import UIKit
 import SwiftUI
+import Combine
 
 class MainViewController: BaseViewController {
     
+    private var cancellable: AnyCancellable?
+
     private let viewModel = MainViewModel()
 
     lazy var tableView: UITableView = {
@@ -28,7 +31,18 @@ class MainViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setupViewModel()
+        refrehData()
+        
+        // 使用 Combine 订阅通知
+        cancellable = NotificationCenter.default.publisher(for: .postPublishSuccessNotification)
+            .sink { notification in
+                self.refrehData()
+            }
+    }
+    
+    deinit {
+        // Combine 会自动取消订阅，但可以手动释放以确保安全
+        cancellable?.cancel()
     }
     
     
@@ -71,7 +85,7 @@ class MainViewController: BaseViewController {
         
     }
     
-    private func setupViewModel() {
+    private func refrehData() {
         viewModel.requestHomePosts { [weak self] result in
             guard let `self` = self else { return }
 //            self.mainList = self.viewModel.mainList

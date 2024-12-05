@@ -134,6 +134,11 @@ class ExplainViewController: BaseViewController {
                                           responseType: String.self) { success, message, data in
             if success {
                 HUDHelper.showToast("帖子发布成功")
+                NotificationCenter.default.post(
+                    name: .postPublishSuccessNotification,
+                    object: nil,
+                    userInfo: nil
+                )
                 self.view.window?.rootViewController?.dismiss(animated: true)
             } else {
                 HUDHelper.showToast(message)

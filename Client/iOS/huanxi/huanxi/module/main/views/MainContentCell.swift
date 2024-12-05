@@ -63,7 +63,7 @@ class MainContentCell: UITableViewCell {
                     avatar.image = UIImage.init(named: urlStr)
                 }
             }
-            nameLabel.text = model?.user?.username
+            nameLabel.text = model?.user?.username ?? "游客"
             if let urlStr = model?.images?.first?.imageUrl {
                 if urlStr.contains("http") {
                     imgView.kf.setImage(with: URL.init(string: urlStr))

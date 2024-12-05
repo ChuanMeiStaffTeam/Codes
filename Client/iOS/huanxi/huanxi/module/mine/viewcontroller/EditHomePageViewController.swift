@@ -42,8 +42,9 @@ class EditHomePageViewController: BaseViewController {
                                          responseType: UserInfoResponse.self) { success, message, data in
             if success, let user = data?.user {
                 self.updateData(user)
+            } else {
+                HUDHelper.showToast(message)
             }
-            HUDHelper.showToast(message)
         }
     }
     
