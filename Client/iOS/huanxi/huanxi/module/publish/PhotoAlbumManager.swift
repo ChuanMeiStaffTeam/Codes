@@ -19,7 +19,7 @@ class PhotoAlbumManager {
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
         
-        let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
+        let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: nil)
         
         smartAlbums.enumerateObjects { album, _, _ in
             self.albums.append(album)
@@ -27,46 +27,75 @@ class PhotoAlbumManager {
     }
     
     func fetchAllImages(completion: @escaping ([UIImage], [PHAsset]) -> Void) {
-        var allImages: [UIImage] = []
-
-        DispatchQueue.global().async {
-            let fetchOptions = PHFetchOptions()
-            let albums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: fetchOptions)
-            fetchOptions.fetchLimit = 50
-
-            let requestOptions = PHImageRequestOptions()
-            requestOptions.deliveryMode = .fastFormat
-
-
-            var allAssets: [PHAsset] = []
-
-            albums.enumerateObjects { album, _, _ in
-                let assets = PHAsset.fetchAssets(in: album, options: nil)
-
-                if assets.count > 0 {
-                    print("相册名：" + (album.localizedTitle ?? "") + "    照片数量" + String(assets.count))
-                }
-
-                assets.enumerateObjects { asset, _, _ in
-                    
-                    allAssets.append(asset)
-                }
+        // 请求相册访问权限
+        PHPhotoLibrary.requestAuthorization { status in
+            guard status == .authorized else {
+                print("相册访问被拒绝")
+                completion([], [])
+                return
             }
             
-            allAssets.forEach { asset in
-                PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: requestOptions) { image, _ in
-                    if let image = image {
-                        allImages.append(image)
+            DispatchQueue.global().async {
+                var allImages: [UIImage] = []
+                var allAssets: [PHAsset] = []
+                
+                // 设置查询选项
+                let fetchOptions = PHFetchOptions()
+                fetchOptions.fetchLimit = 50 // 限制最多获取 50 张照片
+                fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)] // 按创建时间降序排列
+                
+                // 设置图片加载选项
+                let requestOptions = PHImageRequestOptions()
+                requestOptions.deliveryMode = .highQualityFormat // 加载高质量图片
+                requestOptions.isNetworkAccessAllowed = true    // 允许从 iCloud 加载
+                requestOptions.isSynchronous = false            // 异步加载
+                
+                // 获取所有相册
+                let albums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: nil)
+                
+                // 遍历所有相册中的照片资源
+                albums.enumerateObjects { album, _, _ in
+                    let assets = PHAsset.fetchAssets(in: album, options: fetchOptions)
+                    assets.enumerateObjects { asset, _, _ in
+                        allAssets.append(asset)
                     }
-
-                    if allImages.count == allAssets.count {
-                        DispatchQueue.main.async {
-                            completion(allImages, allAssets)
+                }
+                
+                // 获取总资源数
+                let totalAssets = allAssets.count
+                guard totalAssets > 0 else {
+                    DispatchQueue.main.async {
+                        completion([], [])
+                    }
+                    return
+                }
+                
+                // 用于跟踪图片加载完成的计数器
+                var processedCount = 0
+                
+                // 遍历所有资源并加载图片
+                for asset in allAssets {
+                    PHImageManager.default().requestImage(
+                        for: asset,
+                        targetSize: CGSize(width: 200, height: 200), // 设置目标大小，避免加载全分辨率
+                        contentMode: .aspectFill,
+                        options: requestOptions
+                    ) { image, _ in
+                        if let image = image {
+                            allImages.append(image)
+                        }
+                        
+                        // 更新已处理的资源计数
+                        processedCount += 1
+                        if processedCount == totalAssets {
+                            // 所有图片加载完成后回调
+                            DispatchQueue.main.async {
+                                completion(allImages, allAssets)
+                            }
                         }
                     }
                 }
             }
-            
         }
     }
 //    func fetchAllImages(completion: @escaping ([UIImage]) -> Void) {
@@ -76,7 +105,7 @@ class PhotoAlbumManager {
 //            let fetchOptions = PHFetchOptions()
 //            fetchOptions.fetchLimit = 50 // 每次只获取50张图片
 //
-//            let albums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: fetchOptions)
+//            let albums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: fetchOptions)
 //
 //            let requestOptions = PHImageRequestOptions()
 //            requestOptions.deliveryMode = .fastFormat // 使用快速格式以减少内存占用

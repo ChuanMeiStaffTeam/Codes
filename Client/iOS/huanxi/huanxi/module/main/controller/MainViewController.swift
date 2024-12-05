@@ -29,7 +29,6 @@ class MainViewController: BaseViewController {
         super.viewDidLoad()
         setupView()
         setupViewModel()
-        LoginManager.requestUserInfo()
     }
     
     

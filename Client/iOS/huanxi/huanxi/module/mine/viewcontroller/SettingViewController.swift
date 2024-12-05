@@ -38,7 +38,8 @@ class SettingViewController: BaseViewController {
         
         let alert = UIAlertController(title: "提示", message: "您确定要退出登录吗？", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "确定", style: .default) { _ in
-            LoginManager.requestLogout()
+            LoginManager.requestLogout { success in
+            }
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
             

@@ -93,6 +93,7 @@
 		39FABA0E2B930B5000A10FE6 /* WaterfallFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA0D2B930B5000A10FE6 /* WaterfallFlowLayout.swift */; };
 		39FABA102B931C4600A10FE6 /* PhotoAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA0F2B931C4600A10FE6 /* PhotoAlbumView.swift */; };
 		39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA112B931D3D00A10FE6 /* PhotoAlbumManager.swift */; };
+		F3223B7A2D016D8C00E74574 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B792D016D8C00E74574 /* MineViewModel.swift */; };
 		F3245DCE2CF6F6BD006657B3 /* Pods_huanxi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3245DCD2CF6F6BD006657B3 /* Pods_huanxi.framework */; };
 		F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */; };
 		F333FB852CFE9C0B00E0E0B2 /* DocumentPreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */; };
@@ -242,6 +243,7 @@
 		420045BD32FD448FC5BBC8C4 /* Pods-huanxi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanxi.debug.xcconfig"; path = "Target Support Files/Pods-huanxi/Pods-huanxi.debug.xcconfig"; sourceTree = "<group>"; };
 		CA729ABFB7BAA4ADCD4DD472 /* Pods_huanxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_huanxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA9A2110F87E34A74D9BC07 /* Pods-huanxi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanxi.release.xcconfig"; path = "Target Support Files/Pods-huanxi/Pods-huanxi.release.xcconfig"; sourceTree = "<group>"; };
+		F3223B792D016D8C00E74574 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		F3245DCD2CF6F6BD006657B3 /* Pods_huanxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_huanxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxQLPreviewController.swift; sourceTree = "<group>"; };
 		F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreviewer.swift; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 		397216BA2B820FC9007D0F2B /* mine */ = {
 			isa = PBXGroup;
 			children = (
+				F3223B782D016D6D00E74574 /* viewmodel */,
 				04F0D1A42BFADC1000FFE128 /* views */,
 				04F0D1A32BFADBFB00FFE128 /* viewcontroller */,
 			);
@@ -622,6 +625,14 @@
 				CA729ABFB7BAA4ADCD4DD472 /* Pods_huanxi.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F3223B782D016D6D00E74574 /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				F3223B792D016D8C00E74574 /* MineViewModel.swift */,
+			);
+			path = viewmodel;
 			sourceTree = "<group>";
 		};
 		F39F6DD52CDA7ADB00CFF8B5 /* model */ = {
@@ -958,6 +969,7 @@
 				04F0D1A62BFADC5900FFE128 /* MineHeaderView.swift in Sources */,
 				F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */,
 				39E908142C26C46F0017B83B /* WaterfallCollectionView.swift in Sources */,
+				F3223B7A2D016D8C00E74574 /* MineViewModel.swift in Sources */,
 				39E908222C28791C0017B83B /* SearchResultHeaderView.swift in Sources */,
 				39AB75192C94430000440E5A /* PrivateViewController.swift in Sources */,
 				397216842B81E8EC007D0F2B /* ViewController.swift in Sources */,

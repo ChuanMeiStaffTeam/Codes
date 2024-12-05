@@ -85,6 +85,14 @@ class MineHeaderView: UIView {
         
     }
     
+    func reloadData(_ user: UserInfoModel?) {
+        if let urlStr = user?.profilePictureUrl {
+            iconImgView.kf.setImage(with: URL.init(string: urlStr))
+        }
+        followedItemView.valueLabel.text = String(format: "%d", user?.followingCount ?? 0)
+        postsItemView.valueLabel.text = String(format: "%d", user?.postCount ?? 0)
+        fansItemView.valueLabel.text = String(format: "%d", user?.followerCount ?? 0)
+    }
     
     @objc func editUserAction() {
         if let block = editHomePageBlock {

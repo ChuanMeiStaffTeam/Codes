@@ -148,22 +148,11 @@ class LoginViewController: BaseViewController {
             "password": pwd
         ]
         
-        NetworkManager.shared.postRequest(path: "user/login/username",
-                                          parameters: params,
-                                          responseType: LoginModel.self) { success, message, data in
+        LoginManager.requestLogin(params: params) { success in
             if success {
-                if let token = data?.token {
-                    LoginManager.updateToken(token: token)
-                    
-                    let tabbar = TabBarController()
-                    WindowHelper.currentWindow()?.rootViewController = tabbar
-                }
-                if let userInfo = data?.userinfo {
-//                    UserDefaults.standard.set(userInfo, forKey: "userInfo")
-//                    UserDefaults.standard.synchronize()
-                }
+                let tabbar = TabBarController()
+                WindowHelper.currentWindow()?.rootViewController = tabbar
             }
-            HUDHelper.showToast(message)
         }
     }
     

@@ -42,7 +42,7 @@ class NetworkManager {
             let header = HTTPHeader.init(name: key, value: value)
             allHeaders.add(header)
         })
-        if let token = LoginManager.getToken() {
+            if let token = LoginManager.shared.getToken() {
             allHeaders.add(name: "token", value: token)
         }
             
@@ -53,7 +53,7 @@ class NetworkManager {
                 if responseModel.code == 200 {
                     completion(true, responseModel.message, responseModel.data)
                 }else if responseModel.code == 404 {
-                    LoginManager.removeToken()
+                    LoginManager.shared.logout()
                     let topVC = WindowHelper.topViewController()
                     if !((topVC?.isKind(of: LoginViewController.self)) != nil) {
                         let loginVC = LoginViewController()
@@ -125,7 +125,7 @@ class NetworkManager {
         }
         
         var allHeaders = HTTPHeaders()
-        if let token = LoginManager.getToken() {
+        if let token = LoginManager.shared.getToken() {
             allHeaders.add(name: "token", value: token)
         }
         
@@ -162,7 +162,7 @@ class NetworkManager {
             }
         
             var allHeaders = HTTPHeaders()
-            if let token = LoginManager.getToken() {
+            if let token = LoginManager.shared.getToken() {
                 allHeaders.add(name: "token", value: token)
             }
         

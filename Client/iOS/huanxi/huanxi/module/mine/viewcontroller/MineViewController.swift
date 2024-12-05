@@ -9,6 +9,12 @@ import UIKit
 
 class MineViewController: BaseViewController {
     
+    private let nameLabel: UILabel = {
+        let label = UILabel(frame: CGRect(x: 16, y: .topSafeAreaHeight, width: 200, height: 40))
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        return label
+    }()
     
     let mineHeader = MineHeaderView(frame: CGRect(x: 0, y: .topSafeAreaHeight + 40, width: .screenWidth, height: 165))
     var constrainerView: MineConstrainerView!
@@ -16,21 +22,20 @@ class MineViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
+        LoginManager.requestUserInfo { [weak self] success in
+            guard let `self` = self else { return }
+            self.reloadUserInfo()
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupView()
     }
     
     
     func setupView() {
         
-        let nameLabel = UILabel(frame: CGRect(x: 16, y: .topSafeAreaHeight, width: 200, height: 40))
-        nameLabel.text = "Jack"
-        nameLabel.textColor = .white
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
         view.addSubview(nameLabel)
         
         /*
@@ -60,6 +65,10 @@ class MineViewController: BaseViewController {
 
     }
     
+    func reloadUserInfo() {
+        nameLabel.text = LoginManager.shared.getUserInfo()?.fullName ?? "游客"
+        mineHeader.reloadData(LoginManager.shared.getUserInfo())
+    }
     
     @objc func addAction() {
         

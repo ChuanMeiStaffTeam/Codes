@@ -19,15 +19,20 @@ struct LoginModel: Codable {
     
 }
 
+struct UpdateUserModel: Codable {
+    
+    let user: UserInfoModel
+}
+
 struct UserInfoModel: Codable {
     
     var username: String?
+    var fullName: String?
     var nickname: String?
     var phoneNumber: String?
     var userId: Int?
     var loginAttempts: Int?
     var profilePictureUrl: String?
-    var fullName: String?
     var email: String?
     var bio: String?
     var websiteUrl: String?

@@ -48,7 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             guard let strongSelf = self else { return }
             DispatchQueue.main.async {
                 strongSelf.window?.makeKeyAndVisible()
-                if LoginManager.isLogin() {
+                if LoginManager.shared.isLogin() {
                     let tabbar = TabBarController()
                     strongSelf.window?.rootViewController = tabbar
                 } else {

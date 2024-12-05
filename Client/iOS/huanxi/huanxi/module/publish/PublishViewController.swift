@@ -30,7 +30,7 @@ class PublishViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        photoAlbumManager.fetchSystemAlbums()
+        photoAlbumManager.fetchSystemAlbums()
         
         setupView()
         requestImageData()
