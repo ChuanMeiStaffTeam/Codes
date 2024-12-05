@@ -124,7 +124,23 @@ extension LoginManager {
             completion(success)
             HUDHelper.showToast(message)
         }
+    }
+    
+    class func requestAccountDelete(completion: @escaping (Bool) -> Void) {
+        NetworkManager.shared.deleteRequest(path: "user/account/delete",
+                                          parameters: nil,
+                                          responseType: String.self) { success, message, data in
+            if success {
+                LoginManager.shared.logout()
 
+                let loginVC = LoginViewController()
+                let topVC = WindowHelper.topViewController()
+                loginVC.modalPresentationStyle = .fullScreen
+                topVC?.present(loginVC, animated: true)
+            }
+            completion(success)
+            HUDHelper.showToast(message)
+        }
     }
     
 }

@@ -189,11 +189,12 @@ class MainContentCell: UITableViewCell {
         }
         
         contentLabel.textColor = .white
+        contentLabel.numberOfLines = 3
         contentLabel.font = .systemFont(ofSize: 14)
         contentLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(10)
             make.right.equalToSuperview().offset(-10)
-            make.height.equalTo(16)
+            make.height.lessThanOrEqualTo(50)
             make.top.equalTo(likeNumLabel.snp.bottom).offset(10)
         }
         

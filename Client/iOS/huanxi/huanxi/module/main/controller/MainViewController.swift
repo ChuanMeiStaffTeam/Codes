@@ -125,7 +125,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         if model is Array<Any> {
             return 100
         } else if model is PostModel {
-            return 585
+            let post = model as! PostModel
+            let contentH = post.caption?.height(withConstrainedWidth: UIDevice.screenWidth - 20, font: .systemFont(ofSize: 14)) ?? 16
+            return 570 + (contentH > 50 ? 50 : contentH)
         }
 //        else if model.type == "recommend" {
 //            return 330

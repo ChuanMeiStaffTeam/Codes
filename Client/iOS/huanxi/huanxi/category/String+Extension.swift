@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
 
@@ -50,6 +51,13 @@ extension String {
         numberFormatter.maximumFractionDigits = maximumDigits  //设置小数点后最多2位
         numberFormatter.minimumFractionDigits = minimumDigits  //设置小数点后最少2位（不足补0）
         return numberFormatter.string(from: number)
+    }
+    
+    /// 计算文本高度
+    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        return ceil(boundingBox.height)
     }
 }
 

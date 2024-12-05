@@ -52,6 +52,8 @@ class SettingViewController: BaseViewController {
     @objc func logoff() {
         let alert = UIAlertController(title: "提示", message: "账号注销后，您的信息将被清空且无法找回，您确定要注销账户吗？", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "确定", style: .default) { _ in
+            LoginManager.requestAccountDelete { success in
+            }
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
         }
