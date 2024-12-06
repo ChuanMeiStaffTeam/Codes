@@ -96,6 +96,7 @@
 		F3223B7A2D016D8C00E74574 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B792D016D8C00E74574 /* MineViewModel.swift */; };
 		F3223B7C2D01848F00E74574 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B7B2D01848F00E74574 /* Tools.swift */; };
 		F3223B802D02BE6B00E74574 /* 欢喜隐私协议.docx in Resources */ = {isa = PBXBuildFile; fileRef = F3223B7F2D02BE6B00E74574 /* 欢喜隐私协议.docx */; };
+		F3223B832D03441D00E74574 /* SHFullscreenPopGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B812D03441D00E74574 /* SHFullscreenPopGesture.swift */; };
 		F3245DCE2CF6F6BD006657B3 /* Pods_huanxi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3245DCD2CF6F6BD006657B3 /* Pods_huanxi.framework */; };
 		F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */; };
 		F333FB852CFE9C0B00E0E0B2 /* DocumentPreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */; };
@@ -247,6 +248,7 @@
 		F3223B792D016D8C00E74574 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		F3223B7B2D01848F00E74574 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		F3223B7F2D02BE6B00E74574 /* 欢喜隐私协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "欢喜隐私协议.docx"; sourceTree = "<group>"; };
+		F3223B812D03441D00E74574 /* SHFullscreenPopGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHFullscreenPopGesture.swift; sourceTree = "<group>"; };
 		F3245DCD2CF6F6BD006657B3 /* Pods_huanxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_huanxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxQLPreviewController.swift; sourceTree = "<group>"; };
 		F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreviewer.swift; sourceTree = "<group>"; };
@@ -638,6 +640,14 @@
 			path = viewmodel;
 			sourceTree = "<group>";
 		};
+		F3223B822D03441D00E74574 /* SHFullscreenPopGestureSwift */ = {
+			isa = PBXGroup;
+			children = (
+				F3223B812D03441D00E74574 /* SHFullscreenPopGesture.swift */,
+			);
+			path = SHFullscreenPopGestureSwift;
+			sourceTree = "<group>";
+		};
 		F39F6DD52CDA7ADB00CFF8B5 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -671,6 +681,7 @@
 		F39F6DDC2CDE792900CFF8B5 /* widget */ = {
 			isa = PBXGroup;
 			children = (
+				F3223B822D03441D00E74574 /* SHFullscreenPopGestureSwift */,
 				F39F6E0A2CE2400500CFF8B5 /* share */,
 				F39F6DFB2CE133AD00CFF8B5 /* LoadMoreControl.swift */,
 				F39F6DEE2CE1284200CFF8B5 /* customLabel */,
@@ -1018,6 +1029,7 @@
 				042598032C2ABB0400482282 /* InfiniteCarousel.swift in Sources */,
 				39B7943E2B989A3E0048C996 /* EditPhotoCell.swift in Sources */,
 				39066F632C50EEA4003D347E /* RegisterViewController.swift in Sources */,
+				F3223B832D03441D00E74574 /* SHFullscreenPopGesture.swift in Sources */,
 				04F23E4F2C0F00050078809E /* ChatViewController.swift in Sources */,
 				04BCDA352C13063100437222 /* TextSizeCalculator.swift in Sources */,
 				39E9080F2C26BAC40017B83B /* SearchTagViewController.swift in Sources */,

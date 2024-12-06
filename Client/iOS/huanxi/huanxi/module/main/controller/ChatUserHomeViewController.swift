@@ -13,7 +13,6 @@ class ChatUserHomeViewController: BaseViewController {
     var constrainerView: MineConstrainerView!
 
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = false
     }
     
     override func viewDidLoad() {

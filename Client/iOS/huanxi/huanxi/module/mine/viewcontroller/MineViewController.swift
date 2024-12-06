@@ -21,7 +21,6 @@ class MineViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
         LoginManager.requestUserInfo { [weak self] success in
             guard let `self` = self else { return }
             self.reloadUserInfo()
@@ -31,6 +30,7 @@ class MineViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        sh_prefersNavigationBarHidden = true
     }
     
     

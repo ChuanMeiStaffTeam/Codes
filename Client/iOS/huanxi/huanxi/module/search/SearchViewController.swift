@@ -15,12 +15,12 @@ class SearchViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        sh_prefersNavigationBarHidden = true
+
         setupView()
         
         searchTagsView.reloadData(["IGTV", "旅游", "设计", "家居", "美食", "景点"])
