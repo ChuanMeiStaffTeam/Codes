@@ -43,12 +43,14 @@ class PhotoAlbumManager {
                 let fetchOptions = PHFetchOptions()
                 fetchOptions.fetchLimit = 50 // 限制最多获取 50 张照片
                 fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)] // 按创建时间降序排列
+                // 添加过滤条件，仅获取静态图片（排除视频和实况图片）
+                fetchOptions.predicate = NSPredicate(format: "mediaType == %d AND NOT (mediaSubtype == %d)", PHAssetMediaType.image.rawValue, PHAssetMediaSubtype.photoLive.rawValue)
                 
                 // 设置图片加载选项
                 let requestOptions = PHImageRequestOptions()
-                requestOptions.deliveryMode = .highQualityFormat // 加载高质量图片
-                requestOptions.isNetworkAccessAllowed = true    // 允许从 iCloud 加载
-                requestOptions.isSynchronous = false            // 异步加载
+                requestOptions.deliveryMode = .fastFormat       // 底质量图片
+                requestOptions.isNetworkAccessAllowed = true     // 允许从 iCloud 加载
+                requestOptions.isSynchronous = false           // 异步加载
                 
                 // 获取所有相册
                 let albums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: nil)
@@ -77,7 +79,7 @@ class PhotoAlbumManager {
                 for asset in allAssets {
                     PHImageManager.default().requestImage(
                         for: asset,
-                        targetSize: CGSize(width: 200, height: 200), // 设置目标大小，避免加载全分辨率
+                        targetSize: CGSize(width: 500, height: 500), // 设置目标大小，避免加载全分辨率
                         contentMode: .aspectFill,
                         options: requestOptions
                     ) { image, _ in
@@ -136,8 +138,9 @@ class PhotoAlbumManager {
     func fetchOriginalImage(for asset: PHAsset, completion: @escaping (UIImage?) -> Void) {
         DispatchQueue.global().async {
             let requestOptions = PHImageRequestOptions()
-            requestOptions.deliveryMode = .highQualityFormat
-
+            requestOptions.deliveryMode = .highQualityFormat // 高质量图片
+            requestOptions.isNetworkAccessAllowed = true     // 允许从 iCloud 加载
+            requestOptions.isSynchronous = true             // 同步加载
             PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: requestOptions) { image, _ in
                 DispatchQueue.main.async {
                     completion(image)

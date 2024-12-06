@@ -18,6 +18,8 @@ class PublishViewController: BaseViewController {
     let photoAlbumView = PhotoAlbumView()
     
     let editImageView = UIImageView()
+    let editImageViewActivityIndicator = UIActivityIndicatorView(style: .medium)
+
     let editView = UIView()
     let albumNameLabel = UILabel()
     let albumArrow = UIImageView()
@@ -38,8 +40,6 @@ class PublishViewController: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-//        requestImageData()
     }
     
     func requestImageData() {
@@ -68,6 +68,13 @@ class PublishViewController: BaseViewController {
         editImageView.frame = CGRect.init(x: 0, y: .topSafeAreaHeight+40, width: .screenWidth, height: 400)
         editImageView.contentMode = .scaleAspectFit
         view.addSubview(editImageView)
+        
+        // 配置指示器
+        editImageViewActivityIndicator.color = .gray
+        editImageView.addSubview(editImageViewActivityIndicator)
+        editImageViewActivityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
        
         setupEditView()
         
@@ -229,10 +236,18 @@ extension PublishViewController: PhotoAlbumViewDelegate {
             return
         }
         self.indexs = indexs
-//        editImageView.image = allImages[indexs.last ?? 0]
         let asset = allAssets[indexs.last ?? 0]
+        
+        //先设置缩略图，再异步加载原图
+        let thumpImage = allImages[indexs.last ?? 0]
+        self.editImageView.image = thumpImage
+        // 启动指示器
+        editImageViewActivityIndicator.startAnimating()
         self.photoAlbumManager.fetchOriginalImage(for: asset) { image in
-            self.editImageView.image = image
+            DispatchQueue.main.async {
+                self.editImageView.image = image
+                self.editImageViewActivityIndicator.stopAnimating()
+            }
         }
     }
     
