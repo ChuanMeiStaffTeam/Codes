@@ -18,6 +18,8 @@ target 'huanxi' do
   pod 'NIMSDK_LITE', '9.16.5'
   #矢量动画框架
   pod 'lottie-ios'
+  #上拉加载 下拉刷新
+  pod 'MJRefresh'
 end
 
 post_install do |installer|

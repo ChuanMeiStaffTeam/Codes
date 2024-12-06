@@ -8,6 +8,7 @@
 import UIKit
 import SwiftUI
 import Combine
+import MJRefresh
 
 class MainViewController: BaseViewController {
     
@@ -52,6 +53,13 @@ class MainViewController: BaseViewController {
         tableView.snp.makeConstraints { make in
             make.edges.equalTo(0)
         }
+        let header = MJRefreshNormalHeader { [weak self] in
+            guard let self = self else { return }
+            self.refrehData()
+        }.autoChangeTransparency(true)
+        .link(to: tableView)
+//        header.lastUpdatedTimeLabel?.isHidden = true
+        header.stateLabel?.isHidden = true
     }
     
     func setupNavView() {
@@ -87,16 +95,12 @@ class MainViewController: BaseViewController {
     
     private func refrehData() {
         viewModel.requestHomePosts { [weak self] result in
-            guard let `self` = self else { return }
-//            self.mainList = self.viewModel.mainList
+            guard let self = self else { return }
+            self.tableView.mj_header?.endRefreshing()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
-//        self.mainList = self.viewModel.mainList
-//        DispatchQueue.main.async {
-//            self.tableView.reloadData()
-//        }
     }
     
     @objc func gotoDirect() {
