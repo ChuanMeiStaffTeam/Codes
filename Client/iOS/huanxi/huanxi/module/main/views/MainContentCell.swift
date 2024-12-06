@@ -74,7 +74,9 @@ class MainContentCell: UITableViewCell {
             countryLabel.text = model?.location
             likeNumLabel.text = String(format: "%d次点赞", model?.likesCount ?? 0)
             contentLabel.text = model?.caption
-            dateLabel.text = model?.createdAt
+            
+            let timestamp = Date.convertToTimestamp(dateString: model?.createdAt ?? "2024-11-12 16:02:02", format: .standard)
+            dateLabel.text = Date.formatTime(timeInterval: TimeInterval(timestamp ?? 0))
             
             likeBtn.setImage(UIImage.init(named: (model?.liked ?? false) ? "post_like" : "post_unlike"), for: .normal)
             collectBtn.isSelected = model?.favorite ?? false

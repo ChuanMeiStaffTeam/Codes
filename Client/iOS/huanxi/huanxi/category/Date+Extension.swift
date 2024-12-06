@@ -8,6 +8,16 @@
 import Foundation
 
 extension Date {
+    
+    /// 日期格式枚举
+    enum DateFormat: String {
+        case standard = "yyyy-MM-dd HH:mm:ss"
+        case shortDate = "yyyy-MM-dd"
+        case fullDate = "yyyy-MM-dd HH:mm:ss.SSS"
+        case custom = ""
+    }
+    
+    /// 帖子时间线
     static func formatTime(timeInterval:TimeInterval) -> String {
         let date = Date.init(timeIntervalSince1970: timeInterval)
         let formatter = DateFormatter.init()
@@ -20,10 +30,10 @@ extension Date {
             }
         } else {
             if date.isYestoday() {
-                formatter.dateFormat = "昨天HH:mm"
+                formatter.dateFormat = "昨天"
                 return formatter.string(from: date)
             } else if date.isCurrentWeek() {
-                formatter.dateFormat = date.dateToWeekday() + "HH:mm"
+                formatter.dateFormat = date.dateToWeekday()
                 return formatter.string(from: date)
             } else {
                 if date.isCurrentYear() {
@@ -33,6 +43,41 @@ extension Date {
                 }
                 return formatter.string(from: date)
             }
+        }
+    }
+    
+    /// 将日期字符串转换为时间戳
+    /// - Parameters:
+    ///   - dateString: 日期字符串
+    ///   - format: 日期格式，使用 DateFormat 枚举
+    ///   - customFormat: 如果选择 .custom，则需要传入具体的日期格式
+    ///   - timeZone: 时区，默认为本地时区
+    /// - Returns: 时间戳 (Int)，如果转换失败返回 nil
+    static func convertToTimestamp(
+        dateString: String,
+        format: DateFormat,
+        customFormat: String? = nil,
+        timeZone: TimeZone = .current
+    ) -> Int? {
+        let dateFormatter = DateFormatter()
+        
+        switch format {
+        case .custom:
+            guard let custom = customFormat, !custom.isEmpty else {
+                print("自定义格式不能为空")
+                return nil
+            }
+            dateFormatter.dateFormat = custom
+        default:
+            dateFormatter.dateFormat = format.rawValue
+        }
+        
+        dateFormatter.timeZone = timeZone
+        
+        if let date = dateFormatter.date(from: dateString) {
+            return Int(date.timeIntervalSince1970)
+        } else {
+            return nil
         }
     }
     
