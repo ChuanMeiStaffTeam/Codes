@@ -71,6 +71,12 @@ class MainViewModel {
                 self.userList = data?.users ?? []
                 self.dataList.append(self.userList)
                 self.dataList.append(contentsOf: self.postsList)
+                
+                let recommend = MainModel(type: "recommend", users: [])
+                if self.dataList.count > 5 {
+                    self.dataList.insert(recommend, at: 4)
+                }
+                
             } else {
                 HUDHelper.showToast(message)
             }

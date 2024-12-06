@@ -95,10 +95,10 @@
 		39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA112B931D3D00A10FE6 /* PhotoAlbumManager.swift */; };
 		F3223B7A2D016D8C00E74574 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B792D016D8C00E74574 /* MineViewModel.swift */; };
 		F3223B7C2D01848F00E74574 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B7B2D01848F00E74574 /* Tools.swift */; };
+		F3223B802D02BE6B00E74574 /* 欢喜隐私协议.docx in Resources */ = {isa = PBXBuildFile; fileRef = F3223B7F2D02BE6B00E74574 /* 欢喜隐私协议.docx */; };
 		F3245DCE2CF6F6BD006657B3 /* Pods_huanxi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3245DCD2CF6F6BD006657B3 /* Pods_huanxi.framework */; };
 		F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */; };
 		F333FB852CFE9C0B00E0E0B2 /* DocumentPreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */; };
-		F333FB902CFEA34500E0E0B2 /* 欢喜隐私协议.docx in Resources */ = {isa = PBXBuildFile; fileRef = F333FB8E2CFEA34500E0E0B2 /* 欢喜隐私协议.docx */; };
 		F333FB912CFEA34500E0E0B2 /* 欢喜用户协议.docx in Resources */ = {isa = PBXBuildFile; fileRef = F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */; };
 		F39F6DD22CD962D200CFF8B5 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DD12CD962D200CFF8B5 /* Api.swift */; };
 		F39F6DD42CDA753A00CFF8B5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DD32CDA753A00CFF8B5 /* MainView.swift */; };
@@ -246,10 +246,10 @@
 		CCA9A2110F87E34A74D9BC07 /* Pods-huanxi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanxi.release.xcconfig"; path = "Target Support Files/Pods-huanxi/Pods-huanxi.release.xcconfig"; sourceTree = "<group>"; };
 		F3223B792D016D8C00E74574 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		F3223B7B2D01848F00E74574 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		F3223B7F2D02BE6B00E74574 /* 欢喜隐私协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "欢喜隐私协议.docx"; sourceTree = "<group>"; };
 		F3245DCD2CF6F6BD006657B3 /* Pods_huanxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_huanxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxQLPreviewController.swift; sourceTree = "<group>"; };
 		F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreviewer.swift; sourceTree = "<group>"; };
-		F333FB8E2CFEA34500E0E0B2 /* 欢喜隐私协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "欢喜隐私协议.docx"; sourceTree = "<group>"; };
 		F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "欢喜用户协议.docx"; sourceTree = "<group>"; };
 		F39F6DD12CD962D200CFF8B5 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		F39F6DD32CDA753A00CFF8B5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -654,8 +654,8 @@
 			isa = PBXGroup;
 			children = (
 				F39F6DDA2CDBCDAD00CFF8B5 /* Lottie Files */,
-				F333FB8E2CFEA34500E0E0B2 /* 欢喜隐私协议.docx */,
 				F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */,
+				F3223B7F2D02BE6B00E74574 /* 欢喜隐私协议.docx */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -847,8 +847,8 @@
 				397216892B81E8F1007D0F2B /* Assets.xcassets in Resources */,
 				F3E7861E2CEC761700EC2251 /* InfoPlist.strings in Resources */,
 				F3E7861A2CEC6FBE00EC2251 /* Localizable.strings in Resources */,
+				F3223B802D02BE6B00E74574 /* 欢喜隐私协议.docx in Resources */,
 				397216872B81E8EC007D0F2B /* Main.storyboard in Resources */,
-				F333FB902CFEA34500E0E0B2 /* 欢喜隐私协议.docx in Resources */,
 				F333FB912CFEA34500E0E0B2 /* 欢喜用户协议.docx in Resources */,
 				F39F6DDB2CDBCDAD00CFF8B5 /* heart.json in Resources */,
 				F3F80E882CEA17C900008887 /* LaunchScreen.xib in Resources */,

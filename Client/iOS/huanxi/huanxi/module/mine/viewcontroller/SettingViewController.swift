@@ -85,14 +85,13 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = SettingItemCell.init(style: .default, reuseIdentifier: "cell")
-        
         let title = dataList[indexPath.row]
         cell.titleLabel.text = title
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 58
+        return 64
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -100,8 +99,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         bgView.frame = CGRect.init(x: 0, y: 0, width: .screenWidth, height: 60)
 
         let btn = UIButton.init(type: .custom)
-        btn.backgroundColor = UIColor.black_forground
-        btn.frame = CGRect.init(x: 0, y: 10, width: .screenWidth, height: 50)
+//        btn.backgroundColor = UIColor.black_forground
+        btn.frame = CGRect.init(x: 0, y: 20, width: .screenWidth, height: 40)
         btn.setTitle("退出登录", for: .normal)
         btn.setTitleColor(.red, for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
@@ -148,7 +147,7 @@ class SettingItemCell: UITableViewCell {
     
     let bgView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.black_forground
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -176,7 +175,7 @@ class SettingItemCell: UITableViewCell {
         
         contentView.addSubview(bgView)
         bgView.snp.makeConstraints { make in
-            make.edges.equalTo(UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0))
+            make.edges.equalTo(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         }
         
         bgView.addSubview(titleLabel)
@@ -190,6 +189,16 @@ class SettingItemCell: UITableViewCell {
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-16)
             make.width.height.equalTo(12)
+        }
+        
+        let line = UIView()
+        line.backgroundColor = UIColor.init(hexString: "#666666")
+        bgView.addSubview(line)
+        line.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16)
+            make.bottom.equalToSuperview().offset(0)
+            make.right.equalToSuperview().offset(0)
+            make.height.equalTo(0.5)
         }
         
     }

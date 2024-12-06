@@ -129,11 +129,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             cell.model = post
             cell.indexPath = indexPath
             return cell
+        } else if model is MainModel {
+            let cell = tableView.dequeueReusableCell(withIdentifier: MainRecommendCell.identifier, for: indexPath) as! MainRecommendCell
+            return cell
         }
-//        else if model.type == "recommend" {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: MainRecommendCell.identifier, for: indexPath) as! MainRecommendCell
-//            return cell
-//        }
         return UITableViewCell()
     }
     
@@ -146,10 +145,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             let post = model as! PostModel
             let contentH = post.caption?.height(withConstrainedWidth: UIDevice.screenWidth - 20, font: .systemFont(ofSize: 14)) ?? 16
             return 570 + (contentH > 50 ? 50 : contentH)
+        } else if model is MainModel {
+            return 330
         }
-//        else if model.type == "recommend" {
-//            return 330
-//        }
         return 0
     }
     
