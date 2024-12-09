@@ -60,7 +60,7 @@ class MainViewModel {
 
     func requestHomePosts(completion: @escaping (Bool) -> Void) {
         NetworkManager.shared.getRequest(
-            path: "postImage/queryHomePosts",
+            path: LoginManager.shared.isLogin() ? "postImage/queryHomePosts" : "postImage/visitorGetPost",
             parameters: nil,
             responseType: PostsResponse.self
         ) { [weak self] success, message, data in

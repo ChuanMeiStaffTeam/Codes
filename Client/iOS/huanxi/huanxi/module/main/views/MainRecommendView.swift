@@ -97,7 +97,7 @@ class CustomCell: UICollectionViewCell {
         button.layer.masksToBounds = true
         button.setTitle("关注", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.addTarget(CustomCell.self, action: #selector(followButtonTapped), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(followButtonTapped), for: .touchUpInside)
         return button
     }()
     
