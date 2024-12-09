@@ -1293,8 +1293,8 @@
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = CH2X87N5DP;
 				ENABLE_BITCODE = NO;
-				EXCLUDED_ARCHS = "armv7 arm64";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "armv7 arm64";
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = huanxi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "欢喜";
