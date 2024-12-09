@@ -56,7 +56,7 @@ extension TabBarController: UITabBarControllerDelegate {
         guard let targetIndex = viewControllers.firstIndex(of: viewController) else { return true }
         
         // 如果是 Message、Update 或 Mine，需要检查登录
-        if targetIndex == 1 || targetIndex == 2 || targetIndex == 3 || targetIndex == 4 {
+        if targetIndex == 2 || targetIndex == 3 || targetIndex == 4 {
             if !LoginManager.shared.isLogin() {
                 // 未登录时弹出登录界面
                 Task {
