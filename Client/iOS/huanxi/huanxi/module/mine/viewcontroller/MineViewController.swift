@@ -21,9 +21,11 @@ class MineViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        LoginManager.requestUserInfo { [weak self] success in
-            guard let `self` = self else { return }
-            self.reloadUserInfo()
+        if LoginManager.shared.isLogin() {
+            LoginManager.requestUserInfo { [weak self] success in
+                guard let `self` = self else { return }
+                self.reloadUserInfo()
+            }
         }
     }
     

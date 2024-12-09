@@ -195,7 +195,6 @@ extension MainViewController: MainContentCellDelegate {
                         }
                     }
                 }
-                }
             }
         } else {
             if !data.liked {
