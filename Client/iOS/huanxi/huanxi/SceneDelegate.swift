@@ -5,7 +5,6 @@
 //  Created by jack on 2024/2/18.
 //
 
-import NIMSDK
 import UIKit
 // import IQKeyboardManagerSwift
 
@@ -48,24 +47,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             guard let strongSelf = self else { return }
             DispatchQueue.main.async {
                 strongSelf.window?.makeKeyAndVisible()
-                if LoginManager.shared.isLogin() {
-                    let tabbar = TabBarController()
-                    strongSelf.window?.rootViewController = tabbar
-                } else {
-                    let loginVC = LoginViewController()
-                    loginVC.closeBtn.isHidden = true
-                    strongSelf.window?.rootViewController = loginVC
-                }
+                let tabbar = TabBarController()
+                strongSelf.window?.rootViewController = tabbar
+                
+                NIMManager.register()
             }
-            strongSelf.configNIMSDK()
         } adHandler: {
         }
     }
 
-    func configNIMSDK() {
-        let option = NIMSDKOption(appKey: "7b801e694e564050c0a8f344094edfba")
-        NIMSDK.shared().register(with: option)
-    }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

@@ -21,5 +21,13 @@ class BaseViewController: UIViewController {
         
     }
     
+    @objc func onBackTap() {
+        if (self.navigationController != nil) && (self.navigationController?.viewControllers.count ?? 0) > 1 {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true)
+        }
+    }
+    
 }
 

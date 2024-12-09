@@ -86,7 +86,13 @@ extension LoginManager {
                 }
                 if let userInfo = data?.userinfo {
                     LoginManager.shared.updateUserInfo(info: userInfo)
+                    HUDHelper.showToast("@\(userInfo.fullName ?? "") 登录成功")
                 }
+                NotificationCenter.default.post(
+                    name: .refreshMainPageNotification,
+                    object: nil,
+                    userInfo: nil
+                )
             } else {
                 HUDHelper.showToast(message)
             }
@@ -118,10 +124,14 @@ extension LoginManager {
             if success {
                 LoginManager.shared.logout()
 
-                let loginVC = LoginViewController()
+                NotificationCenter.default.post(
+                    name: .refreshMainPageNotification,
+                    object: nil,
+                    userInfo: nil
+                )
                 let topVC = WindowHelper.topViewController()
-                loginVC.modalPresentationStyle = .fullScreen
-                topVC?.present(loginVC, animated: true)
+                topVC?.tabBarController?.selectedIndex = 0
+                topVC?.navigationController?.popToRootViewController(animated: false)
             } else {
                 HUDHelper.showToast(message)
             }
@@ -136,10 +146,14 @@ extension LoginManager {
             if success {
                 LoginManager.shared.logout()
 
-                let loginVC = LoginViewController()
+                NotificationCenter.default.post(
+                    name: .refreshMainPageNotification,
+                    object: nil,
+                    userInfo: nil
+                )
                 let topVC = WindowHelper.topViewController()
-                loginVC.modalPresentationStyle = .fullScreen
-                topVC?.present(loginVC, animated: true)
+                topVC?.tabBarController?.selectedIndex = 0
+                topVC?.navigationController?.popToRootViewController(animated: false)
             } else {
                 HUDHelper.showToast(message)
             }

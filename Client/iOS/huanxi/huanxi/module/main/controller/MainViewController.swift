@@ -35,7 +35,7 @@ class MainViewController: BaseViewController {
         refrehData()
         
         // 使用 Combine 订阅通知
-        cancellable = NotificationCenter.default.publisher(for: .postPublishSuccessNotification)
+        cancellable = NotificationCenter.default.publisher(for: .refreshMainPageNotification)
             .sink { notification in
                 self.refrehData()
             }
@@ -160,32 +160,71 @@ extension MainViewController: MainContentCellDelegate {
     }
     
     func didClickLike(_ data: PostModel, indexPath: IndexPath?) {
-        if !data.liked {
-            viewModel.requestLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
-                guard let `self` = self else { return }
-                if success {
-                    DispatchQueue.main.async {
+        
+        if !LoginManager.shared.isLogin() {
+            Task {
+                let loginResult = await LoginViewController.startLogin()
+                if loginResult {
+                    if !data.liked {
+                        viewModel.requestLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
+                            guard let `self` = self else { return }
+                            if success {
+                                DispatchQueue.main.async {
+                                    let index = indexPath?.row ?? 0
+                                    var post = self.viewModel.dataList[index] as! PostModel
+                                    post.liked = true
+                                    post.likesCount = (post.likesCount ?? 0) + 1
+                                    self.viewModel.dataList[index] = post
+                                    let indexPath = IndexPath(row: index, section: 0)
+                                    self.tableView.reloadRows(at: [indexPath], with: .none)
+                                }
+                            }
+                        }
+                    } else {
+                        viewModel.requestCancelLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
+                            guard let `self` = self else { return }
+                            if success {
+                                let index = indexPath?.row ?? 0
+                                var post = self.viewModel.dataList[index] as! PostModel
+                                post.liked = false
+                                post.likesCount = (post.likesCount ?? 0) - 1
+                                self.viewModel.dataList[index] = post
+                                let indexPath = IndexPath(row: index, section: 0)
+                                self.tableView.reloadRows(at: [indexPath], with: .none)
+                            }
+                        }
+                    }
+                }
+                }
+            }
+        } else {
+            if !data.liked {
+                viewModel.requestLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
+                    guard let `self` = self else { return }
+                    if success {
+                        DispatchQueue.main.async {
+                            let index = indexPath?.row ?? 0
+                            var post = self.viewModel.dataList[index] as! PostModel
+                            post.liked = true
+                            post.likesCount = (post.likesCount ?? 0) + 1
+                            self.viewModel.dataList[index] = post
+                            let indexPath = IndexPath(row: index, section: 0)
+                            self.tableView.reloadRows(at: [indexPath], with: .none)
+                        }
+                    }
+                }
+            } else {
+                viewModel.requestCancelLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
+                    guard let `self` = self else { return }
+                    if success {
                         let index = indexPath?.row ?? 0
                         var post = self.viewModel.dataList[index] as! PostModel
-                        post.liked = true
-                        post.likesCount = (post.likesCount ?? 0) + 1
+                        post.liked = false
+                        post.likesCount = (post.likesCount ?? 0) - 1
                         self.viewModel.dataList[index] = post
                         let indexPath = IndexPath(row: index, section: 0)
                         self.tableView.reloadRows(at: [indexPath], with: .none)
                     }
-                }
-            }
-        } else {
-            viewModel.requestCancelLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
-                guard let `self` = self else { return }
-                if success {
-                    let index = indexPath?.row ?? 0
-                    var post = self.viewModel.dataList[index] as! PostModel
-                    post.liked = false
-                    post.likesCount = (post.likesCount ?? 0) - 1
-                    self.viewModel.dataList[index] = post
-                    let indexPath = IndexPath(row: index, section: 0)
-                    self.tableView.reloadRows(at: [indexPath], with: .none)
                 }
             }
         }

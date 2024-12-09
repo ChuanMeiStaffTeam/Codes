@@ -97,6 +97,8 @@
 		F3223B7C2D01848F00E74574 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B7B2D01848F00E74574 /* Tools.swift */; };
 		F3223B802D02BE6B00E74574 /* 欢喜隐私协议.docx in Resources */ = {isa = PBXBuildFile; fileRef = F3223B7F2D02BE6B00E74574 /* 欢喜隐私协议.docx */; };
 		F3223B832D03441D00E74574 /* SHFullscreenPopGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B812D03441D00E74574 /* SHFullscreenPopGesture.swift */; };
+		F3223B852D06077400E74574 /* File.txt in Resources */ = {isa = PBXBuildFile; fileRef = F3223B842D06077400E74574 /* File.txt */; };
+		F3223B882D0676F400E74574 /* NIMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B872D0676F400E74574 /* NIMManager.swift */; };
 		F3245DCE2CF6F6BD006657B3 /* Pods_huanxi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3245DCD2CF6F6BD006657B3 /* Pods_huanxi.framework */; };
 		F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */; };
 		F333FB852CFE9C0B00E0E0B2 /* DocumentPreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */; };
@@ -249,6 +251,8 @@
 		F3223B7B2D01848F00E74574 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		F3223B7F2D02BE6B00E74574 /* 欢喜隐私协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "欢喜隐私协议.docx"; sourceTree = "<group>"; };
 		F3223B812D03441D00E74574 /* SHFullscreenPopGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHFullscreenPopGesture.swift; sourceTree = "<group>"; };
+		F3223B842D06077400E74574 /* File.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = File.txt; sourceTree = "<group>"; };
+		F3223B872D0676F400E74574 /* NIMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIMManager.swift; sourceTree = "<group>"; };
 		F3245DCD2CF6F6BD006657B3 /* Pods_huanxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_huanxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxQLPreviewController.swift; sourceTree = "<group>"; };
 		F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreviewer.swift; sourceTree = "<group>"; };
@@ -390,6 +394,7 @@
 		392CF11A2B8F15240070637E /* viewModel */ = {
 			isa = PBXGroup;
 			children = (
+				F3223B842D06077400E74574 /* File.txt */,
 				392CF1092B8EC8700070637E /* MainViewModel.swift */,
 				04BCDA322C1301AA00437222 /* ChatMessageManager.swift */,
 			);
@@ -432,6 +437,7 @@
 		3972167E2B81E8EC007D0F2B /* huanxi */ = {
 			isa = PBXGroup;
 			children = (
+				F3223B862D0676D400E74574 /* manager */,
 				F39F6E0F2CEA01F800CFF8B5 /* launch */,
 				392CF1022B8D789E0070637E /* network */,
 				F39F6DDC2CDE792900CFF8B5 /* widget */,
@@ -648,6 +654,14 @@
 			path = SHFullscreenPopGestureSwift;
 			sourceTree = "<group>";
 		};
+		F3223B862D0676D400E74574 /* manager */ = {
+			isa = PBXGroup;
+			children = (
+				F3223B872D0676F400E74574 /* NIMManager.swift */,
+			);
+			path = manager;
+			sourceTree = "<group>";
+		};
 		F39F6DD52CDA7ADB00CFF8B5 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -855,6 +869,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3223B852D06077400E74574 /* File.txt in Resources */,
 				397216892B81E8F1007D0F2B /* Assets.xcassets in Resources */,
 				F3E7861E2CEC761700EC2251 /* InfoPlist.strings in Resources */,
 				F3E7861A2CEC6FBE00EC2251 /* Localizable.strings in Resources */,
@@ -1039,6 +1054,7 @@
 				39066F612C50E2DB003D347E /* LoginViewController.swift in Sources */,
 				F3F80E862CEA087F00008887 /* LaunchManager.swift in Sources */,
 				3998DE352BB59F0E0000C4DD /* UpdatesEarlierCell.swift in Sources */,
+				F3223B882D0676F400E74574 /* NIMManager.swift in Sources */,
 				392CF1062B8D7C5D0070637E /* UIView+FrameExtension.swift in Sources */,
 				398FF3472B90177D00565C8C /* HUDHelper.swift in Sources */,
 				399739532C61C04A00D4DD8C /* WindowHelper.swift in Sources */,

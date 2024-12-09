@@ -12,10 +12,9 @@ class LoginViewController: BaseViewController {
     let accountTF = UITextField()
     let pwdTF = UITextField()
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
+    // 用于存储登录结果的 continuation
+    private var loginContinuation: CheckedContinuation<Bool, Never>?
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         sh_prefersNavigationBarHidden = true
@@ -120,6 +119,7 @@ class LoginViewController: BaseViewController {
     
     
     @objc func closeAction() {
+        loginContinuation?.resume(returning: false)
         self.dismiss(animated: true)
     }
     
@@ -147,12 +147,29 @@ class LoginViewController: BaseViewController {
             "password": pwd
         ]
         
-        LoginManager.requestLogin(params: params) { success in
+        LoginManager.requestLogin(params: params) { [weak self] success in
+            guard let self = self else { return }
             if success {
-                let tabbar = TabBarController()
-                WindowHelper.currentWindow()?.rootViewController = tabbar
+                self.onBackTap()
+                self.loginContinuation?.resume(returning: true)
+            } else {
+                self.loginContinuation?.resume(returning: false)
             }
         }
     }
     
+    // 异步方法，外部调用此方法以等待登录结果
+    static func startLogin() async -> Bool {
+        await withCheckedContinuation { continuation in
+            let loginVC = LoginViewController()
+            loginVC.loginContinuation = continuation
+            loginVC.modalPresentationStyle = .fullScreen
+
+            // 确保 UI 在主线程上操作
+            DispatchQueue.main.async {
+                let topVC = WindowHelper.topViewController()
+                topVC?.present(loginVC, animated: true)
+            }
+        }
+    }
 }

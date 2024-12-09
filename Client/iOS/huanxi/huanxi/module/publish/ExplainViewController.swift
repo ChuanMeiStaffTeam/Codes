@@ -135,7 +135,7 @@ class ExplainViewController: BaseViewController {
             if success {
                 HUDHelper.showToast("帖子发布成功")
                 NotificationCenter.default.post(
-                    name: .postPublishSuccessNotification,
+                    name: .refreshMainPageNotification,
                     object: nil,
                     userInfo: nil
                 )

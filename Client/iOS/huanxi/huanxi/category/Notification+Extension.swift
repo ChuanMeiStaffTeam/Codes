@@ -24,5 +24,5 @@ extension Notification {
 
 
 extension Notification.Name {
-    static let postPublishSuccessNotification = Notification.Name("postPublishSuccessNotification")
+    static let refreshMainPageNotification = Notification.Name("refreshMainPageNotification")
 }

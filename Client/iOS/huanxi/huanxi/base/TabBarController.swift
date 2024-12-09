@@ -51,11 +51,36 @@ class TabBarController: UITabBarController {
 extension TabBarController: UITabBarControllerDelegate {
 
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if viewController == tabBarController.viewControllers?[2] {
-            let vcToPresent = PublishViewController()
-            vcToPresent.modalPresentationStyle = .fullScreen
-            present(vcToPresent, animated: true, completion: nil)
-            return false // 防止第三个 tab 被选中
+        guard let viewControllers = viewControllers else { return false }
+        // 获取目标视图控制器的索引
+        guard let targetIndex = viewControllers.firstIndex(of: viewController) else { return true }
+        
+        // 如果是 Message、Update 或 Mine，需要检查登录
+        if targetIndex == 1 || targetIndex == 2 || targetIndex == 3 || targetIndex == 4 {
+            if !LoginManager.shared.isLogin() {
+                // 未登录时弹出登录界面
+                Task {
+                    let loginResult = await LoginViewController.startLogin()
+                    if loginResult {
+                        if targetIndex == 2 {
+                            let vcToPresent = PublishViewController()
+                            vcToPresent.modalPresentationStyle = .fullScreen
+                            present(vcToPresent, animated: true, completion: nil)
+                        } else {
+                            // 登录成功后切到首页
+                            self.selectedIndex = 0
+                        }
+                    }
+                }
+                return false // 阻止切换到目标 Tab
+            } else {
+                if targetIndex == 2 {
+                    let vcToPresent = PublishViewController()
+                    vcToPresent.modalPresentationStyle = .fullScreen
+                    present(vcToPresent, animated: true, completion: nil)
+                    return false // 阻止切换到目标 Tab
+                }
+            }
         }
         return true
     }
