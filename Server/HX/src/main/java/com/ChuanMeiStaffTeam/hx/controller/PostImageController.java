@@ -6,7 +6,6 @@ import com.ChuanMeiStaffTeam.hx.model.SysImage;
 import com.ChuanMeiStaffTeam.hx.model.SysPost;
 import com.ChuanMeiStaffTeam.hx.model.User;
 import com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage;
-import com.ChuanMeiStaffTeam.hx.model.vo.paramPost;
 import com.ChuanMeiStaffTeam.hx.service.IFavoriteService;
 import com.ChuanMeiStaffTeam.hx.service.ILikeService;
 import com.ChuanMeiStaffTeam.hx.service.IPostsImage;
@@ -150,7 +149,7 @@ public class PostImageController {
         DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
         Integer userid = Integer.parseInt(tokenInfo.getClaim("userid").asString());
         // 查询帖子信息
-        List<SysPostImage> sysPostImages = postsImageService.selectByUserId(userid);
+        List<SysPost> sysPostImages = postsImageService.selectByUserId(userid);
         if (sysPostImages == null || sysPostImages.isEmpty()) {
             log.info("帖子为空");
             return AppResult.failed("帖子为空");
@@ -199,7 +198,7 @@ public class PostImageController {
         Integer userid = Integer.parseInt(tokenInfo.getClaim("userid").asString());
         // 查询帖子信息
         // 查询所有的帖子信息,并将帖子信息中的图片信息查询出来,设置到SysPostImage对象中
-        List<SysPostImage> sysPostImages = postsImageService.selectAllPosts(userid);
+        List<SysPost> sysPostImages = postsImageService.selectAllPosts(userid);
         if (sysPostImages == null || sysPostImages.isEmpty()) {
             log.info("帖子为空");
             return AppResult.failed("帖子为空");
@@ -515,7 +514,7 @@ public class PostImageController {
         if (keyword == null || keyword.trim().isEmpty()) {
             return AppResult.failed("搜索关键字不能为空");
         }
-        List<SysPostImage> sysPostImages = postsImageService.searchPosts(keyword);
+        List<SysPost> sysPostImages = postsImageService.searchPosts(keyword);
         if (sysPostImages == null || sysPostImages.isEmpty()) {
             log.info("没有搜索到相关帖子");
             return AppResult.failed("没有搜索到相关帖子");
@@ -523,6 +522,24 @@ public class PostImageController {
         Map<String, Object> map = new HashMap<>();
         map.put("list", sysPostImages);
         log.info("搜索帖子成功");
+        return AppResult.success(map);
+    }
+
+
+    // 游客获取帖子接口
+    @GetMapping("/visitorGetPost")
+    @ApiOperation(value = "游客获取帖子接口")
+    public AppResult visitorGetPost() {
+        List<SysPost> sysPostImages = postsImageService.selectAllPosts(null);
+        if (sysPostImages == null || sysPostImages.isEmpty()) {
+            log.info("帖子为空");
+            return AppResult.failed("帖子为空");
+        }
+        List<User> users = userService.RandomUser(6);
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", sysPostImages);
+        map.put("users", users);
+        log.info("游客获取主页帖子和推荐用户获取成功");
         return AppResult.success(map);
     }
 

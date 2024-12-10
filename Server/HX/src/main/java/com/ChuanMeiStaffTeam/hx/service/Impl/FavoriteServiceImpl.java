@@ -78,6 +78,9 @@ public class FavoriteServiceImpl extends ServiceImpl<FavoriteMapper, SysFavorite
 
     @Override
     public boolean isFavorite(Integer postId, Integer userId) {
+        if(postId == null || userId == null) {
+            return false;
+        }
         // 判断当前用户是否已经收藏
         QueryWrapper<SysFavorite> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("post_id", postId).eq("user_id", userId);

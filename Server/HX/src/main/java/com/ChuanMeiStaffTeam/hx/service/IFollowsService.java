@@ -38,5 +38,5 @@ public interface IFollowsService extends IService<SysFollows> {
     List<User> getFansList(Integer userId);
 
     // 获取关注的帖子列表 userList 为关注列表
-    List<List<SysPostImage>> getFollowPostList(List<User> userList);
+    List<List<SysPost>> getFollowPostList(List<User> userList);
 }

@@ -133,11 +133,11 @@ public class FollowsServiceImpl extends ServiceImpl<FollowsMapper, SysFollows> i
     }
 
     @Override
-    public List<List<SysPostImage>> getFollowPostList(List<User> userList) {
-        List<List<SysPostImage>> postList = new ArrayList<>();
+    public List<List<SysPost>> getFollowPostList(List<User> userList) {
+        List<List<SysPost>> postList = new ArrayList<>();
         if (userList != null && userList.size() > 0) {
             for (User user : userList) {
-                List<SysPostImage> userPostList = postService.getPostListByUserId(user.getUserId());
+                List<SysPost> userPostList = postService.getPostListByUserId(user.getUserId());
                 if(userPostList!= null && userPostList.size() > 0) {
                     postList.add(userPostList);
                 }

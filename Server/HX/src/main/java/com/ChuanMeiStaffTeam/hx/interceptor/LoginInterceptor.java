@@ -45,6 +45,10 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Map<String, Object> map = new HashMap<>();
+        String uri = request.getRequestURI(); // 获取请求的URI
+        if("/favicon.ico".equals(uri)) {
+            return true;
+        }
         // 获取 token
         String token = request.getHeader("token");
         // 验证 token

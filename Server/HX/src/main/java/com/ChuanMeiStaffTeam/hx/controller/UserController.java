@@ -63,7 +63,7 @@ public class UserController {
         String username = params.get("username");
         String password = params.get("password");
         // 检查登录失败时间是否到期
-        if (redisTemplate.opsForValue().get(username) != null) {
+        if (redisTemplate.opsForValue().get(username+"lock") != null) {
             return AppResult.failed(ResultCode.FAILED_LOGIN_LIMIT.getMessage());
         }
         // 判断用户名是否存在
@@ -80,7 +80,7 @@ public class UserController {
             if (user.getLoginAttempts() >= ConfigKey.login_count) {
                 log.error(ResultCode.FAILED_LOGIN_LIMIT.getMessage());
                 // 在 redis 中设置登录失败次数过多的用户的锁定状态，并设置过期时间5分钟
-                redisTemplate.opsForValue().set(username, user, 300, TimeUnit.SECONDS);  // 设置redis缓存 过期时间为5分钟
+                redisTemplate.opsForValue().set(username+"lock", user, 300, TimeUnit.SECONDS);  // 设置redis缓存 过期时间为5分钟
                 return AppResult.failed(ResultCode.FAILED_LOGIN_LIMIT.getMessage());
             }
             throw new ApplicationException(ResultCode.FAILED_LOGIN.getMessage());

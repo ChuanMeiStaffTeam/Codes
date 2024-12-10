@@ -110,6 +110,9 @@ public class SysPost {
     private User user;
 
     @TableField(exist = false)   // 不在数据库中创建该字段
+    private List<SysImage> images;
+
+    @TableField(exist = false)   // 不在数据库中创建该字段
     private boolean isLiked; // 是否点赞
     @TableField(exist = false)   // 不在数据库中创建该字段
     private boolean isFavorite; // 是否收藏

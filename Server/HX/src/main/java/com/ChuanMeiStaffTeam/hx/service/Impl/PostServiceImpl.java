@@ -112,39 +112,23 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
     }
 
     @Override
-    public List<SysPostImage> selectAllPosts(Integer userId) {
+    public List<SysPost> selectAllPosts(Integer userId) {
         // 查询所有 按照时间降序
         QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("created_at");
         List<SysPost> sysPosts = postMapper.selectList(queryWrapper);  // sql: select * from sys_post order by created_at desc
         // 将sysPosts转换为SysPostImage  并设置图片
-        List<SysPostImage> sysPostImages = new ArrayList<>();
         for (SysPost sysPost : sysPosts) {
-            SysPostImage sysPostImage = new SysPostImage();
-            sysPostImage.setPostId(sysPost.getPostId());
-            sysPostImage.setUserId(sysPost.getUserId());
-            sysPostImage.setCaption(sysPost.getCaption());
-            sysPostImage.setLocation(sysPost.getLocation());
-            sysPostImage.setLikesCount(sysPost.getLikesCount());
-            sysPostImage.setCreatedAt(sysPost.getCreatedAt());
-            sysPostImage.setUpdatedAt(sysPost.getUpdatedAt());
-            sysPostImage.setCommentsCount(sysPost.getCommentsCount());
-            sysPostImage.setPublic(sysPost.isPublic());
-            sysPostImage.setTags(sysPost.getTags());
-            sysPostImage.setDeleted(sysPost.isDeleted());
-            sysPostImage.setVisibility(sysPost.getVisibility());
-            sysPostImage.setFavoriteCount(sysPost.getFavoriteCount());
             // 设置用户是否收藏  并设置用户是否点赞
-            sysPostImage.setLiked(!likeService.isLiked(sysPostImage.getPostId(),userId));  // 设置用户是否点赞
-            sysPostImage.setFavorite(favoriteService.isFavorite(sysPostImage.getPostId(),userId));  // 设置用户是否收藏
+            sysPost.setLiked(!likeService.isLiked(sysPost.getPostId(),userId));  // 设置用户是否点赞
+            sysPost.setFavorite(favoriteService.isFavorite(sysPost.getPostId(),userId));  // 设置用户是否收藏
             // 设置用户信息
-            sysPostImage.setUser(userService.getUserByUserId(sysPost.getUserId()));
+            sysPost.setUser(userService.getUserByUserId(sysPost.getUserId()));
             // 设置图片
-            List<SysImage> sysImages = selectPostImagesByPostId(sysPostImage.getPostId());
-            sysPostImage.setImages(sysImages);
-            sysPostImages.add(sysPostImage);
+            List<SysImage> sysImages = selectPostImagesByPostId(sysPost.getPostId());
+            sysPost.setImages(sysImages);
         }
-        return sysPostImages;
+        return sysPosts;
     }
 
     @Override
@@ -195,36 +179,20 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
     }
 
     @Override
-    public List<SysPostImage> getPostListByUserId(Integer userId) {
+    public List<SysPost> getPostListByUserId(Integer userId) {
         QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id",userId);
         List<SysPost> sysPosts = postMapper.selectList(queryWrapper);
-        List<SysPostImage> sysPostImages = new ArrayList<>();
         for (SysPost sysPost : sysPosts) {
-            SysPostImage sysPostImage = new SysPostImage();
-            sysPostImage.setPostId(sysPost.getPostId());
-            sysPostImage.setUserId(sysPost.getUserId());
-            sysPostImage.setCaption(sysPost.getCaption());
-            sysPostImage.setLocation(sysPost.getLocation());
-            sysPostImage.setLikesCount(sysPost.getLikesCount());
-            sysPostImage.setCreatedAt(sysPost.getCreatedAt());
-            sysPostImage.setUpdatedAt(sysPost.getUpdatedAt());
-            sysPostImage.setCommentsCount(sysPost.getCommentsCount());
-            sysPostImage.setPublic(sysPost.isPublic());
-            sysPostImage.setTags(sysPost.getTags());
-            sysPostImage.setDeleted(sysPost.isDeleted());
-            sysPostImage.setVisibility(sysPost.getVisibility());
-            sysPostImage.setFavoriteCount(sysPost.getFavoriteCount());
             // 设置图片
-            List<SysImage> sysImages = selectPostImagesByPostId(sysPostImage.getPostId());
-            sysPostImage.setImages(sysImages);
-            sysPostImages.add(sysPostImage);
+            List<SysImage> sysImages = selectPostImagesByPostId(sysPost.getPostId());
+            sysPost.setImages(sysImages);
         }
-        return sysPostImages;
+        return sysPosts;
     }
 
     @Override
-    public List<SysPostImage> searchPosts(String keyword) {
+    public List<SysPost> searchPosts(String keyword) {
         QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
         String key = "%" + keyword + "%";
         queryWrapper.like("caption",key);
@@ -232,57 +200,24 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
         if(sysPosts == null || sysPosts.size() == 0) {
             return null;
         }
-        List<SysPostImage> sysPostImages = new ArrayList<>();
         for (SysPost sysPost : sysPosts) {
-            SysPostImage sysPostImage = new SysPostImage();
-            sysPostImage.setPostId(sysPost.getPostId());
-            sysPostImage.setUserId(sysPost.getUserId());
-            sysPostImage.setCaption(sysPost.getCaption());
-            sysPostImage.setLocation(sysPost.getLocation());
-            sysPostImage.setLikesCount(sysPost.getLikesCount());
-            sysPostImage.setCreatedAt(sysPost.getCreatedAt());
-            sysPostImage.setUpdatedAt(sysPost.getUpdatedAt());
-            sysPostImage.setCommentsCount(sysPost.getCommentsCount());
-            sysPostImage.setPublic(sysPost.isPublic());
-            sysPostImage.setTags(sysPost.getTags());
-            sysPostImage.setDeleted(sysPost.isDeleted());
-            sysPostImage.setVisibility(sysPost.getVisibility());
-            sysPostImage.setFavoriteCount(sysPost.getFavoriteCount());
-            // 设置图片
-            List<SysImage> sysImages = selectPostImagesByPostId(sysPostImage.getPostId());
-            sysPostImage.setImages(sysImages);
-            sysPostImages.add(sysPostImage);
+            List<SysImage> sysImages = selectPostImagesByPostId(sysPost.getPostId());
+            sysPost.setImages(sysImages);
         }
-        return sysPostImages;
+        return sysPosts;
     }
 
     @Override
-    public List<SysPostImage> selectByUserId(Integer userId) {
+    public List<SysPost> selectByUserId(Integer userId) {
         QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id",userId);
         List<SysPost> sysPosts = postMapper.selectList(queryWrapper);
         List<SysPostImage> sysPostImages = new ArrayList<>();
         for (SysPost sysPost : sysPosts) {
-            SysPostImage sysPostImage = new SysPostImage();
-            sysPostImage.setPostId(sysPost.getPostId());
-            sysPostImage.setUserId(sysPost.getUserId());
-            sysPostImage.setCaption(sysPost.getCaption());
-            sysPostImage.setLocation(sysPost.getLocation());
-            sysPostImage.setLikesCount(sysPost.getLikesCount());
-            sysPostImage.setCreatedAt(sysPost.getCreatedAt());
-            sysPostImage.setUpdatedAt(sysPost.getUpdatedAt());
-            sysPostImage.setCommentsCount(sysPost.getCommentsCount());
-            sysPostImage.setPublic(sysPost.isPublic());
-            sysPostImage.setTags(sysPost.getTags());
-            sysPostImage.setDeleted(sysPost.isDeleted());
-            sysPostImage.setVisibility(sysPost.getVisibility());
-            sysPostImage.setFavoriteCount(sysPost.getFavoriteCount());
-            // 设置图片
-            List<SysImage> sysImages = selectPostImagesByPostId(sysPostImage.getPostId());
-            sysPostImage.setImages(sysImages);
-            sysPostImages.add(sysPostImage);
+            List<SysImage> sysImages = selectPostImagesByPostId(sysPost.getPostId());
+            sysPost.setImages(sysImages);
         }
-        return sysPostImages;
+        return sysPosts;
     }
 
     @Override

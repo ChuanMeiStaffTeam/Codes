@@ -40,7 +40,7 @@ public interface IPostsImage extends IService<SysPost> {
 
 
     // 查询所有帖子
-    List<SysPostImage> selectAllPosts(Integer UserId);
+    List<SysPost> selectAllPosts(Integer UserId);
 
 
 
@@ -60,14 +60,14 @@ public interface IPostsImage extends IService<SysPost> {
 
 
     // 根据用户id查询帖子列表
-    List<SysPostImage> getPostListByUserId(Integer userId);
+    List<SysPost> getPostListByUserId(Integer userId);
 
     // 搜索帖子
-    List<SysPostImage> searchPosts(String keyword);
+    List<SysPost> searchPosts(String keyword);
 
 
     // 根据用户id查询帖子列表 (不带具体用户信息)
-    List<SysPostImage> selectByUserId(Integer userId);
+    List<SysPost> selectByUserId(Integer userId);
 
 
     // 根据用户id删除用户所有帖子

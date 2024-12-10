@@ -184,11 +184,11 @@ public class FollowsController {
         List<User> followsList = followsService.getFollowsList(userId);
         log.info("关注列表：" + followsList);
           //followsList 为空时
-        if(followsList.size() == 0) {
+        if(followsList == null || followsList.size() == 0) {
             return AppResult.success("","您还没有关注任何用户");
         }
-        //  根据用户关注列表查询帖子列表todo
-        List<List<SysPostImage>> followPostList = followsService.getFollowPostList(followsList);
+        //  根据用户关注列表查询帖子列表
+        List<List<SysPost>> followPostList = followsService.getFollowPostList(followsList);
         if(followPostList.size() == 0) {
             return AppResult.success("","您关注的用户还没有发表帖子");
         }

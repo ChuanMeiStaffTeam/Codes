@@ -20,7 +20,8 @@ public class AppInterceptorConfigurer implements WebMvcConfigurer {
                 // 排除swagger接口
                 .excludePathPatterns("/api/sms/**")
                 .excludePathPatterns("/swagger-ui.html/**", "/webjars/**", "/v2/**", "/swagger-resources/**")
-                .excludePathPatterns("/api/user/**"); // 排除登录  注册接口
+                .excludePathPatterns("/api/user/**")  // 排除登录  注册接口
+                .excludePathPatterns("/api/postImage/visitorGetPost");  // 排除游客获取帖子接口
 
     }
 }
