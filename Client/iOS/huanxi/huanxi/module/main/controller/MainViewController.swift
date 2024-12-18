@@ -155,8 +155,22 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension MainViewController: MainContentCellDelegate {
-    func didClickMore(_ data: PostModel) {
-
+    func didClickMore(_ data: PostModel, indexPath: IndexPath?) {
+        let postMorePopView = PostMorePopView()
+        postMorePopView.show(data)
+        postMorePopView.trashButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            postMorePopView.close()
+            self.requestDeletePost(data, indexPath: indexPath)
+        }).disposed(by: disposeBag)
+        postMorePopView.briefcaseButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            let vc = UserBriefVC()
+            vc.user = data.user
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+            postMorePopView.close()
+        }).disposed(by: disposeBag)
     }
     
     func didClickLike(_ data: PostModel, indexPath: IndexPath?) {
@@ -239,5 +253,26 @@ extension MainViewController: MainContentCellDelegate {
     
     func didClickMark(_ data: PostModel) {
    
+    }
+}
+
+extension MainViewController {
+    
+    func requestDeletePost(_ data: PostModel, indexPath: IndexPath?)  {
+        self.viewModel.requestDeletePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
+            guard let `self` = self else { return }
+            if success {
+                DispatchQueue.main.async {
+                    let index = indexPath?.row ?? 0
+                    let indexPath = IndexPath(row: index, section: 0)
+
+                    // 1. 更新数据源
+                    self.viewModel.dataList.remove(at: index)
+                    
+                    // 2. 更新 tableView
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
+        }
     }
 }

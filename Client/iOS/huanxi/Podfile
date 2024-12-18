@@ -20,6 +20,9 @@ target 'huanxi' do
   pod 'lottie-ios'
   #上拉加载 下拉刷新
   pod 'MJRefresh'
+  #RxSwift
+  pod 'RxSwift', '~> 6.8.0'
+  pod 'RxCocoa', '~> 6.8.0'
 end
 
 post_install do |installer|

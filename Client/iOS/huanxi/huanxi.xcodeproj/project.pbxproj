@@ -103,6 +103,14 @@
 		F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */; };
 		F333FB852CFE9C0B00E0E0B2 /* DocumentPreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */; };
 		F333FB912CFEA34500E0E0B2 /* 欢喜用户协议.docx in Resources */ = {isa = PBXBuildFile; fileRef = F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */; };
+		F37388022D110AF80072CE77 /* PostMorePopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37388012D110AF80072CE77 /* PostMorePopView.swift */; };
+		F37388042D1127660072CE77 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37388032D1127660072CE77 /* ReusableView.swift */; };
+		F37388062D1129950072CE77 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37388052D1129920072CE77 /* BaseView.swift */; };
+		F373880C2D11C6C90072CE77 /* Button+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373880B2D11C6C90072CE77 /* Button+Extension.swift */; };
+		F373880E2D12646A0072CE77 /* UserBriefVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373880D2D12646A0072CE77 /* UserBriefVC.swift */; };
+		F37388112D12F6340072CE77 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37388102D12F6340072CE77 /* SearchViewModel.swift */; };
+		F373881A2D1314E90072CE77 /* WaterfallMutiSectionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37388192D1314E90072CE77 /* WaterfallMutiSectionFlowLayout.swift */; };
+		F373881D2D13224C0072CE77 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F373881C2D13224C0072CE77 /* BaseViewModel.swift */; };
 		F39F6DD22CD962D200CFF8B5 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DD12CD962D200CFF8B5 /* Api.swift */; };
 		F39F6DD42CDA753A00CFF8B5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6DD32CDA753A00CFF8B5 /* MainView.swift */; };
 		F39F6DDB2CDBCDAD00CFF8B5 /* heart.json in Resources */ = {isa = PBXBuildFile; fileRef = F39F6DD92CDBCDAD00CFF8B5 /* heart.json */; };
@@ -257,6 +265,14 @@
 		F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxQLPreviewController.swift; sourceTree = "<group>"; };
 		F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreviewer.swift; sourceTree = "<group>"; };
 		F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "欢喜用户协议.docx"; sourceTree = "<group>"; };
+		F37388012D110AF80072CE77 /* PostMorePopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMorePopView.swift; sourceTree = "<group>"; };
+		F37388032D1127660072CE77 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
+		F37388052D1129920072CE77 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		F373880B2D11C6C90072CE77 /* Button+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extension.swift"; sourceTree = "<group>"; };
+		F373880D2D12646A0072CE77 /* UserBriefVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBriefVC.swift; sourceTree = "<group>"; };
+		F37388102D12F6340072CE77 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		F37388192D1314E90072CE77 /* WaterfallMutiSectionFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallMutiSectionFlowLayout.swift; sourceTree = "<group>"; };
+		F373881C2D13224C0072CE77 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		F39F6DD12CD962D200CFF8B5 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		F39F6DD32CDA753A00CFF8B5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F39F6DD92CDBCDAD00CFF8B5 /* heart.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = heart.json; sourceTree = "<group>"; };
@@ -387,6 +403,7 @@
 				392CF1132B8ECE570070637E /* MainUserCell.swift */,
 				392CF1152B8ECE640070637E /* MainRecommendCell.swift */,
 				392CF1172B8ECE720070637E /* MainContentCell.swift */,
+				F37388012D110AF80072CE77 /* PostMorePopView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -408,6 +425,7 @@
 				04F23E442C0EE4330078809E /* DirectViewController.swift */,
 				04F23E4E2C0F00050078809E /* ChatViewController.swift */,
 				04D16F732C1BDC6C00D0BF61 /* ChatUserHomeViewController.swift */,
+				F373880D2D12646A0072CE77 /* UserBriefVC.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -479,10 +497,13 @@
 		397216AF2B81EA14007D0F2B /* base */ = {
 			isa = PBXGroup;
 			children = (
+				F37388052D1129920072CE77 /* BaseView.swift */,
+				F37388032D1127660072CE77 /* ReusableView.swift */,
 				397216B02B81EA57007D0F2B /* NavigationController.swift */,
 				397216B22B81EA6A007D0F2B /* TabBarController.swift */,
 				397216B42B81EA79007D0F2B /* BaseViewController.swift */,
 				39AB75162C94342100440E5A /* WebViewController.swift */,
+				F373881C2D13224C0072CE77 /* BaseViewModel.swift */,
 			);
 			path = base;
 			sourceTree = "<group>";
@@ -515,6 +536,7 @@
 		397216B82B820FA0007D0F2B /* search */ = {
 			isa = PBXGroup;
 			children = (
+				F373880F2D12F60E0072CE77 /* viewmodel */,
 				39E908102C26C4070017B83B /* waterfall */,
 				39E908092C26B1440017B83B /* views */,
 				397216C22B8249FC007D0F2B /* SearchViewController.swift */,
@@ -578,6 +600,7 @@
 		399318312B82E9F500F6D069 /* category */ = {
 			isa = PBXGroup;
 			children = (
+				F373880B2D11C6C90072CE77 /* Button+Extension.swift */,
 				392CF1052B8D7C5D0070637E /* UIView+FrameExtension.swift */,
 				392CF1072B8D7E8F0070637E /* CGFloat+LayoutExtension.swift */,
 				398FF3482B901BEA00565C8C /* UIColor+Extension.swift */,
@@ -613,7 +636,6 @@
 		39E908102C26C4070017B83B /* waterfall */ = {
 			isa = PBXGroup;
 			children = (
-				39FABA0D2B930B5000A10FE6 /* WaterfallFlowLayout.swift */,
 				39E908112C26C4200017B83B /* WaterfallCollectionViewCell.swift */,
 				39E908132C26C46F0017B83B /* WaterfallCollectionView.swift */,
 			);
@@ -662,6 +684,23 @@
 			path = manager;
 			sourceTree = "<group>";
 		};
+		F373880F2D12F60E0072CE77 /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				F37388102D12F6340072CE77 /* SearchViewModel.swift */,
+			);
+			path = viewmodel;
+			sourceTree = "<group>";
+		};
+		F373881B2D1321470072CE77 /* WaterfallFlowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				F37388192D1314E90072CE77 /* WaterfallMutiSectionFlowLayout.swift */,
+				39FABA0D2B930B5000A10FE6 /* WaterfallFlowLayout.swift */,
+			);
+			path = WaterfallFlowLayout;
+			sourceTree = "<group>";
+		};
 		F39F6DD52CDA7ADB00CFF8B5 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -695,6 +734,7 @@
 		F39F6DDC2CDE792900CFF8B5 /* widget */ = {
 			isa = PBXGroup;
 			children = (
+				F373881B2D1321470072CE77 /* WaterfallFlowLayout */,
 				F3223B822D03441D00E74574 /* SHFullscreenPopGestureSwift */,
 				F39F6E0A2CE2400500CFF8B5 /* share */,
 				F39F6DFB2CE133AD00CFF8B5 /* LoadMoreControl.swift */,
@@ -957,6 +997,7 @@
 				3998DE332BB031FF0000C4DD /* EditPhotosView.swift in Sources */,
 				39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */,
 				04F23E482C0EE6AF0078809E /* DirectChatCell.swift in Sources */,
+				F373881D2D13224C0072CE77 /* BaseViewModel.swift in Sources */,
 				39066F652C514853003D347E /* DataUtil.swift in Sources */,
 				3998DE372BB59F270000C4DD /* UpdatesThisMonthCell.swift in Sources */,
 				39E908242C287C630017B83B /* UITextField+Extension.swift in Sources */,
@@ -1007,6 +1048,8 @@
 				39066F672C51E15B003D347E /* LoginManager.swift in Sources */,
 				397216B12B81EA57007D0F2B /* NavigationController.swift in Sources */,
 				397216BD2B8249D9007D0F2B /* UpdatesViewController.swift in Sources */,
+				F37388062D1129950072CE77 /* BaseView.swift in Sources */,
+				F373880C2D11C6C90072CE77 /* Button+Extension.swift in Sources */,
 				F39F6E0C2CE2404E00CFF8B5 /* PostSharePopView.swift in Sources */,
 				F39F6DE92CE1277400CFF8B5 /* DrawerView.swift in Sources */,
 				F39F6E022CE1465500CFF8B5 /* Date+Extension.swift in Sources */,
@@ -1026,7 +1069,9 @@
 				397216802B81E8EC007D0F2B /* AppDelegate.swift in Sources */,
 				F39F6E062CE1727800CFF8B5 /* CommentsListCell.swift in Sources */,
 				F3F80E8A2CEA3EF700008887 /* TransAnimator.swift in Sources */,
+				F373881A2D1314E90072CE77 /* WaterfallMutiSectionFlowLayout.swift in Sources */,
 				04F0D1A82BFAEC0D00FFE128 /* EditHomePageViewController.swift in Sources */,
+				F373880E2D12646A0072CE77 /* UserBriefVC.swift in Sources */,
 				397216B32B81EA6A007D0F2B /* TabBarController.swift in Sources */,
 				F39F6E092CE22D8600CFF8B5 /* CommentTextView.swift in Sources */,
 				04BCDA312C12F80400437222 /* ChatTextCell.swift in Sources */,
@@ -1041,13 +1086,16 @@
 				39AB75132C93271B00440E5A /* LanguageViewController.swift in Sources */,
 				399739552C6B3BA600D4DD8C /* ResponseModel.swift in Sources */,
 				39E9081A2C2874D40017B83B /* SearchResultsViewController.swift in Sources */,
+				F37388112D12F6340072CE77 /* SearchViewModel.swift in Sources */,
 				042598032C2ABB0400482282 /* InfiniteCarousel.swift in Sources */,
 				39B7943E2B989A3E0048C996 /* EditPhotoCell.swift in Sources */,
 				39066F632C50EEA4003D347E /* RegisterViewController.swift in Sources */,
 				F3223B832D03441D00E74574 /* SHFullscreenPopGesture.swift in Sources */,
 				04F23E4F2C0F00050078809E /* ChatViewController.swift in Sources */,
+				F37388042D1127660072CE77 /* ReusableView.swift in Sources */,
 				04BCDA352C13063100437222 /* TextSizeCalculator.swift in Sources */,
 				39E9080F2C26BAC40017B83B /* SearchTagViewController.swift in Sources */,
+				F37388022D110AF80072CE77 /* PostMorePopView.swift in Sources */,
 				39AB75112C93224900440E5A /* InputCodeViewController.swift in Sources */,
 				F39F6DED2CE1280F00CFF8B5 /* Interpolation.swift in Sources */,
 				39E908162C2872CF0017B83B /* SearchBarView.swift in Sources */,

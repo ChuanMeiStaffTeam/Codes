@@ -7,18 +7,19 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class BaseViewController: UIViewController {
     
+    var disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupBaseView()
     }
     
     func setupBaseView() {
         view.backgroundColor = .black
-        
     }
     
     @objc func onBackTap() {

@@ -3,7 +3,7 @@
 //  DrawerView
 //
 //  Created by Mikko Välimäki on 2017-10-28.
-//  Copyright © 2017 Mikko Välimäki. All rights reserved.
+//  版权所有 © 2017 Mikko Välimäki. 保留所有权利。
 //
 
 import UIKit
@@ -21,20 +21,20 @@ let dateFormatter: DateFormatter = {
 }()
 
 @objc public enum DrawerPosition: Int {
-    case closed = 0
-    case collapsed = 1
-    case partiallyOpen = 2
-    case open = 3
+    case closed = 0 // 关闭
+    case collapsed = 1 // 折叠
+    case partiallyOpen = 2 // 部分打开
+    case open = 3 // 完全打开
 }
 
 extension DrawerPosition: CustomStringConvertible {
 
     public var description: String {
         switch self {
-        case .closed: return "closed"
-        case .collapsed: return "collapsed"
-        case .partiallyOpen: return "partiallyOpen"
-        case .open: return "open"
+        case .closed: return "closed" // 关闭
+        case .collapsed: return "collapsed" // 折叠
+        case .partiallyOpen: return "partiallyOpen" // 部分打开
+        case .open: return "open" // 完全打开
         }
     }
 }
@@ -42,47 +42,52 @@ extension DrawerPosition: CustomStringConvertible {
 fileprivate extension DrawerPosition {
 
     static var allPositions: [DrawerPosition] {
-        return [.closed, .collapsed, .partiallyOpen, .open]
+        return [.closed, .collapsed, .partiallyOpen, .open] // 所有抽屉位置
     }
 
     static let activePositions: [DrawerPosition] = allPositions
-        .filter { $0 != .closed }
+        .filter { $0 != .closed } // 过滤掉关闭的状态
 
     static let openPositions: [DrawerPosition] = [
         .open,
         .partiallyOpen
-    ]
+    ] // 打开状态集合
 }
 
-let kVelocityTreshold: CGFloat = 0
+let kVelocityTreshold: CGFloat = 0 // 速度阈值
 
-// Vertical leeway is used to cover the bottom with springy animations.
+// 垂直偏移量用于通过弹簧动画覆盖底部。
 let kVerticalLeeway: CGFloat = 10.0
 
-let kDefaultCornerRadius: CGFloat = 9.0
+let kDefaultCornerRadius: CGFloat = 9.0 // 默认圆角半径
 
-let kDefaultShadowRadius: CGFloat = 1.0
+let kDefaultShadowRadius: CGFloat = 1.0 // 默认阴影半径
 
-let kDefaultShadowOpacity: Float = 0.05
+let kDefaultShadowOpacity: Float = 0.05 // 默认阴影不透明度
 
-let kDefaultBorderColor = UIColor(white: 0.2, alpha: 0.2)
+let kDefaultBorderColor = UIColor(white: 0.2, alpha: 0.2) // 默认边框颜色
 
-let kDefaultOverlayBackgroundColor = UIColor.black
+let kDefaultOverlayBackgroundColor = UIColor.black // 默认覆盖背景颜色
 
-let kOverlayOpacity: CGFloat = 0.5
+let kOverlayOpacity: CGFloat = 0.5 // 覆盖层不透明度
 
 
 @objc public protocol DrawerViewDelegate {
 
     @objc optional func drawer(_ drawerView: DrawerView, willTransitionFrom startPosition: DrawerPosition, to targetPosition: DrawerPosition)
+    // 当抽屉从一个位置过渡到目标位置时调用
 
     @objc optional func drawer(_ drawerView: DrawerView, didTransitionTo position: DrawerPosition)
+    // 当抽屉过渡到某个位置时调用
 
     @objc optional func drawerDidMove(_ drawerView: DrawerView, drawerOffset: CGFloat)
+    // 当抽屉移动时调用
 
     @objc optional func drawerWillBeginDragging(_ drawerView: DrawerView)
+    // 当抽屉开始拖动时调用
 
     @objc optional func drawerWillEndDragging(_ drawerView: DrawerView)
+    // 当抽屉即将停止拖动时调用
 }
 
 private struct ChildScrollViewInfo {
@@ -91,147 +96,145 @@ private struct ChildScrollViewInfo {
     var gestureRecognizers: [UIGestureRecognizer] = []
 }
 
-
 @IBDesignable open class DrawerView: UIView {
 
-    // MARK: - Public types
+    // MARK: - 公共类型
 
-    /// InsetAdjustmentBehavior describes the behavior for inset adjustment. Generally this is used to
-    /// account the safe area of the device.
+    /// InsetAdjustmentBehavior 描述插入调整的行为。通常用于考虑设备的安全区域。
     public enum InsetAdjustmentBehavior: Equatable {
-        /// Evaluate the bottom inset automatically.
+        /// 自动计算底部插入量。
         case automatic
-        /// Evaluate the bottom inset from safe area the superview.
+        /// 从父视图的安全区域计算底部插入量。
         case superviewSafeArea
-        /// Use a fixed value for bottom inset.
+        /// 使用固定值作为底部插入量。
         case fixed(CGFloat)
-        /// No automatic inset adjustment.
+        /// 不进行自动插入调整。
         case never
     }
 
     public enum ContentVisibilityBehavior {
-        /// Hide any content that gets clipped by the bottom inset.
+        /// 隐藏被底部插入量剪裁的任何内容。
         case automatic
-        /// Same as automatic, but hide only content that is completely below the bottom inset
+        /// 类似于 automatic，但只隐藏完全位于底部插入量以下的内容。
         case allowPartial
-        /// Specify explicit views to hide.
+        /// 指定要隐藏的具体视图。
         case custom(() -> [UIView])
-        /// Don't use bottom inset.
+        /// 不使用底部插入量。
         case never
     }
 
     public enum OverlayVisibilityBehavior {
-        /// Show the overlay only when at the topmost position.
+        /// 仅在最顶层位置显示覆盖层。
         case topmostPosition
-        /// Show the overlay when open, either fully or partially.
+        /// 在完全或部分打开时显示覆盖层。
         case whenOpen
-        /// Don't show overlay
+        /// 不显示覆盖层。
         case disabled
     }
 
     public enum OpenHeightBehavior {
-        /// The default, fully expand the drawer when open.
+        /// 默认情况下，抽屉完全展开。
         case none
-        /// Use `systemLayoutSizeFitting` to determine the height of the drawer.
+        /// 使用 `systemLayoutSizeFitting` 来确定抽屉的高度。
         case fitting
-        /// Use fixed height.
+        /// 使用固定高度。
         case fixed(height: CGFloat)
     }
 
     public enum BackgroundEffectStyle {
-        case none
-        case visualEffect(UIVisualEffect)
-        case systemDefault
+        case none // 无效果
+        case visualEffect(UIVisualEffect) // 使用视觉效果
+        case systemDefault // 系统默认效果
     }
 
-    // MARK: - Visual properties
+    // MARK: - 视觉属性
 
-    /// The corner radius of the drawer view.
+    /// 抽屉视图的圆角半径。
     @IBInspectable public var cornerRadius: CGFloat = kDefaultCornerRadius {
         didSet {
-            updateVisuals()
+            updateVisuals() // 更新视觉效果
         }
     }
 
-    /// The shadow radius of the drawer view.
+    /// 抽屉视图的阴影半径。
     @IBInspectable public var shadowRadius: CGFloat = kDefaultShadowRadius {
         didSet {
-            updateVisuals()
+            updateVisuals() // 更新视觉效果
         }
     }
 
-    /// The shadow opacity of the drawer view.
+    /// 抽屉视图的阴影不透明度。
     @IBInspectable public var shadowOpacity: Float = kDefaultShadowOpacity {
         didSet {
-            updateVisuals()
+            updateVisuals() // 更新视觉效果
         }
     }
 
-    /// The used effect for the drawer view background. When set to nil no
-    /// effect is used.
+    /// 抽屉视图背景的使用效果。如果设置为 nil，则不使用任何效果。
     public var backgroundEffect: BackgroundEffectStyle = .systemDefault {
         didSet {
-            updateVisuals()
+            updateVisuals() // 更新视觉效果
         }
     }
 
     public var borderColor: UIColor = kDefaultBorderColor {
         didSet {
-            updateVisuals()
+            updateVisuals() // 更新视觉效果
         }
     }
 
     public var insetAdjustmentBehavior: InsetAdjustmentBehavior = .automatic {
         didSet {
-            setNeedsLayout()
+            setNeedsLayout() // 标记需要布局
         }
     }
 
     public var contentVisibilityBehavior: ContentVisibilityBehavior = .automatic {
         didSet {
-            setNeedsLayout()
+            setNeedsLayout() // 标记需要布局
         }
     }
 
     public var overlayVisibilityBehavior: OverlayVisibilityBehavior = .topmostPosition {
         didSet {
-            updateVisuals()
+            updateVisuals() // 更新视觉效果
         }
     }
 
     public var overlayBackgroundColor: UIColor = kDefaultOverlayBackgroundColor {
         didSet {
-            updateVisuals()
+            updateVisuals() // 更新视觉效果
         }
     }
 
     public var overlayOpacity: CGFloat = kOverlayOpacity {
         didSet {
             setPosition(currentPosition, animated: false, notifyDelegate: false)
+            // 设置抽屉位置，但不通知委托
         }
     }
 
     public var openHeightBehavior: OpenHeightBehavior = .none {
         didSet {
-            setNeedsRespositioning()
+            setNeedsRespositioning() // 标记需要重新定位
         }
     }
 
     public var automaticallyAdjustChildContentInset: Bool = true {
         didSet {
-            safeAreaInsetsDidChange()
+            safeAreaInsetsDidChange() // 当安全区域变化时调用
         }
     }
 
     public override var isHidden: Bool {
         didSet {
-            self.overlay?.isHidden = isHidden
+            self.overlay?.isHidden = isHidden // 更新覆盖层的隐藏状态
         }
     }
 
     public var isConcealed: Bool {
         get {
-            return _isConcealed
+            return _isConcealed // 返回是否被隐藏
         }
         set {
             setConcealed(newValue, animated: false)
@@ -251,12 +254,12 @@ private struct ChildScrollViewInfo {
         }
     }
 
-    // MARK: - Public properties
+    // MARK: - 公共属性
 
     @IBOutlet
     public weak var delegate: DrawerViewDelegate?
 
-    /// The gesture recognizer that will be handling the drawer pan.
+    /// 用于处理抽屉拖动的手势识别器。
     public lazy var panGestureRecognizer: UIPanGestureRecognizer = {
         var panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         panGestureRecognizer.maximumNumberOfTouches = 2
@@ -264,21 +267,16 @@ private struct ChildScrollViewInfo {
         return panGestureRecognizer
     }()
     
-    /// Damping ratio of the spring animation when opening or closing the drawer 
+    /// 开启或关闭抽屉时弹簧动画的阻尼比率。
     public var animationSpringDampingRatio: CGFloat = 0.8
 
-    /// Boolean indicating if the activity drawer should dismiss when you scroll down
-    /// on an internal scrollView after scroll reached top of that view.
+    /// 布尔值，指示活动抽屉是否应该在滚动到底部后关闭。
     public var childScrollViewsPanningCanDismissDrawer = true
 
-    /// Boolean indicating whether the drawer is enabled. When disabled, all user
-    /// interaction with the drawer is disabled. However, user interaction with the
-    /// content is still possible.
+    /// 布尔值，指示抽屉是否启用。当禁用时，抽屉的所有用户交互都被禁用。但对内容的用户交互仍然可能。
     public var enabled: Bool = true
 
-    /// The offset position of the drawer. The offset is measured from the bottom,
-    /// zero meaning the top of the drawer is at the bottom of its superview. Hidden
-    /// drawers will have the same offset as closed ones do.
+    /// 抽屉的位置偏移量。偏移量从底部测量，零表示抽屉顶部位于其父视图的底部。隐藏的抽屉将具有与关闭相同的偏移量。
     public var drawerOffset: CGFloat {
         guard let superview = superview else {
             return 0
@@ -301,13 +299,13 @@ private struct ChildScrollViewInfo {
         return convertScrollPositionToOffset(snapPosition)
     }
 
-    // IB support, not intended to be used otherwise.
+    // 为 Interface Builder 提供支持，其他情况下请不要使用。
     @IBOutlet
     public var containerView: UIView? {
         willSet {
-            // TODO: Instead, check if has been initialized from nib.
+            // TODO: 检查是否已从 nib 初始化。
             if self.superview != nil {
-                abort(reason: "Superview already set, use normal UIView methods to set up the view hierarcy")
+                abort(reason: "Superview 已设置，请使用普通 UIView 方法设置视图层级")
             }
         }
         didSet {
@@ -317,17 +315,16 @@ private struct ChildScrollViewInfo {
         }
     }
 
-    /// Attaches the drawer to the given view. The drawer will update its constraints
-    /// to match the bounds of the target view.
+    /// 将抽屉附加到给定视图。抽屉将更新其约束以匹配目标视图的边界。
     ///
-    /// - parameter view The view to contain the drawer in.
+    /// - 参数 view: 包含抽屉的视图。
     public func attachTo(view: UIView) {
 
         if self.superview == nil {
             self.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(self)
         } else if self.superview !== view {
-            log("Invalid state; superview already set when called attachTo(view:)")
+            log("无效状态；调用 attachTo(view:) 时 superview 已设置")
         }
 
         topConstraint = self.topAnchor.constraint(equalTo: view.topAnchor, constant: self.topMargin)
@@ -350,30 +347,30 @@ private struct ChildScrollViewInfo {
         updateVisuals()
     }
 
-    // TODO: Use size classes with the positions.
+    // TODO: 使用尺寸类管理位置。
 
-    /// The top margin for the drawer when it is at its full height.
+    /// 抽屉在其全高时的顶部边距。
     public var topMargin: CGFloat = 68.0 {
         didSet {
             self.updateSnapPosition(animated: false)
         }
     }
 
-    /// The height of the drawer when collapsed.
+    /// 折叠时的抽屉高度。
     public var collapsedHeight: CGFloat = 68.0 {
         didSet {
             self.updateSnapPosition(animated: false)
         }
     }
 
-    /// The height of the drawer when partially open.
+    /// 部分打开时的抽屉高度。
     public var partiallyOpenHeight: CGFloat = 264.0 {
         didSet {
             self.updateSnapPosition(animated: false)
         }
     }
 
-    /// The current position of the drawer.
+    /// 抽屉的当前状态。
     public var position: DrawerPosition {
         get {
             return currentPosition
@@ -383,13 +380,11 @@ private struct ChildScrollViewInfo {
         }
     }
 
-    /// List of user interactive positions for the drawer. Please note that
-    /// programmatically any position is still possible, this list only
-    /// defines the snap positions for the drawer
+    /// 用户可交互的抽屉状态列表。请注意，编程上仍然可以设置为任何状态，此列表仅定义抽屉的吸附状态。
     public var snapPositions: [DrawerPosition] = DrawerPosition.activePositions {
         didSet {
             if !snapPositions.contains(self.position) {
-                // Current position is not in the given list, default to the most closed one.
+                // 当前状态不在列表中，默认为最关闭的状态。
                 self.setInitialPosition()
             }
             self.heightConstraint?.constant = -self.topSpace
@@ -397,11 +392,10 @@ private struct ChildScrollViewInfo {
     }
 
     public var drawerAnimationDuration: Double = 0.5
-    /// An opacity (0 to 1) used for automatically hiding child views. This is made public so that
-    /// you can match the opacity with your custom views.
+    /// 用于自动隐藏子视图的不透明度（0 到 1）。公开此属性以便您可以与自定义视图匹配不透明度。
     public private(set) var currentChildOpacity: CGFloat = 1.0
 
-    // MARK: - Private properties
+    // MARK: - 私有属性
 
     fileprivate var overlayTapRecognizer: UITapGestureRecognizer!
 
@@ -423,7 +417,7 @@ private struct ChildScrollViewInfo {
 
     private var overlay: Overlay?
 
-    /// Lazily remove the overlay. Needed to lazily remove overlay after animation.
+    /// 延迟移除覆盖层。需要在动画后延迟移除覆盖层。
     private var shouldRemoveOverlay: Bool = false
 
     private let borderView = UIView()
@@ -446,7 +440,7 @@ private struct ChildScrollViewInfo {
 
     private var overlayBottomConstraint: NSLayoutConstraint?
 
-    // MARK: - Initialization
+    // MARK: - 初始化
 
     init() {
         self.embeddedView = nil
@@ -476,9 +470,7 @@ private struct ChildScrollViewInfo {
         NotificationCenter.default.removeObserver(self)
     }
 
-    /// Initialize the drawer with contents of the given view. The
-    /// provided view is added as a child view for the drawer and
-    /// constrained with auto layout from all of its sides.
+    /// 使用给定视图的内容初始化抽屉。提供的视图作为子视图添加到抽屉中，并通过自动布局从所有边约束。
     convenience public init(withView view: UIView) {
         self.init(embeddedView: view)
 
@@ -514,7 +506,8 @@ private struct ChildScrollViewInfo {
         #if swift(>=4.2)
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(handleOrientationChange),
+            selector:
+ #selector(handleOrientationChange),
             name: UIDevice.orientationDidChangeNotification,
             object: nil)
         #else

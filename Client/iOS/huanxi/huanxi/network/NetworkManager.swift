@@ -52,13 +52,10 @@ class NetworkManager {
             case .success(let responseModel):
                 if responseModel.code == 200 {
                     completion(true, responseModel.message, responseModel.data)
-                }else if responseModel.code == 404 {
+                }else if responseModel.code == 402 {
                     LoginManager.shared.logout()
-                    let topVC = WindowHelper.topViewController()
-                    if !((topVC?.isKind(of: LoginViewController.self)) != nil) {
-                        let loginVC = LoginViewController()
-                        loginVC.modalPresentationStyle = .fullScreen
-                        topVC?.present(loginVC, animated: true)
+                    Task {
+                        _ = await LoginViewController.startLogin()
                     }
                     completion(false, responseModel.message, responseModel.data)
                 } else {

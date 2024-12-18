@@ -22,16 +22,27 @@ class WaterfallCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupViews() {
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
         
         contentView.addSubview(imgView)
-        imgView.frame = CGRect.init(x: 2, y: 2, width: width - 4, height: height - 4)
         imgView.contentMode = .scaleAspectFill
         imgView.clipsToBounds = true
-        
-        contentView.backgroundColor = .black
+        imgView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
+
     
-    func configure(with image: String) {
-        imgView.image = UIImage.init(named: image)
+    var model: PostModel? {
+        didSet {
+            if let urlStr = model?.images?.first?.imageUrl {
+                if urlStr.contains("http") {
+                    imgView.kf.setImage(with: URL.init(string: urlStr))
+                } else {
+                    imgView.image = UIImage.init(named: urlStr)
+                }
+            }
+        }
     }
 }

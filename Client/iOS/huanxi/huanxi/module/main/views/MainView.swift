@@ -95,7 +95,7 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension MainView: MainContentCellDelegate {
-    func didClickMore(_ data: PostModel) {
+    func didClickMore(_ data: PostModel, indexPath: IndexPath?) {
 
     }
     

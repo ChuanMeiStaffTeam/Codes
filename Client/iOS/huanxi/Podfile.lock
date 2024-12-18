@@ -9,6 +9,12 @@ PODS:
     - YXArtemis
   - NIMSDK_LITE/NOS (9.16.5):
     - YXArtemis
+  - RxCocoa (6.8.0):
+    - RxRelay (= 6.8.0)
+    - RxSwift (= 6.8.0)
+  - RxRelay (6.8.0):
+    - RxSwift (= 6.8.0)
+  - RxSwift (6.8.0)
   - SnapKit (5.7.1)
   - SwiftyJSON (5.0.2)
   - TOCropViewController (2.7.4)
@@ -21,6 +27,8 @@ DEPENDENCIES:
   - MBProgressHUD
   - MJRefresh
   - NIMSDK_LITE (= 9.16.5)
+  - RxCocoa (~> 6.8.0)
+  - RxSwift (~> 6.8.0)
   - SnapKit
   - SwiftyJSON
   - TOCropViewController
@@ -33,6 +41,9 @@ SPEC REPOS:
     - MBProgressHUD
     - MJRefresh
     - NIMSDK_LITE
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - SnapKit
     - SwiftyJSON
     - TOCropViewController
@@ -45,11 +56,14 @@ SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
   NIMSDK_LITE: 88b7b4dfc47c74fe9790893322af1af1d06050e3
+  RxCocoa: 2d33c1e1e5d66492052ad46b11024ae287572880
+  RxRelay: 335c78b926a2aea8d863a6d25f1ed3b5ad8e8705
+  RxSwift: 4e28be97cbcfeee614af26d83415febbf2bf6f45
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
   YXArtemis: 2771e9ac5e5e01867914835aedb03429d135043e
 
-PODFILE CHECKSUM: c074cb5dcacd24038d2dd24941affe5e80c60c8e
+PODFILE CHECKSUM: 8bc0a94a96c550f607a3eb8c53c42556ffe22770
 
 COCOAPODS: 1.16.1

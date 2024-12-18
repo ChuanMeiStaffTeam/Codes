@@ -94,8 +94,9 @@ class MainViewModel {
         ) { success, message, data in
             if success {
 
+            } else {
+                HUDHelper.showToast(message)
             }
-            HUDHelper.showToast(message)
             completion(success)
         }
     }
@@ -110,8 +111,10 @@ class MainViewModel {
         ) { success, message, data in
             if success {
 
+            } else {
+                HUDHelper.showToast(message)
             }
-            HUDHelper.showToast(message)
+
             completion(success)
         }
     }
@@ -126,8 +129,10 @@ class MainViewModel {
         ) { success, message, data in
             if success {
 
+            } else {
+                HUDHelper.showToast(message)
             }
-            HUDHelper.showToast(message)
+
             completion(success)
         }
     }
@@ -142,8 +147,27 @@ class MainViewModel {
         ) { success, message, data in
             if success {
 
+            } else {
+                HUDHelper.showToast(message)
             }
-            HUDHelper.showToast(message)
+            completion(success)
+        }
+    }
+    
+    func requestDeletePost(
+        params: [String: Any], completion: @escaping (Bool) -> Void
+    ) {
+        NetworkManager.shared.deleteRequest(
+            path: "postImage/deletePost",
+            parameters: params,
+            responseType: String.self
+        ) { success, message, data in
+            if success {
+
+            } else {
+                HUDHelper.showToast(message)
+            }
+
             completion(success)
         }
     }

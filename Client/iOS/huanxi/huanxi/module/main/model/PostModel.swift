@@ -21,7 +21,11 @@ struct PostModel: Codable {
     var location: String?
     var createdAt: String?
     var postId: Int?
+    var userId: Int?
+
     var captionHeight: CGFloat?
+    var imageHeight: CGFloat?
+
 }
 
 struct PostImage: Codable {

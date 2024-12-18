@@ -9,7 +9,7 @@ import UIKit
 import Lottie
 
 protocol MainContentCellDelegate: AnyObject {
-    func didClickMore(_ data: PostModel)
+    func didClickMore(_ data: PostModel, indexPath: IndexPath?)
     
     func didClickLike(_ data: PostModel, indexPath: IndexPath?)
     
@@ -235,10 +235,9 @@ class MainContentCell: UITableViewCell {
     
     
     @objc func moreAction() {
-//        HUDHelper.showToast("点击了更多")
-//        if let delegate = self.delegate {
-//            delegate.didClickMore(model)
-//        }
+        if let delegate = self.delegate {
+            delegate.didClickMore(model ?? PostModel(liked: false), indexPath: indexPath)
+        }
     }
     
     @objc func likeAction() {
