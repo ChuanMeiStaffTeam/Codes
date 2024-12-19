@@ -9,7 +9,7 @@ import UIKit
 
 class SearchSugUserCell: UITableViewCell {
     
-    let iconImgView = UIImageView()
+    let avatar = UIImageView()
     let nameLabel = UILabel()
     let contentLabel = UILabel()
     
@@ -27,10 +27,11 @@ class SearchSugUserCell: UITableViewCell {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         
-        iconImgView.layer.cornerRadius = 24
-        iconImgView.layer.masksToBounds = true
-        contentView.addSubview(iconImgView)
-        iconImgView.snp.makeConstraints { make in
+        avatar.layer.cornerRadius = 24
+        avatar.layer.masksToBounds = true
+        avatar.image = UIImage.init(named: "main_pic_test")
+        contentView.addSubview(avatar)
+        avatar.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(5)
             make.left.equalToSuperview().offset(12)
             make.height.width.equalTo(48)
@@ -40,8 +41,8 @@ class SearchSugUserCell: UITableViewCell {
         nameLabel.font = .boldSystemFont(ofSize: 14)
         contentView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(iconImgView.snp.top).offset(5)
-            make.left.equalTo(iconImgView.snp.right).offset(16)
+            make.top.equalTo(avatar.snp.top).offset(5)
+            make.left.equalTo(avatar.snp.right).offset(16)
             make.right.equalToSuperview().offset(-36)
             make.height.equalTo(20)
         }
@@ -50,8 +51,8 @@ class SearchSugUserCell: UITableViewCell {
         contentLabel.font = .systemFont(ofSize: 14)
         contentView.addSubview(contentLabel)
         contentLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(iconImgView.snp.bottom).offset(-5)
-            make.left.equalTo(iconImgView.snp.right).offset(16)
+            make.bottom.equalTo(avatar.snp.bottom).offset(-5)
+            make.left.equalTo(avatar.snp.right).offset(16)
             make.right.equalToSuperview().offset(-36)
             make.height.equalTo(20)
         }
@@ -62,13 +63,13 @@ class SearchSugUserCell: UITableViewCell {
         didSet {
             if let urlStr = user?.profilePictureUrl {
                 if urlStr.contains("http") {
-                    iconImgView.kf.setImage(with: URL.init(string: urlStr))
+                    avatar.kf.setImage(with: URL.init(string: urlStr))
                 } else {
-                    iconImgView.image = UIImage.init(named: urlStr)
+                    avatar.image = UIImage.init(named: urlStr)
                 }
             }
             nameLabel.text = user?.username ?? "游客"
-            contentLabel.text = user?.bio
+            contentLabel.text = user?.bio ?? user?.email
         }
     }
     

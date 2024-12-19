@@ -55,17 +55,23 @@ class SearchSugViewController: BaseViewController {
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] text in
                 guard let self = self else { return }
-                let isBlank = text?.isEmpty ?? true
+                let trimmedString = text?.trimmingCharacters(in: .whitespacesAndNewlines)
+                let isBlank = trimmedString?.isEmpty ?? true
                 self.popView.isHidden = isBlank
                 if !isBlank {
-                    self.loadData(keyword: text ?? "")
+                    self.loadData(keyword: trimmedString ?? "")
                 }
             })
             .disposed(by: disposeBag)
         headerView.textField.rx.controlEvent(.editingDidEndOnExit)
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
+                
+                // 获取当前输入框中的文本
+                let currentText = self.headerView.textField.text ?? ""
+                
                 let vc = SearchResultsViewController()
+                vc.keyword = currentText
                 vc.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(vc, animated: true)
             })

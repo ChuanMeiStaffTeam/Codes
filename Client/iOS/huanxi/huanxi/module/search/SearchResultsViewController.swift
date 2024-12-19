@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class SearchResultsViewController: BaseViewController {
+    var keyword: String = ""
     private var items: [String] = ["热门搜索", "账户"] // 假设有4个Item
     private var selectedIndex: IndexPath = IndexPath(item: 0, section: 0)
     
@@ -69,6 +70,8 @@ class SearchResultsViewController: BaseViewController {
             make.top.equalTo(topCollectionView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
+        
+        headerView.textField.placeholder = keyword
     }
     
     func bindUI() {
@@ -76,6 +79,13 @@ class SearchResultsViewController: BaseViewController {
             guard let self = self else { return }
             self.navigationController?.popViewController(animated: true)
         }).disposed(by: disposeBag)
+        
+        headerView.textField.rx.controlEvent(.editingDidBegin)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
