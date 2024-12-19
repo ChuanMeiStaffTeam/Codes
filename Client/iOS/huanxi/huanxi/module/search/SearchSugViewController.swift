@@ -51,6 +51,8 @@ class SearchSugViewController: BaseViewController {
         }).disposed(by: disposeBag)
 
         headerView.textField.rx.text
+            .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
             .subscribe(onNext: { [weak self] text in
                 guard let self = self else { return }
                 let isBlank = text?.isEmpty ?? true
@@ -58,6 +60,14 @@ class SearchSugViewController: BaseViewController {
                 if !isBlank {
                     self.loadData(keyword: text ?? "")
                 }
+            })
+            .disposed(by: disposeBag)
+        headerView.textField.rx.controlEvent(.editingDidEndOnExit)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                let vc = SearchResultsViewController()
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)
 

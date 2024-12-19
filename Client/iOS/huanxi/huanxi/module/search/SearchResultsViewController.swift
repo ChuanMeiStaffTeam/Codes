@@ -9,10 +9,10 @@ import UIKit
 import SnapKit
 
 class SearchResultsViewController: BaseViewController {
-    private var items: [String] = ["热门搜索", "账户", "标签", "地点"] // 假设有4个Item
+    private var items: [String] = ["热门搜索", "账户"] // 假设有4个Item
     private var selectedIndex: IndexPath = IndexPath(item: 0, section: 0)
     
-    let searchHeaderView = SearchResultHeaderView(frame: CGRect.init(x: 0, y: 0, width: .screenWidth, height: .topBarHeight))
+    private let headerView = SearchResultHeaderView()
 
     private lazy var topCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -40,36 +40,42 @@ class SearchResultsViewController: BaseViewController {
         return collectionView
     }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
         sh_prefersNavigationBarHidden = true
+        setupViews()
+        bindUI()
     }
     
     private func setupViews() {
         
-        searchHeaderView.backCallBack = { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
+        view.addSubview(headerView)
+        headerView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(UIDevice.sy_navigationFullHeight)
         }
-        view.addSubview(searchHeaderView)
 
         view.addSubview(topCollectionView)
-        view.addSubview(bottomCollectionView)
-        
         topCollectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(CGFloat.topBarHeight)
+            make.top.equalTo(headerView.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(60)
+            make.height.equalTo(45)
         }
         
+        view.addSubview(bottomCollectionView)
         bottomCollectionView.snp.makeConstraints { make in
             make.top.equalTo(topCollectionView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
+    }
+    
+    func bindUI() {
+        headerView.backButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            self.navigationController?.popViewController(animated: true)
+        }).disposed(by: disposeBag)
     }
 }
 
@@ -100,7 +106,7 @@ extension SearchResultsViewController: UICollectionViewDataSource, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == topCollectionView {
-            return CGSize(width: 100, height: 50) // 顶部Item的尺寸
+            return CGSize(width: 80, height: 45)
         } else {
             return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
         }
@@ -111,6 +117,8 @@ extension SearchResultsViewController: UICollectionViewDataSource, UICollectionV
             selectedIndex = indexPath
             topCollectionView.reloadData()
             bottomCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        } else {
+            
         }
     }
     

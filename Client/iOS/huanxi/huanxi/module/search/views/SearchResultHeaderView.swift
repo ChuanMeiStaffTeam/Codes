@@ -9,45 +9,7 @@ import UIKit
 
 class SearchResultHeaderView: UIView {
     
-    var backCallBack: (() ->Void)?
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setupView()
-    }
-    
-    func setupView() {
-        
-        backgroundColor = .black
-        
-        addSubview(textField)
-        textField.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(12)
-            make.right.equalToSuperview().offset(-50)
-            make.bottom.equalToSuperview().offset(-8)
-            make.height.equalTo(32)
-        }
-        
-        let btn = UIButton(type: .custom)
-        btn.setTitle("取消", for: .normal)
-        btn.setTitleColor(.white, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        btn.addTarget(self, action: #selector(backAction), for: .touchUpInside)
-        addSubview(btn)
-        btn.snp.makeConstraints { make in
-            make.right.equalToSuperview().offset(0)
-            make.centerY.equalTo(textField)
-            make.height.equalTo(40)
-            make.width.equalTo(50)
-        }
-    }
-    
-    lazy var textField: UITextField = {
+    let textField: UITextField = {
         let view = UITextField.init(frame: CGRect.zero)
         view.placeholder = "搜索"
         view.setPlaceholderColor(.lightGray)
@@ -62,9 +24,43 @@ class SearchResultHeaderView: UIView {
         return view
     }()
     
-    @objc func backAction() {
-        if let block = backCallBack {
-            block()
+    let backButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage.init(systemName: "chevron.backward")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.tintColor = .white
+        // 配置按钮的样式
+        var config = UIButton.Configuration.plain()
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 15)
+        button.configuration = config
+        return button
+    }()
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    func setupView() {
+        
+        backgroundColor = .black
+        
+        addSubview(backButton)
+        backButton.snp.makeConstraints { make in
+            make.top.equalTo(UIDevice.sy_safeDistanceTop)
+            make.left.equalToSuperview()
+        }
+        
+        addSubview(textField)
+        textField.snp.makeConstraints { make in
+            make.centerY.equalTo(backButton)
+            make.leading.equalTo(backButton.snp.trailing)
+            make.trailing.equalToSuperview().inset(12)
+            make.height.equalTo(32)
+            make.width.greaterThanOrEqualTo(100)
         }
     }
 }
