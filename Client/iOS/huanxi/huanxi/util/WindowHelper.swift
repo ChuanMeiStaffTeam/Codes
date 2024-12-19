@@ -30,4 +30,30 @@ class WindowHelper {
         
         return base
     }
+    
+    // MARK: - --    当前显示window和vc
+    static func getCurrentVC() -> UIViewController? {
+        var VC = getKeyWindow()?.rootViewController
+
+        if let nav = VC as? UINavigationController {
+            VC = nav.children.last
+            if let tab = VC as? UITabBarController {
+                VC = tab.viewControllers?[tab.selectedIndex]
+            }
+        } else if let tab = VC as? UITabBarController {
+            VC = tab.viewControllers?[tab.selectedIndex]
+            if let nav = VC as? UINavigationController {
+                VC = nav.children.last
+            }
+        }
+        if let presetVC = VC?.presentedViewController {
+            if let nav = presetVC as? UINavigationController {
+                VC = nav.children.last
+            } else {
+                VC = presetVC
+            }
+        }
+
+        return VC
+    }
 }

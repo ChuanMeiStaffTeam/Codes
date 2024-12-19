@@ -11,7 +11,7 @@ import RxSwift
 
 class SearchViewModel: BaseViewModel {
     var postsList: [PostModel] = []
-
+    var searchUesrs: [UserInfoModel] = []
 }
 
 
@@ -34,6 +34,21 @@ extension SearchViewModel {
             }
             completion(success)
         }
-
+    }
+    
+    func requestSearchUser(keyword: String, completion: @escaping (Bool) -> Void) {
+        NetworkManager.shared.postRequest(
+            path: "userinfo/searchUser",
+            parameters: ["keyword" : keyword],
+            responseType: [UserInfoModel].self
+        ) { [weak self] success, message, data in
+            guard let `self` = self else { return }
+            if success {
+                searchUesrs = data ?? []
+            } else {
+                HUDHelper.showToast(message)
+            }
+            completion(success)
+        }
     }
 }

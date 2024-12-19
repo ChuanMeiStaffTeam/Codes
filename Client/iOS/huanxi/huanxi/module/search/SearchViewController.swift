@@ -8,12 +8,10 @@
 import UIKit
 
 class SearchViewController: BaseViewController {
- 
-    let searchHeaderView = SearchHeaderView(frame: CGRect.init(x: 0, y: 0, width: .screenWidth, height: .topBarHeight))
-    let waterfallView = WaterfallCollectionView(frame: .zero)
-        
-    private let viewModel = SearchViewModel()
+    private let searchHeaderView = SearchHeaderView()
+    private let waterfallView = WaterfallCollectionView()
 
+    private let viewModel = SearchViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,18 +19,23 @@ class SearchViewController: BaseViewController {
         setupUI()
         refrehData()
     }
-    
-    
+
     func setupUI() {
         searchHeaderView.didClickViewCallBack = { [weak self] in
-            let vc = SearchResultsViewController()
-            vc.hidesBottomBarWhenPushed = true
-            self?.navigationController?.pushViewController(vc, animated: true)
+            guard let self = self else { return }
+            let vc = SearchSugViewController()
+            let nav = NavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .overFullScreen
+            self.present(nav, animated: false)
         }
         view.addSubview(searchHeaderView)
-        
-        
-        waterfallView.didSelectItemBlock = { [weak self] index in
+        searchHeaderView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(UIDevice.sy_navigationFullHeight)
+        }
+
+        waterfallView.didSelectItemBlock = { [weak self] _ in
             let vc = SearchDetailListViewController()
             vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
@@ -44,7 +47,6 @@ class SearchViewController: BaseViewController {
             make.bottom.equalToSuperview().inset(UIDevice.sy_tabBarFullHeight)
         }
     }
-    
 }
 
 extension SearchViewController {
@@ -57,6 +59,3 @@ extension SearchViewController {
         }
     }
 }
-
-
-

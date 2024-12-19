@@ -1,0 +1,85 @@
+//
+//  SearchSugViewController.swift
+//  huanxi
+//
+//  Created by rslz on 2024/12/19.
+//
+
+import RxSwift
+import UIKit
+
+class SearchSugViewController: BaseViewController {
+    private let headerView = SearchSugHeaderView()
+    private let viewModel = SearchViewModel()
+
+    private let popView: SearchSugPopView = {
+        let view = SearchSugPopView()
+        view.isHidden = true
+        return view
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        sh_prefersNavigationBarHidden = true
+        setupUI()
+        bindUI()
+
+        headerView.textField.becomeFirstResponder()
+    }
+
+    func setupUI() {
+        view.backgroundColor = .clear
+        view.addSubview(headerView)
+        headerView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(UIDevice.sy_navigationFullHeight)
+        }
+
+        view.addSubview(popView)
+        popView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom).offset(5)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().inset(UIDevice.sy_tabBarFullHeight)
+        }
+    }
+
+    func bindUI() {
+        headerView.cancleButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            self.dismiss(animated: false)
+        }).disposed(by: disposeBag)
+
+        headerView.textField.rx.text
+            .subscribe(onNext: { [weak self] text in
+                guard let self = self else { return }
+                let isBlank = text?.isEmpty ?? true
+                self.popView.isHidden = isBlank
+                if !isBlank {
+                    self.loadData(keyword: text ?? "")
+                }
+            })
+            .disposed(by: disposeBag)
+
+        popView.onItemTap = { [weak self] user in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                let vc = UserBriefVC()
+                vc.user = user
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+}
+
+extension SearchSugViewController {
+    private func loadData(keyword: String) {
+        viewModel.requestSearchUser(keyword: keyword, completion: { [weak self] success in
+            guard let self = self else { return }
+            if success {
+                self.popView.items = self.viewModel.searchUesrs
+            }
+        })
+    }
+}

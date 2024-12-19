@@ -11,36 +11,6 @@ class SearchHeaderView: UIView {
     
     var didClickViewCallBack: (() -> Void)?
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setupView()
-    }
-    
-    func setupView() {
-        
-        backgroundColor = .black
-        
-        addSubview(textField)
-        textField.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(12)
-            make.right.equalToSuperview().offset(-12)
-            make.bottom.equalToSuperview().offset(-8)
-            make.height.equalTo(32)
-        }
-        
-        let btn = UIButton(type: .custom)
-        btn.addTarget(self, action: #selector(clickTextField), for: .touchUpInside)
-        addSubview(btn)
-        btn.snp.makeConstraints { make in
-            make.edges.equalTo(textField).offset(0)
-        }
-    }
-    
     lazy var textField: UITextField = {
         let view = UITextField.init(frame: CGRect.zero)
         view.placeholder = "搜索"
@@ -56,6 +26,45 @@ class SearchHeaderView: UIView {
         view.leftViewMode = .always
         return view
     }()
+    
+    lazy var bgView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    func setupView() {
+        
+        backgroundColor = .black
+        addSubview(bgView)
+        bgView.snp.makeConstraints { make in
+            make.edges.equalTo(UIEdgeInsets(top: UIDevice.sy_safeDistanceTop, left: 0, bottom: 0, right: 0))
+        }
+        
+        bgView.addSubview(textField)
+        textField.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(12)
+            make.centerY.equalTo(bgView)
+            make.height.equalTo(32)
+        }
+        
+        let btn = UIButton(type: .custom)
+        btn.addTarget(self, action: #selector(clickTextField), for: .touchUpInside)
+        bgView.addSubview(btn)
+        btn.snp.makeConstraints { make in
+            make.edges.equalTo(textField).offset(0)
+        }
+    }
+    
+
     
     @objc func clickTextField() {
         if let block = didClickViewCallBack {
