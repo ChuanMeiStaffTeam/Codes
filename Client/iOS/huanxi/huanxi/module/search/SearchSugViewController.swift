@@ -56,11 +56,9 @@ class SearchSugViewController: BaseViewController {
             .subscribe(onNext: { [weak self] text in
                 guard let self = self else { return }
                 let trimmedString = text?.trimmingCharacters(in: .whitespacesAndNewlines)
-                let isBlank = trimmedString?.isEmpty ?? true
-                self.popView.isHidden = isBlank
-                if !isBlank {
-                    self.loadData(keyword: trimmedString ?? "")
-                }
+//                let isBlank = trimmedString?.isEmpty ?? true
+                self.popView.isHidden = false
+                self.loadData(keyword: trimmedString ?? "")
             })
             .disposed(by: disposeBag)
         headerView.textField.rx.controlEvent(.editingDidEndOnExit)
@@ -94,12 +92,15 @@ class SearchSugViewController: BaseViewController {
             }
         }
     }
+    
+    func keyboardWillHide() {
+        // 键盘隐藏时，收回第一响应者
+        self.view.endEditing(true)
+    }
 }
 
 extension SearchSugViewController {
     private func loadData(keyword: String) {
-        viewModel.requestSearchUser(keyword: keyword, completion: { [weak self] success in
-            
-        })
+        viewModel.requestSearchUser(keyword: keyword, completion: {success in })
     }
 }

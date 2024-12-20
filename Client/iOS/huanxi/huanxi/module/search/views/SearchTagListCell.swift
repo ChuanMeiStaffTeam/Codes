@@ -1,14 +1,14 @@
 //
-//  WaterfallCollectionViewCell.swift
+//  SearchTagListCell.swift
 //  huanxi
 //
-//  Created by jack on 2024/6/22.
+//  Created by rslz on 2024/12/21.
 //
 
 import UIKit
 
-class WaterfallCollectionViewCell: UICollectionViewCell {
-    
+class SearchTagListCell: UICollectionViewCell {
+
     let imgView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -16,9 +16,15 @@ class WaterfallCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupViews()
+        
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+        
+        contentView.addSubview(imgView)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -27,19 +33,10 @@ class WaterfallCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        // Update gradientLayer frame after layout has been completed
         imgView.frame = contentView.bounds
         self.setLayoutSkeletonLayer()
     }
     
-    private func setupViews() {
-        backgroundColor = .clear
-        contentView.backgroundColor = .clear
-        
-        contentView.addSubview(imgView)
-        imgView.backgroundColor = UIColor.postBgColor
-    }
-
     // 控制骨架屏动画显示或隐藏的变量
     var isSkeletonVisible: Bool = true {
         didSet {
@@ -53,22 +50,10 @@ class WaterfallCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var model: PostModel? {
-        didSet {
-            if let urlStr = model?.images?.first?.imageUrl {
-                if urlStr.contains("http") {
-                    imgView.kf.setImage(with: URL.init(string: urlStr))
-                } else {
-                    imgView.image = UIImage.init(named: urlStr)
-                }
-            }
-        }
-    }
 }
 
-
 // MARK: 骨架屏配置
-extension WaterfallCollectionViewCell {
+extension SearchTagListCell {
     func setLayoutSkeletonLayer() {
         imgView.layoutSkeletonLayer()
     }

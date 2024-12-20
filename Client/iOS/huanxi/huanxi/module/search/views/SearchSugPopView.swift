@@ -109,7 +109,7 @@ class SearchSugPopView: BaseView {
         emptyView.removeFromSuperview()
         addSubview(emptyView)
         emptyView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(-100)
+            make.centerY.equalToSuperview().offset(-80)
             make.centerX.equalToSuperview()
         }
         emptyView.updateType(type: type)

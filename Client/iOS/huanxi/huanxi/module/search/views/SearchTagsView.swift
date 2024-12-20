@@ -19,14 +19,14 @@ class SearchTagsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupView()
     }
     
     func setupView() {
-        
         addSubview(scrollView)
-        scrollView.frame = bounds
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     

@@ -22,7 +22,6 @@ protocol MainContentCellDelegate: AnyObject {
 
 class MainContentCell: UITableViewCell {
     
-    static let identifier = "MainContentCell"  // 标识符，用于复用
     weak var delegate: MainContentCellDelegate?
     
     let avatar = UIImageView()
@@ -88,6 +87,19 @@ class MainContentCell: UITableViewCell {
         }
     }
     
+    // 控制骨架屏动画显示或隐藏的变量
+    var isSkeletonVisible: Bool = true {
+        didSet {
+            if isSkeletonVisible {
+                // 启动骨架屏动画
+                self.showSkeletonAnimation()
+            } else {
+                // 停止骨架屏动画
+                self.closeSkeletonAnimation()
+            }
+        }
+    }
+    
     func setupView() {
         
         selectionStyle = .none
@@ -140,7 +152,7 @@ class MainContentCell: UITableViewCell {
             make.top.equalToSuperview().offset(14)
         }
         
-        imgView.image = UIImage.init(named: "main_pic_test")
+        imgView.backgroundColor = UIColor.postBgColor
         imgView.isUserInteractionEnabled = true
         imgView.clipsToBounds = true
         imgView.snp.makeConstraints { make in
@@ -232,7 +244,11 @@ class MainContentCell: UITableViewCell {
         })
     }
     
-    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // Update gradientLayer frame after layout has been completed
+        self.setLayoutSkeletonLayer()
+    }
     
     @objc func moreAction() {
         if let delegate = self.delegate {
@@ -290,3 +306,29 @@ class MainContentCell: UITableViewCell {
 
 }
 
+// MARK: 骨架屏配置
+extension MainContentCell {
+    func setLayoutSkeletonLayer() {
+        avatar.layoutSkeletonLayer()
+        nameLabel.layoutSkeletonLayer()
+        countryLabel.layoutSkeletonLayer()
+        contentLabel.layoutSkeletonLayer()
+        imgView.layoutSkeletonLayer()
+    }
+    
+    func showSkeletonAnimation() {
+        avatar.startSkeletonAnimation()
+        nameLabel.startSkeletonAnimation()
+        countryLabel.startSkeletonAnimation()
+        contentLabel.startSkeletonAnimation()
+        imgView.startSkeletonAnimation()
+    }
+    
+    func closeSkeletonAnimation() {
+        avatar.stopSkeletonAnimation()
+        nameLabel.stopSkeletonAnimation()
+        countryLabel.stopSkeletonAnimation()
+        contentLabel.stopSkeletonAnimation()
+        imgView.stopSkeletonAnimation()
+    }
+}

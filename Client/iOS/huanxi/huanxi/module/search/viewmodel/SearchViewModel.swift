@@ -12,28 +12,32 @@ import RxSwift
 fileprivate let skeletonData: [SearchViewModel.CellType] = Array(repeating: .skeleton, count: 7)
 
 class SearchViewModel: BaseViewModel {
-    var postsList: [PostModel] = []
-
+    let postTagList = BehaviorRelay<[String]>(value: [])
     let searchUesrs = BehaviorRelay<[CellType]>(value: [])
-
+    let postsList = BehaviorRelay<[CellType]>(value: [])
+    let tagPostsList = BehaviorRelay<[CellType]>(value: [])
 }
 
 
 extension SearchViewModel {
     func requestDefaultSearchPosts(completion: @escaping (Bool) -> Void) {
+        self.postsList.accept(Array(repeating: .skeleton, count: 12))
         NetworkManager.shared.postRequest(
             path: "postImage/defaultSearchPosts",
             parameters: nil,
-            responseType: [PostModel].self
+            responseType: SearchHomeResponse.self
         ) { [weak self] success, message, data in
             guard let `self` = self else { return }
             if success {
-                let items = (data ?? []).map { var model = $0
+                self.postTagList.accept(data?.postTagList ?? [])
+                let items = (data?.list ?? []).map { var model = $0
                     model.imageHeight = CGFloat.random(in: 100...250)
                     return model
                 }
-                postsList = items
+                let cellItems: [CellType] = (items).map { CellType.postItem($0) }
+                self.postsList.accept(cellItems)
             } else {
+                self.postsList.accept([SearchViewModel.CellType.error])
                 HUDHelper.showToast(message)
             }
             completion(success)
@@ -53,6 +57,25 @@ extension SearchViewModel {
                 self.searchUesrs.accept(cellItems)
             } else {
                 self.searchUesrs.accept([SearchViewModel.CellType.error])
+//                HUDHelper.showToast(message)
+            }
+            completion(success)
+        }
+    }
+    
+    func requestTagPosts(tags: String, completion: @escaping (Bool) -> Void) {
+        self.tagPostsList.accept(Array(repeating: .skeleton, count: 18))
+        NetworkManager.shared.postRequest(
+            path: "postImage/getPostByTag",
+            parameters: ["tag" : tags],
+            responseType: [PostModel].self
+        ) { [weak self] success, message, data in
+            guard let `self` = self else { return }
+            if success {
+                let cellItems: [CellType] = (data ?? []).map { CellType.postItem($0) }
+                self.tagPostsList.accept(cellItems)
+            } else {
+                self.tagPostsList.accept([SearchViewModel.CellType.error])
                 HUDHelper.showToast(message)
             }
             completion(success)

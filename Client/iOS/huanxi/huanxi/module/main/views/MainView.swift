@@ -43,9 +43,9 @@ class MainView: UIView {
         view.separatorColor = .clear
         view.delegate = self
         view.dataSource = self
-        view.register(MainUserCell.self, forCellReuseIdentifier: "userCell")
-        view.register(MainContentCell.self, forCellReuseIdentifier: "contentCell")
-        view.register(MainRecommendCell.self, forCellReuseIdentifier: "recommendCell")
+        view.register(MainUserCell.self, forCellReuseIdentifier: MainUserCell.defaultReuseIdentifier)
+        view.register(MainContentCell.self, forCellReuseIdentifier: MainContentCell.defaultReuseIdentifier)
+        view.register(MainRecommendCell.self, forCellReuseIdentifier: MainRecommendCell.defaultReuseIdentifier)
         return view
     }()
     
@@ -61,16 +61,16 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
         
         let model = mainList[indexPath.row]
         if model.type == "user" {
-            let cell = MainUserCell.init(style: .default, reuseIdentifier: MainUserCell.identifier)
+            let cell = MainUserCell.init(style: .default, reuseIdentifier: MainUserCell.defaultReuseIdentifier)
             return cell
         } else if model.type == "content" {
-            let cell = MainContentCell.init(style: .default, reuseIdentifier: MainContentCell.identifier)
+            let cell = MainContentCell.init(style: .default, reuseIdentifier: MainContentCell.defaultReuseIdentifier)
             cell.delegate = self
             let post = self.viewModel.postsList[indexPath.row]
             cell.model = post
             return cell
         } else if model.type == "recommend" {
-            let cell = MainRecommendCell.init(style: .default, reuseIdentifier: MainRecommendCell.identifier)
+            let cell = MainRecommendCell.init(style: .default, reuseIdentifier: MainRecommendCell.defaultReuseIdentifier)
             return cell
         }
         
@@ -87,11 +87,8 @@ extension MainView: UITableViewDelegate, UITableViewDataSource {
         } else if model.type == "recommend" {
             return 330
         }
-        
         return 0
     }
-    
-    
 }
 
 extension MainView: MainContentCellDelegate {

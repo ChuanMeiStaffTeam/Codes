@@ -148,6 +148,10 @@
 		F3F80E8A2CEA3EF700008887 /* TransAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E892CEA3EF700008887 /* TransAnimator.swift */; };
 		F3FC1D232D155B03005555A0 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FC1D222D155B03005555A0 /* UIView+Extension.swift */; };
 		F3FC1D252D15BAA6005555A0 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FC1D242D15BAA6005555A0 /* EmptyView.swift */; };
+		F3FC1D282D15CE5D005555A0 /* SearchHomeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FC1D272D15CE5D005555A0 /* SearchHomeResponse.swift */; };
+		F3FC1D2A2D15D151005555A0 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FC1D292D15D151005555A0 /* ArrayExtension.swift */; };
+		F3FC1D2C2D15DE8B005555A0 /* SearchTagListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FC1D2B2D15DE8B005555A0 /* SearchTagListCell.swift */; };
+		F3FC1D2E2D15ECEB005555A0 /* SpaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FC1D2D2D15ECEB005555A0 /* SpaceCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -318,6 +322,10 @@
 		F3F80E892CEA3EF700008887 /* TransAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransAnimator.swift; sourceTree = "<group>"; };
 		F3FC1D222D155B03005555A0 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		F3FC1D242D15BAA6005555A0 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		F3FC1D272D15CE5D005555A0 /* SearchHomeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHomeResponse.swift; sourceTree = "<group>"; };
+		F3FC1D292D15D151005555A0 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		F3FC1D2B2D15DE8B005555A0 /* SearchTagListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagListCell.swift; sourceTree = "<group>"; };
+		F3FC1D2D2D15ECEB005555A0 /* SpaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -517,6 +525,7 @@
 				39AB75162C94342100440E5A /* WebViewController.swift */,
 				F373881C2D13224C0072CE77 /* BaseViewModel.swift */,
 				F3FC1D242D15BAA6005555A0 /* EmptyView.swift */,
+				F3FC1D2D2D15ECEB005555A0 /* SpaceCollectionViewCell.swift */,
 			);
 			path = base;
 			sourceTree = "<group>";
@@ -549,6 +558,7 @@
 		397216B82B820FA0007D0F2B /* search */ = {
 			isa = PBXGroup;
 			children = (
+				F3FC1D262D15CE32005555A0 /* model */,
 				F373880F2D12F60E0072CE77 /* viewmodel */,
 				39E908102C26C4070017B83B /* waterfall */,
 				39E908092C26B1440017B83B /* views */,
@@ -627,6 +637,7 @@
 				F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */,
 				F3E786232CECB58F00EC2251 /* UIDevice+Extension.swift */,
 				F3FC1D222D155B03005555A0 /* UIView+Extension.swift */,
+				F3FC1D292D15D151005555A0 /* ArrayExtension.swift */,
 			);
 			path = category;
 			sourceTree = "<group>";
@@ -638,8 +649,8 @@
 				39E9080A2C26B15B0017B83B /* SearchTagsView.swift */,
 				39E9080C2C26B9070017B83B /* SearchHeaderView.swift */,
 				39E908152C2872CF0017B83B /* SearchBarView.swift */,
-				39E908172C2872DC0017B83B /* SearchResultView.swift */,
 				39E9081B2C2874EE0017B83B /* TopItemCell.swift */,
+				39E908172C2872DC0017B83B /* SearchResultView.swift */,
 				39E9081D2C2874F80017B83B /* BottomContentCell.swift */,
 				39E9081F2C2875010017B83B /* ContentTableViewCell.swift */,
 				39E908212C28791C0017B83B /* SearchResultHeaderView.swift */,
@@ -647,6 +658,7 @@
 				F37388202D13C4590072CE77 /* SearchSugHeaderView.swift */,
 				F37388222D13E0310072CE77 /* SearchSugPopView.swift */,
 				F37388242D13E3840072CE77 /* SearchSugUserCell.swift */,
+				F3FC1D2B2D15DE8B005555A0 /* SearchTagListCell.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -818,6 +830,14 @@
 				F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */,
 			);
 			path = web;
+			sourceTree = "<group>";
+		};
+		F3FC1D262D15CE32005555A0 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				F3FC1D272D15CE5D005555A0 /* SearchHomeResponse.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1003,6 +1023,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3FC1D2E2D15ECEB005555A0 /* SpaceCollectionViewCell.swift in Sources */,
 				392CF10C2B8EC8E60070637E /* MainModel.swift in Sources */,
 				F37388212D13C4590072CE77 /* SearchSugHeaderView.swift in Sources */,
 				F3E786242CECB58F00EC2251 /* UIDevice+Extension.swift in Sources */,
@@ -1036,6 +1057,7 @@
 				39066F692C51E1A3003D347E /* UserInfoModel.swift in Sources */,
 				392CF1042B8D78BB0070637E /* NetworkManager.swift in Sources */,
 				04D16F722C1AE9A400D0BF61 /* ChatEditView.swift in Sources */,
+				F3FC1D282D15CE5D005555A0 /* SearchHomeResponse.swift in Sources */,
 				397216C32B8249FC007D0F2B /* SearchViewController.swift in Sources */,
 				F39F6DEB2CE127B300CFF8B5 /* Overlay.swift in Sources */,
 				39E908082C1ECD0C0017B83B /* MineConstrainerView.swift in Sources */,
@@ -1088,6 +1110,7 @@
 				392CF10E2B8ECA230070637E /* MainUserView.swift in Sources */,
 				F39F6E0E2CE26F4100CFF8B5 /* UIImage+Extension.swift in Sources */,
 				398FF3492B901BEA00565C8C /* UIColor+Extension.swift in Sources */,
+				F3FC1D2C2D15DE8B005555A0 /* SearchTagListCell.swift in Sources */,
 				F3E7860F2CEC5C1300EC2251 /* RichTextLabel.swift in Sources */,
 				397216802B81E8EC007D0F2B /* AppDelegate.swift in Sources */,
 				F39F6E062CE1727800CFF8B5 /* CommentsListCell.swift in Sources */,
@@ -1095,6 +1118,7 @@
 				F373881A2D1314E90072CE77 /* WaterfallMutiSectionFlowLayout.swift in Sources */,
 				04F0D1A82BFAEC0D00FFE128 /* EditHomePageViewController.swift in Sources */,
 				F373880E2D12646A0072CE77 /* UserBriefVC.swift in Sources */,
+				F3FC1D2A2D15D151005555A0 /* ArrayExtension.swift in Sources */,
 				397216B32B81EA6A007D0F2B /* TabBarController.swift in Sources */,
 				F39F6E092CE22D8600CFF8B5 /* CommentTextView.swift in Sources */,
 				04BCDA312C12F80400437222 /* ChatTextCell.swift in Sources */,

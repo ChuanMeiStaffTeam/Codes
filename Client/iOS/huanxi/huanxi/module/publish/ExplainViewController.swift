@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 struct ExplainItem {
     
@@ -21,6 +22,7 @@ class ExplainViewController: BaseViewController {
     var explainItems: [ExplainItem] = []
     var images: [UIImage] = []
     var locationCity: String = "上海市"
+    var tags: String = ""
 
     let textView = UITextView()
     
@@ -34,15 +36,17 @@ class ExplainViewController: BaseViewController {
     
     func setupData() {
         
+        let tags = ExplainItem(title: "写话题", detail: "#话题 例如：美食、旅游、设计等...", type: 1, switchStatus: 0)
         let mark = ExplainItem(title: "标记用户", detail: "", type: 0, switchStatus: 0)
         let address = ExplainItem(title: "添加地点", detail: "", type: 0, switchStatus: 0)
-        let wx = ExplainItem(title: "微信", detail: "", type: 1, switchStatus: 0)
-        let wb = ExplainItem(title: "微博", detail: "", type: 1, switchStatus: 0)
+//        let wx = ExplainItem(title: "微信", detail: "", type: 1, switchStatus: 0)
+//        let wb = ExplainItem(title: "微博", detail: "", type: 1, switchStatus: 0)
 
+        explainItems.append(tags)
         explainItems.append(mark)
         explainItems.append(address)
-        explainItems.append(wx)
-        explainItems.append(wb)
+//        explainItems.append(wx)
+//        explainItems.append(wb)
     }
     
     func setupView() {
@@ -102,6 +106,8 @@ class ExplainViewController: BaseViewController {
     
     @objc func shareAction() {
         
+        self.keyboardWillHide()
+        
         guard let desc = textView.text, !desc.isEmpty else {
             HUDHelper.showToast("请输入说明")
             return
@@ -127,6 +133,7 @@ class ExplainViewController: BaseViewController {
         let params = [
             "caption": desc,
             "location": locationCity,
+            "tags": self.tags,
             "imagesUrl": imagesUrl
         ] as [String : Any]
         NetworkManager.shared.postRequest(path: "postImage/createPost",
@@ -173,7 +180,12 @@ class ExplainViewController: BaseViewController {
     }()
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
+        keyboardWillHide()
+    }
+    
+    @objc func keyboardWillHide() {
+        // 键盘隐藏时，收回第一响应者
+        self.view.endEditing(true)
     }
 }
 
@@ -187,6 +199,15 @@ extension ExplainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ExplainViewCell.init(style: .default, reuseIdentifier: "ExplainViewCell")
         cell.explainItem = explainItems[indexPath.row]
+        cell.tagTextTextField.rx.text
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] text in
+                guard let self = self else { return }
+                let trimmedString = text?.trimmingCharacters(in: .whitespacesAndNewlines)
+                self.tags = trimmedString ?? ""
+//                let isBlank = trimmedString?.isEmpty ?? true
+            })
+            .disposed(by: disposeBag)
         return cell
     }
     
@@ -204,13 +225,19 @@ class ExplainViewCell: UITableViewCell {
     let detailLabel = UILabel()
     let arrowImgView = UIImageView()
     let switchView = UISwitch()
+    let tagTextTextField = UITextField()
     
+    var disposeBag = DisposeBag()
+
     var explainItem: ExplainItem! {
         didSet {
             
             titleLabel.text = explainItem.title
-            if explainItem.type == 0 {
+            
+            switch explainItem.type {
+            case 0:
                 switchView.isHidden = true
+                tagTextTextField.isHidden = true
                 if explainItem.detail.count == 0 {
                     detailLabel.isHidden = true
                     arrowImgView.isHidden = false
@@ -219,13 +246,20 @@ class ExplainViewCell: UITableViewCell {
                     detailLabel.isHidden = false
                     arrowImgView.isHidden = true
                 }
-            } else {
+            case 1:
+                detailLabel.isHidden = true
+                arrowImgView.isHidden = true
+                switchView.isHidden = true
+                tagTextTextField.isHidden = false
+                tagTextTextField.placeholder = explainItem.detail
+                break
+            default:
+                tagTextTextField.isHidden = true
                 detailLabel.isHidden = true
                 arrowImgView.isHidden = true
                 switchView.isHidden = false
                 switchView.isOn = explainItem.switchStatus == 1
             }
-            
         }
     }
     
@@ -276,6 +310,14 @@ class ExplainViewCell: UITableViewCell {
             make.centerY.equalToSuperview().offset(0)
         }
         
+        tagTextTextField.textAlignment = .right
+        contentView.addSubview(tagTextTextField)
+        tagTextTextField.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-16)
+            make.centerY.equalToSuperview().offset(0)
+            make.width.equalTo(UIDevice.screenWidth/2)
+            make.height.equalTo(35)
+        }
         
     }
     

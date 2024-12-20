@@ -9,8 +9,6 @@ import UIKit
 
 class MainUserCell: UITableViewCell {
     
-    static let identifier = "MainUserCell"  // 标识符，用于复用
-
     var model: MainUserModel? {
         didSet {
             

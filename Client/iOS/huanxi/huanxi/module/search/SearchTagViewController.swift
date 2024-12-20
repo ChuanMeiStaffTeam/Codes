@@ -9,55 +9,109 @@ import UIKit
 
 class SearchTagViewController: BaseViewController {
     
-    var images: [String] = ["list_0", "list_1", "list_2", "list_3", "list_4", "list_5", "list_6", "list_7", "list_8", "list_0", "list_1", "list_2", "list_3", "list_4", "list_5", "list_6", "list_7", "list_8","list_0", "list_1", "list_2", "list_3", "list_4", "list_5", "list_6", "list_7", "list_8","list_0", "list_1", "list_2", "list_3", "list_4", "list_5", "list_6", "list_7", "list_8"]
+    private let viewModel = SearchViewModel()
+    
+    private var tagPostsList:[SearchViewModel.CellType] = []
 
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupView()
-        collectionView.reloadData()
-    }
-    
-    
-    func setupView() {
-                
-        view.addSubview(collectionView)
-    }
-    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 2
-        layout.minimumLineSpacing = 5
+        layout.minimumLineSpacing = 2
         layout.scrollDirection = .vertical
-        let cellWidth = (.screenWidth - 10) / 3
+        let cellWidth = (.screenWidth - 4) / 3
         layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         
         let collectionView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: .screenWidth, height: .screenHeight), collectionViewLayout: layout)
         collectionView.backgroundColor = .black
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(SearchImageCell.self, forCellWithReuseIdentifier: "cell")
-        
+        collectionView.register(SearchTagListCell.self, forCellWithReuseIdentifier: SearchTagListCell.defaultReuseIdentifier)
+        collectionView.register(SpaceCollectionViewCell.self, forCellWithReuseIdentifier: SpaceCollectionViewCell.defaultReuseIdentifier)
+
         return collectionView
     }()
+    
+    private lazy var emptyView: CCEmptyView = {
+        let emptyView = CCEmptyView()
+        return emptyView
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+        bindUI()
+        loadData()
+    }
+    
+    
+    func setupView() {
+        view.addSubview(collectionView)
+    }
+    
+    func bindUI() {
+        self.viewModel.tagPostsList
+            .subscribe(onNext: { [weak self] cellTypes in
+                guard let `self` = self else { return }
+                if cellTypes.isEmpty {
+                    self.setEmptyOrNetErrorView(.noData)
+                } else if cellTypes.first == .error {
+                    self.setEmptyOrNetErrorView(.noNetwork)
+                } else {
+                    self.emptyView.removeFromSuperview()
+                }
+                self.tagPostsList = cellTypes
+                self.collectionView.reloadData()
+            })
+            .disposed(by: disposeBag)
+    }
+
+    
+    func loadData()  {
+        viewModel.requestTagPosts(tags: self.title ?? "") { result in
+        }
+    }
+    
+    // MARK: - 设置空视图or错误视图
+    private func setEmptyOrNetErrorView(_ type: CCEmptyType) {
+        emptyView.removeFromSuperview()
+        view.addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview().offset(-80)
+            make.centerX.equalToSuperview()
+        }
+        emptyView.updateType(type: type)
+        emptyView.reloadBlock = { [weak self] in
+            guard let self = self else { return }
+            self.loadData()
+        }
+    }
 }
 
 extension SearchTagViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return tagPostsList.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! SearchImageCell
-        let imageStr = images[indexPath.item]
-        cell.imgView.image = UIImage.init(named: imageStr)
-        return cell
+        guard let item = tagPostsList.ck_objIndex(indexPath.item) else {
+            return collectionView.dequeueReusableCell(forIndexPath: indexPath) as SpaceCollectionViewCell
+        }
+        switch item {
+        case .skeleton:
+            let cell: SearchTagListCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
+            cell.isSkeletonVisible = true
+            return cell
+        case .postItem(let post):
+            let cell: SearchTagListCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
+            cell.isSkeletonVisible = false
+            if let urlStr = post.images?.first?.imageUrl {
+                cell.imgView.kf.setImage(with: URL.init(string: urlStr))
+            }
+            return cell
+        default:
+            return collectionView.dequeueReusableCell(forIndexPath: indexPath) as SpaceCollectionViewCell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -66,36 +120,3 @@ extension SearchTagViewController: UICollectionViewDataSource, UICollectionViewD
     }
 }
 
-
-class SearchImageCell: UICollectionViewCell {
-
-    let imgView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-    
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        backgroundColor = .clear
-        contentView.backgroundColor = .clear
-        
-        contentView.addSubview(imgView)
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        imgView.frame = contentView.bounds
-        
-    }
-    
-}

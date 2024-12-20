@@ -27,7 +27,9 @@ class WaterfallCollectionView: BaseView {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(WaterfallCollectionViewCell.self, forCellWithReuseIdentifier: WaterfallCollectionViewCell.reuseIdentifier)
+        collectionView.register(WaterfallCollectionViewCell.self, forCellWithReuseIdentifier: WaterfallCollectionViewCell.defaultReuseIdentifier)
+        collectionView.register(SpaceCollectionViewCell.self, forCellWithReuseIdentifier: SpaceCollectionViewCell.defaultReuseIdentifier)
+
         return collectionView
     }()
 
@@ -45,7 +47,7 @@ class WaterfallCollectionView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    var items: [PostModel]? {
+    var items: [SearchViewModel.CellType]? {
         didSet {
             collectionView.reloadData()
         }
@@ -58,13 +60,25 @@ extension WaterfallCollectionView: UICollectionViewDelegate, UICollectionViewDat
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WaterfallCollectionViewCell.reuseIdentifier, for: indexPath) as? WaterfallCollectionViewCell else {
-            return UICollectionViewCell()
+        guard let item = items?.ck_objIndex(indexPath.item) else {
+            return collectionView.dequeueReusableCell(forIndexPath: indexPath) as SpaceCollectionViewCell
         }
-        cell.model = items?[indexPath.item]
-        return cell
+        
+        switch item {
+        case .skeleton:
+            let cell: WaterfallCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
+            cell.isSkeletonVisible = true
+            return cell
+        case .postItem(let post):
+            let cell: WaterfallCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
+            cell.isSkeletonVisible = false
+            cell.model = post
+            return cell
+        default:
+            return collectionView.dequeueReusableCell(forIndexPath: indexPath) as SpaceCollectionViewCell
+        }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let block = didSelectItemBlock {
             block(indexPath)
@@ -74,7 +88,16 @@ extension WaterfallCollectionView: UICollectionViewDelegate, UICollectionViewDat
 
 extension WaterfallCollectionView: WaterfallLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForItemAt indexPath: IndexPath) -> CGFloat {
-        let model = items?[indexPath.item]
-        return model?.imageHeight ?? 0
+        if let item = items?.ck_objIndex(indexPath.row){
+            switch item {
+            case .skeleton:
+                return CGFloat.random(in: 100...250)
+            case .postItem(let post):
+                return post.imageHeight ?? 0
+            default:
+                return 0
+            }
+        }
+        return 0
     }
 }

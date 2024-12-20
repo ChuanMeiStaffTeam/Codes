@@ -6,16 +6,14 @@
 //
 
 import Foundation
+import RxRelay
 
 class MainViewModel {
 
-    var dataList: [Any] = []
-    var postsList: [PostModel] = []
-    var userList: [UserInfoModel] = []
-
+    let dataList = BehaviorRelay<[CellType]>(value: Array(repeating: .skeleton, count: 3))
     //mock
     var mainList: [MainModel] = []
-
+    var postsList: [PostModel] = []
 
     required init() {
         configData()
@@ -66,18 +64,18 @@ class MainViewModel {
         ) { [weak self] success, message, data in
             guard let `self` = self else { return }
             if success {
-                self.dataList = []
-                self.postsList = data?.list ?? []
-                self.userList = data?.users ?? []
-                self.dataList.append(self.userList)
-                self.dataList.append(contentsOf: self.postsList)
-                
+                let postsItems: [CellType] = (data?.list ?? []).map { CellType.postItem($0) }
+                let userItems: [UserInfoModel] = data?.users ?? []
+                var list:[CellType] = []
+                list.append(CellType.userItem(userItems))
+                list.append(contentsOf: postsItems)
                 let recommend = MainModel(type: "recommend", users: [])
-                if self.dataList.count > 5 {
-                    self.dataList.insert(recommend, at: 4)
+                if list.count > 5 {
+                    list.insert(CellType.recommend(recommend), at: 4)
                 }
-                
+                self.dataList.accept(list)
             } else {
+                self.dataList.accept([MainViewModel.CellType.error])
                 HUDHelper.showToast(message)
             }
             completion(success)
@@ -155,20 +153,73 @@ class MainViewModel {
     }
     
     func requestDeletePost(
-        params: [String: Any], completion: @escaping (Bool) -> Void
+        params: [String: Any], indexPath: IndexPath?, completion: @escaping (Bool) -> Void
     ) {
         NetworkManager.shared.deleteRequest(
             path: "postImage/deletePost",
             parameters: params,
             responseType: String.self
-        ) { success, message, data in
+        ) { [weak self] success, message, data in
             if success {
-
+                guard let `self` = self else { return }
+                DispatchQueue.main.async {
+                 guard let indexPath = indexPath else { return }
+                    var currentData = self.dataList.value
+                    currentData.remove(at: indexPath.row)
+                    self.dataList.accept(currentData)
+                }
             } else {
                 HUDHelper.showToast(message)
             }
-
             completion(success)
+        }
+    }
+    
+    // 更新点赞状态
+    func updateLikeStatus(at index: Int, liked: Bool, indexPath: IndexPath?) {
+        var currentPosts = dataList.value
+        var post = currentPosts[index].item ?? PostModel(liked: false)
+
+        post.liked = liked
+        post.likesCount = liked ? (post.likesCount ?? 0) + 1 : (post.likesCount ?? 0) - 1
+
+        currentPosts[index] = .postItem(post)
+        dataList.accept(currentPosts)
+    }
+}
+
+
+extension MainViewModel {
+
+    enum CellType: Equatable {
+        case skeleton
+        case userItem([UserInfoModel])
+        case postItem(PostModel)
+        case recommend(MainModel)
+        case empty
+        case error
+
+        // 计算属性 items，根据不同的 case 返回关联值
+        var item: PostModel? {
+            switch self {
+            case .postItem(let post):
+                return post
+            default:
+                return nil
+            }
+        }
+        
+        static func == (lhs: CellType, rhs: CellType) -> Bool {
+            switch (lhs, rhs) {
+            case (.skeleton, .skeleton), (.empty, .empty), (.error, .error):
+                return true
+            case let (.postItem(leftItem), .postItem(rightItem)):
+                return leftItem == rightItem
+            case let (.userItem(leftItem), .userItem(rightItem)):
+                return leftItem == rightItem
+            default:
+                return false
+            }
         }
     }
 }

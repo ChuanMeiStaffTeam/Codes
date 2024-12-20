@@ -20,18 +20,21 @@ class MainViewController: BaseViewController {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
         view.backgroundColor = .clear
         view.separatorColor = .clear
-        view.delegate = self
-        view.dataSource = self
-        view.register(MainUserCell.self, forCellReuseIdentifier: MainUserCell.identifier)
-        view.register(MainContentCell.self, forCellReuseIdentifier: MainContentCell.identifier)
-        view.register(MainRecommendCell.self, forCellReuseIdentifier: MainRecommendCell.identifier)
+        view.register(MainUserCell.self, forCellReuseIdentifier: MainUserCell.defaultReuseIdentifier)
+        view.register(MainContentCell.self, forCellReuseIdentifier: MainContentCell.defaultReuseIdentifier)
+        view.register(MainRecommendCell.self, forCellReuseIdentifier: MainRecommendCell.defaultReuseIdentifier)
         return view
     }()
 
+    private lazy var emptyView: CCEmptyView = {
+        let emptyView = CCEmptyView()
+        return emptyView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        bindUI()
         refrehData()
         
         // 使用 Combine 订阅通知
@@ -58,7 +61,6 @@ class MainViewController: BaseViewController {
             self.refrehData()
         }.autoChangeTransparency(true)
         .link(to: tableView)
-//        header.lastUpdatedTimeLabel?.isHidden = true
         header.stateLabel?.isHidden = true
     }
     
@@ -93,13 +95,79 @@ class MainViewController: BaseViewController {
         
     }
     
+    func bindUI() {
+        
+        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+
+        self.viewModel.dataList
+            .bind(to: tableView.rx.items) { tableView, index, item in
+                switch item {
+                case .skeleton:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: MainContentCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! MainContentCell
+                    cell.isSkeletonVisible = true
+                    return cell
+                case .postItem(let post):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: MainContentCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! MainContentCell
+                    cell.isSkeletonVisible = false
+                    cell.delegate = self
+                    cell.model = post
+                    cell.indexPath = IndexPath(row: index, section: 0)
+                    return cell
+                case .userItem(_):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: MainUserCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! MainUserCell
+                    return cell
+                case .recommend:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: MainRecommendCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! MainRecommendCell
+                    return cell
+                default:
+                    let cell = UITableViewCell()
+                    cell.backgroundColor = .clear
+                    return cell
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        self.viewModel.dataList
+            .subscribe(onNext: { [weak self] cellTypes in
+                guard let `self` = self else { return }
+                if cellTypes.isEmpty {
+                    self.setEmptyOrNetErrorView(.noData)
+                } else if cellTypes.first == .error {
+                    self.setEmptyOrNetErrorView(.noNetwork)
+                } else {
+                    self.emptyView.removeFromSuperview()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        tableView.rx.itemSelected
+            .withUnretained(self)
+            .subscribe(onNext: { cellType in
+            })
+            .disposed(by: disposeBag)
+        
+    }
+    
+    
     private func refrehData() {
         viewModel.requestHomePosts { [weak self] result in
             guard let self = self else { return }
             self.tableView.mj_header?.endRefreshing()
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+        }
+    }
+    
+    // MARK: - 设置空视图or错误视图
+    private func setEmptyOrNetErrorView(_ type: CCEmptyType) {
+        emptyView.removeFromSuperview()
+        view.addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview().offset(-80)
+            make.centerX.equalToSuperview()
+        }
+        emptyView.updateType(type: type)
+        emptyView.reloadBlock = { [weak self] in
+            guard let self = self else { return }
+            self.refrehData()
         }
     }
     
@@ -111,44 +179,24 @@ class MainViewController: BaseViewController {
     
 }
 
-extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.dataList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let model = self.viewModel.dataList[indexPath.row]
-        if model is Array<Any> {
-            let cell = tableView.dequeueReusableCell(withIdentifier: MainUserCell.identifier, for: indexPath) as! MainUserCell
-            return cell
-        } else if model is PostModel {
-            let cell = tableView.dequeueReusableCell(withIdentifier: MainContentCell.identifier, for: indexPath) as! MainContentCell
-            cell.delegate = self
-            let post = self.viewModel.dataList[indexPath.row] as! PostModel
-            cell.model = post
-            cell.indexPath = indexPath
-            return cell
-        } else if model is MainModel {
-            let cell = tableView.dequeueReusableCell(withIdentifier: MainRecommendCell.identifier, for: indexPath) as! MainRecommendCell
-            return cell
-        }
-        return UITableViewCell()
-    }
-    
+extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        let model = self.viewModel.dataList[indexPath.row]
-        if model is Array<Any> {
-            return 100
-        } else if model is PostModel {
-            let post = model as! PostModel
+        guard let item = self.viewModel.dataList.value.ck_objIndex(indexPath.item) else {
+            return 0
+        }
+        switch item {
+        case .skeleton:
+            return 620
+        case .postItem(let post):
             let contentH = post.caption?.height(withConstrainedWidth: UIDevice.screenWidth - 20, font: .systemFont(ofSize: 14)) ?? 16
             return 570 + (contentH > 50 ? 50 : contentH)
-        } else if model is MainModel {
+        case .userItem(_):
+            return 100
+        case .recommend:
             return 330
+        default:
+            return 0
         }
-        return 0
     }
     
 }
@@ -161,7 +209,7 @@ extension MainViewController: MainContentCellDelegate {
         postMorePopView.trashButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
             guard let self = self else { return }
             postMorePopView.close()
-            self.requestDeletePost(data, indexPath: indexPath)
+            self.viewModel.requestDeletePost(params: ["postId" : data.postId ?? 0], indexPath: indexPath) { success in}
         }).disposed(by: disposeBag)
         postMorePopView.briefcaseButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
             guard let self = self else { return }
@@ -183,28 +231,20 @@ extension MainViewController: MainContentCellDelegate {
                         viewModel.requestLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
                             guard let `self` = self else { return }
                             if success {
-                                DispatchQueue.main.async {
-                                    let index = indexPath?.row ?? 0
-                                    var post = self.viewModel.dataList[index] as! PostModel
-                                    post.liked = true
-                                    post.likesCount = (post.likesCount ?? 0) + 1
-                                    self.viewModel.dataList[index] = post
-                                    let indexPath = IndexPath(row: index, section: 0)
-                                    self.tableView.reloadRows(at: [indexPath], with: .none)
-                                }
-                            }
+                                 DispatchQueue.main.async {
+                                     let index = indexPath?.row ?? 0
+                                     self.viewModel.updateLikeStatus(at: index, liked: true, indexPath: indexPath)
+                                 }
+                             }
                         }
                     } else {
                         viewModel.requestCancelLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
                             guard let `self` = self else { return }
                             if success {
-                                let index = indexPath?.row ?? 0
-                                var post = self.viewModel.dataList[index] as! PostModel
-                                post.liked = false
-                                post.likesCount = (post.likesCount ?? 0) - 1
-                                self.viewModel.dataList[index] = post
-                                let indexPath = IndexPath(row: index, section: 0)
-                                self.tableView.reloadRows(at: [indexPath], with: .none)
+                                DispatchQueue.main.async {
+                                    let index = indexPath?.row ?? 0
+                                    self.viewModel.updateLikeStatus(at: index, liked: false, indexPath: indexPath)
+                                }
                             }
                         }
                     }
@@ -215,28 +255,20 @@ extension MainViewController: MainContentCellDelegate {
                 viewModel.requestLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
                     guard let `self` = self else { return }
                     if success {
-                        DispatchQueue.main.async {
-                            let index = indexPath?.row ?? 0
-                            var post = self.viewModel.dataList[index] as! PostModel
-                            post.liked = true
-                            post.likesCount = (post.likesCount ?? 0) + 1
-                            self.viewModel.dataList[index] = post
-                            let indexPath = IndexPath(row: index, section: 0)
-                            self.tableView.reloadRows(at: [indexPath], with: .none)
-                        }
-                    }
+                         DispatchQueue.main.async {
+                             let index = indexPath?.row ?? 0
+                             self.viewModel.updateLikeStatus(at: index, liked: true, indexPath: indexPath)
+                         }
+                     }
                 }
             } else {
                 viewModel.requestCancelLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
                     guard let `self` = self else { return }
                     if success {
-                        let index = indexPath?.row ?? 0
-                        var post = self.viewModel.dataList[index] as! PostModel
-                        post.liked = false
-                        post.likesCount = (post.likesCount ?? 0) - 1
-                        self.viewModel.dataList[index] = post
-                        let indexPath = IndexPath(row: index, section: 0)
-                        self.tableView.reloadRows(at: [indexPath], with: .none)
+                        DispatchQueue.main.async {
+                            let index = indexPath?.row ?? 0
+                            self.viewModel.updateLikeStatus(at: index, liked: false, indexPath: indexPath)
+                        }
                     }
                 }
             }
@@ -256,23 +288,3 @@ extension MainViewController: MainContentCellDelegate {
     }
 }
 
-extension MainViewController {
-    
-    func requestDeletePost(_ data: PostModel, indexPath: IndexPath?)  {
-        self.viewModel.requestDeletePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
-            guard let `self` = self else { return }
-            if success {
-                DispatchQueue.main.async {
-                    let index = indexPath?.row ?? 0
-                    let indexPath = IndexPath(row: index, section: 0)
-
-                    // 1. 更新数据源
-                    self.viewModel.dataList.remove(at: index)
-                    
-                    // 2. 更新 tableView
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
-                }
-            }
-        }
-    }
-}
