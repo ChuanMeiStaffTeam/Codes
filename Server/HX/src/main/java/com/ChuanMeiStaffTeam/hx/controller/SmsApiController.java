@@ -70,42 +70,4 @@ public class SmsApiController {
         }
         return AppResult.failed("验证码发送失败");
     }
-
-
-    @ApiOperation("导出excel文件")
-    @GetMapping("/export-excel")
-    public void exportExcel(HttpServletResponse response) throws IOException{
-        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition", "attachment; filename=data.xlsx"); // 设置头信息
-        // 模拟数据
-        // 写入excel文件
-        List<ppass> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            ppass p = new ppass();
-            p.setEmail("" + i + "@qq.com");
-            p.setName("" + i);
-            p.setPhone("1234567890");
-            list.add(p);
-        }
-
-        List<tag> list1 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            tag t = new tag();
-            t.setName("name" + i);
-            t.setValue("value" + i);
-            list1.add(t);
-        }
-
-//        生成excel文件 工作簿对象
-        try (ExcelWriter writer = EasyExcel.write(response.getOutputStream(), ppass.class).build()) {
-//            对于第一个sheet，指定ppass.class
-            WriteSheet writeSheet1 = EasyExcel.writerSheet("test").build();
-            writer.write(list, writeSheet1);
-
-            // 对于第二个sheet，指定tag.class
-            WriteSheet writeSheet2 = EasyExcel.writerSheet("tag").head(tag.class).build();
-            writer.write(list1, writeSheet2);
-        }
-
-    }
 }

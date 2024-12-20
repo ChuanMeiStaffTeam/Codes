@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -169,13 +166,12 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
 
     @Override
     public boolean updatePostCommentCount(Integer postId, Integer commentCount) {
-        QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("post_id",postId);
-        SysPost sysPost = new SysPost();
-        sysPost.setCommentsCount(commentCount);
-        int update = postMapper.update(sysPost, queryWrapper);
-        // sql: update sys_post set comments_count = #{commentCount} where post_id = #{postId}
-        return update > 0;
+        //comments_count 修改为 commentsCount
+        UpdateWrapper<SysPost> queryWrapper = new UpdateWrapper<>();
+        queryWrapper.eq("post_id", postId);
+        queryWrapper.set("comments_count", commentCount);
+        this.update(queryWrapper); // sql : update sys_post set comments_count = commentsCount where post_id = postId
+        return true;
     }
 
     @Override
@@ -203,6 +199,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
         for (SysPost sysPost : sysPosts) {
             List<SysImage> sysImages = selectPostImagesByPostId(sysPost.getPostId());
             sysPost.setImages(sysImages);
+            sysPost.setUser(userService.getUserByUserId(sysPost.getUserId()));
         }
         return sysPosts;
     }
@@ -228,5 +225,39 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
                         .set("is_deleted", true)
         );
 
+    }
+
+    @Override
+    public List<SysPost> DefaultSearchPosts() {
+        // 查询随机30条帖子
+        QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderBy(true,false,"RAND()");  // 随机排序
+        queryWrapper.last("limit 30");
+        List<SysPost> list = this.list(queryWrapper);
+        for (SysPost sysPost : list) {
+            List<SysImage> sysImages = selectPostImagesByPostId(sysPost.getPostId());
+            sysPost.setImages(sysImages);
+            sysPost.setUser(userService.getUserByUserId(sysPost.getUserId()));
+        }
+        return list;
+    }
+
+    @Override
+    public List<String> getPostTagList() {
+        // 获取帖子数量最多的5个标签
+        return postMapper.selectTop5PostTags();
+    }
+
+    @Override
+    public List<SysPost> getPostListByTag(String tag) {
+        QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("tags",tag);
+        List<SysPost> sysPosts = postMapper.selectList(queryWrapper);
+        for (SysPost sysPost : sysPosts) {
+            List<SysImage> sysImages = selectPostImagesByPostId(sysPost.getPostId());
+            sysPost.setImages(sysImages);
+            sysPost.setUser(userService.getUserByUserId(sysPost.getUserId()));
+        }
+        return sysPosts;
     }
 }

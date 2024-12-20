@@ -1,5 +1,6 @@
 package com.ChuanMeiStaffTeam.hx.service;
 
+import com.ChuanMeiStaffTeam.hx.common.AppResult;
 import com.ChuanMeiStaffTeam.hx.model.SysFollows;
 import com.ChuanMeiStaffTeam.hx.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -85,4 +86,6 @@ public interface IUserService extends IService<User> {
 
     @Transactional
     boolean deleteUser(User user);
+
+    List<User> searchUser(String keyword);
 }

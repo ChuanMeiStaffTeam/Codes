@@ -8,4 +8,12 @@
     <select id="selectPostById" resultType="com.ChuanMeiStaffTeam.hx.model.vo.SysPostImage">
 
     </select>
+    <select id="selectTop5PostTags" resultType="java.lang.String">
+        select tags
+        from sys_posts
+        where is_deleted = 0
+          and tags is not null
+        group by tags
+        order by count(*) desc limit 5;
+    </select>
 </mapper>

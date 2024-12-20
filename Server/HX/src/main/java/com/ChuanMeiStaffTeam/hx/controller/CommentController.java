@@ -31,7 +31,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/api/comment")
-@Api(tags = "帖子图片接口")
+@Api(tags = "帖子评论接口")
 public class CommentController {
 
     @Autowired

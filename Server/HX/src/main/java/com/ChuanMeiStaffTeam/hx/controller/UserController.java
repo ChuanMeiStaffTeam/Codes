@@ -145,6 +145,7 @@ public class UserController {
         return AppResult.success();   //注册成功
     }
 
+    @ApiOperation(value = "用户验证码登录接口")
     // 用户验证码登录接口
     @PostMapping("/login/code")
     public AppResult loginByCode(@RequestBody Map<String, String> params) {
@@ -188,22 +189,8 @@ public class UserController {
     }
 
 
-    // 注册接口手机号验证码注册
-    @PostMapping("/register/phone")
-    public AppResult registerByPhone(String phone, String code) {
-        // TODO: 2024/06/06 手机号验证码注册逻辑
-        return AppResult.success();
-    }
-
-    // 注册接口邮箱验证码注册
-    @PostMapping("/register/email")
-    public AppResult registerByEmail(String email, String code) {
-        // TODO: 2024/06/06 邮箱验证码注册逻辑
-        return AppResult.success();
-    }
-
-
     // 注销接口
+    @ApiOperation(value = "用户注销登录接口")
     @PostMapping("/logout")
     public AppResult logout(HttpServletRequest request) {
         // 从redis中获取token，并删除redis缓存
@@ -223,6 +210,7 @@ public class UserController {
 
 
     // 账号注销接口
+    @ApiOperation(value = "账号注销接口")
     @DeleteMapping("/account/delete")
     public AppResult accountLogout(HttpServletRequest request) {
         String token = request.getHeader("token");

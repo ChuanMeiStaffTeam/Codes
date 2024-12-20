@@ -73,4 +73,16 @@ public interface IPostsImage extends IService<SysPost> {
     // 根据用户id删除用户所有帖子
     int deleteUserPostAll(Integer userId);
 
+
+
+    List<SysPost> DefaultSearchPosts();
+
+
+    // 获取帖子标签信息
+    List<String> getPostTagList();
+
+
+    //根据标签查询帖子
+    List<SysPost> getPostListByTag(String tag);
+
 }

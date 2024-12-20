@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -186,4 +187,18 @@ public class UserInfoController {
         return AppResult.success();
     }
     // TEST CODE END
+
+
+    // 搜索用户
+    @ApiOperation(value = "搜索用户")
+    @PostMapping("/searchUser")
+    public AppResult searchUser(@ApiParam("搜索用户关键字") @RequestBody Map<String,String> params) {
+        String keyword = params.get("keyword");
+        if(keyword == null || keyword.trim().equals("")) {
+            log.error("搜索关键字不能为空");
+            throw new ApplicationException("搜索关键字不能为空");
+        }
+        log.info("搜索用户关键字为" + keyword);
+        return AppResult.success(userService.searchUser(keyword));
+    }
 }

@@ -1,5 +1,6 @@
 package com.ChuanMeiStaffTeam.hx.service.Impl;
 
+import com.ChuanMeiStaffTeam.hx.common.AppResult;
 import com.ChuanMeiStaffTeam.hx.exception.ApplicationException;
 import com.ChuanMeiStaffTeam.hx.model.SysFollows;
 import com.ChuanMeiStaffTeam.hx.model.SysPost;
@@ -240,5 +241,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         int i2 = userMapper.update(null, updateWrapper);
         log.info("删除用户成功，影响行数：" + i2);
         return true;
+    }
+
+    @Override
+    public List<User> searchUser(String keyword) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        String key = "%" + keyword + "%";
+        queryWrapper.like("username", key);
+        return userMapper.selectList(queryWrapper);
     }
 }

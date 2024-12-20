@@ -34,7 +34,6 @@ import java.util.Map;
 public class FollowsController {
 
 
-    // TODO: 关注 取消关注 关注列表 粉丝列表
 
     @Resource
     private IUserService userService;

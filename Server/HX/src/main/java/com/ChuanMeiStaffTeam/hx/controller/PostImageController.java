@@ -505,8 +505,11 @@ public class PostImageController {
         return AppResult.success(map);
     }
 
+
+
+
     // 搜索帖子接口
-    @GetMapping(value = "/searchPosts")
+    @PostMapping(value = "/searchPosts")
     @ApiOperation(value = "搜索帖子接口")
     // keyword 搜索关键字
     public AppResult searchPosts(@ApiParam("搜索关键字") @RequestBody Map<String,Object> params) {
@@ -517,11 +520,24 @@ public class PostImageController {
         List<SysPost> sysPostImages = postsImageService.searchPosts(keyword);
         if (sysPostImages == null || sysPostImages.isEmpty()) {
             log.info("没有搜索到相关帖子");
-            return AppResult.failed("没有搜索到相关帖子");
+            return AppResult.success("没有搜索到相关帖子");
         }
         Map<String, Object> map = new HashMap<>();
         map.put("list", sysPostImages);
         log.info("搜索帖子成功");
+        return AppResult.success(map);
+    }
+
+    // 搜索默认展示帖子接口
+    @PostMapping(value = "/defaultSearchPosts")
+    @ApiOperation(value = "搜索默认展示帖子接口")
+    public AppResult defaultSearchPosts() {
+        List<SysPost> sysPosts = postsImageService.DefaultSearchPosts();
+        List<String> postTagList = postsImageService.getPostTagList();
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", sysPosts);
+        map.put("postTagList", postTagList);
+        log.info("搜索默认展示帖子和标签列表获取成功");
         return AppResult.success(map);
     }
 
@@ -543,81 +559,20 @@ public class PostImageController {
         return AppResult.success(map);
     }
 
-
-//    // 评论帖子接口
-//    @PostMapping(value = "/commentPost")
-//    @ApiOperation(value = "评论帖子接口")
-//    public AppResult commentPost(@ApiParam("帖子id") @RequestParam("postId") Integer postId,
-//                                 @ApiParam("评论内容") @RequestParam("content") String content,
-//                                 @ApiParam("评论图片") @RequestParam(value = "images", required = false) List<MultipartFile> images,
-//                                 HttpServletRequest request) {
-//        if (postId == null) {
-//            return AppResult.failed("帖子id不能为空");
-//        }
-//        if (content == null || content.trim().isEmpty()) {
-//            return AppResult.failed("评论内容不能为空");
-//        }
-//        // 判断当前登录用户是否已经评论
-//        String token = request.getHeader("token");
-//        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
-//        String username = tokenInfo.getClaim("username").asString();
-//        // 从 redis 中获取当前登录用户
-//        User user = (User) redisUtil.get(username);
-//        // 查询帖子信息
-//        SysPostImage sysPostImage = postsImageService.selectPostById(postId);
-//        int userId = user.getUserId();
-//        if (sysPostImage.getUserId() == userId) {
-//            return AppResult.failed("不能评论自己的帖子");
-//        }
-//        // 评论帖子
-//        boolean b = postsImageService.commentPost(postId, user, content, images);
-//        if (!b) {
-//            return AppResult.failed("评论失败");
-//        }
-//        return AppResult.success();
-//    }
-//
-//    // 回复评论接口
-//    @PostMapping(value = "/replyComment")
-//    @ApiOperation(value = "回复评论接口")
-//    public AppResult replyComment(@ApiParam("评论id") @RequestParam("commentId") Integer commentId,
-//                                  @ApiParam("回复内容") @RequestParam("content") String content,
-//                                  @ApiParam("回复图片") @RequestParam(value = "images", required = false) List<MultipartFile> images,
-//                                  HttpServletRequest request) {
-//
-//
-//        if (commentId == null) {
-//            return AppResult.failed("评论id不能为空");
-//
-//
-//        }
-//        if (content == null || content.trim().isEmpty()) {
-//            return AppResult.failed("回复内容不能为空");
-//
-//        }
-//
-//
-//        // 判断当前登录用户是否已经评论
-//        String token = request.getHeader("token");
-//        DecodedJWT tokenInfo = JwtUtil.getTokenInfo(token);
-//        String username = tokenInfo.getClaim("username").asString();
-//        // 从 redis 中获取当前登录用户
-//        User user = (User) redisUtil.get(username);
-//        // 回复评论
-//        boolean b = postsImageService.replyComment(commentId, user, content, images);
-//        if (!b) {
-//            return AppResult.failed("回复失败");
-//        }
-//        return AppResult.success();
-//    }
-//
-//    // 删除评论接口
-//
-//    // 举报评论接口
-//
-//
-//    // 举报帖子接口
-
-//    // 关注用户接口
-
+    // 根据标签获取帖子接口
+    @GetMapping("/getPostByTag")
+    @ApiOperation(value = "根据标签获取帖子接口")
+    public AppResult getPostByTag(@ApiParam("标签关键字") @RequestBody Map<String,Object> params) {
+        String tag = (String) params.get("tag");
+       if(tag == null || tag.length() == 0) {
+            return AppResult.failed("标签不能为空");
+       }
+        List<SysPost> sysPostImages = postsImageService.getPostListByTag(tag);
+        if (sysPostImages == null || sysPostImages.isEmpty()) {
+            log.info("没有该标签的帖子");
+            return AppResult.failed("没有该标签的帖子");
+        }
+        log.info("根据标签获取帖子成功");
+        return AppResult.success(sysPostImages);
+    }
 }

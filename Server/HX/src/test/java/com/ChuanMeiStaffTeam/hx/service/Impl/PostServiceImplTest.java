@@ -1,7 +1,5 @@
 package com.ChuanMeiStaffTeam.hx.service.Impl;
 
-import com.ChuanMeiStaffTeam.hx.model.SysComment;
-import com.ChuanMeiStaffTeam.hx.service.ICommentService;
 import com.ChuanMeiStaffTeam.hx.service.IPostsImage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
  * Created with IntelliJ IDEA.
  *
  * @Author: DongGuoZhen
- * @Date: 2024/07/11/21:54
+ * @Date: 2024/12/20/09:45
  * @Description:
  */
 @SpringBootTest
-class CommentServiceImplTest {
-
-    @Autowired
-    private ICommentService commentService;
-
-    @Test
-    void sendComment() {
-        SysComment comment = new SysComment();
-        comment.setCommentText("测试评论");
-        commentService.addComment(comment);
-    }
-
+class PostServiceImplTest {
 
     @Autowired
     private IPostsImage postService;
@@ -37,6 +24,5 @@ class CommentServiceImplTest {
     void test() {
         System.out.println(postService.getPostTagList());
     }
-
 
 }
