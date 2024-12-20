@@ -15,6 +15,11 @@
 "protocol_privacy_title" = "《隐私协议》";
 
 
+//空占位图
+"No_list" = "暂无数据 \n 请点击更多查看";
+"No data" = "这里空空如也";
+"Search_No_Result" = "这里一片空白，换个词试试吧";
+"Search_No_Wifi" = "哎呀~网络开小差了";
 
 
 

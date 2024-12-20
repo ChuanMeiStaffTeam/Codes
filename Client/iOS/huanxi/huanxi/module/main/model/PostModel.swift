@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PostModel: Codable {
+struct PostModel: Codable, Equatable {
     var user: UserInfoModel?
     var images : [PostImage]?
     var likedUsers: [UserInfoModel]?
@@ -26,6 +26,9 @@ struct PostModel: Codable {
     var captionHeight: CGFloat?
     var imageHeight: CGFloat?
 
+    static func == (lhs: PostModel, rhs: PostModel) -> Bool {
+        return lhs.postId == rhs.postId
+    }
 }
 
 struct PostImage: Codable {

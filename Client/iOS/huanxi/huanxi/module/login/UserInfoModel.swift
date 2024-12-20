@@ -24,7 +24,7 @@ struct UpdateUserModel: Codable {
     let user: UserInfoModel
 }
 
-struct UserInfoModel: Codable {
+struct UserInfoModel: Codable, Equatable{
     
     var username: String?
     var fullName: String?

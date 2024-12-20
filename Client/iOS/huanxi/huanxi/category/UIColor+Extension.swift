@@ -29,6 +29,11 @@ extension UIColor {
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
     
+    func brightened(by factor: CGFloat) -> UIColor {
+      var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+      getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+      return UIColor(hue: h, saturation: s, brightness: b * factor, alpha: a)
+    }
     
     static var mainBlueColor: UIColor {
         return .init(hexString: "#009DFF")

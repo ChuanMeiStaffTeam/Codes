@@ -1,6 +1,13 @@
 PODS:
   - Alamofire (5.8.1)
+  - JXSegmentedView (1.4.1)
   - Kingfisher (7.11.0)
+  - Localize-Swift (3.2.0):
+    - Localize-Swift/LocalizeSwiftCore (= 3.2.0)
+    - Localize-Swift/UIKit (= 3.2.0)
+  - Localize-Swift/LocalizeSwiftCore (3.2.0)
+  - Localize-Swift/UIKit (3.2.0):
+    - Localize-Swift/LocalizeSwiftCore
   - lottie-ios (4.5.0)
   - MBProgressHUD (1.2.0)
   - MJRefresh (3.7.9)
@@ -22,7 +29,9 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - JXSegmentedView
   - Kingfisher
+  - Localize-Swift
   - lottie-ios
   - MBProgressHUD
   - MJRefresh
@@ -36,7 +45,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - JXSegmentedView
     - Kingfisher
+    - Localize-Swift
     - lottie-ios
     - MBProgressHUD
     - MJRefresh
@@ -51,7 +62,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
+  JXSegmentedView: cd73555ce2134d1656db2cb383ba9c2f36fb5078
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
+  Localize-Swift: 6f4475136bdb0d7b2882ea3d4ea919d70142b232
   lottie-ios: a881093fab623c467d3bce374367755c272bdd59
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
@@ -64,6 +77,6 @@ SPEC CHECKSUMS:
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
   YXArtemis: 2771e9ac5e5e01867914835aedb03429d135043e
 
-PODFILE CHECKSUM: 8bc0a94a96c550f607a3eb8c53c42556ffe22770
+PODFILE CHECKSUM: 7587732864cb01d8162efbdfcdf0b6497149ab43
 
 COCOAPODS: 1.16.1

@@ -23,6 +23,10 @@ target 'huanxi' do
   #RxSwift
   pod 'RxSwift', '~> 6.8.0'
   pod 'RxCocoa', '~> 6.8.0'
+  #分页控制
+  pod 'JXSegmentedView'
+  #多语言
+  pod 'Localize-Swift'
 end
 
 post_install do |installer|

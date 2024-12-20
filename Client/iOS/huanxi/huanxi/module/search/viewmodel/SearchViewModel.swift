@@ -9,9 +9,13 @@ import RxCocoa
 import RxRelay
 import RxSwift
 
+fileprivate let skeletonData: [SearchViewModel.CellType] = Array(repeating: .skeleton, count: 7)
+
 class SearchViewModel: BaseViewModel {
     var postsList: [PostModel] = []
-    var searchUesrs: [UserInfoModel] = []
+
+    let searchUesrs = BehaviorRelay<[CellType]>(value: [])
+
 }
 
 
@@ -37,6 +41,7 @@ extension SearchViewModel {
     }
     
     func requestSearchUser(keyword: String, completion: @escaping (Bool) -> Void) {
+        self.searchUesrs.accept(skeletonData)
         NetworkManager.shared.postRequest(
             path: "userinfo/searchUser",
             parameters: ["keyword" : keyword],
@@ -44,11 +49,37 @@ extension SearchViewModel {
         ) { [weak self] success, message, data in
             guard let `self` = self else { return }
             if success {
-                searchUesrs = data ?? []
+                let cellItems: [CellType] = (data ?? []).map { CellType.userItem($0) }
+                self.searchUesrs.accept(cellItems)
             } else {
+                self.searchUesrs.accept([SearchViewModel.CellType.error])
                 HUDHelper.showToast(message)
             }
             completion(success)
+        }
+    }
+}
+
+extension SearchViewModel {
+
+    enum CellType: Equatable {
+        case skeleton
+        case postItem(PostModel)
+        case userItem(UserInfoModel)
+        case empty
+        case error
+
+        static func == (lhs: CellType, rhs: CellType) -> Bool {
+            switch (lhs, rhs) {
+            case (.skeleton, .skeleton), (.empty, .empty), (.error, .error):
+                return true
+            case let (.postItem(leftItem), .postItem(rightItem)):
+                return leftItem == rightItem
+            case let (.userItem(leftItem), .userItem(rightItem)):
+                return leftItem == rightItem
+            default:
+                return false
+            }
         }
     }
 }

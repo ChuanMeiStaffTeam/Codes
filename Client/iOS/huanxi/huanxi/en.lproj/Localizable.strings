@@ -5,3 +5,9 @@
   Created by rslz on 2024/11/19.
   
 */
+
+//空占位图
+"No_list" = "No Result Found \n Please go to the details";
+"No data" = "No data";
+"Search_No_Result" = "The search results are empty";
+"Search_No_Wifi" = "No Network";

@@ -11,18 +11,23 @@ import RxRelay
 
 class SearchSugPopView: BaseView {
     
-    let dataSource = BehaviorRelay<[UserInfoModel]>(value: [])
+    let dataSource = BehaviorRelay<[SearchViewModel.CellType]>(value: [])
     
     var onItemTap: ((UserInfoModel)->Void)?
 
     // 创建 UICollectionView 实例，并且引用 layout 对象
-    private lazy var tableView: UITableView = {
+    private let popTableView: UITableView = {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
         view.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         view.backgroundColor = .clear
         view.separatorColor = .clear
         view.register(SearchSugUserCell.self, forCellReuseIdentifier: SearchSugUserCell.defaultReuseIdentifier)
         return view
+    }()
+    
+    private lazy var emptyView: CCEmptyView = {
+        let emptyView = CCEmptyView()
+        return emptyView
     }()
     
     
@@ -39,33 +44,74 @@ class SearchSugPopView: BaseView {
     
     func setupView() {
         backgroundColor = .black
-        addSubview(tableView)
-        tableView.snp.makeConstraints { make in
+        addSubview(popTableView)
+        popTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
     func bindUI() {
+        
         dataSource
-            .bind(to: tableView.rx.items(cellIdentifier: SearchSugUserCell.defaultReuseIdentifier, cellType: SearchSugUserCell.self)) { row, element, cell in
-                cell.user = element
+            .bind(to: popTableView.rx.items) { tableView, index, item in
+                switch item {
+                case .skeleton:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: SearchSugUserCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! SearchSugUserCell
+                    cell.isSkeletonVisible = true
+                    return cell
+                case .userItem(let userModel):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: SearchSugUserCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! SearchSugUserCell
+                    cell.user = userModel
+                    cell.isSkeletonVisible = false
+                    return cell
+                default:
+                    let cell = UITableViewCell()
+                    cell.backgroundColor = .clear
+                    return cell
+                }
             }
             .disposed(by: disposeBag)
         
-        tableView.rx.modelSelected(UserInfoModel.self)
-            .subscribe(onNext: { [weak self] value in
+        dataSource
+            .subscribe(onNext: { [weak self] cellTypes in
                 guard let `self` = self else { return }
-                if let block = self.onItemTap {
-                      block(value)
+                if cellTypes.isEmpty {
+                    self.setEmptyOrNetErrorView(.noData)
+                } else {
+                    self.emptyView.removeFromSuperview()
                 }
             })
             .disposed(by: disposeBag)
+        
+        popTableView.rx.itemSelected
+            .withUnretained(self)
+            .compactMap { owner, indexPath -> UserInfoModel? in
+                guard case .userItem(let userModel) = owner.dataSource.value[indexPath.row] else {
+                    return nil
+                }
+                return userModel
+            }
+            .subscribe(onNext: { [weak self] userModel in
+                self?.onItemTap?(userModel)
+            })
+            .disposed(by: disposeBag)
+        
     }
     
-    var items: [UserInfoModel]? {
+    var items: [SearchViewModel.CellType]? {
         didSet {
             dataSource.accept(items ?? [])
-            tableView.reloadData()
         }
+    }
+    
+    // MARK: - 设置空视图or错误视图
+    private func setEmptyOrNetErrorView(_ type: CCEmptyType) {
+        emptyView.removeFromSuperview()
+        addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview().offset(-100)
+            make.centerX.equalToSuperview()
+        }
+        emptyView.updateType(type: type)
     }
 }

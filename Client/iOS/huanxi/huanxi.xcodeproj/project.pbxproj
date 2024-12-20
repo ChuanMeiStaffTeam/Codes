@@ -146,6 +146,8 @@
 		F3F80E862CEA087F00008887 /* LaunchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E852CEA087F00008887 /* LaunchManager.swift */; };
 		F3F80E882CEA17C900008887 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3F80E872CEA17C900008887 /* LaunchScreen.xib */; };
 		F3F80E8A2CEA3EF700008887 /* TransAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E892CEA3EF700008887 /* TransAnimator.swift */; };
+		F3FC1D232D155B03005555A0 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FC1D222D155B03005555A0 /* UIView+Extension.swift */; };
+		F3FC1D252D15BAA6005555A0 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FC1D242D15BAA6005555A0 /* EmptyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -314,6 +316,8 @@
 		F3F80E852CEA087F00008887 /* LaunchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchManager.swift; sourceTree = "<group>"; };
 		F3F80E872CEA17C900008887 /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		F3F80E892CEA3EF700008887 /* TransAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransAnimator.swift; sourceTree = "<group>"; };
+		F3FC1D222D155B03005555A0 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		F3FC1D242D15BAA6005555A0 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -512,6 +516,7 @@
 				397216B42B81EA79007D0F2B /* BaseViewController.swift */,
 				39AB75162C94342100440E5A /* WebViewController.swift */,
 				F373881C2D13224C0072CE77 /* BaseViewModel.swift */,
+				F3FC1D242D15BAA6005555A0 /* EmptyView.swift */,
 			);
 			path = base;
 			sourceTree = "<group>";
@@ -621,6 +626,7 @@
 				F39F6E032CE14A6400CFF8B5 /* Notification+Extension.swift */,
 				F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */,
 				F3E786232CECB58F00EC2251 /* UIDevice+Extension.swift */,
+				F3FC1D222D155B03005555A0 /* UIView+Extension.swift */,
 			);
 			path = category;
 			sourceTree = "<group>";
@@ -1041,6 +1047,7 @@
 				397216C52B824A04007D0F2B /* MainViewController.swift in Sources */,
 				04F23E4A2C0EE7900078809E /* ChatModel.swift in Sources */,
 				39E908182C2872DC0017B83B /* SearchResultView.swift in Sources */,
+				F3FC1D252D15BAA6005555A0 /* EmptyView.swift in Sources */,
 				04BCDA332C1301AA00437222 /* ChatMessageManager.swift in Sources */,
 				39E908122C26C4200017B83B /* WaterfallCollectionViewCell.swift in Sources */,
 				F39F6E042CE14A6400CFF8B5 /* Notification+Extension.swift in Sources */,
@@ -1117,6 +1124,7 @@
 				39E908162C2872CF0017B83B /* SearchBarView.swift in Sources */,
 				39066F612C50E2DB003D347E /* LoginViewController.swift in Sources */,
 				F3F80E862CEA087F00008887 /* LaunchManager.swift in Sources */,
+				F3FC1D232D155B03005555A0 /* UIView+Extension.swift in Sources */,
 				3998DE352BB59F0E0000C4DD /* UpdatesEarlierCell.swift in Sources */,
 				F3223B882D0676F400E74574 /* NIMManager.swift in Sources */,
 				392CF1062B8D7C5D0070637E /* UIView+FrameExtension.swift in Sources */,

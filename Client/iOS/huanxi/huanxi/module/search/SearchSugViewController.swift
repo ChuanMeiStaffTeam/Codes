@@ -76,6 +76,13 @@ class SearchSugViewController: BaseViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: disposeBag)
+        
+        self.viewModel.searchUesrs
+            .subscribe(onNext: { [weak self] cellTypes in
+                guard let `self` = self else { return }
+                self.popView.items = cellTypes
+            })
+            .disposed(by: disposeBag)
 
         popView.onItemTap = { [weak self] user in
             guard let self = self else { return }
@@ -92,10 +99,7 @@ class SearchSugViewController: BaseViewController {
 extension SearchSugViewController {
     private func loadData(keyword: String) {
         viewModel.requestSearchUser(keyword: keyword, completion: { [weak self] success in
-            guard let self = self else { return }
-            if success {
-                self.popView.items = self.viewModel.searchUesrs
-            }
+            
         })
     }
 }
