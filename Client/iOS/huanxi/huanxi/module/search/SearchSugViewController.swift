@@ -19,13 +19,19 @@ class SearchSugViewController: BaseViewController {
         return view
     }()
 
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // 使 textField 成为第一响应者，弹出键盘
+        headerView.textField.becomeFirstResponder()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         sh_prefersNavigationBarHidden = true
         setupUI()
         bindUI()
-
-        headerView.textField.becomeFirstResponder()
     }
 
     func setupUI() {

@@ -36,7 +36,7 @@ class ExplainViewController: BaseViewController {
     
     func setupData() {
         
-        let tags = ExplainItem(title: "写话题", detail: "#话题 例如：美食、旅游、设计等...", type: 1, switchStatus: 0)
+        let tags = ExplainItem(title: "话题标签", detail: "#话题 例如：美食、旅游、设计等...", type: 1, switchStatus: 0)
         let mark = ExplainItem(title: "标记用户", detail: "", type: 0, switchStatus: 0)
         let address = ExplainItem(title: "添加地点", detail: "", type: 0, switchStatus: 0)
 //        let wx = ExplainItem(title: "微信", detail: "", type: 1, switchStatus: 0)
