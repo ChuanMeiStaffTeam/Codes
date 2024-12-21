@@ -73,7 +73,7 @@ class MainViewModel {
                 if list.count > 5 {
                     list.insert(CellType.recommend(recommend), at: 4)
                 }
-//                self.dataList.accept(list)
+                self.dataList.accept(list)
             } else {
                 self.dataList.accept([MainViewModel.CellType.error])
                 HUDHelper.showToast(message)
