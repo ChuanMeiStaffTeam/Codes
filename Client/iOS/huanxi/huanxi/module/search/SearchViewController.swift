@@ -11,6 +11,8 @@ class SearchViewController: BaseViewController {
     private let searchHeaderView = SearchHeaderView()
     private let searchTagsView = SearchTagsView()
     private let waterfallView = WaterfallCollectionView()
+    private let nav = NavigationController(rootViewController: SearchSugViewController())
+
     private lazy var emptyView: CCEmptyView = {
         let emptyView = CCEmptyView()
         return emptyView
@@ -29,10 +31,10 @@ class SearchViewController: BaseViewController {
     func setupUI() {
         searchHeaderView.didClickViewCallBack = { [weak self] in
             guard let self = self else { return }
-            let vc = SearchSugViewController()
-            let nav = NavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .overFullScreen
-            self.present(nav, animated: false)
+            DispatchQueue.main.async {
+                self.nav.modalPresentationStyle = .overFullScreen
+                self.present(self.nav, animated: false)
+            }
         }
         view.addSubview(searchHeaderView)
         searchHeaderView.snp.makeConstraints { make in

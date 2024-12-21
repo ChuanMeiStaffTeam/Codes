@@ -40,6 +40,7 @@ class SearchSugUserCell: UITableViewCell {
         // Avatar setup
         avatar.layer.cornerRadius = 20
         avatar.layer.masksToBounds = true
+        avatar.backgroundColor = UIColor.postBgColor
         contentView.addSubview(avatar)
         avatar.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(7)

@@ -51,7 +51,6 @@ class SearchSugPopView: BaseView {
     }
     
     func bindUI() {
-        
         dataSource
             .bind(to: popTableView.rx.items) { tableView, index, item in
                 switch item {
@@ -73,6 +72,7 @@ class SearchSugPopView: BaseView {
             .disposed(by: disposeBag)
         
         dataSource
+            .skip(1)
             .subscribe(onNext: { [weak self] cellTypes in
                 guard let `self` = self else { return }
                 if cellTypes.isEmpty {

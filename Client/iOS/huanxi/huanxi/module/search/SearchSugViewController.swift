@@ -11,10 +11,11 @@ import UIKit
 class SearchSugViewController: BaseViewController {
     private let headerView = SearchSugHeaderView()
     private let viewModel = SearchViewModel()
-
+    // 保存上一次的输入内容
+    var lastInputText: String = ""
+    
     private let popView: SearchSugPopView = {
         let view = SearchSugPopView()
-        view.isHidden = true
         return view
     }()
 
@@ -53,11 +54,10 @@ class SearchSugViewController: BaseViewController {
         headerView.textField.rx.text
             .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
+            .skip(1)
             .subscribe(onNext: { [weak self] text in
                 guard let self = self else { return }
                 let trimmedString = text?.trimmingCharacters(in: .whitespacesAndNewlines)
-//                let isBlank = trimmedString?.isEmpty ?? true
-                self.popView.isHidden = false
                 self.loadData(keyword: trimmedString ?? "")
             })
             .disposed(by: disposeBag)
@@ -78,6 +78,7 @@ class SearchSugViewController: BaseViewController {
         self.viewModel.searchUesrs
             .subscribe(onNext: { [weak self] cellTypes in
                 guard let `self` = self else { return }
+                guard !cellTypes.isEmpty else { return }
                 self.popView.items = cellTypes
             })
             .disposed(by: disposeBag)

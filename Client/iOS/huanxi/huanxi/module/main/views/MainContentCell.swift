@@ -61,7 +61,10 @@ class MainContentCell: UITableViewCell {
                 } else {
                     avatar.image = UIImage.init(named: urlStr)
                 }
+            } else {
+                avatar.image = UIImage.init(named: "main_pic_test")
             }
+            
             nameLabel.text = model?.user?.username ?? "游客"
             if let urlStr = model?.images?.first?.imageUrl {
                 if urlStr.contains("http") {
@@ -121,7 +124,7 @@ class MainContentCell: UITableViewCell {
         imgView.addSubview(likeAnimationView)
 
         
-        avatar.image = UIImage.init(named: "main_pic_test")
+        avatar.backgroundColor = UIColor.postBgColor
         avatar.layer.cornerRadius = 16
         avatar.layer.masksToBounds = true
         avatar.snp.makeConstraints { make in
@@ -135,6 +138,10 @@ class MainContentCell: UITableViewCell {
         nameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
             make.left.equalTo(avatar.snp.right).offset(10)
+            make.right.lessThanOrEqualToSuperview().inset(10)
+            make.width.greaterThanOrEqualTo(UIDevice.screenWidth/5)
+            make.height.equalTo(15)
+
         }
         
         countryLabel.textColor = .white
@@ -142,6 +149,9 @@ class MainContentCell: UITableViewCell {
         countryLabel.snp.makeConstraints { make in
             make.left.equalTo(avatar.snp.right).offset(10)
             make.bottom.equalTo(avatar.snp.bottom).offset(0)
+            make.right.lessThanOrEqualToSuperview().inset(10)
+            make.width.greaterThanOrEqualTo(UIDevice.screenWidth/4)
+            make.height.equalTo(14)
         }
         
         moreBtn.setImage(UIImage.init(named: "main_more"), for: .normal)
@@ -198,25 +208,32 @@ class MainContentCell: UITableViewCell {
         likeNumLabel.textColor = .white
         likeNumLabel.font = .systemFont(ofSize: 14)
         likeNumLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(10)
+            make.left.equalToSuperview().inset(10)
+            make.right.lessThanOrEqualToSuperview().inset(10)
             make.top.equalTo(collectBtn.snp.bottom).offset(16)
+            make.width.greaterThanOrEqualTo(UIDevice.screenWidth/4)
+            make.height.equalTo(14)
         }
         
         contentLabel.textColor = .white
         contentLabel.numberOfLines = 3
         contentLabel.font = .systemFont(ofSize: 14)
         contentLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-            make.height.lessThanOrEqualTo(50)
             make.top.equalTo(likeNumLabel.snp.bottom).offset(10)
+            make.left.right.equalToSuperview().inset(10)
+            make.height.lessThanOrEqualTo(50)
+            make.height.greaterThanOrEqualTo(14)
+
         }
         
         dateLabel.textColor = .init(white: 1, alpha: 0.5)
         dateLabel.font = .systemFont(ofSize: 14)
         dateLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(10)
+            make.left.equalToSuperview().inset(10)
+            make.right.lessThanOrEqualToSuperview().inset(10)
             make.bottom.equalToSuperview().offset(-3)
+            make.width.greaterThanOrEqualTo(UIDevice.screenWidth/4)
+            make.height.equalTo(14)
         }
         
         
@@ -312,23 +329,29 @@ extension MainContentCell {
         avatar.layoutSkeletonLayer()
         nameLabel.layoutSkeletonLayer()
         countryLabel.layoutSkeletonLayer()
-        contentLabel.layoutSkeletonLayer()
         imgView.layoutSkeletonLayer()
+        likeNumLabel.layoutSkeletonLayer()
+        contentLabel.layoutSkeletonLayer()
+        dateLabel.layoutSkeletonLayer()
     }
     
     func showSkeletonAnimation() {
         avatar.startSkeletonAnimation()
         nameLabel.startSkeletonAnimation()
         countryLabel.startSkeletonAnimation()
-        contentLabel.startSkeletonAnimation()
         imgView.startSkeletonAnimation()
+        likeNumLabel.startSkeletonAnimation()
+        contentLabel.startSkeletonAnimation()
+        dateLabel.startSkeletonAnimation()
     }
     
     func closeSkeletonAnimation() {
         avatar.stopSkeletonAnimation()
         nameLabel.stopSkeletonAnimation()
         countryLabel.stopSkeletonAnimation()
-        contentLabel.stopSkeletonAnimation()
         imgView.stopSkeletonAnimation()
+        likeNumLabel.stopSkeletonAnimation()
+        contentLabel.stopSkeletonAnimation()
+        dateLabel.stopSkeletonAnimation()
     }
 }

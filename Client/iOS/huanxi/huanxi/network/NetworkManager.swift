@@ -50,15 +50,16 @@ class NetworkManager {
             self.logResponse(response) // 打印响应日志
             switch response.result {
             case .success(let responseModel):
-                if responseModel.code == 200 {
+                switch responseModel.code {
+                case 200:
                     completion(true, responseModel.message, responseModel.data)
-                }else if responseModel.code == 402 {
+                case 402, 1000:
                     LoginManager.shared.logout()
                     Task {
                         _ = await LoginViewController.startLogin()
                     }
                     completion(false, responseModel.message, responseModel.data)
-                } else {
+                default:
                     completion(false, responseModel.message, responseModel.data)
                 }
             case .failure(let error):

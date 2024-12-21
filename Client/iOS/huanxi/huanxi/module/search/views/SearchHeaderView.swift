@@ -67,9 +67,10 @@ class SearchHeaderView: UIView {
 
     
     @objc func clickTextField() {
-        if let block = didClickViewCallBack {
-            block()
+        DispatchQueue.main.async {
+            if let block = self.didClickViewCallBack {
+                block()
+            }
         }
     }
-    
 }
