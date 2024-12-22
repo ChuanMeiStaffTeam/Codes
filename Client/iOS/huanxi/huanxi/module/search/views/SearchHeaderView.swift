@@ -53,7 +53,7 @@ class SearchHeaderView: UIView {
         textField.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(12)
             make.centerY.equalTo(bgView)
-            make.height.equalTo(32)
+            make.height.equalTo(35)
         }
         
         let btn = UIButton(type: .custom)

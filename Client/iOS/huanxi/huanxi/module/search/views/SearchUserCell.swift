@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 import SnapKit
 
-class SearchSugUserCell: UITableViewCell {
+class SearchUserCell: UITableViewCell {
     
     let avatar = UIImageView()
     let nameLabel = UILabel()
@@ -103,7 +103,7 @@ class SearchSugUserCell: UITableViewCell {
 
 
 // MARK: 骨架屏配置
-extension SearchSugUserCell {
+extension SearchUserCell {
     func setLayoutSkeletonLayer() {
         avatar.layoutSkeletonLayer()
         nameLabel.layoutSkeletonLayer()

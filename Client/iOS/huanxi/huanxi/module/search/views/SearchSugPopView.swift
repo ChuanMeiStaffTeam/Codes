@@ -21,7 +21,7 @@ class SearchSugPopView: BaseView {
         view.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         view.backgroundColor = .clear
         view.separatorColor = .clear
-        view.register(SearchSugUserCell.self, forCellReuseIdentifier: SearchSugUserCell.defaultReuseIdentifier)
+        view.register(SearchUserCell.self, forCellReuseIdentifier: SearchUserCell.defaultReuseIdentifier)
         return view
     }()
     
@@ -55,11 +55,11 @@ class SearchSugPopView: BaseView {
             .bind(to: popTableView.rx.items) { tableView, index, item in
                 switch item {
                 case .skeleton:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: SearchSugUserCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! SearchSugUserCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: SearchUserCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! SearchUserCell
                     cell.isSkeletonVisible = true
                     return cell
                 case .userItem(let userModel):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: SearchSugUserCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! SearchSugUserCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: SearchUserCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! SearchUserCell
                     cell.user = userModel
                     cell.isSkeletonVisible = false
                     return cell

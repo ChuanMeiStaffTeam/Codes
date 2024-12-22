@@ -74,7 +74,7 @@ class SearchSugViewController: BaseViewController {
                 // 获取当前输入框中的文本
                 let currentText = self.headerView.textField.text ?? ""
                 
-                let vc = SearchResultsViewController()
+                let vc = SearchResultContainerVC()
                 vc.keyword = currentText
                 vc.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(vc, animated: true)

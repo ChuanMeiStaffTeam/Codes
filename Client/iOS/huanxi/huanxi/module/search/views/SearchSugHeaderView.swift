@@ -63,7 +63,7 @@ class SearchSugHeaderView: UIView {
             make.centerY.equalTo(cancleButton)
             make.trailing.equalTo(cancleButton.snp.leading)
             make.leading.equalToSuperview().offset(12)
-            make.height.equalTo(32)
+            make.height.equalTo(35)
             make.width.greaterThanOrEqualTo(100)
         }
     }

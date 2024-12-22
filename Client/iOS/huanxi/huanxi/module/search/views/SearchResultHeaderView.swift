@@ -51,6 +51,7 @@ class SearchResultHeaderView: UIView {
         addSubview(backButton)
         backButton.snp.makeConstraints { make in
             make.top.equalTo(UIDevice.sy_safeDistanceTop)
+            make.bottom.equalToSuperview()
             make.left.equalToSuperview()
         }
         
@@ -59,7 +60,7 @@ class SearchResultHeaderView: UIView {
             make.centerY.equalTo(backButton)
             make.leading.equalTo(backButton.snp.trailing)
             make.trailing.equalToSuperview().inset(12)
-            make.height.equalTo(32)
+            make.height.equalTo(35)
             make.width.greaterThanOrEqualTo(100)
         }
     }
