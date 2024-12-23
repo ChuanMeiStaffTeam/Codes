@@ -41,7 +41,7 @@ class PhotoAlbumManager {
                 
                 // 设置查询选项
                 let fetchOptions = PHFetchOptions()
-                fetchOptions.fetchLimit = 50 // 限制最多获取 50 张照片
+                fetchOptions.fetchLimit = 200 // 限制最多获取 200 张照片
                 fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)] // 按创建时间降序排列
                 // 添加过滤条件，仅获取静态图片（排除视频和实况图片）
                 fetchOptions.predicate = NSPredicate(format: "mediaType == %d AND NOT (mediaSubtype == %d)", PHAssetMediaType.image.rawValue, PHAssetMediaSubtype.photoLive.rawValue)
