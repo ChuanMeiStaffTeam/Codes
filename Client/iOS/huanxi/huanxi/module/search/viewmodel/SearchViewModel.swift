@@ -29,7 +29,8 @@ extension SearchViewModel {
         ) { [weak self] success, message, data in
             guard let `self` = self else { return }
             if success {
-                self.postTagList.accept(data?.postTagList ?? [])
+                let filteredPostTagList = (data?.postTagList ?? []).filter { !$0.isEmpty }
+                self.postTagList.accept(filteredPostTagList)
                 let items = (data?.list ?? []).map { var model = $0
                     model.imageHeight = CGFloat.random(in: 100...250)
                     return model
