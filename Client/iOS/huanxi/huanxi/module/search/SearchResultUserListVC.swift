@@ -1,19 +1,18 @@
 //
-//  SearchSugPopView.swift
+//  SearchResultUserListVC.swift
 //  huanxi
 //
-//  Created by rslz on 2024/12/19.
+//  Created by rslz on 2024/12/23.
 //
 
-import Foundation
 import UIKit
+import SnapKit
+import JXSegmentedView
 import RxRelay
 
-class SearchSugPopView: BaseView {
+class SearchResultUserListVC: BaseViewController {
     
-    let dataSource = BehaviorRelay<[SearchViewModel.CellType]>(value: [])
-    
-    var onItemTap: ((UserInfoModel)->Void)?
+    var keyword: String = ""
 
     private let popTableView: UITableView = {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
@@ -29,28 +28,25 @@ class SearchSugPopView: BaseView {
         return emptyView
     }()
     
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
+    private let viewModel = SearchResultViewModel()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        sh_prefersNavigationBarHidden = true
+        setupUI()
         bindUI()
+        self.loadData(keyword: keyword)
     }
     
-    
-    func setupView() {
-        backgroundColor = .black
-        addSubview(popTableView)
+    func setupUI() {
+        view.addSubview(popTableView)
         popTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
     func bindUI() {
-        dataSource
+        self.viewModel.searchUesrs
             .bind(to: popTableView.rx.items) { tableView, index, item in
                 switch item {
                 case .skeleton:
@@ -70,7 +66,7 @@ class SearchSugPopView: BaseView {
             }
             .disposed(by: disposeBag)
         
-        dataSource
+        self.viewModel.searchUesrs
             .skip(1)
             .subscribe(onNext: { [weak self] cellTypes in
                 guard let `self` = self else { return }
@@ -85,32 +81,45 @@ class SearchSugPopView: BaseView {
         popTableView.rx.itemSelected
             .withUnretained(self)
             .compactMap { owner, indexPath -> UserInfoModel? in
-                guard case .userItem(let userModel) = owner.dataSource.value[indexPath.row] else {
+                guard case .userItem(let userModel) = owner.viewModel.searchUesrs.value[indexPath.row] else {
                     return nil
                 }
                 return userModel
             }
             .subscribe(onNext: { [weak self] userModel in
-                self?.onItemTap?(userModel)
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    let vc = UserBriefVC()
+                    vc.user = userModel
+                    vc.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             })
             .disposed(by: disposeBag)
         
     }
     
-    var items: [SearchViewModel.CellType]? {
-        didSet {
-            dataSource.accept(items ?? [])
-        }
-    }
     
     // MARK: - 设置空视图or错误视图
     private func setEmptyOrNetErrorView(_ type: CCEmptyType) {
         emptyView.removeFromSuperview()
-        addSubview(emptyView)
+        view.addSubview(emptyView)
         emptyView.snp.makeConstraints { make in
             make.centerY.equalToSuperview().offset(-80)
             make.centerX.equalToSuperview()
         }
         emptyView.updateType(type: type)
+    }
+}
+
+extension SearchResultUserListVC {
+    private func loadData(keyword: String) {
+        viewModel.requestSearchUser(keyword: keyword, completion: {success in })
+    }
+}
+
+extension SearchResultUserListVC: JXSegmentedListContainerViewListDelegate {
+    func listView() -> UIView {
+        return view
     }
 }

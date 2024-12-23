@@ -18,10 +18,10 @@ class SearchResultContainerVC: BaseViewController {
     private let titleDataSource: JXSegmentedTitleDataSource = {
         let dataSource = JXSegmentedTitleDataSource()
         dataSource.isItemSpacingAverageEnabled = false
-        dataSource.titles = ["热门搜索", "账户"]
+        dataSource.titles = [SearchResultType.hotPost.value, SearchResultType.account.value]
         dataSource.titleNormalColor = UIColor.white_60
         dataSource.titleSelectedColor = .white
-
+        dataSource.itemSpacing = 30
         return dataSource
     }()
         
@@ -29,6 +29,8 @@ class SearchResultContainerVC: BaseViewController {
         let view = JXSegmentedView()
         let indicator = JXSegmentedIndicatorLineView()
         indicator.indicatorColor = .white
+        indicator.indicatorWidthIncrement = 10
+        indicator.indicatorHeight = 2
         view.indicators = [indicator]
         return view
     }()
@@ -119,6 +121,19 @@ extension SearchResultContainerVC: JXSegmentedListContainerViewDataSource {
     }
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        return SearchResultListVC()
+        switch index {
+        case SearchResultType.hotPost.rawValue:
+            let vc = SearchResultPostListVC()
+            vc.keyword = self.keyword
+            return vc
+        case SearchResultType.account.rawValue:
+            let vc = SearchResultUserListVC()
+            vc.keyword = self.keyword
+            return vc
+        default:
+            let vc = SearchResultPostListVC()
+            vc.keyword = self.keyword
+            return vc
+        }
     }
 }

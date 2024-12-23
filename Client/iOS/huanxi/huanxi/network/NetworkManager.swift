@@ -53,7 +53,7 @@ class NetworkManager {
                 switch responseModel.code {
                 case 200:
                     completion(true, responseModel.message, responseModel.data)
-                case 402, 1000: //登录过期，登录状态异常
+                case 402: //登录过期，登录状态异常
                     LoginManager.shared.logout()
                     Task {
                         _ = await LoginViewController.startLogin()

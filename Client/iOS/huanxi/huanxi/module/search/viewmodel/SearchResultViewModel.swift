@@ -9,11 +9,12 @@ import RxCocoa
 import RxRelay
 import RxSwift
 
-fileprivate let skeletonData: [SearchViewModel.CellType] = Array(repeating: .skeleton, count: 7)
+fileprivate let skeletonData: [SearchViewModel.CellType] = Array(repeating: .skeleton, count: 18)
 
 class SearchResultViewModel: BaseViewModel {
     let postTagList = BehaviorRelay<[String]>(value: [])
     let searchUesrs = BehaviorRelay<[SearchViewModel.CellType]>(value: [])
+    let searchPosts = BehaviorRelay<[SearchViewModel.CellType]>(value: [])
     let postsList = BehaviorRelay<[SearchViewModel.CellType]>(value: [])
     let tagPostsList = BehaviorRelay<[SearchViewModel.CellType]>(value: [])
 }
@@ -63,6 +64,25 @@ extension SearchResultViewModel {
         }
     }
     
+    func requestSearchPost(keyword: String, completion: @escaping (Bool) -> Void) {
+        self.searchPosts.accept(skeletonData)
+        NetworkManager.shared.postRequest(
+            path: "postImage/searchPosts",
+            parameters: ["keyword" : keyword],
+            responseType: SearchHomeResponse.self
+        ) { [weak self] success, message, data in
+            guard let `self` = self else { return }
+            if success {
+                let cellItems: [SearchViewModel.CellType] = (data?.list ?? []).map { SearchViewModel.CellType.postItem($0) }
+                self.searchPosts.accept(cellItems)
+            } else {
+                self.searchPosts.accept([SearchViewModel.CellType.error])
+//                HUDHelper.showToast(message)
+            }
+            completion(success)
+        }
+    }
+    
     func requestTagPosts(tags: String, completion: @escaping (Bool) -> Void) {
         self.tagPostsList.accept(Array(repeating: .skeleton, count: 18))
         NetworkManager.shared.postRequest(
@@ -83,3 +103,19 @@ extension SearchResultViewModel {
     }
 }
 
+///SearchResultType
+enum SearchResultType: Int {
+    /// 1-热门搜索
+    case hotPost = 0
+    /// 2-账户
+    case account = 1
+
+    var value: String {
+        switch self {
+        case .hotPost:
+            return "热门搜索"
+        case .account:
+            return "账户"
+        }
+    }
+}
