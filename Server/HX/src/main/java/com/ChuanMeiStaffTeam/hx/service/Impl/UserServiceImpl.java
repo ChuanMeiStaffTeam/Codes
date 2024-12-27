@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -249,5 +250,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         String key = "%" + keyword + "%";
         queryWrapper.like("username", key);
         return userMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public List<User> RandomUserNotFollow(int count,Integer userId) {
+        // 查询当前用户未关注的用户
+        return userMapper.selectByNotFollow(count, userId);
     }
 }

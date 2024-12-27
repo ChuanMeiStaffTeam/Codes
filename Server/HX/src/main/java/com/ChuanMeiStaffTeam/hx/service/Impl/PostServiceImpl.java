@@ -1,5 +1,6 @@
 package com.ChuanMeiStaffTeam.hx.service.Impl;
 
+import com.ChuanMeiStaffTeam.hx.config.FinalNum;
 import com.ChuanMeiStaffTeam.hx.dao.ImageMapper;
 import com.ChuanMeiStaffTeam.hx.dao.PostMapper;
 import com.ChuanMeiStaffTeam.hx.model.SysImage;
@@ -232,7 +233,7 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, SysPost>implements 
         // 查询随机30条帖子
         QueryWrapper<SysPost> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderBy(true,false,"RAND()");  // 随机排序
-        queryWrapper.last("limit 30");
+        queryWrapper.last("limit " + FinalNum.MAX_SEARCH_COUNT);
         List<SysPost> list = this.list(queryWrapper);
         for (SysPost sysPost : list) {
             List<SysImage> sysImages = selectPostImagesByPostId(sysPost.getPostId());

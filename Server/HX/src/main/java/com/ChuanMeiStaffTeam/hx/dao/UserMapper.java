@@ -4,6 +4,8 @@ import com.ChuanMeiStaffTeam.hx.model.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -29,4 +31,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     // 根据用户id查询用户信息
     User selectByUserId(Integer userId);
+
+
+    List<User> selectByNotFollow(int count,Integer userId);
 }

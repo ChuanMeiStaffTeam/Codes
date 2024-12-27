@@ -83,4 +83,17 @@
         from sys_user
         where user_id = #{userId}
     </select>
+    <select id="selectByNotFollow" resultType="com.ChuanMeiStaffTeam.hx.model.User">
+        SELECT *
+        FROM sys_user
+        WHERE user_id NOT IN (select f.following_id
+                              from sys_user as u
+                                       JOIN sys_follows as f
+                                            on u.user_id = f.follower_id and f.is_deleted = 0 and u.user_id = #{userId})
+          AND is_delete = 0
+        ORDER BY RAND() LIMIT #{count};
+
+    </select>
+
+
 </mapper>

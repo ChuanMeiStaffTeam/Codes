@@ -201,4 +201,22 @@ public class UserInfoController {
         log.info("搜索用户关键字为" + keyword);
         return AppResult.success(userService.searchUser(keyword));
     }
+
+    // 根据用户id获取用户信息
+    @ApiOperation(value = "根据用户id获取用户信息")
+    @PostMapping("/getUserById")
+    public AppResult getUserById(@ApiParam("用户ID") @RequestBody Map<String,String> params) {
+        Integer userId = Integer.valueOf(params.get("userId"));
+        if(userId == null) {
+            log.error("用户ID不能为空");
+            return AppResult.failed("用户ID不能为空");
+        }
+        // 根据userId查询当前用户详细信息
+        User user = userService.getUserByUserId(userId);
+        if(user == null) {
+            log.error("用户不存在");
+            return AppResult.failed("用户不存在");
+        }
+        return AppResult.success(user);
+    }
 }

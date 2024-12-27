@@ -88,4 +88,8 @@ public interface IUserService extends IService<User> {
     boolean deleteUser(User user);
 
     List<User> searchUser(String keyword);
+
+
+    // 查询随机count个用户，当前用户未关注的用户
+    List<User> RandomUserNotFollow(int count,Integer userId);
 }

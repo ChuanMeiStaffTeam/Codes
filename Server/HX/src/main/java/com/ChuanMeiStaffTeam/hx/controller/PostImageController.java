@@ -2,6 +2,7 @@ package com.ChuanMeiStaffTeam.hx.controller;
 
 import com.ChuanMeiStaffTeam.hx.common.AppResult;
 import com.ChuanMeiStaffTeam.hx.config.ConfigKey;
+import com.ChuanMeiStaffTeam.hx.config.FinalNum;
 import com.ChuanMeiStaffTeam.hx.model.SysImage;
 import com.ChuanMeiStaffTeam.hx.model.SysPost;
 import com.ChuanMeiStaffTeam.hx.model.User;
@@ -34,6 +35,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.concurrent.FutureTask;
+
+import static com.ChuanMeiStaffTeam.hx.config.FinalNum.LOGIN_USER_COUNT;
 
 @Slf4j
 @RestController
@@ -203,7 +206,7 @@ public class PostImageController {
             log.info("帖子为空");
             return AppResult.failed("帖子为空");
         }
-        List<User> users = userService.RandomUser(6);
+        List<User> users = userService.RandomUserNotFollow(FinalNum.LOGIN_USER_COUNT,userid);
         Map<String, Object> map = new HashMap<>();
         map.put("list", sysPostImages);
         map.put("users", users);
@@ -544,14 +547,14 @@ public class PostImageController {
 
     // 游客获取帖子接口
     @GetMapping("/visitorGetPost")
-    @ApiOperation(value = "游客获取帖子接口")
+    @ApiOperation(value = "游客获取帖子主页接口")
     public AppResult visitorGetPost() {
         List<SysPost> sysPostImages = postsImageService.selectAllPosts(null);
         if (sysPostImages == null || sysPostImages.isEmpty()) {
             log.info("帖子为空");
             return AppResult.failed("帖子为空");
         }
-        List<User> users = userService.RandomUser(6);
+        List<User> users = userService.RandomUser(FinalNum.NOT_LOGIN_USER_COUNT);
         Map<String, Object> map = new HashMap<>();
         map.put("list", sysPostImages);
         map.put("users", users);
@@ -560,7 +563,7 @@ public class PostImageController {
     }
 
     // 根据标签获取帖子接口
-    @GetMapping("/getPostByTag")
+    @PostMapping("/getPostByTag")
     @ApiOperation(value = "根据标签获取帖子接口")
     public AppResult getPostByTag(@ApiParam("标签关键字") @RequestBody Map<String,Object> params) {
         String tag = (String) params.get("tag");
@@ -575,4 +578,6 @@ public class PostImageController {
         log.info("根据标签获取帖子成功");
         return AppResult.success(sysPostImages);
     }
+
+    // todo 获取指定用户的所有帖子，收藏的帖子，点赞过的帖子
 }
