@@ -202,6 +202,7 @@ public class UserInfoController {
         return AppResult.success(userService.searchUser(keyword));
     }
 
+
     // 根据用户id获取用户信息
     @ApiOperation(value = "根据用户id获取用户信息")
     @PostMapping("/getUserById")
