@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>评论管理</title>
+    <link href="./layui-v2.9.13/layui/css/layui.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="layui-card">
+    <div class="layui-card-body">
+        <!-- 评论列表 -->
+        <table id="commentsTable" class="layui-table" lay-filter="commentsTableFilter"></table>
+    </div>
+</div>
+
+
+<script src="./layui-v2.9.13/layui/layui.js"></script>
+<script src="./jquery/jquery.js"></script>
+<script>
+    layui.use(['table', 'laydate', 'form', 'layer'], function () {
+        const table = layui.table;
+        const laydate = layui.laydate;
+        const form = layui.form;
+        const layer = layui.layer;
+        const $ = layui.jquery;
+
+        // 初始化日期范围选择
+        laydate.render({
+            elem: '#dateRange',
+            range: true, // 启用范围选择
+        });
+
+        // 渲染评论表格
+        table.render({
+            elem: '#commentsTable',
+            url: 'api/comment/list', // 后端获取评论数据的接口
+            method: 'GET',
+            parseData: function (res) { // res 即为原始返回的数据
+                return {
+                    "code": res.code === 200 ? 0 : res.code, // 解析接口状态，确保返回 code 0 为成功
+                    "msg": res.message, // 解析提示文本
+                    "count": res.data.total, // 解析数据总数
+                    "data": res.data.records // 解析数据列表
+                };
+            },
+            page: true, // 启用分页
+            toolbar: true, // 显示表格头部工具栏
+            cols: [[
+                { field: 'commentId', title: '评论ID', width: 120 },
+                { field: 'userId', title: '用户账号', width: 120},
+                { field: 'postTitle', title: '帖子标题', width: 180},
+                { field: 'postId', title: '帖子ID', width: 120},
+                { field: 'commentText', title: '评论内容', minWidth: 180},
+                {
+                    field: 'parentCommentId', title: '父评论ID', width: 120, templet: function (d) {
+                        if(d.parentCommentId === 0) {
+                            return '根评论';
+                        }
+                        return d.parentCommentId;
+                    }
+                },
+                {
+                    field: 'createdAt', title: '创建时间', width: 180, templet: function (d) {
+                        return layui.util.toDateString(d.createdAt, 'yyyy-MM-dd HH:mm:ss');
+                    }
+                },
+                { fixed: 'right', title: '操作', toolbar: '#actionColumn', width: 120 },
+            ]]
+        });
+
+        // 单条删除操作
+        table.on('tool(commentsTableFilter)', function (obj) {
+            if (obj.event === 'delete') {
+                layer.confirm('确认删除这条评论及子评论吗？', { icon: 3, title: '提示' }, function (index) {
+                    $.ajax({
+                        url: `/api/comment/DeleteComment`,
+                        type: 'DELETE',
+                        data: {
+                            commentId: obj.data.commentId,
+                            postId: obj.data.postId,
+                            parentCommentId: obj.data.parentCommentId
+                        },
+                        success: function (res) {
+                            if(res.code === 200){
+                                layer.msg("删除当前评论及子评论成功");
+                            }
+                            table.reload('commentsTable'); // 刷新表格
+                        },
+                        error: function () {
+                            layer.msg(res.message);
+                        }
+                    });
+                    layer.close(index);
+                });
+            }
+        });
+    });
+
+</script>
+<script type="text/html" id="actionColumn">
+    <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</button>
+</script>
+</body>
+
+</html>

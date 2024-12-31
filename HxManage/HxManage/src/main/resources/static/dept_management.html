@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>企业管理</title>
+    <link href="./layui-v2.9.13/layui/css/layui.css" rel="stylesheet">
+    <style>
+
+        .layui-container {
+            padding: 20px;
+        }
+
+        /* 自定义操作按钮样式 */
+        .layui-btn-container {
+            margin-bottom: 10px;
+        }
+
+        /* 调整按钮间距 */
+        .layui-btn + .layui-btn {
+            margin-left: 10px;
+        }
+
+        /* 搜索框样式 */
+        .layui-input-inline {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+<div class="layui-container">
+    <!-- 用户管理内容标题 -->
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <!--            <div style="text-align: center; color: #1E9FFF; font-size: 15px; margin-bottom: 15px;">用户管理</div>-->
+        </div>
+    </div>
+
+    <!-- 用户管理详细信息表格 -->
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card layui-panel">
+                <div class="layui-card-body">
+                    <!-- 表格容器 -->
+                    <table class="layui-table" id="dept-table" lay-filter="dept-table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 引入依赖的 JavaScript 库 -->
+<script src="./jquery/jquery.js"></script>
+<script src="./layui-v2.9.13/layui/layui.js"></script>
+<script>
+    layui.use(['table', 'layer', 'jquery'], function () {
+        var table = layui.table;
+        var layer = layui.layer;
+        var $ = layui.jquery;
+
+        // 渲染表格
+        table.render({
+            elem: '#dept-table',
+            url: '/api/dept/list',
+            method: 'get', // 请求方式，默认为 'get'
+            parseData: function (res) { // res 即为原始返回的数据
+                return {
+                    "code": res.code === 200 ? 0 : res.code, // 解析接口状态，确保返回 code 0 为成功
+                    "msg": res.message, // 解析提示文本
+                    "count": res.data.total, // 解析数据总数
+                    "data": res.data.records // 解析数据列表
+                };
+            },
+            page: true, // 开启分页
+            limits: [10, 20, 30, 50, 100], // 每页显示的条数可选项
+            limit: 10, // 每页默认显示的条数
+            toolbar: `
+<!--                <div class="layui-btn-container">-->
+<!--                    &lt;!&ndash; 搜索框 &ndash;&gt;-->
+<!--                    <div class="layui-input-inline">-->
+<!--                        <input type="text" id="account-search" name="account-search" placeholder="请输入账号" autocomplete="off" class="layui-input">-->
+<!--                    </div>-->
+<!--                    <button type="button" class="layui-btn layui-btn-warm" lay-event="search">搜索</button>-->
+<!--                    <button type="button" class="layui-btn layui-btn-primary" lay-event="removeAll">重置</button>-->
+<!--                </div>-->
+            `,
+            // 表格头部工具栏的选择器
+
+            cols: [[ // 表头
+                {field: 'userId', title: '用户账号', width: 100, fixed: 'left'},
+                {field: 'deptName', title: '企业名称', width: 180},
+                {field: 'deptCode', title: '统一社会信用代码', width: 200},
+                {field: 'userName', title: '联系人姓名', width: 150},
+                {field: 'phoneNumber', title: '手机号码', width: 150},
+                {
+                    field: 'createdAt', title: '创建时间', width: 180, sort: true, templet: function (d) {
+                        return layui.util.toDateString(d.createdAt, 'yyyy-MM-dd HH:mm:ss');
+                    }
+                },
+                {
+                    field: 'updatedAt', title: '更新时间', width: 180, sort: true, templet: function (d) {
+                        return layui.util.toDateString(d.updatedAt, 'yyyy-MM-dd HH:mm:ss');
+                    }
+                }
+                ]],
+            where: {}
+        });
+
+        // 自定义状态模板
+        layui.laytpl.config({
+            open: '{{',
+            close: '}}'
+        });
+
+        // // 监听表格头工具栏的事件
+        // table.on('toolbar(user-table)', function (obj) {
+        //     if (obj.event === 'search') {
+        //         var accountName = $('#account-search').val();
+        //         console.log('搜索', accountName);
+        //         // 重新加载表格数据
+        //         if (accountName === '') {
+        //             layer.msg('请输入搜索内容');
+        //             return;
+        //         }
+        //         table.reload('user-table', {
+        //             url: '/api/user/getUserByAccount',
+        //             where: {
+        //                 accountName: accountName
+        //             },
+        //             page: {
+        //                 curr: 1 // 从第一页重新加载
+        //             }
+        //         });
+        //     } else if (obj.event === 'removeAll') {
+        //         console.log('重置');
+        //         // 清空搜索框
+        //         $('#userName').val('');
+        //         // 重新加载表格数据
+        //         table.reload('user-table', {
+        //             url: '/api/user/getUserAll', // 恢复到获取所有用户数据的接口
+        //             where: {},
+        //             page: {
+        //                 curr: 1 // 从第一页重新加载
+        //             }
+        //         });
+        //     }
+        // });
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>系统状态监控</title>
+  <link rel="stylesheet" href="/layui-v2.9.13/layui/css/layui.css">
+  <script src="/layui-v2.9.13/layui/layui.js"></script>
+  <script src="/jquery/jquery.js"></script>
+  <script src="/echarts/echarts.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .status-item {
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    .status-item span {
+      font-weight: bold;
+    }
+    .status-up {
+      color: green;
+    }
+    .status-down {
+      color: red;
+    }
+    .layui-card-body {
+      padding: 10px;
+    }
+    .layui-row {
+      margin-top: 30px;
+    }
+    .layui-col-md4 {
+      padding: 15px;
+    }
+    .disk-chart, .redis-chart {
+      height: 200px;
+      margin-top: 15px;
+    }
+    .status-details ul {
+      list-style-type: none;
+      padding-left: 20px;
+    }
+    .status-details li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+
+<div id="health-status">
+  <div class="layui-row">
+    <div class="layui-col-md4">
+      <div class="layui-card">
+        <div class="layui-card-header">数据库状态</div>
+        <div class="layui-card-body">
+          <span id="db-status"></span>
+          <div class="status-details" id="db-details"></div>
+        </div>
+      </div>
+    </div>
+    <div class="layui-col-md4">
+      <div class="layui-card">
+        <div class="layui-card-header">磁盘空间</div>
+        <div class="layui-card-body">
+          <div id="disk-status"></div>
+          <div class="disk-chart" id="disk-chart"></div>
+          <div class="status-details" id="disk-details"></div>
+        </div>
+      </div>
+    </div>
+    <div class="layui-col-md4">
+      <div class="layui-card">
+        <div class="layui-card-header">Redis 状态</div>
+        <div class="layui-card-body">
+          <div id="redis-status"></div>
+          <div class="redis-chart" id="redis-chart"></div>
+          <div class="status-details" id="redis-details"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="status-item">
+    <span>Ping 状态: </span><span id="ping-status"></span>
+  </div>
+</div>
+
+<script>
+  // 请求健康状态接口并更新页面
+  function fetchHealthStatus() {
+    $.ajax({
+      url: 'http://139.196.232.242:8282/actuator/health',
+      method: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        const components = data.components;
+
+        // 更新数据库状态
+        const dbStatus = components.db.status;
+        $('#db-status').text(dbStatus).removeClass('status-up status-down').addClass(dbStatus === 'UP' ? 'status-up' : 'status-down');
+
+        // 更新数据库详情
+        $('#db-details').html(`
+          <ul>
+            <li>数据库类型: ${components.db.details.database}</li>
+            <li>验证查询: ${components.db.details.validationQuery}</li>
+          </ul>
+        `);
+
+        // 更新磁盘空间状态
+        const diskStatus = components.diskSpace.status;
+        $('#disk-status').text(diskStatus).removeClass('status-up status-down').addClass(diskStatus === 'UP' ? 'status-up' : 'status-down');
+
+        // 更新磁盘空间图表
+        const diskChart = echarts.init(document.getElementById('disk-chart'));
+        diskChart.setOption({
+          title: { text: '磁盘空间使用情况' },
+          series: [{
+            type: 'pie',
+            radius: '50%',
+            data: [
+              { value: components.diskSpace.details.free, name: '剩余空间' },
+              { value: components.diskSpace.details.total - components.diskSpace.details.free, name: '已用空间' }
+            ]
+          }]
+        });
+
+        // 更新磁盘空间详细信息
+        $('#disk-details').html(`
+          <ul>
+            <li>磁盘总空间: ${(components.diskSpace.details.total / 1073741824).toFixed(2)} GB</li>
+            <li>剩余空间: ${(components.diskSpace.details.free / 1073741824).toFixed(2)} GB</li>
+            <li>磁盘路径: ${components.diskSpace.details.path}</li>
+            <li>磁盘是否存在: ${components.diskSpace.details.exists ? '是' : '否'}</li>
+          </ul>
+        `);
+
+        // 更新 Ping 状态
+        const pingStatus = components.ping.status;
+        $('#ping-status').text(pingStatus).removeClass('status-up status-down').addClass(pingStatus === 'UP' ? 'status-up' : 'status-down');
+
+        // 更新 Redis 状态
+        const redisStatus = components.redis.status;
+        $('#redis-status').text(redisStatus).removeClass('status-up status-down').addClass(redisStatus === 'UP' ? 'status-up' : 'status-down');
+
+        // 更新 Redis 图表
+        const redisChart = echarts.init(document.getElementById('redis-chart'));
+        redisChart.setOption({
+          title: { text: 'Redis 状态' },
+          series: [{
+            type: 'pie',
+            radius: '50%',
+            data: [
+              { value: 100, name: 'Redis 在线' },
+              { value: 0, name: 'Redis 离线' }
+            ]
+          }]
+        });
+
+        // 更新 Redis 详细信息
+        $('#redis-details').html(`
+          <ul>
+            <li>Redis 版本: ${components.redis.details.version}</li>
+          </ul>
+        `);
+      },
+      error: function(error) {
+        console.error('获取健康状态失败:', error);
+        alert('无法加载健康状态信息，请检查后端接口或网络连接。');
+      }
+    });
+  }
+
+  // 页面加载时初始化
+  $(document).ready(function() {
+    fetchHealthStatus();
+  });
+</script>
+
+</body>
+</html>

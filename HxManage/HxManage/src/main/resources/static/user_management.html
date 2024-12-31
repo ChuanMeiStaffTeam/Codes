@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <link href="./layui-v2.9.13/layui/css/layui.css" rel="stylesheet">
+    <style>
+
+        .layui-container {
+            padding: 20px;
+        }
+
+        /* 自定义操作按钮样式 */
+        .layui-btn-container {
+            margin-bottom: 10px;
+        }
+
+        /* 调整按钮间距 */
+        .layui-btn + .layui-btn {
+            margin-left: 10px;
+        }
+
+        /* 搜索框样式 */
+        .layui-input-inline {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+<div class="layui-container">
+    <!-- 用户管理内容标题 -->
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <!--            <div style="text-align: center; color: #1E9FFF; font-size: 15px; margin-bottom: 15px;">用户管理</div>-->
+        </div>
+    </div>
+
+    <!-- 用户管理详细信息表格 -->
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card layui-panel">
+                <div class="layui-card-body">
+                    <!-- 表格容器 -->
+                    <table class="layui-table" id="user-table" lay-filter="user-table"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 引入依赖的 JavaScript 库 -->
+<script src="./jquery/jquery.js"></script>
+<script src="./layui-v2.9.13/layui/layui.js"></script>
+<script>
+    layui.use(['table', 'layer', 'jquery'], function () {
+        var table = layui.table;
+        var layer = layui.layer;
+        var $ = layui.jquery;
+
+        // 渲染表格
+        table.render({
+            elem: '#user-table',
+            url: '/api/user/getUserAll',
+            method: 'get', // 请求方式，默认为 'get'
+            parseData: function (res) { // res 即为原始返回的数据
+                return {
+                    "code": res.code === 200 ? 0 : res.code, // 解析接口状态，确保返回 code 0 为成功
+                    "msg": res.message, // 解析提示文本
+                    "count": res.data.total, // 解析数据总数
+                    "data": res.data.records // 解析数据列表
+                };
+            },
+            page: true, // 开启分页
+            limits: [10, 20, 30, 50, 100], // 每页显示的条数可选项
+            limit: 10, // 每页默认显示的条数
+            toolbar: `
+                <div class="layui-btn-container">
+                    <!-- 搜索框 -->
+                    <div class="layui-input-inline">
+                        <input type="text" id="account-search" name="account-search" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                    </div>
+                    <button type="button" class="layui-btn layui-btn-warm" lay-event="search">搜索</button>
+                    <button type="button" class="layui-btn layui-btn-primary" lay-event="removeAll">重置</button>
+                </div>
+            `,
+            // 表格头部工具栏的选择器
+
+            cols: [[ // 表头
+                {field: 'userId', title: '用户账号', width: 100, fixed: 'left'},
+                {field: 'username', title: '用户名', width: 120},
+                {field: 'fullName', title: '昵称', width: 120},
+                {field: 'email', title: '邮箱', width: 150},
+                {field: 'phoneNumber', title: '手机号码', width: 150},
+                {
+                    title: '账号锁定', width: 120, templet: function (d) {
+                        return d.accountLocked === 0 ? '<span class="layui-badge layui-bg-blue">未锁定</span>' :
+                            '<span class="layui-badge layui-bg-red">已锁定</span>';
+                    }
+                },
+                {
+                    title: '最近账号锁定时间', width: 180, templet: function (d) {
+                        return d.lockoutTime === null ? '<span class="layui-badge layui-bg-blue">未锁定</span>'
+                            : layui.util.toDateString(d.lockoutTime, 'yyyy-MM-dd HH:mm:ss');
+                    }
+                },
+                {
+                    field: 'gender', title: '性别', width: 60, templet: function (d) {
+                        return d.gender === '0' ? '男' : d.gender === null || d.gender === undefined ? '用户未设置' : '女';
+                    }
+                },
+                {
+                    field: 'postCount', title: '帖子数量', width: 120, templet: function (d) {
+                        return d.postCount;
+                    }
+                },
+                {
+                    field: 'followerCount', title: '粉丝数量', width: 120, templet: function (d) {
+                        return d.followerCount;
+                    }
+                },
+                {
+                    field: 'followingCount', title: '关注数量', width: 120, templet: function (d) {
+                        return d.followingCount;
+                    }
+                },
+                {
+                    field: 'favoriteCount', title: '收藏数量', width: 120, templet: function (d) {
+                        return d.favoriteCount;
+                    }
+                },
+                {
+                    field: 'bio', title: '个人简介', width: 180, templet: function (d) {
+                        return d.bio;
+                    }
+                },
+                {
+                    field: 'websiteUrl', title: '个人网站', width: 120, templet: function (d) {
+                        return d.websiteUrl;
+                    }
+                },
+                {
+                    field: 'lastLoginAt', title: '登录时间', width: 180, sort: true, templet: function (d) {
+                        return layui.util.toDateString(d.lastLoginAt, 'yyyy-MM-dd HH:mm:ss');
+                    }
+                },
+                {
+                    field: 'updatedAt', title: '更新时间', width: 180, sort: true, templet: function (d) {
+                        return layui.util.toDateString(d.updatedAt, 'yyyy-MM-dd HH:mm:ss');
+                    }
+                },
+                {
+                    field: 'createdAt', title: '创建时间', width: 180, sort: true, templet: function (d) {
+                        return layui.util.toDateString(d.createdAt, 'yyyy-MM-dd HH:mm:ss');
+                    }
+                },
+                {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 130} // 操作列
+            ]],
+
+            where: {}
+        });
+
+        // 自定义状态模板
+        layui.laytpl.config({
+            open: '{{',
+            close: '}}'
+        });
+
+        // 监听表格头工具栏的事件
+        table.on('toolbar(user-table)', function (obj) {
+            if (obj.event === 'search') {
+                var accountName = $('#account-search').val();
+                console.log('搜索', accountName);
+                // 重新加载表格数据
+                if (accountName === '') {
+                    layer.msg('请输入搜索内容');
+                    return;
+                }
+                table.reload('user-table', {
+                    url: '/api/user/getUserByAccount',
+                    where: {
+                        accountName: accountName
+                    },
+                    page: {
+                        curr: 1 // 从第一页重新加载
+                    }
+                });
+            } else if (obj.event === 'removeAll') {
+                console.log('重置');
+                // 清空搜索框
+                $('#userName').val('');
+                // 重新加载表格数据
+                table.reload('user-table', {
+                    url: '/api/user/getUserAll', // 恢复到获取所有用户数据的接口
+                    where: {},
+                    page: {
+                        curr: 1 // 从第一页重新加载
+                    }
+                });
+            }
+        });
+
+        // 监听表格操作列的事件
+        table.on('tool(user-table)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                layer.confirm('确定锁定该用户吗？', function (index) {
+                    layer.close(index);  // 关闭弹框
+                    if(data.accountLocked === 1){
+                        // 已经被拉黑，提示用户
+                        layer.msg('该用户已被锁定', {icon: 2});
+                        return;
+                    }
+                    $.ajax({
+                        url: '/api/user/lockUser',
+                        type: 'post',
+                        data: {
+                            userId: data.userId
+                        },
+                        success: function (res) {
+                            if (res.code === 200) {
+                                layer.msg('锁定成功');
+                                table.reload('user-table'); // 重载表格数据
+                            } else {
+                                layer.msg('锁定失败，' + res.message);
+                            }
+                        },
+                        error: function (err) {
+                            layer.msg('锁定失败，' + err.message);
+                        }
+                    });
+                });
+            } else if(obj.event === 'unlock') {
+                layer.confirm('确定解除该用户吗？', function (index) {
+                    layer.close(index);  // 关闭弹框
+                    if(data.accountLocked === 0){
+                        // 未被拉黑，提示用户
+                        layer.msg('该用户未被锁定', {icon: 2});
+                        return;
+                    }
+                    $.ajax({
+                        url: '/api/user/unlockUser',
+                        type: 'post',
+                        data: {
+                            userId: data.userId
+                        },
+                        success: function (res) {
+                            if (res.code === 200) {
+                                layer.msg('解除成功');
+                                table.reload('user-table'); // 重载表格数据
+                            } else {
+                                layer.msg('解除失败，' + res.message);
+                            }
+                        },
+                        error: function (err) {
+                            layer.msg('解除失败，' + err.message);
+                        }
+                    });
+                });
+            }
+        });
+    });
+</script>
+
+<!-- 操作列的模板 -->
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-red layui-btn-xs" lay-event="del">拉黑</a>
+    <a class="layui-btn layui-btn-green layui-btn-xs" lay-event="unlock">解除</a>
+</script>
+</body>
+
+</html>

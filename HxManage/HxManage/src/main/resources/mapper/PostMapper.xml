@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxapp.hxmanage.dao.PostMapper">
+
+
+    <!-- 查询所有帖子 信息    -->
+    <select id="getAllPost" resultType="com.hxapp.hxmanage.model.SysPost">
+        SELECT p.*, u.username
+        FROM `sys_posts` as p
+                 join sys_user as u ON p.user_id = u.user_id;
+    </select>
+    <select id="getPostById" resultType="java.lang.Integer">
+        select user_id from sys_posts where post_id = #{postId}
+    </select>
+
+</mapper>

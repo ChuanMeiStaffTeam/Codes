@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./layui-v2.9.13/layui/css/layui.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 0;
+        }
+        .layui-layout-admin {
+            height: 100%;
+            min-height: 100%;
+        }
+        .layui-header {
+            background-color: #393D49;
+            color: #fff;
+            height: 60px;
+            line-height: 60px;
+            padding: 0 20px;
+        }
+        .layui-logo {
+            font-size: 20px;
+            font-weight: bold;
+            padding-left: 10px;
+        }
+        .layui-nav-item {
+            line-height: 60px;
+        }
+        .layui-side {
+            background-color: #2F323A;
+            width: 200px;
+            position: fixed;
+            top: 60px;
+            bottom: 0;
+        }
+        .layui-body {
+            margin-left: 100px;
+            padding: 5px;
+        }
+        .layui-side-scroll {
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: calc(100% - 60px);
+            margin-top: 60px;
+        }
+        .layui-nav-tree .layui-nav-item a {
+            color: #fff;
+        }
+        .layui-nav-tree .layui-nav-item a:hover {
+            background-color: #3b3f4b !important;
+        }
+        .layui-nav-tree .layui-nav-itemed > a,
+        .layui-nav-tree .layui-this {
+            background-color: #009688 !important;
+        }
+        .layui-nav-tree .layui-nav-itemed .layui-nav-child dd.layui-this a {
+            background-color: #009688 !important;
+        }
+        .layui-card {
+            margin-bottom: 20px;
+        }
+        .layui-card-body {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo layui-hide-xs layui-bg-black">HX-APP管理系统</div>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="index.html"> 首页
+                </a>
+            </li>
+            <li class="layui-nav-item layui-hide layui-show-sm-inline-block" id="user-info">
+                <a href="javascript:;">
+                    <img src="//unpkg.com/outeres@0.0.10/img/layui/icon-v2.png" class="layui-nav-img" id="user-avatar">
+                    <span id="user-name">默认用户名</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域 -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="sideNav">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">个人信息</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" id="userInfo" class="menu-item">查看个人信息</a></dd>
+                        <dd><a href="javascript:;" id="editInfo" class="menu-item">修改电话邮箱</a></dd>
+                        <dd><a href="javascript:;" id="changePassword" class="menu-item">修改登录密码</a></dd>
+                        <dd><a href="javascript:;" id="changeAvatar" class="menu-item">修改头像</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div>
+            <blockquote class="layui-elem-quote layui-text">
+                HX-APP管理系统 - 个人中心
+            </blockquote>
+            <div class="layui-card layui-panel">
+                <div class="layui-card-body">
+                    <div id="userInfoContent">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户名：</label>
+                            <div class="layui-input-block">
+                                <span id="username"></span>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">邮箱：</label>
+                            <div class="layui-input-block">
+                                <span id="email"></span>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">电话：</label>
+                            <div class="layui-input-block">
+                                <span id="phone"></span>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">状态：</label>
+                            <div class="layui-input-block">
+                                <span id="status"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="editInfoContent" style="display: none;">
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">邮箱：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="editEmail" lay-verify="email" autocomplete="off" placeholder="请输入邮箱" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">电话：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="editPhone" lay-verify="phone" autocomplete="off" placeholder="请输入电话" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" id="submitEditInfo">提交修改</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="changePasswordContent" style="display: none;">
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">当前密码：</label>
+                                <div class="layui-input-block">
+                                    <input type="password" id="currentPassword" lay-verify="required" autocomplete="off" placeholder="请输入当前密码" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">新密码：</label>
+                                <div class="layui-input-block">
+                                    <input type="password" id="newPassword" lay-verify="required" autocomplete="off" placeholder="请输入新密码" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">确认新密码：</label>
+                                <div class="layui-input-block">
+                                    <input type="password" id="confirmNewPassword" lay-verify="required|confirmNewPassword" autocomplete="off" placeholder="请再次输入新密码" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" id="submitChangePassword">确认修改密码</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="changeAvatarContent" style="display: none;">
+                        <div class="avatar-upload">
+                            <img id="avatarPreview" src="//unpkg.com/outeres@0.0.10/img/layui/icon-v2.png" alt="头像预览">
+                            <input type="file" id="avatarUpload" accept="image/*">
+                        </div>
+                        <button class="layui-btn" id="submitChangeAvatar">更换头像</button>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+        </div>
+    </div>
+</div>
+
+<script src="./layui-v2.9.13/layui/layui.js"></script>
+<script src="./jquery/jquery.js"></script>
+<script>
+    layui.use(['element', 'layer', 'form'], function () {
+        var element = layui.element;
+        var layer = layui.layer;
+        var form = layui.form;
+        var $ = layui.$;
+        var user; // 当前登录用户信息
+
+        // 获取用户信息// 获取当前登录用户信息
+        $.ajax({
+            url: 'api/user/getUser',
+            type: 'GET',
+            success: function (res) {
+                if (res.code === 200) {
+                    user = res.data;
+                    $('#user-name').text(user.username);
+                    $('#user-avatar').attr('src', user.avatarUrl);
+                    $('#username').text(user.username);
+                    $('#status').text(user.status === 1 ? '正常' : '冻结');
+                    $('#email').text(user.email);
+                    $('#phone').text(user.phone);
+                    $('#avatarPreview').attr('src', user.avatarUrl);
+                    $('#editEmail').val(user.email);
+                    $('#editPhone').val(user.phone);
+                } else {
+                    layer.msg(res.msg, {icon: 2});
+                }
+            },error: function (res) {
+                layer.msg('获取用户信息失败', {icon: 2});
+            }
+        });
+
+        // 修改个人信息
+        $('#submitEditInfo').click(function () {
+            var email = $('#editEmail').val();
+            var phone = $('#editPhone').val();
+            if (!email) {
+                layer.msg('邮箱不能为空', {icon: 2});
+                return;
+            }
+            if (!phone) {
+                layer.msg('电话不能为空', {icon: 2});
+                return;
+            }
+            $.ajax({
+                url: 'api/user/updateUser',
+                type: 'POST',
+                data: {
+                    email: email,
+                    phone: phone
+                },
+                success: function (res) {
+                    if (res.code === 200) {
+                        layer.msg(res.msg, {icon: 1});
+                        $('#email').text(email);
+                        $('#phone').text(phone);
+                    }
+                }, error: function (res) {
+                    layer.msg('修改个人信息失败', {icon: 2});
+                }
+            });
+        });
+
+        // 更换头像
+        $('#submitChangeAvatar').click(function () {
+            var fileInput = $('#avatarUpload')[0];
+            if (fileInput.files.length === 0) {
+                layer.msg('请选择一张图片', {icon: 2});
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('avatar', fileInput.files[0]);
+
+            $.ajax({
+                url: '/api/user/updateAvatar',
+                type: 'POST',
+                data: formData,
+                processData: false, // 不处理数据
+                contentType: false, // 不设置内容类型
+                success: function (res) {
+                    if (res.code === 200) {
+                        layer.msg(res.message, {icon: 1});
+                        $('#user-avatar').attr('src', res.data);
+                        $('#avatarPreview').attr('src', res.data);
+                    } else {
+                        layer.msg(res.message, {icon: 2});
+                    }
+                },
+                error: function (res) {
+                    layer.msg('更换头像失败', {icon: 2});
+                }
+            });
+        });
+
+// 修改密码
+        $('#submitChangePassword').click(function () {
+            var currentPassword = $('#currentPassword').val();
+            var newPassword = $('#newPassword').val();
+            var confirmNewPassword = $('#confirmNewPassword').val();
+            console.log(currentPassword, newPassword, confirmNewPassword)
+            if (!currentPassword) {
+                layer.msg('当前密码不能为空', {icon: 2});
+                return;
+            }
+            if (!newPassword) {
+                layer.msg('新密码不能为空', {icon: 2});
+                return;
+            }
+            if (newPassword !== confirmNewPassword) {
+                layer.msg('新密码与确认密码不一致', {icon: 2});
+                return;
+            }
+
+            $.ajax({
+                url: '/api/user/updatePassword',
+                type: 'POST',
+                data: {
+                    currentPassword: currentPassword,
+                    newPassword: newPassword
+                },
+                success: function (res) {
+                    if (res.code === 200) {
+                        layer.msg(res.message, {icon: 1});
+                        $('#currentPassword').val('');
+                        $('#newPassword').val('');
+                        $('#confirmNewPassword').val('');
+                    //     重新登录
+                        window.location.href = 'login.html';
+                    } else {
+                        layer.msg(res.message, {icon: 2});
+                    }
+                },
+                error: function (res) {
+                    layer.msg('修改密码失败', {icon: 2});
+                }
+            });
+        });
+
+
+        // 显示对应内容
+        function showContent(id) {
+            $('#userInfoContent').hide();
+            $('#editInfoContent').hide();
+            $('#changePasswordContent').hide();
+            $('#changeAvatarContent').hide();
+            $('#' + id).show();
+        }
+
+        // 设置高亮显示菜单项
+        function setActiveMenuItem($item) {
+            $('.menu-item').removeClass('layui-this');
+            $item.addClass('layui-this');
+        }
+
+        // 监听左侧菜单点击事件
+        $('#userInfo').click(function () {
+            showContent('userInfoContent');
+            setActiveMenuItem($(this));
+        });
+        $('#editInfo').click(function () {
+            showContent('editInfoContent');
+            setActiveMenuItem($(this));
+        });
+        $('#changePassword').click(function () {
+            showContent('changePasswordContent');
+            setActiveMenuItem($(this));
+        });
+        $('#changeAvatar').click(function () {
+            showContent('changeAvatarContent');
+            setActiveMenuItem($(this));
+        });
+    });
+</script>
+</body>
+</html>

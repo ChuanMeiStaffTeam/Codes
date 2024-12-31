@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HX-APP 管理系统</title>
+    <link rel="stylesheet" href="layui-v2.9.13/layui/css/layui.css">
+
+    <style>
+        .header-center {
+            color: #ffffff; /* 字体颜色 */
+            font-size: 20px; /* 字体大小 */
+            text-align: center; /* 水平居中 */
+            padding: 15px 0; /* 上下内边距 */
+            background-color: #333; /* 背景颜色 */
+            border-radius: 5px; /* 圆角 */
+            margin: 0 20px; /* 左右外边距 */
+        }
+
+        .layui-side {
+            transition: width 0.3s; /* 平滑过渡效果 */
+        }
+
+        .layui-body, .layui-footer {
+            transition: left 0.3s; /* 平滑过渡效果 */
+        }
+    </style>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <!-- 头部 -->
+    <div class="layui-header">
+        <div class="layui-logo layui-hide-xs layui-bg-black">&nbsp;HX-APP 管理系统</div>
+        <ul class="layui-nav layui-layout-right">
+            <!-- 移动端显示 -->
+            <li class="layui-nav-item layui-hide layui-show-sm-inline-block" id="user-info">
+                <a href="javascript:;">
+                    <img src="//unpkg.com/outeres@0.0.10/img/layui/icon-v2.png" class="layui-nav-img" id="user-avatar">
+                    <span id="user-name"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="personal_center.html" class="layui-icon layui-icon-username" style="font-size: 15px;">&nbsp;个人中心</a>
+                    </dd>
+                    <dd><a href="javascript:;" id="logout" class="layui-icon layui-icon-logout"
+                           style="font-size: 15px;">&nbsp;注销登录</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 左侧导航 -->
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 收缩按钮 -->
+            <div style="padding: 0px; text-align: left;">
+                <button id="toggle-menu" class="layui-btn layui-btn-primary layui-btn-sm"
+                        style="padding: 0px; text-align: left; height: 15px; width: 100%; border: none; line-height: 15px; margin-left: 20px">
+                    <i class="layui-icon layui-icon-shrink-right" style="color: #0ac2ee"></i>
+                </button>
+            </div>
+            <ul class="layui-nav layui-nav-tree" lay-filter="side-menu">
+                <li class="layui-nav-item layui-nav-itemed" data-url="home.html" style="height: 45px;">
+                    <a href="javascript:;" class="layui-icon layui-icon-home" style="font-size: 15px; color: #08dce5;">&nbsp;&nbsp;主页</a>
+                </li>
+                <li class="layui-nav-item" data-url="user_management.html" style="height: 45px;"><a href="javascript:;"
+                                                                                                    class="layui-icon layui-icon-group"
+                                                                                                    style="font-size: 15px; ">&nbsp;&nbsp;用户管理</a>
+                </li>
+                <li class="layui-nav-item" data-url="post_management.html" style="height: 45px;"><a
+                        href="javascript:;"
+                        class="layui-icon layui-icon-component"
+                        style="font-size: 15px; ">&nbsp;&nbsp;帖子管理</a>
+                </li>
+                <li class="layui-nav-item" data-url="photo_management.html" style="height: 45px;"><a
+                        href="javascript:;"
+                        class="layui-icon layui-icon-picture"
+                        style="font-size: 15px; ">&nbsp;&nbsp;图片管理</a>
+                </li>
+                <li class="layui-nav-item" data-url="dept_management.html" style="height: 45px;"><a
+                        href="javascript:;"
+                        class="layui-icon layui-icon-file-b"
+                        style="font-size: 15px; ">&nbsp;&nbsp;企业管理</a>
+                </li>
+                <li class="layui-nav-item" data-url="comment_management.html" style="height: 45px;"><a
+                        href="javascript:;"
+                        class="layui-icon layui-icon-reply-fill"
+                        style="font-size: 15px; ">&nbsp;&nbsp;评论管理</a>
+                </li>
+<!--                <li class="layui-nav-item" data-url="login_log.html" style="height: 45px;"><a href="javascript:;"-->
+<!--                                                                                              class="layui-icon layui-icon-engine"-->
+<!--                                                                                              style="font-size: 15px; ">&nbsp;&nbsp;登录日志</a>-->
+<!--                </li>-->
+                <li class="layui-nav-item" data-url="data_management.html" style="height: 45px;"><a
+                        href="javascript:;"
+                        class="layui-icon layui-icon-console"
+                        style="font-size: 15px; ">&nbsp;&nbsp;数据监控</a>
+                </li>
+                <li class="layui-nav-item" data-url="notice_management.html" style="height: 45px;"><a
+                        href="javascript:;" class="layui-icon layui-icon-template-1"
+                        style="font-size: 15px; ">&nbsp;&nbsp;公告管理</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 内容主体区域 -->
+    <div class="layui-body">
+        <!-- 动态加载的内容区域 -->
+        <div id="content-section" style="width: auto;">
+            <!-- 这里将加载不同的 HTML 内容 -->
+        </div>
+    </div>
+</div>
+
+
+<script src="js/global.js"></script>
+<script src="layui-v2.9.13/layui/layui.js"></script>
+<script src="jquery/jquery.js"></script>
+<script>
+    layui.use(['element', 'layer', 'util'], function () {
+        var element = layui.element;
+        var layer = layui.layer;
+        var util = layui.util;
+        var $ = layui.$;
+        var user;
+        // 初始化加载主页内容 home.html
+        $('#content-section').load('home.html');
+        // 点击菜单项加载对应的 HTML 内容
+        $('.layui-nav-tree').on('click', 'li', function () {
+            var url = $(this).data('url');
+            $('#content-section').empty(); // 加载内容之前先清空内容
+            $('#content-section').load(url);
+        });
+        // 获取当前登录用户信息
+        $.ajax({
+            url: 'api/user/getUser',
+            type: 'GET',
+            success: function (res) {
+                if (res.code === 200) {
+                    user = res.data;
+                    $('#user-name').text(user.username);
+                    $('#user-avatar').attr('src', user.avatarUrl);
+                    $('#user-info').show(); // 显示用户信息
+                } else {
+                    layer.msg(res.msg, {icon: 2});
+                }
+            },error: function (res) {
+                layer.msg('获取用户信息失败', {icon: 2});
+            }
+        });
+
+        // 注销登录按钮点击事件
+        $('#logout').click(function () {
+            $.ajax({
+                url: 'api/login/logout',
+                type: 'GET',
+                success: function (res) {
+                    if (res.code === 200) {
+                        layer.msg(res.msg, {icon: 1});
+                        window.location.href = 'login.html';
+                    }
+                }, error: function (res) {
+                    layer.msg('注销登录失败', {icon: 2});
+                }
+            });
+        });
+
+
+        // 收缩按钮的点击事件
+        $('#toggle-menu').click(function () {
+            var $side = $('.layui-side');
+            var $body = $('.layui-body');
+            var $footer = $('.layui-footer');
+            if ($side.width() === 200) { // 当前为展开状态
+                $side.animate({width: '47px'}); // 收缩
+                $body.animate({left: '47px'});
+                $footer.animate({left: '47px'});
+                $('#toggle-menu i').removeClass('layui-icon-shrink-right').addClass('layui-icon-spread-left'); // 更改图标
+                $('.layui-nav-tree .layui-nav-item a').css('padding-left', '1'); // 调整图标和文字的间距
+                $('.layui-nav-item .layui-icon').css('font-size', '20px');
+                $('.layui-nav-tree .layui-nav-itemed > a').css('color', '#08dce5');
+            } else { // 当前为收缩状态
+                $side.animate({width: '200px'}); // 展开
+                $body.animate({left: '200px'});
+                $footer.animate({left: '200px'});
+                $('#toggle-menu i').removeClass('layui-icon-spread-left').addClass('layui-icon-shrink-right'); // 更改图标
+                $('.layui-nav-tree .layui-nav-item a').css('padding-left', '15px'); // 恢复图标和文字的间距
+                $('.layui-nav-item .layui-icon').css('font-size', '15px');
+            }
+        });
+    });
+
+
+</script>
+</body>
+</html>

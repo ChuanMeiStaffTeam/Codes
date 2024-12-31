@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态帖子展示</title>
+    <link rel="stylesheet" href="layui-v2.9.13/layui/css/layui.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .post-card {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .post-header {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        .post-header span {
+            display: inline-block;
+            margin-right: 10px;
+            font-weight: 500;
+        }
+
+        .post-header strong {
+            color: #343a40;
+        }
+
+        .post-content {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .post-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .post-images img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .post-images img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #212529;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        #post-list {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <h1>帖子图片列表</h1>
+            <!-- 动态生成的帖子内容将插入到这里 -->
+            <div id="post-list"></div>
+        </div>
+    </div>
+</div>
+
+<script src="layui-v2.9.13/layui/layui.js"></script>
+<script src="jquery/jquery.js"></script>
+<script>
+    layui.use('layer', function () {
+        var layer = layui.layer;
+        $(document).ready(function () {
+            layer.msg('页面加载中...', {icon: 16, shade: 0.01, time: 0});
+            // 从后端获取帖子数据
+            function fetchPosts() {
+                $.ajax({
+                    url: '/api/post/getPostImages', // 后端接口地址
+                    method: 'GET',
+                    success: function (res) {
+                        if (res.code === 200) {
+                            renderPosts(res.data);
+                        } else {
+                            $('#post-list').html('<p>暂无帖子</p>');
+                        }
+                    },
+                    error: function () {
+                        $('#post-list').html('<p>加载失败，请稍后再试</p>');
+                    }
+                });
+            }
+
+            // 渲染帖子内容
+            function renderPosts(posts) {
+                console.log(posts);
+                const postList = $('#post-list');
+                postList.empty(); // 清空之前的内容
+
+                posts.forEach(post => {
+                    const imagesHtml = post.imagesUrl.map(imgUrl =>
+                        `<img src="${imgUrl}" alt="图片">`
+                    ).join('');
+
+                    const postHtml = `
+                        <div class="post-card" id="post-${post.postId}">
+                            <div class="post-header">
+                                <span><strong>帖子ID:</strong> ${post.postId}</span>
+                                <span><strong>用户账号:</strong> ${post.userId}</span>
+                                <span><strong>发布地:</strong> ${post.location}</span>
+                                <span><strong>发布时间:</strong> ${layui.util.toDateString(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}</span>
+                            </div>
+                            <p class="post-content">
+                                ${post.caption}
+                            </p>
+                            <div class="post-images">
+                                ${imagesHtml}
+                            </div>
+                        </div>
+                    `;
+
+                    postList.append(postHtml);
+                });
+                layer.closeAll(); // 关闭提示框
+
+                // 重新绑定图片点击事件
+                bindImagePreview();
+            }
+
+            // 图片点击预览功能
+            function bindImagePreview() {
+                $('.post-images img').off('click').on('click', function () {
+                    layui.layer.open({
+                        type: 1,
+                        title: false,
+                        closeBtn: 0,
+                        shadeClose: true,
+                        content: `<img src="${this.src}" style="width: 100%;">`
+                    });
+                });
+            }
+
+            // 初始化加载帖子数据
+            fetchPosts();
+        });
+    });
+</script>
+</body>
+</html>

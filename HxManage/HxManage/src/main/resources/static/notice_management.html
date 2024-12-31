@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>公告管理</title>
+    <link href="./layui-v2.9.13/layui/css/layui.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="layui-card">
+    <div class="layui-card-header">
+        <i class="layui-icon layui-icon-notice"></i> 公告管理
+    </div>
+    <div class="layui-card-body">
+        <!-- 筛选条件 -->
+        <form class="layui-form" id="filterForm" lay-filter="filterForm">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">标题</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="title" placeholder="请输入公告标题" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-inline">
+                        <select name="status">
+                            <option value="">请选择状态</option>
+                            <option value="1">已发布</option>
+                            <option value="0">草稿</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">时间范围</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="dateRange" id="dateRange" placeholder="选择时间范围" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-primary" lay-submit lay-filter="search">筛选</button>
+                    <button class="layui-btn layui-btn-normal" type="reset">重置</button>
+                </div>
+
+                <button class="layui-btn layui-btn-normal">添加公告</button>
+
+            </div>
+        </form>
+        <!-- 公告列表 -->
+        <table id="announcementsTable" class="layui-table" lay-filter="announcementsTableFilter"></table>
+    </div>
+</div>
+<!-- 操作列模板 -->
+<script type="text/html" id="actionColumn">
+    <button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">编辑</button>
+    <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</button>
+</script>
+<script src="./layui-v2.9.13/layui/layui.js"></script>
+<script src="./jquery/jquery.js"></script>
+<script>
+    layui.use(['table', 'laydate', 'form', 'layer'], function () {
+        const table = layui.table;
+        const laydate = layui.laydate;
+        const form = layui.form;
+        const layer = layui.layer;
+        const $ = layui.jquery;
+
+        // 初始化日期范围选择
+        laydate.render({
+            elem: '#dateRange',
+            range: true, // 启用范围选择
+        });
+
+        // 渲染公告表格
+        table.render({
+            elem: '#announcementsTable',
+            // url: '/announcements/list', // 后端获取公告数据的接口
+            method: 'GET',
+            page: true, // 启用分页
+            toolbar: true, // 显示表格头部工具栏
+            defaultToolbar: ['filter', 'exports', 'print'],
+            cols: [[
+                { type: 'checkbox', fixed: 'left' }, // 支持批量操作
+                { field: 'id', title: 'ID', width: 80, sort: true },
+                { field: 'title', title: '标题', width: 200 },
+                { field: 'status', title: '状态', width: 120, templet: '#statusTpl' },
+                { field: 'createdAt', title: '创建时间', width: 180, sort: true },
+                { field: 'updatedAt', title: '更新时间', width: 180, sort: true },
+                { fixed: 'right', title: '操作', toolbar: '#actionColumn', width: 180 },
+            ]]
+        });
+
+        // 自定义状态列显示
+        table.on('tool(announcementsTableFilter)', function (obj) {
+            const data = obj.data;
+            if (obj.event === 'edit') {
+                // 编辑公告操作
+                openEditModal(data);
+            } else if (obj.event === 'delete') {
+                // 删除公告操作
+                layer.confirm('确认删除该公告吗？', { icon: 3, title: '提示' }, function (index) {
+                    $.ajax({
+                        url: `/announcements/${data.id}`,
+                        type: 'DELETE',
+                        success: function (res) {
+                            layer.msg('删除成功');
+                            table.reload('announcementsTable');
+                        },
+                        error: function () {
+                            layer.msg('删除失败');
+                        }
+                    });
+                    layer.close(index);
+                });
+            }
+        });
+
+        // 批量操作事件
+        table.on('toolbar(announcementsTableFilter)', function (obj) {
+            const checkStatus = table.checkStatus(obj.config.id);
+            const selectedIds = checkStatus.data.map(item => item.id);
+
+            if (obj.event === 'deleteSelected') {
+                if (selectedIds.length === 0) {
+                    return layer.msg('请选择要删除的公告！');
+                }
+                layer.confirm('确认删除选中的公告吗？', { icon: 3, title: '提示' }, function (index) {
+                    $.ajax({
+                        url: '/announcements/deleteBatch',
+                        type: 'POST',
+                        data: JSON.stringify(selectedIds),
+                        contentType: 'application/json',
+                        success: function (res) {
+                            layer.msg('批量删除成功');
+                            table.reload('announcementsTable');
+                        },
+                        error: function () {
+                            layer.msg('批量删除失败');
+                        }
+                    });
+                    layer.close(index);
+                });
+            }
+        });
+
+        // 弹出编辑公告模态框
+        function openEditModal(data) {
+            // 打开编辑页面或弹窗
+            layer.open({
+                type: 2,
+                title: '编辑公告',
+                content: '/announcements/edit/' + data.id, // 编辑页面的URL
+                area: ['80%', '80%'],
+                btn: ['保存', '取消'],
+                yes: function (index, layero) {
+                    const iframe = layero.find('iframe')[0];
+                    const submit = iframe.contentWindow.document.getElementById('saveBtn');
+                    submit.click(); // 点击子页面的保存按钮，提交表单
+                }
+            });
+        }
+
+        // 筛选功能
+        form.on('submit(search)', function (data) {
+            table.reload('announcementsTable', {
+                where: data.field,
+                page: { curr: 1 } // 筛选后跳转到第一页
+            });
+            return false;
+        });
+
+        // 自定义状态模板
+        table.templet('statusTpl', function (d) {
+            return d.status == 1 ? '已发布' : '草稿';
+        });
+    });
+
+</script>
+</body>
+</html>
