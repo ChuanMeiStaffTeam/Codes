@@ -220,4 +220,6 @@ public class UserInfoController {
         }
         return AppResult.success(user);
     }
+
+
 }
