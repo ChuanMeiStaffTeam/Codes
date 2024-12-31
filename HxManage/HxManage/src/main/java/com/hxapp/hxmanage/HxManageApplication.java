@@ -11,4 +11,7 @@ public class HxManageApplication {
     public static void main(String[] args) {
         SpringApplication.run(HxManageApplication.class, args);
     }
+
+
+
 }
