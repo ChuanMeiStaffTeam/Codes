@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 extension UIView {
 
@@ -60,6 +62,7 @@ extension UIView {
     }
 }
 
+// MARK: - .then语法初始化View
 extension ViewChainable where Self: UIView {
     @discardableResult
     func then(_ config: (Self) -> Void) -> Self {
@@ -72,4 +75,68 @@ extension UIView: ViewChainable {
 }
 protocol ViewChainable {
 
+}
+
+
+// MARK: - 扩展 UIView 来添加点击手势的 Rx 支持
+extension Reactive where Base: UIView {
+    /// 添加节流功能的点击事件
+    func tapGestureThrottle(interval: RxTimeInterval = .milliseconds(500)) -> ControlEvent<Void> {
+        //latest = false：在间隔内只发送第一个事件，忽略间隔内的后续事件
+        let source = self.tapGesture
+            .throttle(interval, latest: false, scheduler: MainScheduler.instance)
+        return ControlEvent(events: source)
+    }
+    /// UIView 点击手势的 Rx 支持
+    var tapGesture: Observable<Void> {
+        return Observable.create { [weak base] observer in
+            // 确保 UIView 存在
+            guard let view = base else {
+                observer.onCompleted()
+                return Disposables.create()
+            }
+
+            // 创建 UITapGestureRecognizer
+            let tapGesture = UITapGestureRecognizer()
+            view.addGestureRecognizer(tapGesture)
+            view.isUserInteractionEnabled = true // 确保视图可交互
+
+            // 手势触发时发出事件
+            let target = GestureTarget(gestureRecognizer: tapGesture) {
+                DispatchQueue.main.async { // 确保事件在主线程中发出
+                    observer.onNext(())
+                }
+            }
+
+            // 返回一个 Disposables，当 Observable 被销毁时，移除手势
+            return Disposables.create {
+                DispatchQueue.main.async { // 确保移除手势操作在主线程
+                    view.removeGestureRecognizer(tapGesture)
+                }
+                target.dispose()
+            }
+        }
+        .observe(on: MainScheduler.instance) // 确保订阅者在主线程处理事件
+    }
+}
+
+// 用于管理手势的 Target
+private class GestureTarget: NSObject {
+    private let gestureRecognizer: UIGestureRecognizer
+    private let action: () -> Void
+
+    init(gestureRecognizer: UIGestureRecognizer, action: @escaping () -> Void) {
+        self.gestureRecognizer = gestureRecognizer
+        self.action = action
+        super.init()
+        gestureRecognizer.addTarget(self, action: #selector(handleGesture))
+    }
+
+    @objc private func handleGesture() {
+        action()
+    }
+
+    func dispose() {
+        gestureRecognizer.removeTarget(self, action: #selector(handleGesture))
+    }
 }

@@ -93,6 +93,7 @@ class SearchResultContainerVC: BaseViewController {
         headerView.textField.rx.controlEvent(.editingDidBegin)
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
+                self.headerView.textField.resignFirstResponder()
                 self.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)

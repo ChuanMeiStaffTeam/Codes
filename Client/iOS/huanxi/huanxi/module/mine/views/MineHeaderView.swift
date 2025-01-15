@@ -67,7 +67,7 @@ class MineHeaderView: UIView {
             make.width.equalTo(60)
         }
         
-        editButton.setTitle("编辑主页", for: .normal)
+        editButton.setTitle("编辑资料", for: .normal)
         editButton.setTitleColor(.white, for: .normal)
         editButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         editButton.addTarget(self, action: #selector(editUserAction), for: .touchUpInside)

@@ -41,7 +41,7 @@ class ChatUserHomeViewController: BaseViewController {
         
         view.addSubview(mineHeader)
         mineHeader.editHomePageBlock = {
-            let vc = EditHomePageViewController()
+            let vc = EditProfileVC()
             vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
         }

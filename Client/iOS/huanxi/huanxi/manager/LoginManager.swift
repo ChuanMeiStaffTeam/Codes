@@ -75,9 +75,50 @@ class LoginManager {
 
 
 extension LoginManager {
+    class func requestCode(_ phone: String) async -> Bool {
+        await withCheckedContinuation { continuation in
+            NetworkManager.shared.postRequest(path: "sms/send",
+                                             parameters: ["phone":phone],
+                                             responseType: UpdateUserModel.self) { success, message, data in
+                if success {
+                } else {
+                    HUDHelper.showToast(message)
+                }
+                continuation.resume(returning: success)
+            }
+        }
+    }
+    
+    class func fetchUpdatePhoneCode(_ phone: String) async -> Bool {
+        await withCheckedContinuation { continuation in
+            NetworkManager.shared.postRequest(path: "sms/updatePhone",
+                                             parameters: ["phone":phone],
+                                             responseType: UpdateUserModel.self) { success, message, data in
+                if success {
+                } else {
+                    HUDHelper.showToast(message)
+                }
+                continuation.resume(returning: success)
+            }
+        }
+    }
+    
+    class func requestChangePhone(_ params: [String: Any]) async -> Bool {
+        await withCheckedContinuation { continuation in
+            NetworkManager.shared.postRequest(path: "userInfo/updatePhone",
+                                             parameters: params,
+                                             responseType: UpdateUserModel.self) { success, message, data in
+                if success {
+                } else {
+                    HUDHelper.showToast(message)
+                }
+                continuation.resume(returning: success)
+            }
+        }
+    }
     
     class func requestLogin(params: [String: Any], completion: @escaping (Bool) -> Void) {
-        NetworkManager.shared.postRequest(path: "user/login/username",
+        NetworkManager.shared.postRequest(path: "user/login/code",
                                           parameters: params,
                                           responseType: LoginModel.self) { success, message, data in
             if success {
@@ -161,4 +202,20 @@ extension LoginManager {
         }
     }
     
+    
+    
+    class func fetchUpdateUserInfo(params: [String: Any]) async -> Bool {
+        await withCheckedContinuation { continuation in
+            NetworkManager.shared.postRequest(path: "userinfo/updateInfo",
+                                             parameters: params,
+                                             responseType: UpdateUserModel.self) { success, message, data in
+                if success, let user = data?.user {
+                    LoginManager.shared.updateUserInfo(info: user)
+                } else {
+                    HUDHelper.showToast(message)
+                }
+                continuation.resume(returning: success)
+            }
+        }
+    }
 }
