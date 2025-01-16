@@ -196,19 +196,28 @@ extension PostCommentPopView: UITableViewDelegate {
 
 extension PostCommentPopView: CommentTextViewDelegate {
     func onSendText(text: String) {
-        var comment = CommentModel()
-        comment.text = text
-        let currentTimestampInMilliseconds = Date().timeIntervalSince1970
-        comment.create_time = Int(currentTimestampInMilliseconds)
-        UIView.setAnimationsEnabled(false)
-        self.tableView.beginUpdates()
-        self.data.insert(comment, at: 0)
-        var indexPaths = [IndexPath]()
-        indexPaths.append(IndexPath.init(row: 0, section: 0))
-        self.tableView.insertRows(at: indexPaths, with: .none)
-        self.tableView.endUpdates()
-        self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: false)
-        UIView.setAnimationsEnabled(true)
+//        var comment = CommentModel()
+//        comment.text = text
+//        let currentTimestampInMilliseconds = Date().timeIntervalSince1970
+//        comment.create_time = Int(currentTimestampInMilliseconds)
+//        UIView.setAnimationsEnabled(false)
+//        self.tableView.beginUpdates()
+//        self.data.insert(comment, at: 0)
+//        var indexPaths = [IndexPath]()
+//        indexPaths.append(IndexPath.init(row: 0, section: 0))
+//        self.tableView.insertRows(at: indexPaths, with: .none)
+//        self.tableView.endUpdates()
+//        self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: false)
+//        UIView.setAnimationsEnabled(true)
+        
+ 
+        
+        Task {
+            await self.viewModel.fetcAddComment(self.postId, parentCommentId: 0, content: text)
+        }
+        
+
+        
     }
 }
 

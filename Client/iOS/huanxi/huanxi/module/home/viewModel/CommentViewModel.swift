@@ -38,6 +38,7 @@ class CommentViewModel {
                         self.commentList.accept(self.dataSource)
                     }
                 } else {
+                    self.commentList.accept([])
                     HUDHelper.showToast(message)
                 }
                 continuation.resume(returning: success)
@@ -57,6 +58,9 @@ class CommentViewModel {
                 if success {
                     var comment = CommentModel()
                     comment.text = content
+                    comment.user_type = "user"
+                    let user = LoginManager.shared.getUserInfo()
+                    comment.user = user
                     let currentTimestampInMilliseconds = Date().timeIntervalSince1970
                     comment.create_time = Int(currentTimestampInMilliseconds)
                     self.dataSource.insert(.commentItem(comment), at: 0)

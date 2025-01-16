@@ -12,6 +12,8 @@ struct CommentResponseModel: Codable {
 }
 
 struct CommentModel: Codable {
+    var commentId: Int?
+    var parentCommentId: Int?
     var user: UserInfoModel?
     var content: String?
     var date: Date?

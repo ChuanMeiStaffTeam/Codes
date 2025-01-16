@@ -102,10 +102,15 @@ class CommentListCell:UITableViewCell {
     }
     
     func initData(comment:CommentModel) {
+        
+//        let user = LoginManager.shared.getUserInfo()
+        let defaultAvatar = UIImage(resource: .imgFindDefault)
+        
+        
 //        var avatarUrl:URL?
         if comment.user_type == "user" {
-//            avatarUrl = URL.init(string: comment.user?.avatar ?? "")
-            nickName.text = comment.user?.nickname
+            avatar.kf.setImage(with: URL(string: comment.user?.profilePictureUrl ?? ""), placeholder: defaultAvatar)
+            nickName.text = comment.user?.fullName
         } else {
 //            avatarUrl = URL.init(string: comment.visitor?.avatar ?? "")
             nickName.text = VisitorModel.formatUDID(udid: comment.visitor?.udid ?? "")

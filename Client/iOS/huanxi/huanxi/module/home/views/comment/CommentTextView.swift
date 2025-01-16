@@ -61,7 +61,9 @@ class CommentTextView:UIView, UITextViewDelegate {
         container.addSubview(textView)
         
         
-        avatar.image = UIImage.init(named: "main_pic_test")
+        let user = LoginManager.shared.getUserInfo()
+        let defaultAvatar = UIImage(resource: .imgFindDefault)
+        avatar.kf.setImage(with: URL(string: user?.profilePictureUrl ?? ""), placeholder: defaultAvatar)
         avatar.layer.cornerRadius = 16
         avatar.layer.masksToBounds = true
         textView.addSubview(avatar)
@@ -139,11 +141,15 @@ class CommentTextView:UIView, UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
-            delegate?.onSendText(text: textView.text)
-            textView.text = ""
-            textHeight = textView.font?.lineHeight ?? 0
-            placeHolderLabel.isHidden = false
-            textView.resignFirstResponder()
+            if !textView.text.isEmpty {
+                delegate?.onSendText(text: textView.text)
+                textView.text = ""
+                textHeight = textView.font?.lineHeight ?? 0
+                placeHolderLabel.isHidden = false
+                textView.resignFirstResponder()
+            } else {
+                HUDHelper.showToast("请输入内容")
+            }
         }
         return true
     }
