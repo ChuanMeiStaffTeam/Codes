@@ -9,7 +9,7 @@ import UIKit
 
 class UpdatesViewController: BaseViewController {
     
-    let vm = MainViewModel()
+    let vm = HomeViewModel()
     var mainView: MainView!
 
     override func viewWillAppear(_ animated: Bool) {

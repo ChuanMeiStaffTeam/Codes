@@ -1,0 +1,43 @@
+//
+//  PostModel.swift
+//  huanxi
+//
+//  Created by jack on 2024/8/13.
+//
+
+import Foundation
+
+struct PostModel: Codable, Equatable {
+    var user: UserInfoModel?
+    var images : [PostImage]?
+    var likedUsers: [UserInfoModel]?
+    var caption: String?
+    var comments: [CommentModel]?
+    var liked : Bool
+    var likesCount: Int?
+    var favorite : Bool? = false
+    var bookmarked: Bool?
+    var postTime: Date?
+    var location: String?
+    var createdAt: String?
+    var postId: Int?
+    var userId: Int?
+
+    var captionHeight: CGFloat?
+    var imageHeight: CGFloat?
+
+    static func == (lhs: PostModel, rhs: PostModel) -> Bool {
+        return lhs.postId == rhs.postId
+    }
+}
+
+struct PostImage: Codable {
+    var createdAt: String?
+    var filterUsed: String?
+    var imageHeight: String?
+    var imageWidth: String?
+    var imageId: Int?
+    var imageUrl: String?
+    var postId: Int?
+    var updatedAt: String?
+}

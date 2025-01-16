@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  HomeViewController.swift
 //  huanxi
 //
 //  Created by jack on 2024/2/18.
@@ -10,11 +10,11 @@ import SwiftUI
 import Combine
 import MJRefresh
 
-class MainViewController: BaseViewController {
+class HomeViewController: BaseViewController {
     
     private var cancellable: AnyCancellable?
 
-    private let viewModel = MainViewModel()
+    private let viewModel = HomeViewModel()
 
     lazy var tableView: UITableView = {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
@@ -179,7 +179,7 @@ class MainViewController: BaseViewController {
     
 }
 
-extension MainViewController: UITableViewDelegate {
+extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let item = self.viewModel.dataList.value.ck_objIndex(indexPath.item) else {
             return 0
@@ -202,7 +202,7 @@ extension MainViewController: UITableViewDelegate {
 }
 
 
-extension MainViewController: MainContentCellDelegate {
+extension HomeViewController: MainContentCellDelegate {
     func didClickMore(_ data: PostModel, indexPath: IndexPath?) {
         let postMorePopView = PostMorePopView()
         postMorePopView.show(data)
@@ -222,55 +222,31 @@ extension MainViewController: MainContentCellDelegate {
     }
     
     func didClickLike(_ data: PostModel, indexPath: IndexPath?) {
-        
         if !LoginManager.shared.isLogin() {
             Task {
                 let loginResult = await LoginViewController.startLogin()
                 if loginResult {
-                    if !data.liked {
-                        viewModel.requestLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
-                            guard let `self` = self else { return }
-                            if success {
-                                 DispatchQueue.main.async {
-                                     let index = indexPath?.row ?? 0
-                                     self.viewModel.updateLikeStatus(at: index, liked: true, indexPath: indexPath)
-                                 }
-                             }
-                        }
-                    } else {
-                        viewModel.requestCancelLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
-                            guard let `self` = self else { return }
-                            if success {
-                                DispatchQueue.main.async {
-                                    let index = indexPath?.row ?? 0
-                                    self.viewModel.updateLikeStatus(at: index, liked: false, indexPath: indexPath)
-                                }
-                            }
-                        }
+                    self.viewModel.fetchLikeAction(data, indexPath: indexPath)
+                }
+            }
+        } else {
+            self.viewModel.fetchLikeAction(data, indexPath: indexPath)
+        }
+    }
+    
+    func didClickMark(_ data: PostModel, indexPath: IndexPath?, markComplete: ((Bool) -> Void)?) {
+        if !LoginManager.shared.isLogin() {
+            Task {
+                let loginResult = await LoginViewController.startLogin()
+                if loginResult {
+                    self.viewModel.fetchCollectAction(data, indexPath: indexPath) { favorite in
+                        markComplete?(favorite)
                     }
                 }
             }
         } else {
-            if !data.liked {
-                viewModel.requestLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
-                    guard let `self` = self else { return }
-                    if success {
-                         DispatchQueue.main.async {
-                             let index = indexPath?.row ?? 0
-                             self.viewModel.updateLikeStatus(at: index, liked: true, indexPath: indexPath)
-                         }
-                     }
-                }
-            } else {
-                viewModel.requestCancelLikePost(params: ["postId" : data.postId ?? 0]) { [weak self] success in
-                    guard let `self` = self else { return }
-                    if success {
-                        DispatchQueue.main.async {
-                            let index = indexPath?.row ?? 0
-                            self.viewModel.updateLikeStatus(at: index, liked: false, indexPath: indexPath)
-                        }
-                    }
-                }
+            self.viewModel.fetchCollectAction(data, indexPath: indexPath) { favorite in
+                markComplete?(favorite)
             }
         }
     }
@@ -283,8 +259,6 @@ extension MainViewController: MainContentCellDelegate {
   
     }
     
-    func didClickMark(_ data: PostModel) {
-   
-    }
+
 }
 

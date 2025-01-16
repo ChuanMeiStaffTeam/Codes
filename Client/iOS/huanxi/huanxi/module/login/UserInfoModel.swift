@@ -16,7 +16,6 @@ struct LoginModel: Codable {
     let isFirst: Bool
     let token: String
     let userinfo: UserInfoModel
-    
 }
 
 struct UpdateUserModel: Codable {

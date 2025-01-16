@@ -68,6 +68,13 @@ class MineHeaderView: UIView {
         }
         
         editButton.setTitle("编辑资料", for: .normal)
+        let user = LoginManager.shared.getUserInfo()
+        let noAvatar = user?.profilePictureUrl?.isEmpty ?? true
+        let noName = user?.fullName?.isEmpty ?? true
+        let noWeb = user?.websiteUrl?.isEmpty ?? true
+        let noBio = user?.bio?.isEmpty ?? true
+        let showHot = noAvatar || noName || noWeb || noBio
+        editButton.setAttributedTitle(formatStatusText("编辑资料", showHot), for: .normal)
         editButton.setTitleColor(.white, for: .normal)
         editButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         editButton.addTarget(self, action: #selector(editUserAction), for: .touchUpInside)
@@ -98,6 +105,36 @@ class MineHeaderView: UIView {
         if let block = editHomePageBlock {
             block()
         }
+    }
+    
+    private func formatStatusText(_ text: String, _ isFirst: Bool = false) -> NSAttributedString {
+        
+        guard !text.isEmpty else {
+            return NSMutableAttributedString(string: "")
+        }
+        
+        var color = UIColor.red
+        
+        let image = UIImage.ImageWithColor(color, size: CGSize(width: 4, height: 4), cornerRadius: 2)
+    
+        // 创建一个 NSTextAttachment 来包含图片
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = image
+        imageAttachment.bounds = CGRect(x: 0, y: 2, width: 4, height: 4) // 调整图片的大小和位置
+
+        // 将 NSTextAttachment 转换为 NSAttributedString
+        let imageString = NSAttributedString(attachment: imageAttachment)
+        
+        // 创建一个可变的 NSAttributedString 来拼接文本和图片
+        let attributedString = NSMutableAttributedString(string: "")
+        
+        // 添加图片
+        attributedString.append(imageString)
+        
+        // 添加后半部分文字
+        attributedString.append(NSAttributedString(string: " " + text))
+
+        return attributedString
     }
     
 }

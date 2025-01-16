@@ -89,7 +89,11 @@ class InputProfileVC: BaseViewController {
         
         // 字符数量限制
         textObservable
-            .map { "\($0.count)/\(self.type.limit)" }
+            .map { text in
+                let limitedText = String(text.prefix(self.type.limit))
+                self.textField.text = limitedText // 如果超出限制，自动修正输入
+                return "\(limitedText.count)/\(self.type.limit)"
+            }
             .bind(to: charCountLabel.rx.text)
             .disposed(by: disposeBag)
         
