@@ -31,10 +31,24 @@ class NetworkManager {
         responseType: T.Type,
         completion: @escaping (Bool, String, T?) -> Void) {
             
-        guard let url = URL(string: buildURL(path)) else {
+        guard var urlComponents = URLComponents(string: buildURL(path)) else {
             completion(false, "URL无效", nil)
             return
         }
+        
+        // 如果是 .get 方法，将参数拼接到 URL 上
+        if method == .get, let parameters = parameters {
+            let queryItems = parameters.map { key, value in
+                URLQueryItem(name: key, value: "\(value)")
+            }
+            urlComponents.queryItems = queryItems
+        }
+        
+        guard let url = urlComponents.url else {
+            completion(false, "URL无效", nil)
+            return
+        }
+            
         logRequest(url.absoluteString, parameters: parameters, headers: headers) // 打印请求日志
 
         var allHeaders = HTTPHeaders()
@@ -42,11 +56,15 @@ class NetworkManager {
             let header = HTTPHeader.init(name: key, value: value)
             allHeaders.add(header)
         })
-            if let token = LoginManager.shared.getToken() {
-            allHeaders.add(name: "token", value: token)
+            
+        if let token = LoginManager.shared.getToken() {
+        allHeaders.add(name: "token", value: token)
         }
             
-        AF.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: allHeaders).responseDecodable(of: ResponseModel<T>.self) { response in
+        // 使用 .get 请求时，不再传递参数，避免重复
+        let encoding: ParameterEncoding = method == .get ? URLEncoding.default : JSONEncoding.default
+                
+        AF.request(url, method: method, parameters:  method == .get ? nil : parameters, encoding: encoding, headers: allHeaders).responseDecodable(of: ResponseModel<T>.self) { response in
             self.logResponse(response) // 打印响应日志
             switch response.result {
             case .success(let responseModel):
