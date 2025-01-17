@@ -26,7 +26,7 @@ class CommentViewModel {
     func fetchComments(_ postId: Int) async -> Bool {
         await withCheckedContinuation { continuation in
             self.commentList.accept(skeletonData)
-            NetworkManager.shared.getRequest(
+            NetworkManager.shared.postRequest(
                 path: "comment/getCommentsByPostId",
                 parameters: ["postId" : postId],
                 responseType: CommentResponseModel.self
@@ -38,7 +38,7 @@ class CommentViewModel {
                         self.commentList.accept(self.dataSource)
                     }
                 } else {
-//                    self.commentList.accept([])
+                    self.commentList.accept([])
                     HUDHelper.showToast(message)
                 }
                 continuation.resume(returning: success)
@@ -57,12 +57,14 @@ class CommentViewModel {
             ) { success, message, data in
                 if success {
                     var comment = CommentModel()
-                    comment.text = content
+                    comment.commentText = content
                     comment.user_type = "user"
                     let user = LoginManager.shared.getUserInfo()
                     comment.user = user
-                    let currentTimestampInMilliseconds = Date().timeIntervalSince1970
-                    comment.create_time = Int(currentTimestampInMilliseconds)
+                    let fmt = DateFormatter.init()
+                    fmt.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    let timeStr = fmt.string(from: Date())
+                    comment.createdAt = timeStr
                     self.dataSource.insert(.commentItem(comment), at: 0)
                     DispatchQueue.main.async {
                         self.commentList.accept(self.dataSource)
@@ -75,7 +77,7 @@ class CommentViewModel {
         }
     }
     
-    func fetcDeleteComment(_ postId: Int, parentCommentId: Int?, commentId: Int) async -> Bool {
+    func fetcDeleteComment(_ postId: Int, parentCommentId: Int?, commentId: Int, indexPath: IndexPath? ) async -> Bool {
         await withCheckedContinuation { continuation in
             NetworkManager.shared.postRequest(
                 path: "comment/deleteComment",
@@ -85,8 +87,9 @@ class CommentViewModel {
                 responseType: String.self
             ) { success, message, data in
                 if success {
-//                    self.dataSource.insert(.commentItem(comment), at: 0)
                     DispatchQueue.main.async {
+                     guard let indexPath = indexPath else { return }
+                        self.dataSource.remove(at: indexPath.row)
                         self.commentList.accept(self.dataSource)
                     }
                 } else {

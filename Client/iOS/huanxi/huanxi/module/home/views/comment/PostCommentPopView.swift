@@ -25,9 +25,14 @@ class PostCommentPopView: BaseView {
         let drawerView = DrawerView()
         drawerView.accessibilityIdentifier = "drawer"
         drawerView.backgroundColor = UIColor.black
-        drawerView.snapPositions = [.closed, .partiallyOpen, .open]
-        drawerView.position = .partiallyOpen
-        drawerView.partiallyOpenHeight = screenHeight * 3 / 5
+//        drawerView.snapPositions = [.closed, .partiallyOpen, .open]
+//        drawerView.position = .partiallyOpen
+//        drawerView.partiallyOpenHeight = screenHeight * 3 / 5
+        
+        drawerView.snapPositions = [.closed, .open]
+        drawerView.position = .open
+        drawerView.openHeightBehavior = .fixed(height: screenHeight * 3 / 5)
+        drawerView.insetAdjustmentBehavior = .fixed(70)
         drawerView.delegate = self
         return drawerView
     }()
@@ -54,7 +59,7 @@ class PostCommentPopView: BaseView {
     private let tableView: UITableView = {
         let tableView = UITableView(frame: CGRect(), style: .plain)
         tableView.backgroundColor = .clear
-        tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 50, right: 0)
+//        tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 50, right: 0)
         tableView.separatorStyle = .none
         tableView.register(CommentListCell.self)
         return tableView
@@ -76,9 +81,6 @@ class PostCommentPopView: BaseView {
 
     func setupUI() {
         
-
-        
-
         drawerView.addSubview(container)
         let rounded = UIBezierPath.init(roundedRect: CGRect.init(origin: .zero, size: CGSize.init(width: screenWidth, height: screenHeight * 3 / 4)), byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize.init(width: 10.0, height: 10.0))
         let shape = CAShapeLayer.init()
@@ -106,8 +108,8 @@ class PostCommentPopView: BaseView {
         container.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(titlelabel.snp.bottom).offset(5)
-            make.left.right.equalToSuperview()
-            make.bottom.equalTo(CGFloat.bottomSafeAreaHeight)
+            make.left.right.bottom.equalToSuperview()
+            make.bottom.equalTo(0)
         }
         
         textView.delegate = self
@@ -150,15 +152,19 @@ class PostCommentPopView: BaseView {
                 }
                 switch item {
                 case .commentItem(let item):
+                    let userInfo = LoginManager.shared.getUserInfo()
+                    if item.userId != userInfo?.userId {
+                        return
+                    }
                     let postMorePopView = PostMorePopView()
                     var model = PostModel(liked: false)
-                    let userInfo = LoginManager.shared.getUserInfo()
                     model.userId = userInfo?.userId
                     postMorePopView.show(model, type: 1)
                     postMorePopView.trashButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
                         guard let self = self else { return }
+                        postMorePopView.close()
                         Task {
-                            await self.viewModel.fetcDeleteComment(self.postId, parentCommentId: item.parentCommentId, commentId: item.commentId ?? 0)
+                            await self.viewModel.fetcDeleteComment(self.postId, parentCommentId: item.parentCommentId, commentId: item.commentId ?? 0, indexPath: indexPath)
                         }
                        
                     }).disposed(by: disposeBag)

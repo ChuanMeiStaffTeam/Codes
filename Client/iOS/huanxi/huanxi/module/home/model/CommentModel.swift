@@ -13,7 +13,11 @@ struct CommentResponseModel: Codable {
 
 struct CommentModel: Codable {
     var commentId: Int?
+    var postId: Int?
+    var userId: Int?
+    var commentText: String?
     var parentCommentId: Int?
+    var isActive: Int?
     var user: UserInfoModel?
     var content: String?
     var date: Date?
@@ -22,13 +26,14 @@ struct CommentModel: Codable {
     var status: Int?
     var text: String?
     var digg_count: Int?
-    var create_time: Int?
+    var createdAt: String?
+    var updatedAt: String?
     var reply_id: String?
     var aweme_id: String?
     var user_digged: Int?
     var user_type: String?
     var visitor: VisitorModel?
 
-    var isTemp: Bool = false
+//    var isTemp: Bool = false
     var taskId: Int?
 }

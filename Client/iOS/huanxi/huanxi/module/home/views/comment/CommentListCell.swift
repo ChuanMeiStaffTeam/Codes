@@ -17,7 +17,7 @@ class CommentListCell: UITableViewCell {
     var extraTag = UILabel()
     var content = UILabel()
     var likeNum = UILabel()
-    var date = UILabel()
+    var dateLabel = UILabel()
     var splitLine = UIView()
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -66,11 +66,11 @@ class CommentListCell: UITableViewCell {
             make.height.greaterThanOrEqualTo(14)
         }
 
-        date.numberOfLines = 1
-        date.textColor = .gray
-        date.font = UIFont.systemFont(ofSize: 12)
-        addSubview(date)
-        date.snp.makeConstraints { make in
+        dateLabel.numberOfLines = 1
+        dateLabel.textColor = .gray
+        dateLabel.font = UIFont.systemFont(ofSize: 12)
+        addSubview(dateLabel)
+        dateLabel.snp.makeConstraints { make in
             make.top.equalTo(self.content.snp.bottom).offset(5)
             make.left.right.equalTo(self.nickName)
             make.height.equalTo(12)
@@ -89,7 +89,7 @@ class CommentListCell: UITableViewCell {
         splitLine.backgroundColor = UIColor.white_10
         addSubview(splitLine)
         splitLine.snp.makeConstraints { make in
-            make.left.equalTo(self.date)
+            make.left.equalTo(self.dateLabel)
             make.right.equalTo(self.likeIcon)
             make.bottom.equalTo(self)
             make.height.equalTo(0.5)
@@ -130,8 +130,12 @@ class CommentListCell: UITableViewCell {
             //        avatar.setImageWithURL(imageUrl: avatarUrl!) {[weak self] (image, error) in
             //            self?.avatar.image = image?.drawCircleImage()
             //        }
-            content.text = model?.text
-            date.text = Date.formatTime(timeInterval: TimeInterval(model?.create_time ?? 0))
+            content.text = model?.commentText
+            
+            let timestamp = Date.convertToTimestamp(dateString: model?.createdAt ?? "2024-11-12 16:02:02", format: .standard)
+            dateLabel.text = Date.formatTime(timeInterval: TimeInterval(timestamp ?? 0))
+            
+//            date.text = Date.formatTime(timeInterval: TimeInterval(model?.create_time ?? 0))
             likeNum.text = String.formatCount(count: model?.digg_count ?? 0)
         }
     }
@@ -154,20 +158,20 @@ extension CommentListCell {
         avatar.layoutSkeletonLayer()
         nickName.layoutSkeletonLayer()
         content.layoutSkeletonLayer()
-        date.layoutSkeletonLayer()
+        dateLabel.layoutSkeletonLayer()
     }
 
     func showSkeletonAnimation() {
         avatar.startSkeletonAnimation()
         nickName.startSkeletonAnimation()
         content.startSkeletonAnimation()
-        date.startSkeletonAnimation()
+        dateLabel.startSkeletonAnimation()
     }
 
     func closeSkeletonAnimation() {
         avatar.stopSkeletonAnimation()
         nickName.stopSkeletonAnimation()
         content.stopSkeletonAnimation()
-        date.stopSkeletonAnimation()
+        dateLabel.stopSkeletonAnimation()
     }
 }
