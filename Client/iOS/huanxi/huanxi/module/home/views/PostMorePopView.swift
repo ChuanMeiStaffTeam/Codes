@@ -123,10 +123,13 @@ class PostMorePopView: BaseView {
         }
     }
     
-    func show(_ postModel: PostModel) {
+    func show(_ postModel: PostModel, type: Int = 0) {
         self.postModel = postModel
         if let userInfo = LoginManager.shared.getUserInfo() {
             trashButton.isHidden = postModel.userId != userInfo.userId
+        }
+        if type == 1 {
+            briefcaseButton.isHidden = true
         }
         if let window = getKeyWindow() {
             drawerView.attachTo(view: window)

@@ -135,6 +135,7 @@
 		F3E5A4E02D310A9F00AEF187 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */; };
 		F3E5A4E62D379F5500AEF187 /* InputProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4E52D379F5500AEF187 /* InputProfileVC.swift */; };
 		F3E5A4EE2D38E8F200AEF187 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4ED2D38E8F200AEF187 /* CommentViewModel.swift */; };
+		F3E5A4F02D3A2D6800AEF187 /* DrawerPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4EF2D3A2D6800AEF187 /* DrawerPresentation.swift */; };
 		F3E7860F2CEC5C1300EC2251 /* RichTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E7860E2CEC5C1300EC2251 /* RichTextLabel.swift */; };
 		F3E7861A2CEC6FBE00EC2251 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E786182CEC6FBE00EC2251 /* Localizable.strings */; };
 		F3E7861E2CEC761700EC2251 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E7861C2CEC761700EC2251 /* InfoPlist.strings */; };
@@ -314,6 +315,7 @@
 		F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		F3E5A4E52D379F5500AEF187 /* InputProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputProfileVC.swift; sourceTree = "<group>"; };
 		F3E5A4ED2D38E8F200AEF187 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		F3E5A4EF2D3A2D6800AEF187 /* DrawerPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerPresentation.swift; sourceTree = "<group>"; };
 		F3E7860E2CEC5C1300EC2251 /* RichTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextLabel.swift; sourceTree = "<group>"; };
 		F3E786192CEC6FBE00EC2251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F3E7861B2CEC700500EC2251 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -783,6 +785,7 @@
 		F39F6DE72CE1274200CFF8B5 /* drawerView */ = {
 			isa = PBXGroup;
 			children = (
+				F3E5A4EF2D3A2D6800AEF187 /* DrawerPresentation.swift */,
 				F39F6DEC2CE1280F00CFF8B5 /* Interpolation.swift */,
 				F39F6DEA2CE127B300CFF8B5 /* Overlay.swift */,
 				F39F6DE82CE1277400CFF8B5 /* DrawerView.swift */,
@@ -1107,6 +1110,7 @@
 				39E908222C28791C0017B83B /* SearchResultHeaderView.swift in Sources */,
 				397216842B81E8EC007D0F2B /* ViewController.swift in Sources */,
 				392CF10A2B8EC8700070637E /* HomeViewModel.swift in Sources */,
+				F3E5A4F02D3A2D6800AEF187 /* DrawerPresentation.swift in Sources */,
 				39066F672C51E15B003D347E /* LoginManager.swift in Sources */,
 				397216B12B81EA57007D0F2B /* NavigationController.swift in Sources */,
 				397216BD2B8249D9007D0F2B /* UpdatesViewController.swift in Sources */,

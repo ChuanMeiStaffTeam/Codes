@@ -38,7 +38,7 @@ class CommentViewModel {
                         self.commentList.accept(self.dataSource)
                     }
                 } else {
-                    self.commentList.accept([])
+//                    self.commentList.accept([])
                     HUDHelper.showToast(message)
                 }
                 continuation.resume(returning: success)

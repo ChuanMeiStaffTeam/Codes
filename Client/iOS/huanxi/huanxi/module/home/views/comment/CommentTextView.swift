@@ -176,7 +176,7 @@ class CommentTextView:UIView, UITextViewDelegate {
         if let urlStr = self.user.profilePictureUrl {
             avatar.image = UIImage.init(named: urlStr)
         }
-        placeHolderLabel.text = "为\(String(describing: user.fullName))添加评论..."
+        placeHolderLabel.text = "为\(user.fullName ?? "")添加评论..."
         if let window = getKeyWindow() {
             window.addSubview(self)
         }

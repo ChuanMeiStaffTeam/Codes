@@ -18,11 +18,24 @@ class PostCommentPopView: BaseView {
     var data = [CommentModel]()
     var postModel: PostModel = PostModel(liked: false)
 
-    let container = UIView.init()
-    let textView = CommentTextView()
-    let drawerView = DrawerView()
-    
 
+    let textView = CommentTextView()
+    
+    lazy var drawerView: DrawerView = {
+        let drawerView = DrawerView()
+        drawerView.accessibilityIdentifier = "drawer"
+        drawerView.backgroundColor = UIColor.black
+        drawerView.snapPositions = [.closed, .partiallyOpen, .open]
+        drawerView.position = .partiallyOpen
+        drawerView.partiallyOpenHeight = screenHeight * 3 / 5
+        drawerView.delegate = self
+        return drawerView
+    }()
+    
+    let container: UIView = UIView().then({view in
+        view.frame = CGRect.init(x: 0, y: 0, width: screenWidth, height: screenHeight * 3 / 5)
+    })
+    
     private let topLine: UIView = UIView().then({view in
         view.backgroundColor = UIColor.lightGray
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -63,14 +76,9 @@ class PostCommentPopView: BaseView {
 
     func setupUI() {
         
-        drawerView.accessibilityIdentifier = "drawer"
-        drawerView.backgroundColor = UIColor.postBgColor
-        drawerView.snapPositions = [.closed, .partiallyOpen, .open]
-        drawerView.position = .partiallyOpen
-        drawerView.partiallyOpenHeight = screenHeight * 3 / 5
-        drawerView.delegate = self
+
         
-        container.frame = CGRect.init(x: 0, y: 0, width: screenWidth, height: screenHeight * 3 / 5)
+
         drawerView.addSubview(container)
         let rounded = UIBezierPath.init(roundedRect: CGRect.init(origin: .zero, size: CGSize.init(width: screenWidth, height: screenHeight * 3 / 4)), byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize.init(width: 10.0, height: 10.0))
         let shape = CAShapeLayer.init()
@@ -116,10 +124,12 @@ class PostCommentPopView: BaseView {
                 switch item {
                 case .skeleton:
                     let cell: CommentListCell = tableView.dequeueReusableCell(forIndexPath: IndexPath(row: index, section: 0))
+                    cell.isSkeletonVisible = true
                     return cell
-                case .commentItem(let item):
+                case .commentItem(let model):
                     let cell: CommentListCell = tableView.dequeueReusableCell(forIndexPath: IndexPath(row: index, section: 0))
-                    cell.initData(comment: item)
+                    cell.model = model
+                    cell.isSkeletonVisible = false
                     return cell
                 default:
                     let cell: UITableViewCell = UITableViewCell().then({ view in
@@ -129,8 +139,35 @@ class PostCommentPopView: BaseView {
                 }
             }
             .disposed(by: disposeBag)
+        
+        // Usage example
+        tableView.rx.itemLongPressed
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let `self` = self else { return }
+                
+                guard let item = self.viewModel.commentList.value.ck_objIndex(indexPath.item) else {
+                    return
+                }
+                switch item {
+                case .commentItem(let item):
+                    let postMorePopView = PostMorePopView()
+                    var model = PostModel(liked: false)
+                    let userInfo = LoginManager.shared.getUserInfo()
+                    model.userId = userInfo?.userId
+                    postMorePopView.show(model, type: 1)
+                    postMorePopView.trashButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
+                        guard let self = self else { return }
+                        Task {
+                            await self.viewModel.fetcDeleteComment(self.postId, parentCommentId: item.parentCommentId, commentId: item.commentId ?? 0)
+                        }
+                       
+                    }).disposed(by: disposeBag)
+                default:
+                    return
+                }
+            })
+            .disposed(by: disposeBag)
     }
-
 
     
     func deleteComment(comment:CommentModel){
@@ -209,15 +246,10 @@ extension PostCommentPopView: CommentTextViewDelegate {
 //        self.tableView.endUpdates()
 //        self.tableView.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: false)
 //        UIView.setAnimationsEnabled(true)
-        
- 
-        
+    
         Task {
             await self.viewModel.fetcAddComment(self.postId, parentCommentId: 0, content: text)
         }
-        
-
-        
     }
 }
 

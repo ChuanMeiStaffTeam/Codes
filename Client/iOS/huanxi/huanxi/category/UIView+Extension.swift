@@ -118,6 +118,72 @@ extension Reactive where Base: UIView {
         }
         .observe(on: MainScheduler.instance) // 确保订阅者在主线程处理事件
     }
+    
+    /// UIView 长按手势的 Rx 支持
+    var longPressGesture: Observable<Void> {
+        return Observable.create { [weak base] observer in
+            // 确保 UIView 存在
+            guard let view = base else {
+                observer.onCompleted()
+                return Disposables.create()
+            }
+
+            // 创建 UILongPressGestureRecognizer
+            let longPressGesture = UILongPressGestureRecognizer()
+            view.addGestureRecognizer(longPressGesture)
+            view.isUserInteractionEnabled = true // 确保视图可交互
+
+            // 手势触发时发出事件
+            let target = GestureTarget(gestureRecognizer: longPressGesture) {
+                DispatchQueue.main.async { // 确保事件在主线程中发出
+                    observer.onNext(())
+                }
+            }
+
+            // 返回一个 Disposables，当 Observable 被销毁时，移除手势
+            return Disposables.create {
+                DispatchQueue.main.async { // 确保移除手势操作在主线程
+                    view.removeGestureRecognizer(longPressGesture)
+                }
+                target.dispose()
+            }
+        }
+        .observe(on: MainScheduler.instance) // 确保订阅者在主线程处理事件
+    }
+}
+
+// MARK: - itemLongPressed
+extension Reactive where Base: UITableView {
+    var itemLongPressed: ControlEvent<IndexPath> {
+        let source = Observable<IndexPath>.create { [weak base] observer in
+            guard let tableView = base else {
+                observer.onCompleted()
+                return Disposables.create()
+            }
+
+            let longPressGesture = UILongPressGestureRecognizer()
+            tableView.addGestureRecognizer(longPressGesture)
+
+            let target = GestureTarget(gestureRecognizer: longPressGesture) {
+                guard let tableView = base else { return }
+                // 检查手势状态，只处理 .began 状态
+                if longPressGesture.state == .began {
+                    let point = longPressGesture.location(in: tableView)
+                    if let indexPath = tableView.indexPathForRow(at: point) {
+                        observer.onNext(indexPath)
+                    }
+                }
+            }
+
+            return Disposables.create {
+                tableView.removeGestureRecognizer(longPressGesture)
+                target.dispose()
+            }
+        }
+        .observe(on: MainScheduler.instance)
+
+        return ControlEvent(events: source)
+    }
 }
 
 // 用于管理手势的 Target
