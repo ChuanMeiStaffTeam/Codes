@@ -120,28 +120,32 @@ class CommentListCell: UITableViewCell {
             let defaultAvatar = UIImage(resource: .imgFindDefault)
 
             //        var avatarUrl:URL?
-            if model?.user_type == "user" {
-                avatar.kf.setImage(with: URL(string: model?.user?.profilePictureUrl ?? ""), placeholder: defaultAvatar)
-                nickName.text = model?.user?.fullName
-            } else {
-                //            avatarUrl = URL.init(string: comment.visitor?.avatar ?? "")
-                nickName.text = VisitorModel.formatUDID(udid: model?.visitor?.udid ?? "")
-            }
+//            if model?.sysComment.user_type == "user" {
+//                avatar.kf.setImage(with: URL(string: model?.user?.profilePictureUrl ?? ""), placeholder: defaultAvatar)
+//                nickName.text = model?.user?.fullName
+//            } else {
+//                //            avatarUrl = URL.init(string: comment.visitor?.avatar ?? "")
+//                nickName.text = VisitorModel.formatUDID(udid: model?.visitor?.udid ?? "")
+//            }
             //        avatar.setImageWithURL(imageUrl: avatarUrl!) {[weak self] (image, error) in
             //            self?.avatar.image = image?.drawCircleImage()
             //        }
-            content.text = model?.commentText
             
-            let timestamp = Date.convertToTimestamp(dateString: model?.createdAt ?? "2024-11-12 16:02:02", format: .standard)
+            avatar.kf.setImage(with: URL(string: model?.profilePictureUrl ?? ""), placeholder: defaultAvatar)
+            nickName.text = model?.fullName
+            
+            content.text = model?.sysComment?.commentText
+            
+            let timestamp = Date.convertToTimestamp(dateString: model?.sysComment?.createdAt ?? "2024-11-12 16:02:02", format: .standard)
             dateLabel.text = Date.formatTime(timeInterval: TimeInterval(timestamp ?? 0))
             
 //            date.text = Date.formatTime(timeInterval: TimeInterval(model?.create_time ?? 0))
-            likeNum.text = String.formatCount(count: model?.digg_count ?? 0)
+//            likeNum.text = String.formatCount(count: model?.digg_count ?? 0)
         }
     }
 
     static func cellHeight(comment: CommentModel) -> CGFloat {
-        let attributedString = NSMutableAttributedString(string: comment.text ?? "")
+        let attributedString = NSMutableAttributedString(string: comment.sysComment?.commentText ?? "")
         attributedString.addAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)], range: NSRange(location: 0, length: attributedString.length))
         let size: CGSize = attributedString.multiLineSize(width: MaxContentWidth)
         return size.height + 30 + 30

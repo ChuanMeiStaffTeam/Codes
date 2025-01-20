@@ -65,6 +65,14 @@ class PostCommentPopView: BaseView {
         return tableView
     }()
     
+    
+    private let emptyView = UILabel().then({ view in
+        view.text = "暂无评论"
+        view.textColor = UIColor.white_60
+        view.font = UIFont.systemFont(ofSize: 14)
+        view.textAlignment = .center
+    })
+    
     init(postId: Int) {
         super.init(frame: UIScreen.main.bounds)
         self.postId = postId
@@ -142,6 +150,25 @@ class PostCommentPopView: BaseView {
             }
             .disposed(by: disposeBag)
         
+        viewModel.commentList
+            .subscribe(onNext: { [weak self] cellTypes in
+                guard let `self` = self else { return }
+                DispatchQueue.main.async {
+                    if cellTypes.isEmpty {
+                        self.emptyView.removeFromSuperview()
+                        self.container.addSubview(self.emptyView)
+                        self.emptyView.snp.makeConstraints { make in
+                            make.centerY.equalToSuperview().offset(-50)
+                            make.centerX.equalToSuperview()
+                            make.size.equalTo(CGSize(width: UIDevice.screenWidth, height: 300))
+                        }
+                    } else {
+                        self.emptyView.removeFromSuperview()
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+        
         // Usage example
         tableView.rx.itemLongPressed
             .subscribe(onNext: { [weak self] indexPath in
@@ -153,7 +180,7 @@ class PostCommentPopView: BaseView {
                 switch item {
                 case .commentItem(let item):
                     let userInfo = LoginManager.shared.getUserInfo()
-                    if item.userId != userInfo?.userId {
+                    if item.sysComment?.userId != userInfo?.userId {
                         return
                     }
                     let postMorePopView = PostMorePopView()
@@ -164,7 +191,7 @@ class PostCommentPopView: BaseView {
                         guard let self = self else { return }
                         postMorePopView.close()
                         Task {
-                            await self.viewModel.fetcDeleteComment(self.postId, parentCommentId: item.parentCommentId, commentId: item.commentId ?? 0, indexPath: indexPath)
+                            await self.viewModel.fetcDeleteComment(self.postId, parentCommentId: item.sysComment?.parentCommentId, commentId: item.sysComment?.commentId ?? 0, indexPath: indexPath)
                         }
                        
                     }).disposed(by: disposeBag)
@@ -176,19 +203,6 @@ class PostCommentPopView: BaseView {
     }
 
     
-    func deleteComment(comment:CommentModel){
-        if let index = self.data.firstIndex(where: { $0.taskId == comment.taskId }) {
-            self.tableView.beginUpdates()
-            self.data.remove(at: index)
-            var indexPaths = [IndexPath]()
-            indexPaths.append(IndexPath.init(row: index, section: 0))
-            self.tableView.deleteRows(at: indexPaths, with: .right)
-            self.tableView.endUpdates()
-            HUDHelper.showToast("评论删除成功")
-        } else {
-            HUDHelper.showToast("评论删除失败")
-        }
-    }
     
     func show(_ postModel: PostModel) {
         self.postModel = postModel

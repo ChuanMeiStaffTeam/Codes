@@ -57,14 +57,18 @@ class CommentViewModel {
             ) { success, message, data in
                 if success {
                     var comment = CommentModel()
-                    comment.commentText = content
-                    comment.user_type = "user"
+                    var sysComment = SysCommentModel()
+                    sysComment.commentText = content
+                    sysComment.user_type = "user"
                     let user = LoginManager.shared.getUserInfo()
-                    comment.user = user
+                    sysComment.userId = user?.userId
                     let fmt = DateFormatter.init()
                     fmt.dateFormat = "yyyy-MM-dd HH:mm:ss"
                     let timeStr = fmt.string(from: Date())
-                    comment.createdAt = timeStr
+                    sysComment.createdAt = timeStr
+                    comment.sysComment = sysComment
+                    comment.fullName = user?.fullName
+                    comment.profilePictureUrl = user?.profilePictureUrl
                     self.dataSource.insert(.commentItem(comment), at: 0)
                     DispatchQueue.main.async {
                         self.commentList.accept(self.dataSource)

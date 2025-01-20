@@ -12,13 +12,18 @@ struct CommentResponseModel: Codable {
 }
 
 struct CommentModel: Codable {
+    var sysComment: SysCommentModel?
+    var profilePictureUrl: String?
+    var fullName: String?
+}
+
+struct SysCommentModel: Codable {
     var commentId: Int?
     var postId: Int?
     var userId: Int?
     var commentText: String?
     var parentCommentId: Int?
     var isActive: Int?
-    var user: UserInfoModel?
     var content: String?
     var date: Date?
     var likes: Int?
