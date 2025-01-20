@@ -20,7 +20,7 @@ class CCEmptyView: BaseView {
     let defaultLbl: UILabel = UILabel().then { label in
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.textColor = UIColor.white
+        label.textColor = UIColor.white_60
         label.font = UIFont.systemFont(ofSize: 16)
     }
     
