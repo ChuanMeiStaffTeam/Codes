@@ -148,6 +148,8 @@
 		F3E5A50D2D3E93A100AEF187 /* MineFollowContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A50C2D3E93A100AEF187 /* MineFollowContainerVC.swift */; };
 		F3E5A50F2D3E93C400AEF187 /* MineFollowListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A50E2D3E93C400AEF187 /* MineFollowListVC.swift */; };
 		F3E5A5112D3E9A4000AEF187 /* FollowResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A5102D3E9A4000AEF187 /* FollowResponseModel.swift */; };
+		F3E5A5142D3EAD5C00AEF187 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A5132D3EAD5C00AEF187 /* PostDetailViewController.swift */; };
+		F3E5A5162D3EADA100AEF187 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A5152D3EADA100AEF187 /* PostDetailViewModel.swift */; };
 		F3E7860F2CEC5C1300EC2251 /* RichTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E7860E2CEC5C1300EC2251 /* RichTextLabel.swift */; };
 		F3E7861A2CEC6FBE00EC2251 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E786182CEC6FBE00EC2251 /* Localizable.strings */; };
 		F3E7861E2CEC761700EC2251 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E7861C2CEC761700EC2251 /* InfoPlist.strings */; };
@@ -340,6 +342,8 @@
 		F3E5A50C2D3E93A100AEF187 /* MineFollowContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineFollowContainerVC.swift; sourceTree = "<group>"; };
 		F3E5A50E2D3E93C400AEF187 /* MineFollowListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineFollowListVC.swift; sourceTree = "<group>"; };
 		F3E5A5102D3E9A4000AEF187 /* FollowResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowResponseModel.swift; sourceTree = "<group>"; };
+		F3E5A5132D3EAD5C00AEF187 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
+		F3E5A5152D3EADA100AEF187 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
 		F3E7860E2CEC5C1300EC2251 /* RichTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextLabel.swift; sourceTree = "<group>"; };
 		F3E786192CEC6FBE00EC2251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F3E7861B2CEC700500EC2251 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -550,6 +554,7 @@
 		397216B62B820F6C007D0F2B /* module */ = {
 			isa = PBXGroup;
 			children = (
+				F3E5A5122D3EAD2F00AEF187 /* post */,
 				F3E786202CEC8A7F00EC2251 /* web */,
 				39066F5F2C50E2C9003D347E /* login */,
 				397216BB2B821087007D0F2B /* updates */,
@@ -890,6 +895,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		F3E5A5122D3EAD2F00AEF187 /* post */ = {
+			isa = PBXGroup;
+			children = (
+				F3E5A5132D3EAD5C00AEF187 /* PostDetailViewController.swift */,
+				F3E5A5152D3EADA100AEF187 /* PostDetailViewModel.swift */,
+			);
+			path = post;
+			sourceTree = "<group>";
+		};
 		F3E786202CEC8A7F00EC2251 /* web */ = {
 			isa = PBXGroup;
 			children = (
@@ -1089,6 +1103,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3E5A5162D3EADA100AEF187 /* PostDetailViewModel.swift in Sources */,
 				F3FC1D2E2D15ECEB005555A0 /* SpaceCollectionViewCell.swift in Sources */,
 				392CF10C2B8EC8E60070637E /* MainModel.swift in Sources */,
 				F3E5A4E02D310A9F00AEF187 /* EditProfileVC.swift in Sources */,
@@ -1202,6 +1217,7 @@
 				397216B32B81EA6A007D0F2B /* TabBarController.swift in Sources */,
 				F39F6E092CE22D8600CFF8B5 /* CommentTextView.swift in Sources */,
 				04BCDA312C12F80400437222 /* ChatTextCell.swift in Sources */,
+				F3E5A5142D3EAD5C00AEF187 /* PostDetailViewController.swift in Sources */,
 				39E9081E2C2874F80017B83B /* BottomContentCell.swift in Sources */,
 				397216822B81E8EC007D0F2B /* SceneDelegate.swift in Sources */,
 				F39F6E002CE136E800CFF8B5 /* Constants.swift in Sources */,

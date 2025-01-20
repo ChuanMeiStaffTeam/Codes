@@ -125,8 +125,16 @@ extension MineCollectListVC: UICollectionViewDataSource, UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = SearchDetailListViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        guard let item = dataList.ck_objIndex(indexPath.item) else { return }
+        switch item {
+        case .postItem(let post):
+            let vc = PostDetailViewController()
+            vc.hidesBottomBarWhenPushed = true
+            vc.postItem = post
+            self.navigationController?.pushViewController(vc, animated: true)
+        default:
+            return
+        }
     }
 }
 

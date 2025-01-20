@@ -60,11 +60,12 @@ class SearchViewController: BaseViewController {
             make.height.equalTo(48)
         }
 
-
-        waterfallView.didSelectItemBlock = { [weak self] _ in
-            let vc = SearchDetailListViewController()
+        waterfallView.didSelectItemBlock = { [weak self] post in
+            guard let `self` = self else { return }
+            let vc = PostDetailViewController()
             vc.hidesBottomBarWhenPushed = true
-            self?.navigationController?.pushViewController(vc, animated: true)
+            vc.postItem = post
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         view.addSubview(waterfallView)
         waterfallView.snp.makeConstraints { make in

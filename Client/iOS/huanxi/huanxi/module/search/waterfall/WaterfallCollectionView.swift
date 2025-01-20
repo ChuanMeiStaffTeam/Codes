@@ -8,7 +8,7 @@
 import UIKit
 
 class WaterfallCollectionView: BaseView {
-    var didSelectItemBlock: ((IndexPath) -> Void)?
+    var didSelectItemBlock: ((PostModel?) -> Void)?
 
     private lazy var layout: WaterfallFlowLayout = {
         let layout = WaterfallFlowLayout()
@@ -80,9 +80,16 @@ extension WaterfallCollectionView: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let block = didSelectItemBlock {
-            block(indexPath)
+        guard let item = items?.ck_objIndex(indexPath.item) else { return }
+        switch item {
+        case .postItem(let post):
+            if let block = didSelectItemBlock {
+                block(post)
+            }
+        default:
+            return
         }
+
     }
 }
 
