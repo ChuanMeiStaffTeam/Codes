@@ -135,8 +135,12 @@ extension Reactive where Base: UIView {
 
             // 手势触发时发出事件
             let target = GestureTarget(gestureRecognizer: longPressGesture) {
-                DispatchQueue.main.async { // 确保事件在主线程中发出
-                    observer.onNext(())
+    
+                // 检查手势状态，只处理 .began 状态
+                if longPressGesture.state == .began {
+                    DispatchQueue.main.async { // 确保事件在主线程中发出
+                        observer.onNext(())
+                    }
                 }
             }
 

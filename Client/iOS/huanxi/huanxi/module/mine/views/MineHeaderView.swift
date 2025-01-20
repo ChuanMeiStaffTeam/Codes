@@ -9,17 +9,65 @@ import UIKit
 
 class MineHeaderView: UIView {
     
-    let iconImgView = UIImageView()
-    let postsItemView = MineHeaderItemView()
-    let fansItemView = MineHeaderItemView()
-    let followedItemView = MineHeaderItemView()
-    let editButton = UIButton(type: .custom)
+    var type: MineType
+    
+    private let vStackView = UIStackView().then({view in
+        view.axis = .vertical
+        view.distribution = .fill
+        view.spacing = 20
+    })
+    
+    private let infoStackView = UIStackView().then({view in
+        view.axis = .horizontal
+        view.alignment = .center
+        view.spacing = 20
+        view.distribution = .fill
+    })
+    
+    private let iconImgView = UIImageView().then({view in
+        view.image = UIImage(named: "main_recommend_text")
+        view.layer.cornerRadius = 40
+        view.layer.masksToBounds = true
+        view.contentMode = .scaleAspectFill
+    })
+    private let postsItemView = MineHeaderItemView().then({view in
+        view.titleLabel.text = "帖子"
+        view.valueLabel.text = "12"
+    })
+    private let fansItemView = MineHeaderItemView().then({view in
+        view.titleLabel.text = "粉丝"
+        view.valueLabel.text = "12345"
+    })
+    private let followedItemView = MineHeaderItemView().then({view in
+        view.titleLabel.text = "已关注"
+        view.valueLabel.text = "123"
+    })
+    lazy var editButton = UIButton().then({view in
+        view.setTitle("编辑资料", for: .normal)
+        let user = LoginManager.shared.getUserInfo()
+        let noAvatar = user?.profilePictureUrl?.isEmpty ?? true
+        let noName = user?.fullName?.isEmpty ?? true
+        let noWeb = user?.websiteUrl?.isEmpty ?? true
+        let noBio = user?.bio?.isEmpty ?? true
+        let showHot = noAvatar || noName || noWeb || noBio
+        view.setAttributedTitle(formatStatusText("编辑资料", showHot), for: .normal)
+        view.setTitleColor(.white, for: .normal)
+        view.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        view.addTarget(self, action: #selector(editUserAction), for: .touchUpInside)
+        view.layer.cornerRadius = 6
+        view.layer.masksToBounds = true
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.white.cgColor
+        view.isHidden = type != .mySelf
+    })
     
     var editHomePageBlock: (()->Void)?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+
+    
+    init(type: MineType) {
+        self.type = type
+        super.init(frame: CGRect.zero)
         setupView()
     }
     
@@ -29,70 +77,36 @@ class MineHeaderView: UIView {
     
     
     func setupView() {
+        let space = UIView()
         
-        iconImgView.image = UIImage(named: "main_recommend_text")
-        self.addSubview(iconImgView)
-        iconImgView.layer.cornerRadius = 40
-        iconImgView.layer.masksToBounds = true
+        [iconImgView, postsItemView, fansItemView, followedItemView, space].forEach{ infoStackView.addArrangedSubview($0) }
+
         iconImgView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(16)
             make.width.height.equalTo(80)
         }
         
-        followedItemView.titleLabel.text = "已关注"
-        followedItemView.valueLabel.text = "123"
-        self.addSubview(followedItemView)
-        followedItemView.snp.makeConstraints { make in
-            make.right.equalToSuperview().offset(-32)
-            make.centerY.equalTo(iconImgView).offset(0)
-            make.width.equalTo(60)
+        [postsItemView, fansItemView, followedItemView].forEach { itemView in
+            itemView.snp.makeConstraints { make in
+                make.width.equalTo(60)
+            }
         }
         
-        fansItemView.titleLabel.text = "粉丝"
-        fansItemView.valueLabel.text = "12345"
-        self.addSubview(fansItemView)
-        fansItemView.snp.makeConstraints { make in
-            make.right.equalTo(followedItemView.snp.left).offset(-32)
-            make.centerY.equalTo(iconImgView).offset(0)
-            make.width.equalTo(60)
+        [infoStackView, editButton].forEach{ vStackView.addArrangedSubview($0) }
+        addSubview(vStackView)
+        vStackView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(15)
+            make.trailing.lessThanOrEqualToSuperview().inset(15)
+            make.top.equalToSuperview().inset(15)
+            make.bottom.equalToSuperview().offset(5) // 确保底部间距
         }
-        
-        postsItemView.titleLabel.text = "帖子"
-        postsItemView.valueLabel.text = "12"
-        self.addSubview(postsItemView)
-        postsItemView.snp.makeConstraints { make in
-            make.right.equalTo(fansItemView.snp.left).offset(-32)
-            make.centerY.equalTo(iconImgView).offset(0)
-            make.width.equalTo(60)
-        }
-        
-        editButton.setTitle("编辑资料", for: .normal)
-        let user = LoginManager.shared.getUserInfo()
-        let noAvatar = user?.profilePictureUrl?.isEmpty ?? true
-        let noName = user?.fullName?.isEmpty ?? true
-        let noWeb = user?.websiteUrl?.isEmpty ?? true
-        let noBio = user?.bio?.isEmpty ?? true
-        let showHot = noAvatar || noName || noWeb || noBio
-        editButton.setAttributedTitle(formatStatusText("编辑资料", showHot), for: .normal)
-        editButton.setTitleColor(.white, for: .normal)
-        editButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        editButton.addTarget(self, action: #selector(editUserAction), for: .touchUpInside)
-        editButton.layer.cornerRadius = 6
-        editButton.layer.masksToBounds = true
-        editButton.layer.borderWidth = 1
-        editButton.layer.borderColor = UIColor.white.cgColor
-        self.addSubview(editButton)
         editButton.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.height.equalTo(42)
-            make.bottom.equalToSuperview().offset(-5)
+            make.height.equalTo(37)
+            make.width.equalTo(UIDevice.screenWidth - 30)
         }
-        
     }
     
     func reloadData(_ user: UserInfoModel?) {
+                
         if let urlStr = user?.profilePictureUrl {
             iconImgView.kf.setImage(with: URL.init(string: urlStr))
         }
@@ -106,16 +120,16 @@ class MineHeaderView: UIView {
             block()
         }
     }
-    
+}
+
+extension MineHeaderView {
     private func formatStatusText(_ text: String, _ isFirst: Bool = false) -> NSAttributedString {
         
         guard !text.isEmpty else {
             return NSMutableAttributedString(string: "")
         }
-        
-        var color = UIColor.red
-        
-        let image = UIImage.ImageWithColor(color, size: CGSize(width: 4, height: 4), cornerRadius: 2)
+                
+        let image = UIImage.ImageWithColor(UIColor.red, size: CGSize(width: 4, height: 4), cornerRadius: 2)
     
         // 创建一个 NSTextAttachment 来包含图片
         let imageAttachment = NSTextAttachment()
@@ -136,9 +150,7 @@ class MineHeaderView: UIView {
 
         return attributedString
     }
-    
 }
-
 
 class MineHeaderItemView: UIView {
     

@@ -155,7 +155,23 @@ extension LoginManager {
             }
             completion(success)
         }
-        
+    }
+    
+    class func requestOtherUserInfo(userId: String, completion: @escaping (UserInfoModel?) -> Void) {
+        NetworkManager.shared.postRequest(path: "userinfo/getUserById",
+                                         parameters: ["userId" : userId],
+                                         responseType: UserInfoModel.self) { success, message, data in
+            if success {
+                if let userInfo = data {
+                    completion(userInfo)
+                } else {
+                    completion(nil)
+                }
+            } else {
+                completion(nil)
+                HUDHelper.showToast(message)
+            }
+        }
     }
     
     class func requestLogout(completion: @escaping (Bool) -> Void) {

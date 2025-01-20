@@ -45,6 +45,9 @@ extension HomeViewModel {
 
 class HomeViewModel {
 
+    @UserDefaultWrapper<Bool>(key: "", defaultValue: false)
+    var isNoRecommend: Bool
+
     let dataList = BehaviorRelay<[CellType]>(value: Array(repeating: .skeleton, count: 3))
     //mock
     var mainList: [MainModel] = []
@@ -56,9 +59,8 @@ class HomeViewModel {
 
 
     func configData() {
-
-        let u = MainUserModel.init(title: "用户名", icon: "")
-
+        var u = UserInfoModel()
+        u.username = "用户名"
         let user = MainModel(type: "user", users: [u, u, u, u])
         let content = MainModel(type: "content", users: [])
         let recommend = MainModel(type: "recommend", users: [])
@@ -102,11 +104,13 @@ class HomeViewModel {
                 let postsItems: [CellType] = (data?.list ?? []).map { CellType.postItem($0) }
                 let userItems: [UserInfoModel] = data?.users ?? []
                 var list:[CellType] = []
-                list.append(CellType.userItem(userItems))
+                list.append(CellType.userItem(Array(userItems.prefix(6))))
                 list.append(contentsOf: postsItems)
-                let recommend = MainModel(type: "recommend", users: [])
-                if list.count > 5 {
-                    list.insert(CellType.recommend(recommend), at: 4)
+                if !isNoRecommend {
+                    let recommend = MainModel(type: "recommend", users: Array(userItems.suffix(6)))
+                    if list.count > 5 {
+                        list.insert(CellType.recommend(recommend), at: 4)
+                    }
                 }
                 self.dataList.accept(list)
             } else {
@@ -209,7 +213,7 @@ class HomeViewModel {
         }
     }
     
-    
+
     // MARK: - 点赞逻辑
     func fetchLikeAction(_ data: PostModel, indexPath: IndexPath?) {
         if !data.liked {
@@ -262,5 +266,16 @@ class HomeViewModel {
         currentPosts[index] = .postItem(post)
         dataList.accept(currentPosts)
     }
+    
+    func hiddenFollow(indexPath: IndexPath?) {
+        self.isNoRecommend = true
+        DispatchQueue.main.async {
+         guard let indexPath = indexPath else { return }
+            var currentData = self.dataList.value
+            currentData.remove(at: indexPath.row)
+            self.dataList.accept(currentData)
+        }
+    }
+
 }
 

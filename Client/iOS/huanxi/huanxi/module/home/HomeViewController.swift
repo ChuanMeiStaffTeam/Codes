@@ -20,9 +20,9 @@ class HomeViewController: BaseViewController {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
         view.backgroundColor = .clear
         view.separatorColor = .clear
-        view.register(MainUserCell.self, forCellReuseIdentifier: MainUserCell.defaultReuseIdentifier)
+        view.register(HomeUserCell.self, forCellReuseIdentifier: HomeUserCell.defaultReuseIdentifier)
         view.register(MainContentCell.self, forCellReuseIdentifier: MainContentCell.defaultReuseIdentifier)
-        view.register(MainRecommendCell.self, forCellReuseIdentifier: MainRecommendCell.defaultReuseIdentifier)
+        view.register(HemeRecommendCell.self, forCellReuseIdentifier: HemeRecommendCell.defaultReuseIdentifier)
         return view
     }()
 
@@ -92,7 +92,6 @@ class HomeViewController: BaseViewController {
 
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        
     }
     
     func bindUI() {
@@ -113,11 +112,25 @@ class HomeViewController: BaseViewController {
                     cell.model = post
                     cell.indexPath = IndexPath(row: index, section: 0)
                     return cell
-                case .userItem(_):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: MainUserCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! MainUserCell
+                case .userItem(let users):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: HomeUserCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! HomeUserCell
+                    cell.model = users
+                    cell.didSelectItemBlock = { [weak self] user in
+                        guard let `self` = self else { return }
+                        self.openUserPage(user)
+                    }
                     return cell
-                case .recommend:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: MainRecommendCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! MainRecommendCell
+                case .recommend(let model):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: HemeRecommendCell.defaultReuseIdentifier, for: IndexPath(row: index, section: 0)) as! HemeRecommendCell
+                    cell.model = model.users
+                    cell.didSelectItemBlock = { [weak self] user in
+                        guard let `self` = self else { return }
+                        self.openUserPage(user)
+                    }
+                    cell.hiddenBlock = { [weak self] in
+                        guard let `self` = self else { return }
+                        self.viewModel.hiddenFollow(indexPath: IndexPath(row: index, section: 0))
+                    }
                     return cell
                 default:
                     let cell = UITableViewCell()
@@ -171,12 +184,6 @@ class HomeViewController: BaseViewController {
         }
     }
     
-    @objc func gotoDirect() {
-        let vc = DirectViewController()
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
 }
 
 extension HomeViewController: UITableViewDelegate {
@@ -191,14 +198,13 @@ extension HomeViewController: UITableViewDelegate {
             let contentH = post.caption?.height(withConstrainedWidth: UIDevice.screenWidth - 20, font: .systemFont(ofSize: 14)) ?? 16
             return 570 + (contentH > 50 ? 50 : contentH)
         case .userItem(_):
-            return 100
+            return 120
         case .recommend:
             return 330
         default:
             return 0
         }
     }
-    
 }
 
 
@@ -213,10 +219,7 @@ extension HomeViewController: MainContentCellDelegate {
         }).disposed(by: disposeBag)
         postMorePopView.briefcaseButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
             guard let self = self else { return }
-            let vc = UserBriefVC()
-            vc.user = data.user
-            vc.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.openUserPage(data.user)
             postMorePopView.close()
         }).disposed(by: disposeBag)
     }
@@ -262,3 +265,22 @@ extension HomeViewController: MainContentCellDelegate {
 
 }
 
+
+
+extension HomeViewController {
+    @objc func gotoDirect() {
+        let vc = DirectViewController()
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func openUserPage(_ model: UserInfoModel?) {
+        let vc = MineViewController()
+        let user = LoginManager.shared.getUserInfo()
+        vc.type = user?.userId == model?.userId ? .mySelf : MineType.other
+        vc.userId = model?.userId ?? 0
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}

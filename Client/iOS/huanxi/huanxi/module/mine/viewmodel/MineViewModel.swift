@@ -6,9 +6,14 @@
 //
 
 import UIKit
+import RxRelay
+
+fileprivate let skeletonData: [MineViewModel.CellType] = Array(repeating: .skeleton, count: 18)
 
 class MineViewModel {
     
+    let dataList = BehaviorRelay<[MineViewModel.CellType]>(value: [])
+
     func uploadAvatar(_ image: UIImage) async -> Bool {
         await withCheckedContinuation { continuation in
             NetworkManager.shared.uploadSingleImage(path: "userinfo/updateAvatar",
@@ -24,12 +29,64 @@ class MineViewModel {
         }
     }
     
-    
+    func requestPostList(type: MineViewModel.ListType, userId: String, completion: @escaping (Bool) -> Void) {
+        self.dataList.accept(skeletonData)
+        NetworkManager.shared.postRequest(
+            path: type == .publish ? "postImage/getPostByUserId" : "postImage/getFavoritePostByUserId",
+            parameters: ["userId" : userId],
+            responseType: [PostModel].self
+        ) { [weak self] success, message, data in
+            guard let `self` = self else { return }
+            if success {
+                let cellItems: [MineViewModel.CellType] = (data ?? []).map { MineViewModel.CellType.postItem($0) }
+                self.dataList.accept(cellItems)
+            } else {
+                self.dataList.accept([MineViewModel.CellType.error])
+                HUDHelper.showToast(message)
+            }
+            completion(success)
+        }
+    }
     
     
 }
 
 extension MineViewModel {
+    
+    enum ListType: Int {
+        /// 1-发布
+        case publish = 0
+        /// 2-收藏
+        case collect = 1
+
+        var value: String {
+            switch self {
+            case .publish:
+                return "发布"
+            case .collect:
+                return "收藏"
+            }
+        }
+    }
+    
+    enum CellType: Equatable {
+        case skeleton
+        case postItem(PostModel)
+        case empty
+        case error
+
+        static func == (lhs: CellType, rhs: CellType) -> Bool {
+            switch (lhs, rhs) {
+            case (.skeleton, .skeleton), (.empty, .empty), (.error, .error):
+                return true
+            case let (.postItem(leftItem), .postItem(rightItem)):
+                return leftItem == rightItem
+            default:
+                return false
+            }
+        }
+    }
+    
     enum ProfileType: Int {
         case name
         case account

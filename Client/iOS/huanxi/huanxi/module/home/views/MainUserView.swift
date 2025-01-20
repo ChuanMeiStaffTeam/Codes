@@ -25,7 +25,6 @@ class MainUserView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupCollectionView()
     }
     
@@ -85,7 +84,6 @@ extension MainUserView: UICollectionViewDataSource, UICollectionViewDelegate {
 
         
     }
-    
 }
 
 class CustomCollectionViewCell: UICollectionViewCell {

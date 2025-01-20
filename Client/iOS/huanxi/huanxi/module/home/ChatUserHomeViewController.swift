@@ -9,7 +9,8 @@ import UIKit
 
 class ChatUserHomeViewController: BaseViewController {
     
-    let mineHeader = MineHeaderView(frame: CGRect(x: 0, y: .topBarHeight, width: .screenWidth, height: 165))
+    lazy var mineHeader = MineHeaderView(type: .mySelf)
+
     var constrainerView: MineConstrainerView!
 
     override func viewWillAppear(_ animated: Bool) {
