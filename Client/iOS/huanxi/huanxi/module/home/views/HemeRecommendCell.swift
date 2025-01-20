@@ -102,7 +102,15 @@ class HemeRecommendCell: BaseTableViewCell {
                     cell.isSkeletonVisible = false
                     cell.onTap = { [weak self] in
                         guard let `self` = self else { return }
-                        self.fetchFollow(params: ["followingId" : user.userId ?? 0], indexPath: IndexPath(row: index, section: 0)) { success in
+                        if !LoginManager.shared.isLogin() {
+                            Task {
+                                let loginResult = await LoginViewController.startLogin()
+                                if loginResult {
+                                }
+                            }
+                        } else {
+                            self.fetchFollow(params: ["followingId" : user.userId ?? 0], indexPath: IndexPath(row: index, section: 0)) { success in
+                            }
                         }
                     }
                     return cell

@@ -143,6 +143,8 @@
 		F3E5A5012D3E5F4500AEF187 /* HemeRecommendItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A5002D3E5F4500AEF187 /* HemeRecommendItemCell.swift */; };
 		F3E5A5052D3E890F00AEF187 /* UserDefaultPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A5032D3E890F00AEF187 /* UserDefaultPropertyWrapper.swift */; };
 		F3E5A5062D3E890F00AEF187 /* PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A5022D3E890F00AEF187 /* PropertyWrapper.swift */; };
+		F3E5A5092D3E8EA300AEF187 /* SquareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A5082D3E8EA300AEF187 /* SquareViewModel.swift */; };
+		F3E5A50B2D3E8F4C00AEF187 /* SquareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A50A2D3E8F4C00AEF187 /* SquareViewController.swift */; };
 		F3E7860F2CEC5C1300EC2251 /* RichTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E7860E2CEC5C1300EC2251 /* RichTextLabel.swift */; };
 		F3E7861A2CEC6FBE00EC2251 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E786182CEC6FBE00EC2251 /* Localizable.strings */; };
 		F3E7861E2CEC761700EC2251 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E7861C2CEC761700EC2251 /* InfoPlist.strings */; };
@@ -330,6 +332,8 @@
 		F3E5A5002D3E5F4500AEF187 /* HemeRecommendItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HemeRecommendItemCell.swift; sourceTree = "<group>"; };
 		F3E5A5022D3E890F00AEF187 /* PropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyWrapper.swift; sourceTree = "<group>"; };
 		F3E5A5032D3E890F00AEF187 /* UserDefaultPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultPropertyWrapper.swift; sourceTree = "<group>"; };
+		F3E5A5082D3E8EA300AEF187 /* SquareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewModel.swift; sourceTree = "<group>"; };
+		F3E5A50A2D3E8F4C00AEF187 /* SquareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewController.swift; sourceTree = "<group>"; };
 		F3E7860E2CEC5C1300EC2251 /* RichTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextLabel.swift; sourceTree = "<group>"; };
 		F3E786192CEC6FBE00EC2251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F3E7861B2CEC700500EC2251 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -623,10 +627,12 @@
 		397216BB2B821087007D0F2B /* updates */ = {
 			isa = PBXGroup;
 			children = (
+				F3E5A5072D3E8E5200AEF187 /* ViewModel */,
 				397216BC2B8249D9007D0F2B /* UpdatesViewController.swift */,
 				3998DE342BB59F0E0000C4DD /* UpdatesEarlierCell.swift */,
 				3998DE362BB59F270000C4DD /* UpdatesThisMonthCell.swift */,
 				3998DE382BB59F5D0000C4DD /* UpdatesRecommendCell.swift */,
+				F3E5A50A2D3E8F4C00AEF187 /* SquareViewController.swift */,
 			);
 			path = updates;
 			sourceTree = "<group>";
@@ -865,6 +871,14 @@
 				F3E5A5032D3E890F00AEF187 /* UserDefaultPropertyWrapper.swift */,
 			);
 			path = PropertyWrapper;
+			sourceTree = "<group>";
+		};
+		F3E5A5072D3E8E5200AEF187 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F3E5A5082D3E8EA300AEF187 /* SquareViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F3E786202CEC8A7F00EC2251 /* web */ = {
@@ -1119,6 +1133,7 @@
 				39AB750F2C92F39C00440E5A /* BindPhoneViewController.swift in Sources */,
 				F3F80E822CEA038C00008887 /* LaunchViewController.swift in Sources */,
 				397216C52B824A04007D0F2B /* HomeViewController.swift in Sources */,
+				F3E5A50B2D3E8F4C00AEF187 /* SquareViewController.swift in Sources */,
 				04F23E4A2C0EE7900078809E /* ChatModel.swift in Sources */,
 				39E908182C2872DC0017B83B /* SearchResultView.swift in Sources */,
 				F3FC1D252D15BAA6005555A0 /* EmptyView.swift in Sources */,
@@ -1195,6 +1210,7 @@
 				F37388042D1127660072CE77 /* ReusableView.swift in Sources */,
 				F3F895592D30BD3200827BBB /* MineViewController.swift in Sources */,
 				04BCDA352C13063100437222 /* TextSizeCalculator.swift in Sources */,
+				F3E5A5092D3E8EA300AEF187 /* SquareViewModel.swift in Sources */,
 				39E9080F2C26BAC40017B83B /* SearchTagViewController.swift in Sources */,
 				F37388022D110AF80072CE77 /* PostMorePopView.swift in Sources */,
 				39AB75112C93224900440E5A /* InputCodeViewController.swift in Sources */,

@@ -1,8 +1,8 @@
 //
-//  HomeViewController.swift
+//  SquareViewController.swift
 //  huanxi
 //
-//  Created by jack on 2024/2/18.
+//  Created by rslz on 2025/1/20.
 //
 
 import UIKit
@@ -10,11 +10,11 @@ import SwiftUI
 import Combine
 import MJRefresh
 
-class HomeViewController: BaseViewController {
+class SquareViewController: BaseViewController {
     
     private var cancellable: AnyCancellable?
-
-    private let viewModel = HomeViewModel()
+    
+    private let viewModel = SquareViewModel()
 
     lazy var tableView: UITableView = {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
@@ -66,22 +66,7 @@ class HomeViewController: BaseViewController {
     
     func setupNavView() {
         
-        let view = UIView(frame: CGRect.init(x: 0, y: 0, width: 150, height: 40))
-        view.backgroundColor = .clear
-        
-        let imageView = UIImageView(image: UIImage.init(named: "huanxi.jpg"))
-        imageView.frame = CGRect(x: -10, y: 4, width: 72, height: 36)
-        imageView.contentMode = .scaleAspectFit
-        view.addSubview(imageView)
-        let leftItem = UIBarButtonItem(customView: view)
-        self.navigationItem.leftBarButtonItem = leftItem
-        
-        let button = UIButton(type: .custom)
-        button.frame = CGRect(x: .screenWidth - 46, y: 7, width: 30, height: 30)
-        button.setImage(UIImage.init(named: "main_relay"), for: .normal)
-        button.addTarget(self, action: #selector(gotoDirect), for: .touchUpInside)
-        let rightItem = UIBarButtonItem(customView: button)
-        self.navigationItem.rightBarButtonItem = rightItem
+        self.navigationItem.title = "广场"
         
         // 隐藏导航栏底部的分割线
         let appearance = UINavigationBarAppearance()
@@ -186,7 +171,7 @@ class HomeViewController: BaseViewController {
     
 }
 
-extension HomeViewController: UITableViewDelegate {
+extension SquareViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let item = self.viewModel.dataList.value.ck_objIndex(indexPath.item) else {
             return 0
@@ -208,7 +193,7 @@ extension HomeViewController: UITableViewDelegate {
 }
 
 
-extension HomeViewController: MainContentCellDelegate {
+extension SquareViewController: MainContentCellDelegate {
     func didClickMore(_ data: PostModel, indexPath: IndexPath?) {
         let postMorePopView = PostMorePopView()
         postMorePopView.show(data)
@@ -267,13 +252,7 @@ extension HomeViewController: MainContentCellDelegate {
 
 
 
-extension HomeViewController {
-    @objc func gotoDirect() {
-        let vc = DirectViewController()
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
+extension SquareViewController {
     func openUserPage(_ model: UserInfoModel?) {
         let vc = MineViewController()
         let user = LoginManager.shared.getUserInfo()
@@ -282,4 +261,6 @@ extension HomeViewController {
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
 }
+
