@@ -1,18 +1,17 @@
 //
-//  SearchResultUserListVC.swift
+//  MineFollowListVC.swift
 //  huanxi
 //
-//  Created by rslz on 2024/12/23.
+//  Created by rslz on 2025/1/20.
 //
 
 import UIKit
 import SnapKit
 import JXSegmentedView
-import RxRelay
 
-class SearchResultUserListVC: BaseViewController {
-    
-    var keyword: String = ""
+class MineFollowListVC: BaseViewController {
+        
+    var listType: FollowListType = .follow
 
     private let popTableView: UITableView = {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
@@ -23,19 +22,19 @@ class SearchResultUserListVC: BaseViewController {
         return view
     }()
     
-    private lazy var emptyView: CCEmptyView = {
+    private let emptyView: CCEmptyView = {
         let emptyView = CCEmptyView()
         return emptyView
     }()
     
-    private let viewModel = SearchResultViewModel()
+    private let viewModel = MineViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         sh_prefersNavigationBarHidden = true
         setupUI()
         bindUI()
-        self.loadData(keyword: keyword)
+        self.loadData(listType: listType)
     }
     
     func setupUI() {
@@ -46,7 +45,7 @@ class SearchResultUserListVC: BaseViewController {
     }
     
     func bindUI() {
-        self.viewModel.searchUesrs
+        self.viewModel.followList
             .bind(to: popTableView.rx.items) { tableView, index, item in
                 switch item {
                 case .skeleton:
@@ -66,7 +65,7 @@ class SearchResultUserListVC: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        self.viewModel.searchUesrs
+        self.viewModel.followList
             .skip(1)
             .subscribe(onNext: { [weak self] cellTypes in
                 guard let `self` = self else { return }
@@ -83,7 +82,7 @@ class SearchResultUserListVC: BaseViewController {
         popTableView.rx.itemSelected
             .withUnretained(self)
             .compactMap { owner, indexPath -> UserInfoModel? in
-                guard case .userItem(let userModel) = owner.viewModel.searchUesrs.value[indexPath.row] else {
+                guard case .userItem(let userModel) = owner.viewModel.followList.value[indexPath.row] else {
                     return nil
                 }
                 return userModel
@@ -111,19 +110,21 @@ class SearchResultUserListVC: BaseViewController {
     }
 }
 
-extension SearchResultUserListVC {
-    private func loadData(keyword: String) {
-        viewModel.requestSearchUser(keyword: keyword, completion: {success in })
+extension MineFollowListVC {
+    private func loadData(listType: FollowListType) {
+        Task {
+            _ = listType == .follow ? await viewModel.fetchFollowsList() : await viewModel.fetchFanslist()
+        }
     }
 }
 
-extension SearchResultUserListVC: JXSegmentedListContainerViewListDelegate {
+extension MineFollowListVC: JXSegmentedListContainerViewListDelegate {
     func listView() -> UIView {
         return view
     }
 }
 
-extension SearchResultUserListVC {
+extension MineFollowListVC {
     func openUserPage(_ model: UserInfoModel?) {
         let vc = MineViewController()
         let user = LoginManager.shared.getUserInfo()

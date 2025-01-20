@@ -58,15 +58,17 @@ class MineCollectListVC: BaseViewController {
         self.viewModel.dataList
             .subscribe(onNext: { [weak self] cellTypes in
                 guard let `self` = self else { return }
-                if cellTypes.isEmpty {
-                    self.setEmptyOrNetErrorView(.noData)
-                } else if cellTypes.first == .error {
-                    self.setEmptyOrNetErrorView(.noNetwork)
-                } else {
-                    self.emptyView.removeFromSuperview()
+                DispatchQueue.main.async {
+                    if cellTypes.isEmpty {
+                        self.setEmptyOrNetErrorView(.noData)
+                    } else if cellTypes.first == .error {
+                        self.setEmptyOrNetErrorView(.noNetwork)
+                    } else {
+                        self.emptyView.removeFromSuperview()
+                    }
+                    self.dataList = cellTypes
+                    self.collectionView.reloadData()
                 }
-                self.dataList = cellTypes
-                self.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
     }

@@ -19,6 +19,8 @@ class MineViewController: BaseViewController {
 
     var userId: Int = LoginManager.shared.getUserInfo()?.userId ?? 0
     
+    var currentUser: UserInfoModel?
+
     private let backButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage.init(systemName: "chevron.backward")?.withRenderingMode(.alwaysOriginal), for: .normal)
@@ -79,6 +81,7 @@ class MineViewController: BaseViewController {
             if LoginManager.shared.isLogin() {
                 LoginManager.requestUserInfo { [weak self] success in
                     guard let `self` = self else { return }
+                    self.currentUser = LoginManager.shared.getUserInfo()
                     self.nameLabel.text = LoginManager.shared.getUserInfo()?.fullName ?? "游客"
                     self.mineUserInfoView.reloadData(LoginManager.shared.getUserInfo())
                 }
@@ -86,6 +89,7 @@ class MineViewController: BaseViewController {
         case .other:
             LoginManager.requestOtherUserInfo(userId: "\(userId)") { [weak self] user in
                 guard let `self` = self else { return }
+                self.currentUser = user
                 self.nameLabel.text = user?.fullName ?? "游客"
                 self.mineUserInfoView.reloadData(user)
             }
@@ -143,8 +147,20 @@ class MineViewController: BaseViewController {
             make.top.equalTo(navStackView.snp.bottom)
             make.leading.trailing.equalToSuperview()
         }
-        mineUserInfoView.editHomePageBlock = {
+        mineUserInfoView.editHomePageBlock = { [weak self] in
+            guard let `self` = self else { return }
             let vc = EditProfileVC()
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        mineUserInfoView.onFollowTap = { [weak self] type in
+            guard let `self` = self else { return }
+            if self.type == .other {
+                return
+            }
+            let vc = MineFollowContainerVC()
+            vc.currentUser = self.currentUser
+            vc.listType = type
             vc.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
         }

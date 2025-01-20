@@ -74,10 +74,12 @@ class SearchSugPopView: BaseView {
             .skip(1)
             .subscribe(onNext: { [weak self] cellTypes in
                 guard let `self` = self else { return }
-                if cellTypes.isEmpty {
-                    self.setEmptyOrNetErrorView(.noData)
-                } else {
-                    self.emptyView.removeFromSuperview()
+                DispatchQueue.main.async {
+                    if cellTypes.isEmpty {
+                        self.setEmptyOrNetErrorView(.noData)
+                    } else {
+                        self.emptyView.removeFromSuperview()
+                    }
                 }
             })
             .disposed(by: disposeBag)

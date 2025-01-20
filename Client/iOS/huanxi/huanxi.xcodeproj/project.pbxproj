@@ -145,6 +145,9 @@
 		F3E5A5062D3E890F00AEF187 /* PropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A5022D3E890F00AEF187 /* PropertyWrapper.swift */; };
 		F3E5A5092D3E8EA300AEF187 /* SquareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A5082D3E8EA300AEF187 /* SquareViewModel.swift */; };
 		F3E5A50B2D3E8F4C00AEF187 /* SquareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A50A2D3E8F4C00AEF187 /* SquareViewController.swift */; };
+		F3E5A50D2D3E93A100AEF187 /* MineFollowContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A50C2D3E93A100AEF187 /* MineFollowContainerVC.swift */; };
+		F3E5A50F2D3E93C400AEF187 /* MineFollowListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A50E2D3E93C400AEF187 /* MineFollowListVC.swift */; };
+		F3E5A5112D3E9A4000AEF187 /* FollowResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A5102D3E9A4000AEF187 /* FollowResponseModel.swift */; };
 		F3E7860F2CEC5C1300EC2251 /* RichTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E7860E2CEC5C1300EC2251 /* RichTextLabel.swift */; };
 		F3E7861A2CEC6FBE00EC2251 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E786182CEC6FBE00EC2251 /* Localizable.strings */; };
 		F3E7861E2CEC761700EC2251 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E7861C2CEC761700EC2251 /* InfoPlist.strings */; };
@@ -334,6 +337,9 @@
 		F3E5A5032D3E890F00AEF187 /* UserDefaultPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultPropertyWrapper.swift; sourceTree = "<group>"; };
 		F3E5A5082D3E8EA300AEF187 /* SquareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewModel.swift; sourceTree = "<group>"; };
 		F3E5A50A2D3E8F4C00AEF187 /* SquareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewController.swift; sourceTree = "<group>"; };
+		F3E5A50C2D3E93A100AEF187 /* MineFollowContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineFollowContainerVC.swift; sourceTree = "<group>"; };
+		F3E5A50E2D3E93C400AEF187 /* MineFollowListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineFollowListVC.swift; sourceTree = "<group>"; };
+		F3E5A5102D3E9A4000AEF187 /* FollowResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowResponseModel.swift; sourceTree = "<group>"; };
 		F3E7860E2CEC5C1300EC2251 /* RichTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextLabel.swift; sourceTree = "<group>"; };
 		F3E786192CEC6FBE00EC2251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F3E7861B2CEC700500EC2251 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -611,6 +617,8 @@
 				04F0D1A42BFADC1000FFE128 /* views */,
 				F3F895582D30BD3200827BBB /* MineViewController.swift */,
 				F3E5A4F52D3DD42100AEF187 /* MineCollectListVC.swift */,
+				F3E5A50C2D3E93A100AEF187 /* MineFollowContainerVC.swift */,
+				F3E5A50E2D3E93C400AEF187 /* MineFollowListVC.swift */,
 				F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */,
 				F3E5A4E52D379F5500AEF187 /* InputProfileVC.swift */,
 				39A86D1E2C4DF0C7000D4217 /* SettingViewController.swift */,
@@ -860,6 +868,7 @@
 			isa = PBXGroup;
 			children = (
 				F3E5A4992D30C10B00AEF187 /* SetModel.swift */,
+				F3E5A5102D3E9A4000AEF187 /* FollowResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1100,11 +1109,13 @@
 				F3E5A49C2D30EB5D00AEF187 /* ChangePhoneVC.swift in Sources */,
 				04F23E482C0EE6AF0078809E /* DirectChatCell.swift in Sources */,
 				F373881D2D13224C0072CE77 /* BaseViewModel.swift in Sources */,
+				F3E5A50D2D3E93A100AEF187 /* MineFollowContainerVC.swift in Sources */,
 				39066F652C514853003D347E /* DataUtil.swift in Sources */,
 				3998DE372BB59F270000C4DD /* UpdatesThisMonthCell.swift in Sources */,
 				39E908242C287C630017B83B /* UITextField+Extension.swift in Sources */,
 				39B7943C2B9896410048C996 /* EditPhotoViewController.swift in Sources */,
 				392CF1142B8ECE570070637E /* MainUserCell.swift in Sources */,
+				F3E5A50F2D3E93C400AEF187 /* MineFollowListVC.swift in Sources */,
 				392CF1082B8D7E8F0070637E /* CGFloat+LayoutExtension.swift in Sources */,
 				39A86D1F2C4DF0C7000D4217 /* SettingViewController.swift in Sources */,
 				F3FC1D3A2D18E71E005555A0 /* SearchResultPostListVC.swift in Sources */,
@@ -1160,6 +1171,7 @@
 				F3E5A4F02D3A2D6800AEF187 /* DrawerPresentation.swift in Sources */,
 				39066F672C51E15B003D347E /* LoginManager.swift in Sources */,
 				397216B12B81EA57007D0F2B /* NavigationController.swift in Sources */,
+				F3E5A5112D3E9A4000AEF187 /* FollowResponseModel.swift in Sources */,
 				397216BD2B8249D9007D0F2B /* UpdatesViewController.swift in Sources */,
 				F37388062D1129950072CE77 /* BaseView.swift in Sources */,
 				F373881F2D13BD190072CE77 /* SearchSugViewController.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MineHeaderView: UIView {
+class MineHeaderView: BaseView {
     
     var type: MineType
     
@@ -62,9 +62,8 @@ class MineHeaderView: UIView {
     })
     
     var editHomePageBlock: (()->Void)?
-    
+    var onFollowTap: ((FollowListType)->Void)?
 
-    
     init(type: MineType) {
         self.type = type
         super.init(frame: CGRect.zero)
@@ -87,7 +86,7 @@ class MineHeaderView: UIView {
         
         [postsItemView, fansItemView, followedItemView].forEach { itemView in
             itemView.snp.makeConstraints { make in
-                make.width.equalTo(60)
+                make.width.height.equalTo(60)
             }
         }
         
@@ -103,6 +102,16 @@ class MineHeaderView: UIView {
             make.height.equalTo(37)
             make.width.equalTo(UIDevice.screenWidth - 30)
         }
+        
+        followedItemView.rx.tapGestureThrottle().subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.onFollowTap?(.follow)
+        }).disposed(by: disposeBag)
+        
+        fansItemView.rx.tapGestureThrottle().subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.onFollowTap?(.fans)
+        }).disposed(by: disposeBag)
     }
     
     func reloadData(_ user: UserInfoModel?) {
@@ -110,9 +119,9 @@ class MineHeaderView: UIView {
         if let urlStr = user?.profilePictureUrl {
             iconImgView.kf.setImage(with: URL.init(string: urlStr))
         }
-        followedItemView.valueLabel.text = String(format: "%d", user?.followingCount ?? 0)
         postsItemView.valueLabel.text = String(format: "%d", user?.postCount ?? 0)
         fansItemView.valueLabel.text = String(format: "%d", user?.followerCount ?? 0)
+        followedItemView.valueLabel.text = String(format: "%d", user?.followingCount ?? 0)
     }
     
     @objc func editUserAction() {

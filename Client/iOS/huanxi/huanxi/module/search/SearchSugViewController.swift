@@ -92,10 +92,7 @@ class SearchSugViewController: BaseViewController {
         popView.onItemTap = { [weak self] user in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                let vc = UserBriefVC()
-                vc.user = user
-                vc.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(vc, animated: true)
+                self.openUserPage(user)
             }
         }
     }
@@ -109,5 +106,16 @@ class SearchSugViewController: BaseViewController {
 extension SearchSugViewController {
     private func loadData(keyword: String) {
         viewModel.requestSearchUser(keyword: keyword, completion: {success in })
+    }
+}
+
+extension SearchSugViewController {
+    func openUserPage(_ model: UserInfoModel?) {
+        let vc = MineViewController()
+        let user = LoginManager.shared.getUserInfo()
+        vc.type = user?.userId == model?.userId ? .mySelf : MineType.other
+        vc.userId = model?.userId ?? 0
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

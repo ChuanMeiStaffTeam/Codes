@@ -13,6 +13,8 @@ fileprivate let skeletonData: [MineViewModel.CellType] = Array(repeating: .skele
 class MineViewModel {
     
     let dataList = BehaviorRelay<[MineViewModel.CellType]>(value: [])
+    
+    let followList = BehaviorRelay<[MineViewModel.CellType]>(value: [])
 
     func uploadAvatar(_ image: UIImage) async -> Bool {
         await withCheckedContinuation { continuation in
@@ -49,6 +51,49 @@ class MineViewModel {
     }
     
     
+    func fetchFollowsList() async -> Bool {
+        await withCheckedContinuation { continuation in
+            self.followList.accept(skeletonData)
+            NetworkManager.shared.getRequest(
+                path: "follows/followslist",
+                parameters: nil,
+                responseType: FollowResponseModel.self
+            ) { success, message, data in
+                if success {
+                    let userItems: [CellType] = (data?.followsList ?? []).map { CellType.userItem($0) }
+                    DispatchQueue.main.async {
+                        self.followList.accept(userItems)
+                    }
+                } else {
+                    self.followList.accept([])
+                    HUDHelper.showToast(message)
+                }
+                continuation.resume(returning: success)
+            }
+        }
+    }
+    
+    func fetchFanslist() async -> Bool {
+        await withCheckedContinuation { continuation in
+            self.followList.accept(skeletonData)
+            NetworkManager.shared.getRequest(
+                path: "follows/fanslist",
+                parameters: nil,
+                responseType: FollowResponseModel.self
+            ) { success, message, data in
+                if success {
+                    let userItems: [CellType] = (data?.fansList ?? []).map { CellType.userItem($0) }
+                    DispatchQueue.main.async {
+                        self.followList.accept(userItems)
+                    }
+                } else {
+                    self.followList.accept([])
+                    HUDHelper.showToast(message)
+                }
+                continuation.resume(returning: success)
+            }
+        }
+    }
 }
 
 extension MineViewModel {
@@ -72,6 +117,7 @@ extension MineViewModel {
     enum CellType: Equatable {
         case skeleton
         case postItem(PostModel)
+        case userItem(UserInfoModel)
         case empty
         case error
 
