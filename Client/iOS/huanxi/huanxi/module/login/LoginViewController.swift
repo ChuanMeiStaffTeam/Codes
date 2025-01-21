@@ -72,7 +72,7 @@ class LoginViewController: BaseViewController {
     })
     private let loginButton = UIButton().then({view in
         view.setTitle("验证并登录", for: .normal)
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .mainBlueColor.withAlphaComponent(0.5)
         view.layer.cornerRadius = 6
         view.isEnabled = false
     })
@@ -241,7 +241,7 @@ class LoginViewController: BaseViewController {
         .map { phoneValid, codeVisible, codeValid in
             (codeVisible && codeValid) || (!codeVisible && phoneValid)
         }
-        .map { $0 ? .mainBlueColor : UIColor.lightGray }
+        .map { $0 ? .mainBlueColor : .mainBlueColor.withAlphaComponent(0.5) }
         .bind(to: loginButton.rx.backgroundColor)
         .disposed(by: disposeBag)
 

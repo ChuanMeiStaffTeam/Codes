@@ -51,12 +51,12 @@ class MineViewModel {
     }
     
     
-    func fetchFollowsList() async -> Bool {
+    func fetchFollowsList(_ userId: Int) async -> Bool {
         await withCheckedContinuation { continuation in
             self.followList.accept(skeletonData)
-            NetworkManager.shared.getRequest(
-                path: "follows/followslist",
-                parameters: nil,
+            NetworkManager.shared.postRequest(
+                path: "follows/getfollowlist",
+                parameters: ["userId" : userId],
                 responseType: FollowResponseModel.self
             ) { success, message, data in
                 if success {
@@ -73,12 +73,12 @@ class MineViewModel {
         }
     }
     
-    func fetchFanslist() async -> Bool {
+    func fetchFanslist(_ userId: Int) async -> Bool {
         await withCheckedContinuation { continuation in
             self.followList.accept(skeletonData)
-            NetworkManager.shared.getRequest(
-                path: "follows/fanslist",
-                parameters: nil,
+            NetworkManager.shared.postRequest(
+                path: "follows/getfanslist",
+                parameters: ["userId" : userId],
                 responseType: FollowResponseModel.self
             ) { success, message, data in
                 if success {

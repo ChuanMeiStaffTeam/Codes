@@ -13,6 +13,8 @@ class MineFollowListVC: BaseViewController {
         
     var listType: FollowListType = .follow
 
+    var userId: Int = 0
+
     private let popTableView: UITableView = {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
         view.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
@@ -113,7 +115,7 @@ class MineFollowListVC: BaseViewController {
 extension MineFollowListVC {
     private func loadData(listType: FollowListType) {
         Task {
-            _ = listType == .follow ? await viewModel.fetchFollowsList() : await viewModel.fetchFanslist()
+            _ = listType == .follow ? await viewModel.fetchFollowsList(userId) : await viewModel.fetchFanslist(userId)
         }
     }
 }

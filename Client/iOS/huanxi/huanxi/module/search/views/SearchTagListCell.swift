@@ -13,6 +13,7 @@ class SearchTagListCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.backgroundColor = UIColor.postBgColor
         return imageView
     }()
     

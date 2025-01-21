@@ -19,7 +19,7 @@ class MineViewController: BaseViewController {
 
     var userId: Int = LoginManager.shared.getUserInfo()?.userId ?? 0
     
-    var currentUser: UserInfoModel?
+    var currentUser: UserInfoModel? = UserInfoModel()
 
     private let backButton: UIButton = {
         let button = UIButton()
@@ -98,8 +98,10 @@ class MineViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.currentUser?.userId = userId
         setupUI()
         sh_prefersNavigationBarHidden = true
+        
     }
     
     
@@ -155,9 +157,9 @@ class MineViewController: BaseViewController {
         }
         mineUserInfoView.onFollowTap = { [weak self] type in
             guard let `self` = self else { return }
-            if self.type == .other {
-                return
-            }
+//            if self.type == .other {
+//                return
+//            }
             let vc = MineFollowContainerVC()
             vc.currentUser = self.currentUser
             vc.listType = type

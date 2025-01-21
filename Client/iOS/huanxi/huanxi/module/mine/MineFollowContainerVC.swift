@@ -111,6 +111,7 @@ extension MineFollowContainerVC: JXSegmentedListContainerViewDataSource {
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
         let vc = MineFollowListVC()
         vc.listType = FollowListType(rawValue: index) ?? .follow
+        vc.userId = self.currentUser?.userId ?? 0
         return vc
     }
 }

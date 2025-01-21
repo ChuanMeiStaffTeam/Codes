@@ -54,7 +54,12 @@ class MineCollectListVC: BaseViewController {
         
         cancellable = NotificationCenter.default.publisher(for: listType == .publish ? .refreshMainPageNotification : .collectNotification)
             .sink { notification in
-                self.loadData()
+                if(LoginManager.shared.isLogin()) {
+                    self.loadData()
+                } else {
+                    self.dataList = []
+                    self.collectionView.reloadData()
+                }
             }
     }
     
