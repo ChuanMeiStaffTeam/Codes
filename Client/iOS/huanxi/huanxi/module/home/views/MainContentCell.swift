@@ -65,7 +65,7 @@ class MainContentCell: UITableViewCell {
                 avatar.image = UIImage.init(named: "main_pic_test")
             }
             
-            nameLabel.text = model?.user?.username ?? "游客"
+            nameLabel.text = model?.user?.fullName ?? model?.user?.username
             if let urlStr = model?.images?.first?.imageUrl {
                 if urlStr.contains("http") {
                     imgView.kf.setImage(with: URL.init(string: urlStr))

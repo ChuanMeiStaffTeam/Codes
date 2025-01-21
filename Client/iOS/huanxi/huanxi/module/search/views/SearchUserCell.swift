@@ -95,7 +95,7 @@ class SearchUserCell: UITableViewCell {
                     avatar.image = UIImage(named: "main_pic_test")
                 }
             }
-            nameLabel.text = user?.username ?? "游客"
+            nameLabel.text = user?.fullName ?? user?.username
             contentLabel.text = user?.bio ?? user?.email
         }
     }
