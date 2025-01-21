@@ -45,7 +45,7 @@ extension HomeViewModel {
 
 class HomeViewModel {
 
-    @UserDefaultWrapper<Bool>(key: "", defaultValue: false)
+    @UserDefaultWrapper<Bool>(key: "NoRecommend", defaultValue: false)
     var isNoRecommend: Bool
 
     let dataList = BehaviorRelay<[CellType]>(value: Array(repeating: .skeleton, count: 3))
@@ -54,6 +54,7 @@ class HomeViewModel {
     var postsList: [PostModel] = []
 
     required init() {
+        self.isNoRecommend = false
         configData()
     }
 
