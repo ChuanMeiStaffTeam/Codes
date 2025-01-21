@@ -19,7 +19,10 @@ extension UITextView {
         self.addSubview(placeholderLabel)
         
         NotificationCenter.default.addObserver(forName: UITextView.textDidChangeNotification, object: self, queue: .main) { [weak self] _ in
-            placeholderLabel.isHidden = !self!.text.isEmpty
+            guard let `self` = self else { return }
+            DispatchQueue.main.async{
+                placeholderLabel.isHidden = !self.text.isEmpty
+            }
         }
     }
     

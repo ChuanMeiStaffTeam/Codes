@@ -181,6 +181,11 @@ class PostDetailViewModel {
                 DispatchQueue.main.async {
                     self.updateCollectStatus(at: index, favorite: !(data.favorite ?? false), indexPath: indexPath)
                 }
+                NotificationCenter.default.post(
+                    name: .collectNotification,
+                    object: nil,
+                    userInfo: nil
+                )
                 complete?(!(data.favorite ?? false))
              }
         }

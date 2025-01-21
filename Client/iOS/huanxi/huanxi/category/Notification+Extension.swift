@@ -25,4 +25,5 @@ extension Notification {
 
 extension Notification.Name {
     static let refreshMainPageNotification = Notification.Name("refreshMainPageNotification")
+    static let collectNotification = Notification.Name("collectNotification")
 }

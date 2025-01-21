@@ -146,7 +146,11 @@ class ExplainViewController: BaseViewController {
                     object: nil,
                     userInfo: nil
                 )
-                self.view.window?.rootViewController?.dismiss(animated: true)
+                
+                self.view.window?.rootViewController?.dismiss(animated: true, completion: {
+                    let topVC = WindowHelper.topViewController()
+                    topVC?.tabBarController?.selectedIndex = 0
+                })
             } else {
                 HUDHelper.showToast(message)
             }

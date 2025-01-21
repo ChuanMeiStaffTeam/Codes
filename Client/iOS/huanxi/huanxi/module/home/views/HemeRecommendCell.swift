@@ -37,11 +37,12 @@ class HemeRecommendCell: BaseTableViewCell {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 0
         layout.itemSize = CGSize.init(width: 210, height: 275)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .init(hexString: "#121212")
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+//        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(HemeRecommendItemCell.self)
         collectionView.register(SpaceCollectionViewCell.self)
         collectionView.showsHorizontalScrollIndicator = false
@@ -73,12 +74,13 @@ class HemeRecommendCell: BaseTableViewCell {
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.left.equalToSuperview().offset(15)
-            make.height.equalTo(42)
+            make.height.equalTo(45)
         }
         contentView.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.greaterThanOrEqualTo(275)
         }
     }
     

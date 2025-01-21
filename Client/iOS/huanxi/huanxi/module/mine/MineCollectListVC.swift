@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import JXSegmentedView
+import Combine
 
 class MineCollectListVC: BaseViewController {
     
@@ -42,12 +43,23 @@ class MineCollectListVC: BaseViewController {
     
     private let viewModel = MineViewModel()
 
+    private var cancellable: AnyCancellable?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         sh_prefersNavigationBarHidden = true
         setupUI()
         bindUI()
         self.loadData()
+        
+        cancellable = NotificationCenter.default.publisher(for: listType == .publish ? .refreshMainPageNotification : .collectNotification)
+            .sink { notification in
+                self.loadData()
+            }
+    }
+    
+    deinit {
+        cancellable?.cancel()
     }
     
     func setupUI() {
