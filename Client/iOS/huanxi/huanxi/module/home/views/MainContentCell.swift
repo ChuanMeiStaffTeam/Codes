@@ -313,7 +313,10 @@ class MainContentCell: UITableViewCell {
     }
     
     @objc func shareAction() {
-        PostSharePopView.init().show(model ?? PostModel(liked: false))
+//        PostSharePopView.init().show(model ?? PostModel(liked: false), img: imgView.image ?? UIImage(resource: .iconLogo))
+        if let urlStr = model?.images?.first?.imageUrl {
+            Tools.systemShareAction(text: model?.caption ?? "", url: urlStr, img: imgView.image ?? UIImage(resource: .iconLogo), sourceView: self)
+        }
     }
 
     

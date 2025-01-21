@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Tools {
     
@@ -39,5 +40,30 @@ class Tools {
         }
         
         task.resume()
+    }
+    
+    // 系统分享
+    static func systemShareAction(text: String, url: String, img: UIImage, sourceView: UIView) {
+        // 要分享的内容
+        let textToShare = text
+        let urlToShare = URL(string: url)
+        let imageToShare = img // 确保图片已添加到项目中
+
+        // 将内容放入一个数组
+        let itemsToShare: [Any] = [textToShare, urlToShare as Any, imageToShare as Any]
+
+        // 创建UIActivityViewController
+        let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+
+        // 对于iPad设备，需要指定一个弹出位置
+        if let popoverController = activityViewController.popoverPresentationController {
+            popoverController.sourceView = sourceView
+            popoverController.sourceRect = CGRect(x: sourceView.bounds.midX, y: sourceView.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+
+        if let vc = getKeyWindow()?.rootViewController {
+            vc.present(activityViewController, animated: true, completion: nil)
+        }
     }
 }

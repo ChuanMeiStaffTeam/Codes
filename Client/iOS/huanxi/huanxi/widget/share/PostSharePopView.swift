@@ -11,6 +11,7 @@ import UIKit
 
 class PostSharePopView: UIView {
     var postModel: PostModel = PostModel(liked: false)
+    var img: UIImage = UIImage(resource: .iconLogo)
     var names: [String] = []
     private let topLine: UIView = {
         let view = UIView()
@@ -111,8 +112,24 @@ class PostSharePopView: UIView {
     }
 
     private func setupShareOptions() {
-        shareOptionsView.onTap = {
-            self.drawerView.isConcealed = true
+        shareOptionsView.onTap = { [weak self] shartType in
+            guard let `self` = self else { return }
+            switch shartType {
+            case .none:
+                if let urlStr = postModel.images?.first?.imageUrl {
+                    Tools.systemShareAction(text: postModel.caption ?? "", url: urlStr, img: self.img, sourceView: self)
+                }
+                break
+            case .copy:
+                let textToCopy = "Hello, world!"
+                UIPasteboard.general.string = textToCopy
+                HUDHelper.showToast("已经复制到剪切板～")
+                break
+            default:
+                break
+            }
+    
+//            self.drawerView.isConcealed = true
         }
     }
 
@@ -135,8 +152,9 @@ class PostSharePopView: UIView {
         }
     }
 
-    func show(_ postModel: PostModel) {
+    func show(_ postModel: PostModel, img: UIImage) {
         self.postModel = postModel
+        self.img = img
         if let window = getKeyWindow() {
             drawerView.attachTo(view: window)
             DispatchQueue.global().asyncAfter(deadline: .now() + .microseconds(500)) {
@@ -257,7 +275,7 @@ class ShareAvatarCell: UICollectionViewCell {
 }
 
 class ShareOptionsView: UIView {
-    var onTap: (() -> Void)?
+    var onTap: ((ShartType) -> Void)?
     let shareItemWidth = 68
     let shareItems = [
         ["icon_share_s", "分享到...", ShartType.none],
@@ -307,23 +325,9 @@ class ShareOptionsView: UIView {
         if let type = ShartType(rawValue: (sender.view?.tag ?? 0) - 100) {
             shartType = type
         }
-        switch shartType {
-        case .none:
-            systemShareAction()
-            break
-        case .copy:
-            let textToCopy = "Hello, world!"
-            UIPasteboard.general.string = textToCopy
-            HUDHelper.showToast("已经复制到剪切板～")
-            break
-        default:
-            break
+        if let block = onTap {
+            block(shartType)
         }
-
-//        dismiss()
-//        if let block = onTap {
-//            block()
-//        }
     }
 
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
@@ -346,30 +350,6 @@ class ShareOptionsView: UIView {
         removeFromSuperview()
     }
 
-    // 系统分享
-    @objc func systemShareAction() {
-        // 要分享的内容
-        let textToShare = "这是一个示例文本。"
-        let urlToShare = URL(string: "https://www.example.com")!
-        let imageToShare = UIImage(named: "exampleImage") // 确保图片已添加到项目中
-
-        // 将内容放入一个数组
-        let itemsToShare: [Any] = [textToShare, urlToShare, imageToShare as Any]
-
-        // 创建UIActivityViewController
-        let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
-
-        // 对于iPad设备，需要指定一个弹出位置
-        if let popoverController = activityViewController.popoverPresentationController {
-            popoverController.sourceView = self
-            popoverController.sourceRect = CGRect(x: bounds.midX, y: bounds.midY, width: 0, height: 0)
-            popoverController.permittedArrowDirections = []
-        }
-
-        if let vc = getKeyWindow()?.rootViewController {
-            vc.present(activityViewController, animated: true, completion: nil)
-        }
-    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
