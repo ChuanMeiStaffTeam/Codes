@@ -154,7 +154,6 @@ class ExplainViewController: BaseViewController {
             } else {
                 HUDHelper.showToast(message)
             }
-            
         }
     }
     
