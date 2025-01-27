@@ -631,3 +631,50 @@ class NetworkManager {
 }
 
 */
+
+
+/*代码主要功能：
+ 
+ 这段 Swift 代码定义了一个名为 NetworkManager 的类，这个类是用来管理网络请求的。它提供了一套方法，让开发者可以方便地向服务器发送各种类型的请求，比如 GET、POST、DELETE 等，并处理返回的数据。
+
+ 代码结构和主要功能：
+
+ ResponseModel 结构体：
+
+ 用来表示服务器返回的数据结构。
+ 包含三个属性：
+ code: HTTP 状态码，用于判断请求是否成功。
+ message: 返回的消息，通常包含错误信息或成功提示。
+ data: 实际的数据，类型为泛型 T，可以根据需要定义不同的数据模型。
+ NetworkManager 类：
+
+ shared 属性： 提供了一个单例实例，方便在整个应用中访问。
+ request 方法：
+ 是核心方法，用于发送网络请求。
+ 参数：
+ path: 请求的路径。
+ method: HTTP 方法（GET、POST、PUT、DELETE 等）。
+ parameters: 请求参数。
+ headers: 请求头。
+ responseType: 期望的返回数据类型。
+ completion: 请求完成后的回调，包含是否成功、返回消息和数据。
+ 其他方法：
+ getRequest、postRequest、deleteRequest： 分别是 GET、POST、DELETE 请求的封装，简化了调用。
+ uploadSingleImage、uploadMultipleImages： 用于上传单个或多个图片。
+ 工作流程：
+
+ 创建 NetworkManager 实例。
+ 调用 request 或其封装方法，传入请求参数。
+ NetworkManager 内部使用 Alamofire 库发送网络请求。
+ 根据服务器返回的数据，解析成 ResponseModel 结构体。
+ 调用 completion 回调，将结果返回给调用者。
+ 关键点：
+
+ 错误处理： 代码中对网络请求错误进行了处理，并在 completion 回调中返回错误信息。
+ 数据解析： 使用 Codable 协议对服务器返回的 JSON 数据进行解析，方便使用。
+ 日志输出： 打印请求和响应信息，方便调试。
+ 图片上传： 支持上传单个或多个图片。
+ 登录状态判断： 在请求中添加 token，并在 token 过期时处理登录逻辑。
+ 总结：
+
+ 这个 NetworkManager 类提供了一个灵活、易用的网络请求框架，可以大大简化 iOS 应用中网络请求的开发。它可以处理各种类型的请求，并提供了良好的错误处理和数据解析机制。*/

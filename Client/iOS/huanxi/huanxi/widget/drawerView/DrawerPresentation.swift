@@ -210,3 +210,38 @@ extension DrawerPresentationAnimator: UIViewControllerAnimatedTransitioning {
         }
     }
 }
+/*代码功能：
+
+这段 Swift 代码实现了一个自定义的 UILabel 子类，名为 RichTextLabel，其主要功能是：
+
+富文本显示： 可以设置带有不同样式（如颜色、下划线）的文本。
+点击事件处理： 可以为文本中的特定部分设置点击事件，当用户点击这些部分时，会触发相应的回调。
+代码实现细节：
+
+tapRanges 属性： 用来存储文本中各个可点击部分的范围、文本内容和颜色信息。
+setRichText 方法：
+创建一个 NSMutableAttributedString 对象，设置初始属性。
+遍历 tapStyles 数组，找到每个需要设置点击样式的子字符串，并设置其属性（颜色、下划线）。
+将找到的可点击部分的范围、文本内容和颜色信息添加到 tapRanges 数组中。
+将最终的富文本赋值给 attributedText 属性。
+handleTap 方法：
+当用户点击标签时，会触发该方法。
+通过 location 获取点击的位置。
+调用 getTappedString(at:) 方法，根据点击位置查找对应的可点击部分。
+如果找到了，则调用 onTextTapped 回调函数，将点击的文本、范围和索引传递给外部。
+getTappedString(at:) 方法：
+使用 NSTextStorage、NSLayoutManager 和 NSTextContainer 来计算点击位置对应的字符索引。
+遍历 tapRanges 数组，查找点击位置是否在某个可点击部分的范围内。
+如果找到，则返回对应的子字符串、范围和索引。
+代码作用：
+
+这个自定义的 UILabel 子类可以用来实现一些常见的富文本功能，比如：
+
+超链接： 点击带下划线的文本时，可以跳转到指定的页面或执行其他操作。
+自定义按钮： 在文本中嵌入可点击的按钮。
+文本高亮： 突出显示文本中的某些部分。
+使用场景：
+
+新闻阅读类应用： 显示包含链接的新闻文章。
+社交媒体应用： 显示包含@提及、#话题等可点击元素的文本。
+聊天应用： 实现表情、图片等富文本功能。*/

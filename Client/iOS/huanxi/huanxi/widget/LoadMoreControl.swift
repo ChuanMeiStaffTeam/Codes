@@ -315,3 +315,58 @@ class LoadMoreControl: UIControl {
         superView?.removeObserver(self, forKeyPath: "contentOffset")
     }
 }
+
+
+/*代码主要功能：
+ 
+ 这段代码实现了一个自定义的 LoadMoreControl 控件，通常用于列表控件（如 UITableView 或 UICollectionView）的底部，当用户滚动到列表底部时，触发加载更多的操作。
+
+ 核心功能与实现：
+
+ 加载状态管理：
+ 定义了四种加载状态：LoadStateIdle（空闲）、LoadStateLoading（加载中）、LoadStateAll（全部加载完）、LoadStateFailed（加载失败）。
+ 根据不同的状态显示不同的 UI 和执行不同的操作。
+ 滚动监听：
+ 通过 KVO 监听 UIScrollView 的 contentOffset 属性，实时监测滚动位置。
+ 当用户滚动到列表底部时，判断是否满足加载条件，触发加载操作。
+ 加载触发：
+ 当满足加载条件时，调用 onLoad 回调函数，由外部代码实现具体的加载逻辑。
+ UI 更新：
+ 根据加载状态更新控件的 UI，包括显示加载指示器、提示文字等。
+ 动画效果：
+ 使用 CABasicAnimation 实现加载指示器的旋转动画。
+ 代码结构与关键点：
+
+ 属性：
+ surplusCount：触发加载的阈值，即距离列表底部还有多少个 cell 时开始加载。
+ loadingType：当前的加载状态。
+ onLoad：加载回调函数。
+ indicator：加载指示器。
+ label：提示文字标签。
+ 方法：
+ initSubView：初始化子视图。
+ observeValueForKeyPath：监听滚动事件。
+ startLoading、endLoading、loadingFailed、loadingAll：更新加载状态。
+ startAnim、stopAnim：控制动画。
+ updateFrame：更新控件的位置。
+ cellNumInTableView、cellNumInCollectionView：计算列表中的 cell 数量。
+ 使用方式：
+
+ 创建实例： 在列表控件中创建一个 LoadMoreControl 实例，设置 surplusCount 和 onLoad 属性。
+ 添加到列表控件： 将 LoadMoreControl 实例添加到列表控件的底部。
+ 实现 onLoad 回调： 在 onLoad 回调函数中实现具体的加载数据逻辑。
+ 总结：
+
+ 这段代码提供了一个灵活且可复用的加载更多控件，可以方便地集成到各种列表控件中。通过自定义 surplusCount 和 onLoad，可以适应不同的业务需求。
+
+ 可能存在的问题与改进：
+
+ 代码复杂度： 由于需要处理多种状态和情况，代码逻辑相对复杂。
+ 可扩展性： 如果需要支持更多的自定义配置，代码可能会变得更加复杂。
+ 性能优化： 在高性能要求的场景下，可以考虑优化动画效果和布局计算。
+ 改进建议：
+
+ 简化代码： 可以通过提取公共方法、使用枚举等方式来简化代码。
+ 增加注释： 可以为关键代码添加注释，提高代码的可读性。
+ 使用约束布局： 可以使用 SnapKit 等约束布局库，简化布局代码。
+ 引入 MVVM 模式： 可以将视图、视图模型和数据模型分离，提高代码的可维护性。*/

@@ -5,8 +5,8 @@
 //  Created by rslz on 2024/12/9.
 //
 
-import Foundation
-import NIMSDK
+import Foundation                           //负责管理 NIMSDK（网易云信 SDK）的注册和初始化。
+import NIMSDK                 
 
 class NIMManager {
     static func register() {

@@ -104,3 +104,30 @@ class BindPhoneViewController: BaseViewController {
     }
     
 }
+
+/*功能
+
+这段代码实现了一个绑定手机号码的界面，叫做 BindPhoneViewController。 用户可以通过该界面输入手机号码，然后获取验证码进行验证，从而完成绑定手机号码的操作。
+
+代码结构
+
+类:
+BindPhoneViewController: 用于绑定手机号码的界面控制器。
+属性:
+textField: 用户输入手机号码的文本框。
+方法:
+viewDidLoad: 初始化界面，加载界面元素并设置约束。
+setupView: 设置界面的标题、文本框和其他元素的样式。
+requestCode: 处理“获取验证码”按钮点击事件，并进行手机号码格式验证。
+代码逻辑
+
+在 viewDidLoad 方法中，调用 setupView 方法来设置界面的各个元素。
+setupView 方法负责创建并配置界面元素：
+设置标题为 "绑定手机"。
+创建标签解释绑定手机号码的目的。
+配置 textField 文本框，用于用户输入手机号码。
+创建一个按钮 "获取验证码" (codeBtn)。
+点击 “获取验证码” 按钮 (codeBtn) 会触发 requestCode 方法：
+检查输入的手机号码是否为 11 位数字，如果不是则使用 HUDHelper.showToast 提示用户输入正确的手机号。
+如果手机号码格式正确，则会新建一个 InputCodeViewController 控制器 (おそらく验证码输入界面)，并将当前输入的手机号码传递给该控制器，然后通过导航控制器 (navigationController) 推送到下一个界面。
+ 总体而言，这段代码的功能是让用户通过输入手机号码并获取验证码的方式来完成绑定手机的过程。*/

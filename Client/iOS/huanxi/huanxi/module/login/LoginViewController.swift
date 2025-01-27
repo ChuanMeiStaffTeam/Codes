@@ -312,3 +312,41 @@ class LoginViewController: BaseViewController {
         }
     }
 }
+
+
+/*代码分析：DocumentPreviewer
+功能概述
+
+这段代码定义了一个名为 DocumentPreviewer 的类，用于在 iOS 应用中实现文档预览功能。它主要利用了系统提供的 QLPreviewController 来展示各种类型的文档。
+
+核心功能
+
+创建预览控制器: 初始化 QLPreviewController 实例，并设置数据源。
+管理预览文件: 使用 fileURLs 数组存储要预览的文件路径，并提供给 QLPreviewController 的数据源。
+提供预览功能: 通过实现 QLPreviewControllerDataSource 协议，指定预览项的数量和内容。
+自定义展示方式: 根据当前视图控制器的类型，选择是 push 还是 present 预览控制器。
+回调功能: 提供 onPreviewCompletion 回调，在预览完成时执行自定义操作。
+代码解读
+
+fileURLs 属性: 用于存储待预览的文件路径。
+show 方法:
+将文件路径转换为 URL。
+创建 QLPreviewController 实例，并设置数据源。
+根据当前视图控制器类型，选择展示方式。
+QLPreviewControllerDataSource 协议:
+numberOfPreviewItems：返回要预览的文件数量。
+previewController(_:previewItemAt:)：返回指定索引的预览项。
+onPreviewCompletion 回调:
+在预览完成时调用，用于执行自定义操作。
+优点
+
+封装性好: 将文档预览功能封装成一个类，方便使用。
+灵活: 支持多种文件类型，可以自定义预览行为。
+易用性: 提供简单的接口，方便调用。
+潜在改进
+
+错误处理: 可以添加错误处理，例如当文件路径无效或预览失败时，提示用户。
+支持更多文件类型: 可以通过自定义 QLPreviewItem 来支持更多类型的文件。
+自定义外观: 可以通过设置 QLPreviewController 的属性来定制外观。
+进度指示: 对于较大的文件，可以显示加载进度。
+多线程: 对于大量文件的预览，可以考虑使用多线程来提高性能。*/

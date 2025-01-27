@@ -179,3 +179,52 @@ extension MineViewModel {
         }
     }
 }
+
+/*代码功能:
+ 
+ 这段代码定义了一个名为 MineViewModel 的类，用于处理用户个人中心页面的数据和逻辑。
+
+ 主要功能点:
+
+ 数据模型:
+
+ CellType 枚举：定义了不同类型的 cell，包括骨架屏、帖子、用户、空状态和错误状态。
+ ListType 枚举：定义了两种列表类型：发布和收藏。
+ ProfileType 枚举：定义了用户个人资料中可编辑的字段类型，如姓名、账号、主页地址、个性签名。
+ 数据源:
+
+ dataList：一个 BehaviorRelay，用于存储和发布帖子列表或收藏列表的数据。
+ followList：一个 BehaviorRelay，用于存储和发布关注者或粉丝列表的数据。
+ 网络请求:
+
+ requestPostList：根据 ListType 发送网络请求，获取用户发布的帖子或收藏的帖子列表。
+ fetchFollowsList：发送网络请求，获取用户关注的用户列表。
+ fetchFanslist：发送网络请求，获取用户的粉丝列表。
+ uploadAvatar：发送网络请求，上传用户头像。
+ 其他方法:
+
+ bindUI：用于绑定 UI 控件与数据源的交互。
+ refrehData：用于刷新数据。
+ setEmptyOrNetErrorView：用于显示空状态或网络错误视图。
+ 代码结构:
+
+ MineViewModel 类：包含了数据源、网络请求、数据处理、UI 逻辑等。
+ CellType 枚举：定义了 cell 的类型。
+ ListType 枚举：定义了列表的类型。
+ ProfileType 枚举：定义了用户个人资料的字段类型。
+ 代码逻辑:
+
+ 初始化 MineViewModel 时，会初始化 dataList 和 followList 变量。
+ requestPostList 方法用于获取用户发布的帖子或收藏的帖子列表，并更新 dataList 变量。
+ fetchFollowsList 方法用于获取用户关注的用户列表，并更新 followList 变量。
+ fetchFanslist 方法用于获取用户的粉丝列表，并更新 followList 变量。
+ uploadAvatar 方法用于上传用户头像。
+ bindUI 方法用于绑定 UI 控件与数据源的交互，例如将 dataList 绑定到 UITableView 的数据源，以便更新界面。
+ refrehData 方法用于刷新数据，通常用于下拉刷新。
+ setEmptyOrNetErrorView 方法用于显示空状态或网络错误视图，例如当没有数据或网络请求失败时。
+ 潜在改进:
+
+ 错误处理: 可以进一步完善错误处理，例如针对不同类型的网络错误显示不同的错误提示。
+ 数据缓存: 可以考虑缓存数据，以提高性能和减少网络请求。
+ 分页加载: 可以实现分页加载，以提高用户体验。
+ 单元测试: 可以编写单元测试来验证代码的正确性和稳定性。*/

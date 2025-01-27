@@ -144,3 +144,40 @@ extension Reactive where Base: UIButton {
         return ControlEvent(events: source)
     }
 }
+
+/*代码功能：
+ 
+ 这段代码为 UIButton 类添加了一些自定义的功能，主要涉及以下方面：
+
+ 图像和文本布局： 可以灵活地调整按钮中图像和文本的相对位置。
+ 按钮外观定制： 提供了一些便捷的方法来创建自定义外观的按钮。
+ 点击事件节流： 使用 RxSwift 实现按钮点击事件的节流功能，防止在短时间内多次点击。
+ 触摸区域扩展： 允许通过 lin_expandSize 方法扩大按钮的触摸区域。
+ 详细解释：
+
+ Position 和 ImgPosition 枚举： 定义了图像和文本在按钮中的相对位置，如左、右、上、下。
+ setImgPosition 和 setImagePisition 方法： 这两个方法的作用基本相同，都是通过调整 imageEdgeInsets 和 titleEdgeInsets 来设置图像和文本的位置。区别在于 setImagePisition 方法会根据按钮的尺寸和文本长度进行更复杂的计算，以确保布局合理。
+ ck_button 方法： 一个工厂方法，用于快速创建一个自定义的按钮，可以设置标题、标题颜色、背景颜色和字体大小。
+ lin_expandSize 方法： 使用关联对象存储一个扩展尺寸的值，用于扩大按钮的触摸区域。
+ point(inside:with:) 方法： 重写了 UIButton 的这个方法，使得按钮的触摸区域不再局限于其可视范围，而是扩展到了关联的扩展尺寸。
+ tapThrottle 扩展方法： 使用 RxSwift 的 throttle 操作符对按钮的点击事件进行节流，避免在短时间内多次触发点击事件。
+ 代码亮点：
+
+ 灵活的布局： 可以根据需要调整图像和文本的位置。
+ 扩展性强： 通过关联对象的方式，可以为按钮添加自定义属性。
+ 性能优化： 使用 RxSwift 的 throttle 操作符优化了点击事件的处理。
+ 潜在问题和改进建议：
+
+ 代码冗余： setImgPosition 和 setImagePisition 方法的功能相似，可以考虑合并。
+ 命名不规范： ImgPosition 和 setImagePisition 的命名可能存在一些小问题，建议使用更规范的命名方式。
+ 缺少注释： 代码中缺少详细的注释，对于后续维护和理解会带来不便。
+ 硬编码值： 一些数值（如间距、字体大小）被硬编码，缺乏灵活性。
+ 建议改进：
+
+ 统一命名： 将 ImgPosition 改为 Position，并统一命名规范。
+ 简化逻辑： 合并 setImgPosition 和 setImagePisition 方法，减少冗余代码。
+ 添加注释： 为关键代码添加注释，解释代码的意图。
+ 使用常量： 将一些常量值定义为常量，提高代码的可读性和可维护性。
+ 考虑使用约束布局： 对于更复杂的布局，可以考虑使用 Auto Layout 或第三方约束布局框架来实现。
+ 提供更多自定义选项： 可以提供更多的选项来定制按钮的外观和行为，例如圆角、阴影等。
+*/

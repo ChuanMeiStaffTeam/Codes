@@ -100,3 +100,24 @@ class TransAnimator: NSObject, UIViewControllerTransitioningDelegate, UIViewCont
     }
 }
 
+/*
+这个 TransAnimator 类似乎是一个自定义的动画控制器，用于实现视图控制器之间的过渡动画。它可能被用于实现一些特殊的转场效果，比如模态视图的弹出和消失。
+
+代码功能分析（初步）：
+
+isDismiss 属性： 用于区分是呈现动画还是消失动画。
+shadowView 属性： 可能是一个用于遮罩的视图，在动画过程中会发生变化。
+animationController(forPresented:presenting:source:) 和 animationController(forDismissed:dismissed:) 方法： 这是 UIViewControllerTransitioningDelegate 协议中的方法，用于返回自定义的动画控制器。
+animateTransition(using:) 方法： 这是 UIViewControllerAnimatedTransitioning 协议中的方法，用于实现具体的动画逻辑。
+可能的动画效果：
+
+根据代码中的部分逻辑，可以推测这个动画控制器可能实现了以下效果：
+
+遮罩效果： 使用 shadowView 在视图切换时创建一个遮罩层。
+缩放效果： 通过改变 toViewController.view 的 bounds 来实现缩放效果。
+自定义手势： 通过 shadowClick 方法处理点击手势，可能用于实现自定义的关闭动画。
+需要进一步分析的部分：
+
+shadowClickBlock 的作用： 这个闭包的作用是什么？在什么情况下会被调用？
+动画的具体细节： 动画的时长、缓动函数、以及其他动画参数是如何设置的？
+视图层次结构： 在动画过程中，视图的层次结构是如何变化的？*/

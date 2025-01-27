@@ -210,3 +210,46 @@ private class GestureTarget: NSObject {
         gestureRecognizer.removeTarget(self, action: #selector(handleGesture))
     }
 }
+
+
+/*代码分析：UIView 扩展，添加骨架屏、链式调用、手势识别等功能
+ 整体概述
+
+ 这段代码为 UIView 类添加了多个扩展方法，主要用于实现以下功能：
+
+ 骨架屏效果: 通过 CAGradientLayer 实现视图的骨架屏效果，在数据加载过程中提供视觉反馈。
+ 链式调用: 使用 ViewChainable 协议，实现类似于 SwiftUI 的链式调用语法，方便配置视图属性。
+ 手势识别: 为 UIView 添加了 tapGesture 和 longPressGesture 属性，方便使用 RxSwift 订阅手势事件。
+ UITableView 长按事件: 为 UITableView 添加了 itemLongPressed 属性，用于监听长按事件。
+ 详细分析
+
+ 骨架屏部分
+
+ skeletonLayer: 私有属性，用于存储骨架层的 CAGradientLayer 对象。
+ createSkeletonLayer: 创建一个 CAGradientLayer，设置渐变颜色、起始点、终点等属性，并添加到视图的子层。
+ startSkeletonAnimation: 启动骨架层的动画，通过修改 gradientLayer 的 locations 属性来实现渐变动画效果。
+ stopSkeletonAnimation: 停止骨架层的动画，并隐藏骨架层。
+ 链式调用部分
+
+ ViewChainable 协议: 定义了一个空的协议，用于标记可以进行链式调用的类型。
+ then 方法: 接受一个闭包作为参数，在闭包中对当前视图进行配置，并返回自身，从而实现链式调用。
+ 手势识别部分
+
+ tapGesture 和 longPressGesture 属性: 使用 RxSwift 创建可观察序列，监听点击和长按手势。
+ GestureTarget 类: 用于管理手势识别器和对应的事件处理。
+ 优点
+
+ 功能丰富: 提供了多种实用的功能，如骨架屏、链式调用、手势识别。
+ 代码简洁: 使用 RxSwift 简化了手势事件的处理。
+ 可扩展性强: 可以根据需求进一步扩展，添加更多的功能。
+ 使用场景
+
+ 骨架屏: 在数据加载过程中显示骨架屏，提升用户体验。
+ 链式调用: 简化视图的配置，提高代码可读性。
+ 手势交互: 实现点击、长按等交互功能。
+ 注意事项
+
+ 性能: 频繁创建和销毁 CAGradientLayer 可能影响性能，可以考虑复用。
+ 复杂手势: 对于更复杂的手势，可以考虑使用第三方库。
+ RxSwift: 需要引入 RxSwift 和 RxCocoa 框架。
+*/

@@ -90,3 +90,29 @@ class WaterfallFlowLayout: UICollectionViewFlowLayout {
         invalidateLayout(with: context)
     }
 }
+
+
+/*代码功能:
+
+实现瀑布流布局: 该代码定义了一个名为 WaterfallFlowLayout 的自定义 UICollectionViewFlowLayout 子类，用于实现瀑布流布局效果。
+动态计算高度: 委托协议 WaterfallLayoutDelegate 允许外部代码动态计算每个 cell 的高度，从而实现高度不固定的瀑布流。
+高度缓存: 使用 heightCache 缓存已经计算过的 cell 高度，提高布局性能。
+代码原理:
+
+计算列宽: 根据 numberOfColumns 和 minimumInteritemSpacing 计算出每列的宽度。
+初始化: 创建一个数组 yOffset，用于记录每列的当前高度。
+遍历数据: 循环遍历每个 cell，计算其高度并将其添加到当前高度最小的列。
+更新布局: 更新每个 cell 的 frame，并计算整个 collectionView 的内容高度。
+缓存布局属性: 将计算好的布局属性缓存到 cache 数组中，提高后续布局的性能。
+关键方法:
+
+prepare(): 准备布局，计算列宽、初始化 yOffset 数组等。
+heightForRowAtIndexPath(_:collectionView:indexPath:): 委托方法，用于获取每个 cell 的高度。
+layoutAttributesForElements(in:): 返回指定区域内的布局属性。
+layoutAttributesForItem(at:): 返回指定 indexPath 对应的 cell 的布局属性。
+invalidateLayoutOnDataChange(): 手动刷新布局，例如当数据源发生变化时。
+优点:
+
+灵活: 可以通过 WaterfallLayoutDelegate 灵活地控制每个 cell 的高度。
+性能优化: 使用了高度缓存，提高了布局性能。
+可扩展性: 可以根据需要扩展功能，例如支持多列、自定义间距等。*/

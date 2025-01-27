@@ -210,3 +210,33 @@ class PostDetailViewModel {
 
 }
 
+/*代码分析：帖子详情页视图模型
+ 核心功能
+
+ 这段代码定义了一个名为 PostDetailViewModel 的视图模型类，主要负责管理帖子详情页的数据和业务逻辑。它与 PostDetailViewController 视图控制器协同工作，实现帖子详情页的功能。
+
+ 关键点
+
+ CellType 枚举: 定义了表格视图中可能出现的各种 Cell 类型，包括骨架屏、帖子内容、用户信息、推荐用户等。
+ dataList 属性: 使用 BehaviorRelay 存储 Cell 类型数组，作为 UITableView 的数据源。
+ 网络请求: 提供了 requestLikePost, requestCancelLikePost, fetchCollectPost, fetchCancelCollectPost 等方法，用于处理点赞、取消点赞、收藏、取消收藏等网络请求。
+ 数据更新: 在网络请求成功后，更新 dataList 中的数据，触发 UI 刷新。
+ 业务逻辑: 处理点赞、收藏、删除帖子等业务逻辑。
+ 代码结构
+
+ CellType 枚举: 定义了不同类型的 Cell，方便管理和区分。
+ dataList 属性: 使用 BehaviorRelay 实现响应式编程，当数据发生变化时，自动更新 UI。
+ 网络请求方法: 封装了网络请求的逻辑，并使用 NetworkManager 进行网络请求。
+ 数据更新方法: 更新 dataList 中的数据，触发 UI 刷新。
+ 业务逻辑方法: 实现点赞、收藏、删除等功能的具体逻辑。
+ 代码亮点
+
+ MVVM 模式: 清晰地分离了视图和数据逻辑，提高了代码的可维护性。
+ 响应式编程: 使用 RxSwift 实现数据绑定和状态管理，简化了代码。
+ 模块化: 将不同的功能封装成独立的方法，提高代码的可复用性。
+ 潜在改进
+
+ 错误处理: 可以添加更详细的错误处理，例如显示具体的错误信息。
+ 异步编程: 可以使用 async/await 进一步优化异步操作。
+ 单元测试: 可以编写单元测试来保证代码的正确性。
+ 数据缓存: 可以缓存一些数据，减少网络请求。*/

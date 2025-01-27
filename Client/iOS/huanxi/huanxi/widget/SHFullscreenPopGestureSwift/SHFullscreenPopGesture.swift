@@ -340,3 +340,50 @@ fileprivate extension DispatchQueue {
         block()
     }
 }
+
+/*代码功能:
+
+实现全屏侧滑返回手势: 该代码实现了一个自定义的导航栏全屏侧滑返回手势。
+支持自定义配置: 允许开发者配置是否启用、是否支持与滚动视图的冲突处理等。
+基于运行时机制: 使用运行时机制动态地替换导航控制器的 pushViewController 方法，以集成自定义手势。
+支持自定义导航栏外观: 允许子视图控制器控制导航栏的显示与隐藏。
+代码原理:
+
+创建自定义手势: 创建一个 UIPanGestureRecognizer，用于处理全屏侧滑手势。
+替换方法: 使用运行时机制替换 UINavigationController 的 pushViewController(_:animated:) 方法，在其中添加自定义手势逻辑。
+处理手势: 在手势处理方法中判断手势的有效性，并转发给系统自带的手势处理方法。
+自定义导航栏外观: 允许子视图控制器通过 sh_prefersNavigationBarHidden 属性控制导航栏的显示与隐藏。
+与滚动视图冲突处理: 通过 UIScrollViewDelegate 方法，处理与滚动视图的冲突，避免误触发手势。
+主要类和方法:
+
+SHFullscreenPopGesture:
+configure()： 初始化方法，用于配置手势。
+UINavigationController:
+sh_nav_initialize()： 替换 pushViewController(_:animated:) 方法。
+sh_pushViewController(_:animated:)： 自定义的 pushViewController 方法，添加手势处理逻辑。
+sh_fullscreenPopGestureRecognizer： 获取自定义的手势对象。
+sh_viewControllerBasedNavigationBarAppearanceEnabled： 是否启用基于视图控制器的导航栏外观控制。
+UIViewController:
+sh_viewWillAppear(_:)： 在视图控制器即将显示时，检查并设置导航栏的隐藏状态。
+sh_prefersNavigationBarHidden： 视图控制器是否希望隐藏导航栏。
+sh_interactivePopDisabled： 是否禁用交互式返回手势。
+_SHFullscreenPopGestureRecognizerDelegate:
+gestureRecognizerShouldBegin(_:)： 判断手势是否应该开始。
+使用方式:
+
+在 AppDelegate 或者其他合适的入口处调用 SHFullscreenPopGesture.configure()。
+在需要自定义导航栏外观的视图控制器中，设置 sh_prefersNavigationBarHidden 属性。
+优点:
+
+增强交互性: 提供了更自然、全屏的返回手势体验。
+灵活性: 支持多种自定义配置，如禁用手势、自定义导航栏外观等。
+兼容性: 兼容多个 iOS 版本。
+注意:
+
+该代码使用了运行时机制，需要谨慎使用，避免出现不可预期的后果。
+需要注意与其他手势之间的冲突，尤其是与滚动视图的手势冲突。
+改进建议:
+
+可以添加更多配置选项，例如手势触发区域、手势速度等。
+可以优化手势处理逻辑，提高流畅性。
+可以添加更多注释，提高代码的可读性。*/

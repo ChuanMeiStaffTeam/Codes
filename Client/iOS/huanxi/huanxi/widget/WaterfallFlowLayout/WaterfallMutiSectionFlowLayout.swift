@@ -189,3 +189,38 @@ class WaterfallMutiSectionFlowLayout: UICollectionViewFlowLayout {
     return CGSize(width: self.collectionView!.frame.size.width, height: self.contentHeight)
   }
 }
+
+
+/*代码功能
+ 
+ 这段代码实现了一个自定义的 UICollectionViewFlowLayout 子类，名为 WaterfallMutiSectionFlowLayout。它的主要目的是实现瀑布流布局，并且支持多分区、自定义列数、item 间距、分区内边距等功能。
+
+ 代码原理
+
+ 委托协议: WaterfallMutiSectionDelegate 协议定义了一系列可选的委托方法，用于自定义瀑布流的各种属性，比如列数、item 高度、分区间距等。
+ 布局属性: attrsArray 数组用于存储所有 item 和 supplementary view（header、footer）的布局属性。
+ 列高度数组: columnHeights 数组用于记录每一列的当前高度，用于确定下一个 item 的位置。
+ 内容高度: contentHeight 用于记录整个 collectionView 的内容高度。
+ 工作流程:
+
+ 准备: 在 prepare() 方法中，初始化各种属性，计算列数、内边距等。
+ 生成布局属性: 遍历所有 item 和 supplementary view，计算每个 item 的 frame，并添加到 attrsArray 中。
+ 计算列高: 在布局每个 item 时，找到当前高度最小的列，将 item 放置到该列上，并更新该列的高度。
+ 更新内容高度: 每次布局完一个 item 或 supplementary view 后，更新 contentHeight，以确定 collectionView 的内容大小。
+ 关键点
+
+ 高度灵活: 通过委托方法，可以自定义每个 item 的高度，实现各种复杂的瀑布流布局。
+ 多分区支持: 支持多个分区，每个分区可以有不同的列数、间距等设置。
+ 自定义属性: 可以自定义列数、行间距、列间距、分区内边距、header 和 footer 的大小等。
+ 性能优化: 通过缓存布局属性，提高了布局的效率。
+ 代码优点
+
+ 可扩展性强: 通过委托协议，可以方便地自定义各种布局参数。
+ 代码结构清晰: 代码结构清晰，易于理解和维护。
+ 性能良好: 采用了高效的算法，布局性能较好。
+ 适用场景
+
+ 图片瀑布流: 最常见的应用场景，可以实现图片的瀑布流展示。
+ 列表展示: 可以用来展示各种列表内容，如新闻列表、商品列表等。
+ 自定义布局: 可以根据不同的需求，自定义瀑布流的布局效果。
+*/

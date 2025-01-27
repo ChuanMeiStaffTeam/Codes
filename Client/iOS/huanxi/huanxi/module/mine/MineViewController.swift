@@ -200,3 +200,39 @@ extension MineViewController: JXSegmentedListContainerViewDataSource {
         return vc
     }
 }
+
+
+/*代码功能：
+ 
+ 这段代码定义了一个名为 MineViewModel 的类，用于管理个人中心页面的数据和逻辑。它主要负责：
+
+ 数据模型: 定义了 CellType、ListType 和 ProfileType 三种枚举类型，分别表示 cell 的类型、列表的类型和用户个人资料的字段类型。
+ 数据源: 使用 BehaviorRelay 维护 dataList 和 followList 两个数据源，分别存储帖子列表、收藏列表、关注列表和粉丝列表。
+ 网络请求: 提供了 requestPostList、fetchFollowsList、fetchFanslist 和 uploadAvatar 等方法，用于向服务器发送网络请求，获取或更新用户数据。
+ UI 绑定: 通过 bindUI 方法将数据源与 UI 控件绑定，实现数据更新时自动刷新 UI。
+ 代码结构:
+
+ MineViewModel 类: 是整个类的核心，负责管理数据和业务逻辑。
+ 枚举类型: CellType、ListType 和 ProfileType 用于定义不同类型的数据和配置。
+ 属性: dataList、followList 用于存储数据，cancellable 用于管理订阅。
+ 方法: 提供了各种方法用于获取数据、更新 UI、处理用户交互等。
+ 代码逻辑:
+
+ 初始化: 创建 MineViewModel 实例时，会初始化数据源和一些配置。
+ 网络请求: 通过 requestPostList、fetchFollowsList、fetchFanslist 和 uploadAvatar 方法向服务器发送网络请求，获取或更新用户数据。
+ 数据绑定: 使用 bindUI 方法将数据源与 UI 控件绑定，实现数据更新时自动刷新 UI。
+ UI 更新: 通过 dataList 和 followList 的变化来触发 UI 更新，例如刷新列表视图。
+ 用户交互: 提供了处理用户交互的接口，例如上传头像、关注/取消关注等。
+ 代码亮点:
+
+ 使用 Combine: 使用 Combine 框架来处理异步操作和数据流。
+ 数据驱动 UI: 通过 BehaviorRelay 实现数据驱动 UI，当数据发生变化时，UI 会自动更新。
+ 模块化: 将不同的功能模块化，提高代码的可维护性。
+ 错误处理: 虽然代码中没有显式地展示错误处理，但一般会在网络请求中加入错误处理逻辑，以保证应用的稳定性。
+ 潜在改进:
+
+ 错误处理: 可以进一步完善错误处理，例如针对不同类型的网络错误显示不同的错误提示。
+ 数据缓存: 可以考虑缓存数据，以提高性能和减少网络请求。
+ 分页加载: 可以实现分页加载，以提高用户体验。
+ 单元测试: 可以编写单元测试来验证代码的正确性和稳定性。
+*/
