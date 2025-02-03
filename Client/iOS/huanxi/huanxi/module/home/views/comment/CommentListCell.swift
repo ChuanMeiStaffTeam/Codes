@@ -179,3 +179,42 @@ extension CommentListCell {
         dateLabel.stopSkeletonAnimation()
     }
 }
+
+
+/*代码功能
+
+这段代码定义了一个名为 CommentListCell 的自定义 UITableViewCell 类，用于在列表中展示一条评论。它主要负责：
+
+展示评论内容: 包括头像、昵称、评论内容、点赞数、时间等信息。
+支持骨架屏: 在数据加载时显示骨架屏，提升用户体验。
+计算单元格高度: 根据评论内容动态计算单元格的高度。
+代码结构
+
+属性: 定义了用于展示评论信息的各种 UI 元素，如 avatar, nickName, content 等。
+方法:
+initSubViews: 初始化子视图并设置约束。
+layoutSubviews: 布局子视图，并根据 isSkeletonVisible 属性控制骨架屏的显示与隐藏。
+cellHeight: 计算单元格的高度，主要根据评论内容的高度来确定。
+model: 一个计算属性，用于设置单元格的数据，当 model 发生变化时，会更新 UI。
+isSkeletonVisible: 控制骨架屏显示与隐藏的布尔值。
+代码逻辑
+
+初始化: 在 init 方法中，创建并布局子视图，设置初始样式。
+数据绑定: 通过 model 属性将评论数据绑定到 UI 元素上。
+骨架屏: 使用 isSkeletonVisible 属性控制骨架屏的显示与隐藏，在数据加载过程中显示骨架屏，加载完成后隐藏骨架屏。
+高度计算: cellHeight 方法根据评论内容的长度计算单元格的高度，以适应不同长度的评论。
+关键点
+
+自定义UITableViewCell: 通过继承 UITableViewCell，可以自定义单元格的样式和布局。
+数据绑定: 使用 model 属性将数据绑定到 UI 元素上，简化代码。
+骨架屏: 使用骨架屏提升用户体验，在数据加载过程中显示占位图。
+自适应高度: 根据评论内容动态计算单元格高度，使列表布局更加灵活。
+代码中的几个细节
+
+SkeletonAnimation: 代码中使用了 layoutSkeletonLayer, startSkeletonAnimation, stopSkeletonAnimation 等方法来控制骨架屏动画。这些方法的具体实现可能在其他地方定义。
+Kingfisher: 代码中使用了 Kingfisher 库来加载头像图片。
+SnapKit: 使用 SnapKit 来布局 UI 元素，简化约束的编写。
+总结
+
+这段代码实现了一个功能完善的评论列表单元格，可以用于展示各种类型的评论信息。它具有良好的可扩展性和可维护性。
+ */

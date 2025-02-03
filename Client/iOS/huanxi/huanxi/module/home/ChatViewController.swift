@@ -193,3 +193,65 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+
+/*代码功能
+
+这段代码实现了一个 iOS 聊天页面的控制器，主要功能包括：
+
+展示聊天记录： 通过 UITableView 展示与某个用户的聊天记录。
+发送消息： 用户可以在输入框中输入消息并发送。
+接收消息： 使用 NIMSDK 接收服务器推送的消息，并实时更新界面。
+用户交互： 处理用户点击聊天记录、发送消息等交互行为。
+代码结构
+
+ChatViewController 类：
+
+属性：
+chatUserInfoView：显示聊天用户信息的视图。
+chatEditView：用于输入消息的视图。
+messages：存储聊天记录的数组。
+方法：
+viewDidLoad：初始化视图，设置导航栏、表格视图，注册通知，登录云信 IM，加载聊天记录。
+setupView：设置视图的布局。
+setupNavView：设置导航栏的样式。
+bindUI：绑定视图模型的数据到表格视图上，处理用户交互。
+refreshData：刷新数据。
+setEmptyOrNetErrorView：显示空视图或错误视图。
+tableView(_:heightForRowAt:)：根据不同类型的 cell 计算行高。
+其他方法：处理各种用户交互事件，比如点击点赞、收藏等。
+NIMChatManagerDelegate 协议：
+
+实现 NIMChatManagerDelegate 协议的方法，用于监听消息发送状态、接收新消息等。
+代码流程
+
+初始化： 在 viewDidLoad 中初始化视图，设置导航栏，加载聊天记录，并注册云信 IM 的回调。
+发送消息： 用户点击发送按钮后，调用 sendMessage 方法，将消息发送到服务器。
+接收消息： 云信 IM 服务器推送新消息时，会调用 NIMChatManagerDelegate 中的方法，更新本地消息列表并刷新界面。
+展示聊天记录： 使用 UITableView 展示聊天记录，根据消息类型显示不同的 cell。
+代码亮点
+
+使用了 NIMSDK： 集成了云信 IM SDK，实现了即时通讯功能。
+采用了 MVVM 模式： 将视图和数据逻辑分离，提高代码可维护性。
+使用了 Combine： 用于订阅数据变化，实现数据绑定。
+自定义 cell： 使用 ChatTextCell 等自定义 cell 来展示不同类型的消息。
+处理键盘事件： 监听键盘显示和隐藏事件，动态调整界面布局。
+改进建议
+
+消息类型： 可以支持更多类型的消息，比如图片、语音、表情等。
+消息撤回： 实现消息撤回功能。
+消息已读回执： 实现消息已读回执功能。
+离线消息： 处理离线消息，确保用户能及时收到消息。
+性能优化： 对于大量聊天记录，可以考虑分页加载，提高性能。
+UI优化： 可以对界面进行优化，提高用户体验。
+错误处理： 可以添加更多的错误处理，比如网络请求失败、登录失败等。
+进一步分析
+
+viewModel 的作用： 从代码中可以看出，viewModel 应该负责管理聊天数据，包括发送消息、接收消息、存储本地聊天记录等。
+NIMSDK 的使用： NIMSDK 提供了丰富的 API，可以实现各种 IM 功能，如单聊、群聊、消息漫游等。
+Combine 的应用： Combine 用于订阅 viewModel 的数据变化，实现数据绑定，让 UI 能够实时更新。
+自定义 cell 的设计： ChatTextCell 应该根据消息类型（文本、图片等）来展示不同的 UI。
+
+总结
+
+这段代码实现了一个功能相对完整的聊天页面，展示了如何使用 NIMSDK、Combine 等技术构建 iOS 聊天应用。但仍有许多方面可以优化和改进，以提供更好的用户体验。*/

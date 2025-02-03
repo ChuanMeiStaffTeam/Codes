@@ -130,3 +130,31 @@ class CustomCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+/*这段代码主要实现了一个展示用户列表的视图。
+
+具体来说，它做了以下几件事：
+
+定义了一个自定义视图: MainUserView 继承自 UIView，是一个自定义的视图类。
+创建了一个集合视图: collectionView 是一个水平滚动的 UICollectionView，用来展示用户列表。
+自定义集合视图单元格: CustomCollectionViewCell 是一个自定义的集合视图单元格，用于展示单个用户的信息，包括头像和用户名。
+设置数据源和代理: MainUserView 实现了 UICollectionViewDataSource 和 UICollectionViewDelegate 协议，负责提供数据源和处理用户交互。
+布局视图: 使用 SnapKit 来设置 collectionView 的约束，使其占据视图的大部分区域。
+配置单元格: 在 cellForItemAt 方法中，为每个单元格设置对应的头像和用户名。
+处理用户点击: 在 didSelectItemAt 方法中，当用户点击某个单元格时，会触发一个事件（目前是显示一个提示信息），并包含了一些注释掉的代码，可能用于后续的上传图片功能。
+代码的重点和细节：
+
+SnapKit: 使用 SnapKit 来布局视图，使得布局更加灵活和可维护。
+自定义单元格: 通过自定义 CustomCollectionViewCell 来控制每个单元格的样式和内容。
+数据源和代理: MainUserView 同时充当了 UICollectionView 的数据源和代理，负责提供数据和处理用户交互。
+图片加载: 代码中使用了 UIImage.init(named:) 来加载本地图片，但在实际应用中，可能会从网络加载图片。
+上传图片: 注释掉的代码部分显示了上传图片的意图，但具体的实现细节未给出。
+代码的局限性：
+
+数据来源: 当前的用户名数据是硬编码在 names 数组中的，在实际应用中，通常会从网络接口获取用户信息。
+图片加载: 对于大量的图片，使用 UIImage.init(named:) 加载本地图片可能会影响性能，可以考虑使用异步加载图片的框架。
+用户交互: 目前点击用户单元格后，只显示了一个提示信息，没有实现更具体的交互逻辑。
+总结
+
+ 这段代码实现了一个简单的用户列表视图，展示了如何使用 UICollectionView 来展示一系列数据，以及如何自定义单元格的样式。它可以作为学习 iOS 开发的一个基础示例。*/

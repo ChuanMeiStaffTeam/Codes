@@ -253,3 +253,67 @@ extension PublishViewController: PhotoAlbumViewDelegate {
     
 }
 
+/*代码功能概览
+ 
+ 这段 Swift 代码主要实现了一个 iOS 应用中的图片发布功能。用户可以通过这个功能选择手机中的图片，并进行一些基本的编辑操作（如选择相册、多选图片等），最终发布这些图片。
+
+ 代码主要模块及功能
+
+ PublishViewController 类:
+
+ 主要作用: 负责整个发布页面的视图控制和逻辑处理。
+ 关键属性:
+ allImages: 存储设备中所有图片的数组。
+ allAssets: 存储图片对应的 PHAsset 对象的数组。
+ indexs: 记录用户选择的图片索引。
+ photoAlbumManager: 用于管理相册的工具类。
+ photoAlbumView: 展示相册图片的视图。
+ editImageView: 显示当前选中的图片。
+ editView: 包含选择相册、多选、拍照等操作按钮的视图。
+ 主要方法:
+ viewDidLoad: 初始化视图，请求图片数据。
+ viewDidAppear: 视图出现时的一些处理。
+ requestImageData: 请求设备中所有图片数据。
+ setupView: 配置界面布局。
+ setupNavView: 配置导航栏。
+ setupEditView: 配置编辑视图。
+ 事件处理:
+ closeAction: 关闭页面。
+ continueAction: 继续下一步操作（如编辑图片）。
+ changeAlbumAction: 切换相册。
+ multiSelectAction: 切换多选模式。
+ cameraAction: 打开相机。
+ PhotoAlbumView 类:
+
+ 主要作用: 展示相册图片，并处理图片选择事件。
+ 关键属性:
+ images: 显示的图片数组。
+ 主要方法:
+ toggleMultiSelect: 切换多选模式。
+ 代码逻辑流程
+
+ 进入 PublishViewController，初始化视图和数据。
+ 请求设备中所有图片数据，并展示在 photoAlbumView 中。
+ 用户选择图片，触发 didSelectImages 回调。
+ 根据用户选择，更新 editImageView 显示的图片。
+ 用户点击“继续”按钮，进入下一步操作（如编辑图片）。
+ 代码亮点
+
+ 模块化设计: 将视图控制、数据管理、相册展示等功能分模块实现，提高代码可维护性。
+ 异步加载图片: 异步加载图片，避免主线程卡顿。
+ 多选功能: 支持多选图片。
+ 相册管理: 使用 PhotoAlbumManager 类方便管理相册。
+ 潜在改进点
+
+ 图片编辑功能: 目前仅支持选择图片，可以增加图片编辑功能（如裁剪、滤镜等）。
+ 性能优化: 如果图片数量较多，可以考虑优化图片加载和显示性能。
+ 用户体验: 可以增加一些动画效果，提升用户体验。
+ 错误处理: 可以增加一些错误处理，比如网络请求失败、图片加载失败等。
+ 代码细节问题
+
+ PhotoAlbumManager 类: 代码中没有提供该类的具体实现，无法详细分析。
+ HUDHelper 类: 代码中使用了 HUDHelper 类显示加载提示，但没有提供该类的实现。
+ mainBlueColor: 代码中使用了 mainBlueColor，但没有定义其具体值。
+ 总结
+
+ 这段代码实现了一个功能相对完善的图片发布功能，但仍有一些可以改进的地方。如果您想深入了解代码的细节，建议您查看 PhotoAlbumManager、HUDHelper 等类的具体实现，并结合您的项目需求进行修改和优化。*/

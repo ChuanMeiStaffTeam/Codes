@@ -22,3 +22,50 @@
 "Search_No_Result" = "The search results are empty";
 "Search_No_Wifi" = "No Network";
 "Click to refresh" = "Click to refresh";
+
+
+
+/*文件作用
+
+Localizable.strings 文件是 iOS 开发中用于存储应用程序中需要本地化的字符串资源的文件。通过这个文件，我们可以实现应用程序的多语言支持，让用户可以选择自己喜欢的语言。
+
+代码解读
+
+隐私弹窗相关
+
+title_reminder: 隐私弹窗的标题，显示为“温馨提示”。
+privacy_tips: 隐私政策的详细说明，包含了收集用户信息的目的、范围、安全措施等。
+agree_and_continue: 同意隐私协议并继续使用的按钮文字。
+disagree_and_quit: 拒绝隐私协议并退出应用程序的按钮文字。
+protocol_user_title 和 protocol_privacy_title: 分别是用户协议和隐私协议的标题，用于在弹窗中展示协议的名称。
+空占位图相关
+
+No_list: 当列表为空时显示的提示信息，通常用于搜索结果为空或列表数据加载失败的情况。
+No data: 表示没有数据时的通用提示信息。
+Search_No_Result: 搜索结果为空时的提示信息。
+Search_No_Wifi: 网络连接失败时的提示信息。
+Click to refresh: 点击刷新按钮的提示信息。
+为什么要使用 Localizable.strings 文件？
+
+实现多语言支持: 通过创建不同语言版本的 Localizable.strings 文件，可以轻松实现应用程序的多语言化。
+提高代码可维护性: 将字符串常量集中到一个文件中，方便管理和修改。
+提升用户体验: 提供多语言支持，可以让更多的用户使用应用程序。
+如何使用 Localizable.strings 文件？
+
+创建多语言版本:
+在项目中创建不同语言的 .strings 文件，比如 Localizable.strings (默认语言)、Localizable.strings.zh-Hans (简体中文)、Localizable.strings.en (英文) 等。
+在代码中使用:
+使用 NSLocalizedString 函数获取本地化的字符串。例如：
+Swift
+
+let title = NSLocalizedString("title_reminder", comment: "")
+系统会根据设备的语言设置自动选择对应的字符串文件。
+注意事项
+
+键名唯一: 每个键名在同一个 .strings 文件中必须是唯一的。
+注释: 可以使用注释来解释字符串的含义，方便维护。
+占位符: 如果需要在字符串中插入变量，可以使用占位符，如 %d 表示整数，%@ 表示对象。
+总结
+
+Localizable.strings 文件是 iOS 开发中非常重要的一个文件，它用于存储应用程序的本地化字符串。通过合理地使用这个文件，可以大大提高应用程序的用户体验。
+*/

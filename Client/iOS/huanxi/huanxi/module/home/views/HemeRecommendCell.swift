@@ -181,3 +181,43 @@ extension HemeRecommendCell {
         }
     }
 }
+
+
+/*代码功能:
+
+定义了一个展示用户推荐列表的表格视图单元格 HemeRecommendCell，继承自 BaseTableViewCell。
+它包含标题栏 (titleLabel) 和一个水平滚动的 collectionView，用于展示推荐用户信息。
+支持骨架屏动画 (isSkeletonVisible)，在数据加载过程中显示占位效果。
+当用户点击推荐用户头像时，会判断用户是否登录，并根据登录状态执行不同的操作。
+使用 RxSwift 框架处理数据绑定和用户点击事件。
+代码结构:
+
+属性:
+
+didSelectItemBlock: 一个闭包，用于处理用户点击推荐用户头像的事件。
+hiddenBlock: 一个闭包，用于在推荐列表为空时隐藏该单元格。
+users: 一个 BehaviorRelay，用于存储单元格类型（CellType），包括 skeleton（加载骨架屏）、userItem（用户数据）、empty（空数据）、error（错误状态）。
+collectionView: 一个 UICollectionView，用于水平展示推荐用户列表。
+方法:
+
+init(style:reuseIdentifier:): 初始化方法，设置子视图的布局。
+required init?(coder:): 编码器初始化方法，目前不支持。
+setupUI(): 设置子视图的样式和布局。
+bindUI(): 绑定数据到 collectionView，处理用户点击事件。
+model: 属性的观察者，当 model 值变化时，更新推荐用户列表。
+fetchFollow(params:indexPath:completion:): 网络请求方法，用于关注/取消关注推荐用户。
+HemeRecommendCell 拓展: 实现网络请求关注/取消关注推荐用户的功能。
+
+代码逻辑:
+
+初始化: 在 init(style:reuseIdentifier:) 方法中，设置单元格的样式、添加子视图 (titleLabel 和 collectionView)，并通过 SnapKit 进行布局。
+数据绑定: 在 bindUI() 方法中，使用 BehaviorRelay 和 rx.items 绑定数据到 collectionView。
+根据不同的 CellType 创建相应的单元格。
+处理用户点击事件，判断用户是否登录。
+如果未登录，则弹出登录提示框。
+如果已登录，则调用 fetchFollow 方法关注/取消关注推荐用户。
+关注/取消关注: fetchFollow 方法用于发送网络请求，关注/取消关注推荐用户。
+根据请求结果更新 users 数据，并可能触发 hiddenBlock 闭包隐藏单元格。
+总体而言
+
+ 这段代码实现了一个可用于展示用户推荐列表的表格视图单元格。它使用了 RxSwift 框架提高了代码的可读性和可维护性，并考虑了用户登录状态和网络请求等因素。*/

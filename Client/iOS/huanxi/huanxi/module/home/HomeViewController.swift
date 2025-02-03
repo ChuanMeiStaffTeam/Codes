@@ -285,3 +285,53 @@ extension HomeViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
+
+
+/*代码功能概览
+ 
+ 这段代码主要实现了一个 iOS 应用程序的首页视图控制器。它负责：
+
+ 展示内容： 通过 UITableView 显示各种类型的内容，包括帖子、用户、推荐等。
+ 数据获取： 使用 viewModel 从网络或本地数据源获取数据，并更新 UI。
+ 用户交互： 处理用户的各种交互，比如点击帖子、用户、点赞、收藏等。
+ 界面刷新： 支持下拉刷新功能。
+ 代码结构分析
+
+ HomeViewController 类：
+
+ 属性：
+ viewModel：负责数据管理和业务逻辑的视图模型。
+ tableView：用于展示内容的主表格视图。
+ emptyView：在没有数据时显示的空视图。
+ cancellable：用于管理 Combine 订阅。
+ 方法：
+ viewDidLoad：初始化视图，设置导航栏、表格视图，绑定数据，订阅通知。
+ setupView：设置视图的布局。
+ setupNavView：设置导航栏的样式。
+ bindUI：将视图模型的数据绑定到表格视图上，处理用户交互。
+ refrehData：刷新数据。
+ setEmptyOrNetErrorView：显示空视图或错误视图。
+ tableView(_:heightForRowAt:)：根据不同类型的 cell 计算行高。
+ 其他方法：处理各种用户交互事件，比如点击点赞、收藏等。
+ 数据绑定：
+
+ 使用 Combine 订阅 viewModel.dataList，实时更新表格视图。
+ 根据不同的数据类型（postItem, userItem, recommend 等），创建不同的 cell 类型，并设置对应的属性。
+ 用户交互：
+
+ 通过 tableView.rx.itemSelected 监听用户点击事件。
+ 根据点击的 cell 类型，执行不同的操作，比如跳转到用户详情页、点赞、收藏等。
+ 关键点和技术点：
+
+ MVVM 模式： 将视图和数据逻辑分离，提高代码的可维护性。
+ Combine： 用于声明式地处理异步操作和数据流。
+ RxSwift： 用于响应式编程，将数据绑定到 UI。
+ MJRefresh： 用于实现下拉刷新功能。
+ 自定义 cell： HomeUserCell, MainContentCell, HemeRecommendCell 等自定义 cell 用于展示不同类型的数据。
+ 可能的改进点：
+
+ 代码优化： 可以进一步优化代码结构，提高可读性。例如，可以将一些重复的代码封装成方法。
+ 错误处理： 可以添加更多的错误处理，比如网络请求失败时的处理。
+ 性能优化： 如果数据量较大，可以考虑使用分页加载，提高性能。
+ UI/UX： 可以根据设计稿对界面进行优化，提高用户体验。
+ 测试： 可以编写单元测试，保证代码的正确性。*/

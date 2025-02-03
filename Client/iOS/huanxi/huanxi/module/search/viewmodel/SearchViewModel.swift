@@ -107,3 +107,55 @@ extension SearchViewModel {
         }
     }
 }
+
+
+/*这段代码定义了一个名为 SearchViewModel 的类，用于管理搜索功能相关的数据和逻辑。
+
+主要特点
+
+数据管理:
+使用 BehaviorRelay 来管理搜索结果的状态：
+postTagList: 存储搜索结果中推荐的标签列表。
+searchUesrs: 存储搜索结果中匹配的用户列表。
+postsList: 存储搜索结果中匹配的帖子列表。
+tagPostsList: 存储根据标签搜索到的帖子列表。
+数据获取:
+提供了三个方法来从网络获取数据：
+requestDefaultSearchPosts()：获取默认的搜索帖子列表并更新 postsList。
+requestSearchUser(keyword:): 根据关键字获取匹配的用户列表并更新 searchUesrs。
+requestTagPosts(tags:): 根据标签获取匹配的帖子列表并更新 tagPostsList。
+骨架屏:
+使用 skeletonData 数组来显示占位符单元格，在网络请求期间给用户提供视觉反馈。
+错误处理:
+当网络请求失败时，更新相应的数据源为 error 单元格类型，并显示错误提示。
+代码结构
+
+SearchViewModel 类:
+
+属性:
+postTagList: 存储推荐标签列表的 BehaviorRelay。
+searchUesrs: 存储搜索用户列表的 BehaviorRelay。
+postsList: 存储搜索帖子列表的 BehaviorRelay。
+tagPostsList: 存储标签帖子列表的 BehaviorRelay。
+方法:
+requestDefaultSearchPosts()：获取默认搜索帖子。
+requestSearchUser(keyword:): 根据关键字搜索用户。
+requestTagPosts(tags:): 根据标签搜索帖子。
+CellType 枚举:
+
+定义了不同类型的单元格：
+.skeleton：骨架屏单元格。
+.postItem：帖子单元格。
+.userItem：用户单元格。
+.empty：空状态单元格。
+.error：错误单元格。
+关键概念
+
+RxSwift: 使用 RxSwift 进行响应式编程，方便地观察和处理数据变化。
+数据绑定: BehaviorRelay 实现了数据绑定，使得 UI 能够根据视图模型中的数据变化自动更新。
+网络请求: 使用 NetworkManager（可能是一个自定义类）来处理网络请求。
+错误处理: 通过显示错误单元格和提示消息来处理网络请求错误。
+总结
+
+SearchViewModel 类是整个搜索功能的核心，负责管理搜索相关的数据和逻辑。它通过与 UI 层进行数据绑定，实现了数据的实时更新和展示。
+ */

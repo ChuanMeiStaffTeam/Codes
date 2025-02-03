@@ -288,3 +288,42 @@ extension PostCommentPopView: DrawerViewDelegate {
         }
     }
 }
+
+
+/*代码功能
+
+这段代码定义了一个名为 PostCommentPopView 的类，用于创建一个显示帖子评论的弹出视图。这个视图主要用于展示一个帖子的评论列表，并允许用户添加新的评论。
+
+主要功能：
+
+展示评论列表: 通过 tableView 显示评论列表，支持骨架屏、评论单元格、空状态和错误状态等不同的单元格类型。
+添加评论: 用户可以在 textView 中输入评论内容，点击发送按钮后，会将评论提交到服务器，并更新列表。
+删除评论: 用户长按评论单元格，可以弹出菜单，选择删除评论，并发送删除请求到服务器。
+与 CommentViewModel 交互: 通过 viewModel 对象与后台数据进行交互，获取评论列表、添加评论和删除评论。
+代码结构
+
+CellType 枚举: 定义了列表中可能出现的单元格类型。
+HomeViewModel 类:
+dataList: 用 BehaviorRelay 存储评论数据，实时更新 UI。
+fetchComments, fetcAddComment, fetcDeleteComment: 分别用于获取评论列表、添加评论和删除评论。
+PostCommentPopView 类:
+drawerView: 一个可滑动的抽屉视图，用于展示评论列表。
+tableView: 显示评论列表的 UITableView。
+textView: 用于输入评论的文本框。
+viewModel: 管理评论数据的 ViewModel。
+代码逻辑
+
+初始化: 创建 PostCommentPopView 实例时，传入帖子 ID，并初始化 UI 和数据。
+获取评论: 调用 viewModel.fetchComments 方法获取指定帖子的评论列表，并更新 UI。
+添加评论: 用户输入评论内容后，点击发送按钮，调用 viewModel.fetcAddComment 方法将评论提交到服务器，并更新 UI。
+删除评论: 用户长按评论单元格，调用 viewModel.fetcDeleteComment 方法删除评论，并更新 UI。
+UI 更新: 使用 BehaviorRelay 和 RxSwift 实现数据绑定，当 viewModel.commentList 发生变化时，自动更新 UI。
+关键点
+
+响应式编程: 使用 RxSwift 的 BehaviorRelay 来管理数据，实现实时更新。
+数据驱动 UI: UI 的展示和更新完全由数据驱动。
+模块化: 将视图和数据逻辑分离，提高代码的可维护性。
+异步操作: 使用 async/await 处理网络请求，提高代码的可读性。
+总结
+
+ 这段代码实现了一个功能完整的评论弹出视图，可以展示帖子评论、添加评论和删除评论。它采用了现代的 iOS 开发技术，如 RxSwift、SwiftUI 等，使得代码结构清晰，易于维护。*/

@@ -163,3 +163,56 @@ class EditPhotosCell: UICollectionViewCell {
     }
     
 }
+
+
+/*这段代码定义了一个名为 EditPhotosView 的自定义 UIView 组件，用于展示一组图片，并允许用户进行选择。
+
+主要特点
+
+单图/多图展示:
+
+如果 images 数组中只有一张图片，则会将该图片居中显示在一个 UIImageView 中，并添加边框。
+如果有多张图片，则会使用 UICollectionView 水平滚动显示这些图片。
+图片展示:
+
+使用 UICollectionView 来展示多张图片，可以自定义间距和滚动方向。
+每个图片都显示在 EditPhotosCell 中，并具有圆角和裁剪功能。
+突出显示当前选中的图片，为其添加边框。
+用户交互:
+
+提供了一个 didSelectedItemBlock 闭包，用于在用户选择图片时通知父视图控制器。
+处理在 UICollectionView 中选择图片的事件，并平滑地滚动 collectionView 使选中的图片居中。
+布局自定义:
+
+可以自定义 UICollectionView 的布局，例如单元格大小、间距和滚动方向。
+代码结构
+
+EditPhotosView 类
+
+属性:
+images: 存储要显示的图片数组。
+currentIndex: 当前选中的图片索引。
+didSelectedItemBlock: 用于通知父视图控制器图片被选中的闭包。
+collectionView: 用于显示多张图片的 UICollectionView。
+imgView: 用于显示单张图片的 UIImageView。
+方法:
+init(): 初始化视图，设置子视图。
+images 属性的 didSet 观察器：根据图片数量决定是显示单张图片还是多张图片。
+collectionView(_:numberOfItemsInSection:): 返回 images 数组中图片的数量。
+collectionView(_:cellForItemAt:): 创建并配置 EditPhotosCell，为当前选中的图片添加边框。
+collectionView(_:didSelectItemAt:): 处理图片选择事件，更新 currentIndex，调用 didSelectedItemBlock 闭包，并平滑滚动 collectionView。
+collectionView(_:layout:insetForSectionAt:): 设置 collectionView 的边距。
+EditPhotosCell 类
+
+属性:
+imgView: 用于显示图片的 UIImageView。
+方法:
+showBorder(hidden:): 根据选中状态控制单元格边框的显示和颜色。
+关键改进
+
+平滑滚动: 代码实现了平滑滚动 collectionView 使选中的图片居中，提升了用户体验。
+边框指示: EditPhotosCell 类提供了 showBorder 函数，用于视觉上指示当前选中的图片。
+布局自定义: 可以灵活调整 UICollectionView 的布局，例如单元格大小、间距和滚动方向。
+总结
+
+ 这段代码实现了一个功能完善、易于使用的图片展示和选择组件。它可以很好地适应不同的展示需求，并提供了良好的用户交互体验。*/

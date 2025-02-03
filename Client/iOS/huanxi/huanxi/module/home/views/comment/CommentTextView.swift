@@ -187,3 +187,54 @@ class CommentTextView:UIView, UITextViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+/*代码功能:
+
+这段代码定义了一个名为 CommentTextView 的自定义视图，用于在应用程序中创建评论输入框。
+
+主要特点:
+
+外观:
+
+包含一个可编辑的文本视图 (textView)，用于输入评论内容。
+显示用户的头像 (avatar)。
+显示占位符文本 (placeHolderLabel)，提示用户输入评论。
+显示一个 "@" 符号的图像 (atImageView)，表示这是一个评论输入框。
+支持动态调整高度，以适应不同长度的评论文本。
+具有圆角边框。
+交互:
+
+用户可以在文本视图中输入评论内容。
+当用户按下回车键时，会触发发送评论的事件，并将输入的文本传递给 delegate。
+点击屏幕其他区域会隐藏键盘。
+键盘处理:
+
+监听键盘的显示和隐藏事件，动态调整视图的位置和大小。
+自定义:
+
+可以通过 show(_:) 方法传入用户信息，设置占位符文本。
+可以通过 dismiss() 方法将评论输入框从屏幕上移除。
+代码实现细节:
+
+使用 UITextView 作为主要输入控件。
+使用 NSNotificationCenter 监听键盘事件。
+使用 snp.makeConstraints 进行自动布局。
+使用 UIBezierPath 和 CAShapeLayer 创建圆角边框。
+使用 delegate 模式将评论发送事件通知给其他对象。
+代码中的关键类和方法:
+
+CommentTextView: 自定义视图类。
+CommentTextViewDelegate: 协议，定义了 onSendText(text:String) 方法，用于接收发送的评论文本。
+initSubView(): 初始化子视图的方法。
+updateTextViewFrame(): 更新文本视图和容器视图的帧的方法。
+keyboardWillShow(notification:): 键盘显示事件的处理方法。
+keyboardWillHide(notification:): 键盘隐藏事件的处理方法。
+textViewDidChange(_:): 文本视图内容发生变化时的处理方法。
+textView(_:shouldChangeTextIn:replacementText:): 处理用户输入的方法。
+handleGuestrue(sender:): 处理点击事件的方法。
+show(_:): 显示评论输入框的方法。
+dismiss(): 隐藏评论输入框的方法。
+总结:
+
+ 这段代码实现了一个功能完善、易于使用的评论输入框组件，可以方便地集成到其他应用程序中。它具有良好的交互性、可扩展性和可维护性。*/

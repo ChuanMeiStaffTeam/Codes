@@ -285,3 +285,39 @@ class HomeViewModel {
 
 }
 
+/*代码功能
+ 
+ 这段代码定义了一个名为 HomeViewModel 的类，用于管理应用程序首页的数据和业务逻辑。它主要负责：
+
+ 数据管理: 使用 BehaviorRelay 管理首页的数据，并通过 CellType 枚举来区分不同类型的单元格。
+ 网络请求: 通过 requestHomePosts 等函数向服务器发送请求，获取首页数据。
+ UI 更新: 当数据发生变化时，更新 dataList 属性，从而触发 UI 的更新。
+ 用户交互: 处理用户的点赞、收藏等操作。
+ 代码结构
+
+ CellType 枚举: 定义了首页列表中不同类型的单元格，包括骨架屏、用户列表、帖子、推荐、空状态和错误状态等。
+ HomeViewModel 类:
+ isNoRecommend: 一个布尔值，用于控制是否显示推荐内容。
+ dataList: 一个 BehaviorRelay 对象，用于存储首页列表的数据。
+ configData: 初始化一些模拟数据，用于开发测试。
+ requestHomePosts: 发送网络请求获取首页数据，并更新 dataList。
+ requestLikePost, requestCancelLikePost 等函数：处理点赞、收藏等用户交互。
+ 其他函数：用于处理删除帖子、隐藏推荐等操作。
+ 代码逻辑
+
+ 数据初始化: 在 configData 函数中，初始化了一些模拟数据，用于开发测试。
+ 网络请求: requestHomePosts 函数向服务器发送请求，获取首页数据。根据返回的数据，更新 dataList。
+ UI 更新: dataList 的变化会触发 UI 的更新，因为 dataList 是一个 BehaviorRelay 对象，它会自动通知订阅者。
+ 用户交互: 当用户进行点赞、收藏等操作时，会触发相应的函数，发送网络请求，更新本地数据，并刷新 UI。
+ 关键点
+
+ BehaviorRelay: 使用 BehaviorRelay 来管理数据，使得数据变化能够实时反映到 UI 上。
+ CellType 枚举: 使用 CellType 枚举来区分不同类型的单元格，方便管理和渲染。
+ 网络请求: 使用 NetworkManager 发送网络请求，获取数据。
+ 数据处理: 将网络请求返回的数据转换为 CellType 数组，以便填充到 dataList 中。
+ 异步操作: 使用 async/await 处理异步操作，例如网络请求。
+ 总结
+
+ 这段代码实现了一个首页视图模型，主要负责管理首页的数据和业务逻辑。它使用了 RxSwift 的 BehaviorRelay 来实现响应式编程，使 UI 能够实时更新。同时，它还处理了网络请求、用户交互等功能。
+
+*/

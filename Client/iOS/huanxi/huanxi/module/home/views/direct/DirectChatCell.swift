@@ -76,3 +76,34 @@ class DirectChatCell: UITableViewCell {
     
     
 }
+
+/*代码功能
+
+这段代码定义了一个名为 DirectChatCell 的类，它是 iOS 应用程序中用来展示聊天消息的自定义 UITableViewCell 子类。它主要用于聊天界面中，展示一条聊天消息的内容。
+
+代码结构
+
+属性:
+iconImgView: 一个 UIImageView，用来显示发送消息用户的头像。
+nameLabel: 一个 UILabel，用来显示发送消息用户的名称。
+contentLabel: 一个 UILabel，用来显示聊天消息的内容。
+cameraImgView: 一个 UIImageView，用来显示一个相机图标，可能表示消息中包含图片或视频附件。
+方法:
+init(style:reuseIdentifier:): 初始化方法，设置单元格的样式，并调用 setupView 方法进行布局。
+reloadData(_:): 这个方法接收一个 ChatModel 对象作为参数，用于更新单元格的内容。根据 ChatModel 中的数据，设置头像、用户名和消息内容。
+setupView(): 这个方法负责设置单元格子视图的布局，使用 SnapKit 来定义约束，确定各个子视图的位置和大小。
+代码逻辑
+
+创建单元格: 当需要展示一条聊天消息时，会创建一个 DirectChatCell 实例。
+设置数据: 调用 reloadData(_:) 方法，将聊天消息的数据传递给单元格，更新单元格的显示内容。
+显示单元格: 将创建好的单元格添加到 UITableView 中，展示在界面上。
+代码作用
+
+自定义聊天界面: 通过自定义 UITableViewCell，可以灵活地控制聊天消息的显示样式。
+展示聊天内容: 清晰地展示聊天消息的发送者、内容和附件信息。
+提高用户体验: 提供一个美观、易于阅读的聊天界面。
+总结
+
+这段代码实现了一个简单的聊天消息单元格，为构建聊天应用提供了一个基础组件。通过自定义 ChatModel 和调整样式，可以实现更加丰富多彩的聊天界面。*/
+
+
