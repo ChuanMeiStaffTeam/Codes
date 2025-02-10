@@ -241,7 +241,7 @@ class NetworkManager {
             print("Parameters: \(params)")
         }
         if let headers = headers {
-            print("Headers:[ \(headers)]")
+            print("Headers:{\(headers)}")
         }
     }
     
