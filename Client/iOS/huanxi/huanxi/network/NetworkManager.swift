@@ -49,19 +49,17 @@ class NetworkManager {
             return
         }
             
-        logRequest(url.absoluteString, parameters: parameters, headers: headers) // 打印请求日志
-
         // 设置请求头
         var allHeaders = HTTPHeaders()
         headers?.dictionary.forEach({ (key: String, value: String) in
             let header = HTTPHeader.init(name: key, value: value)
             allHeaders.add(header)
         })
-        if let token = LoginManager.shared.getToken() {
-        allHeaders.add(name: "token", value: token)
-        }
-        let uuid = KeychainManager.shared.uuid
-        allHeaders.add(name: "deviceId", value: uuid)
+        configHeaders().forEach({ (key: String, value: String) in
+            let header = HTTPHeader.init(name: key, value: value)
+            allHeaders.add(header)
+        })
+        logRequest(url.absoluteString, parameters: parameters, headers: allHeaders) // 打印请求日志
 
         // 使用 .get 请求时，不再传递参数，避免重复
         let encoding: ParameterEncoding = method == .get ? URLEncoding.default : JSONEncoding.default
@@ -143,9 +141,10 @@ class NetworkManager {
         }
         
         var allHeaders = HTTPHeaders()
-        if let token = LoginManager.shared.getToken() {
-            allHeaders.add(name: "token", value: token)
-        }
+        configHeaders().forEach({ (key: String, value: String) in
+            let header = HTTPHeader.init(name: key, value: value)
+            allHeaders.add(header)
+        })
         
         AF.upload(multipartFormData: { multipartFormData in
             for (key, value) in parameters {
@@ -171,43 +170,57 @@ class NetworkManager {
     }
     
     func uploadMultipleImages<T: Codable>(path: String, parameters: [String: Any], images: [UIImage], imageName: String = "images", responseType: T.Type, completion: @escaping (Bool, String, T?) -> Void) {
-    //        let url = "https://yourapi.com/\(urlStr)"
-    
+        //        let url = "https://yourapi.com/\(urlStr)"
         
-            guard let url = URL(string: buildURL(path)) else {
-                completion(false, "URL无效", nil)
-                return
+        
+        guard let url = URL(string: buildURL(path)) else {
+            completion(false, "URL无效", nil)
+            return
+        }
+        
+        var allHeaders = HTTPHeaders()
+        configHeaders().forEach({ (key: String, value: String) in
+            let header = HTTPHeader.init(name: key, value: value)
+            allHeaders.add(header)
+        })
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            for (key, value) in parameters {
+                if let data = "\(value)".data(using: .utf8) {
+                    multipartFormData.append(data, withName: key)
+                }
             }
-        
-            var allHeaders = HTTPHeaders()
-            if let token = LoginManager.shared.getToken() {
-                allHeaders.add(name: "token", value: token)
+            for (index, image) in images.enumerated() {
+                if let imageData = image.jpegData(compressionQuality: 0.8) {
+                    multipartFormData.append(imageData, withName: imageName, fileName: "\(imageName)_\(index).jpg", mimeType: "image/jpeg")
+                }
             }
-        
-            AF.upload(multipartFormData: { multipartFormData in
-                for (key, value) in parameters {
-                    if let data = "\(value)".data(using: .utf8) {
-                        multipartFormData.append(data, withName: key)
-                    }
+        }, to: url, headers: allHeaders).responseDecodable(of: ResponseModel<T>.self) { response in
+            switch response.result {
+            case .success(let responseModel):
+                if responseModel.code == 200 {
+                    completion(true, responseModel.message, responseModel.data)
+                } else {
+                    completion(false, responseModel.message, responseModel.data)
                 }
-                for (index, image) in images.enumerated() {
-                    if let imageData = image.jpegData(compressionQuality: 0.8) {
-                        multipartFormData.append(imageData, withName: imageName, fileName: "\(imageName)_\(index).jpg", mimeType: "image/jpeg")
-                    }
-                }
-            }, to: url, headers: allHeaders).responseDecodable(of: ResponseModel<T>.self) { response in
-                switch response.result {
-                case .success(let responseModel):
-                    if responseModel.code == 200 {
-                        completion(true, responseModel.message, responseModel.data)
-                    } else {
-                        completion(false, responseModel.message, responseModel.data)
-                    }
-                case .failure(let error):
-                    completion(false, error.localizedDescription, nil)
-                }
+            case .failure(let error):
+                completion(false, error.localizedDescription, nil)
             }
         }
+        
+    }
+    
+    // MARK: - configHeaders
+    func configHeaders() -> [String: String] {
+        var headers: [String: String] = [:]
+
+        if let token = LoginManager.shared.getToken() {
+            headers["token"] = token
+        }
+        let uuid = KeychainManager.shared.uuid
+        headers["deviceId"] = uuid
+        return headers
+    }
     
     // MARK: - URL 构建
     private func buildURL(_ path: String) -> String {
@@ -228,7 +241,7 @@ class NetworkManager {
             print("Parameters: \(params)")
         }
         if let headers = headers {
-            print("Headers: \(headers)")
+            print("Headers:[ \(headers)]")
         }
     }
     
