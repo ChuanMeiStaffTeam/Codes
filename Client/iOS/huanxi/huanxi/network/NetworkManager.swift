@@ -61,7 +61,7 @@ class NetworkManager {
         allHeaders.add(name: "token", value: token)
         }
         let uuid = KeychainManager.shared.uuid
-        allHeaders.add(name: "deviceId,", value: uuid)
+        allHeaders.add(name: "deviceId", value: uuid)
 
         // 使用 .get 请求时，不再传递参数，避免重复
         let encoding: ParameterEncoding = method == .get ? URLEncoding.default : JSONEncoding.default
