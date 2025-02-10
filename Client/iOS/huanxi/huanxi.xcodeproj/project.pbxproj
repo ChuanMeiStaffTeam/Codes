@@ -88,6 +88,9 @@
 		39FABA0E2B930B5000A10FE6 /* WaterfallFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA0D2B930B5000A10FE6 /* WaterfallFlowLayout.swift */; };
 		39FABA102B931C4600A10FE6 /* PhotoAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA0F2B931C4600A10FE6 /* PhotoAlbumView.swift */; };
 		39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FABA112B931D3D00A10FE6 /* PhotoAlbumManager.swift */; };
+		F30EEF1B2D59E03600404BCF /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30EEF1A2D59E03600404BCF /* KeychainHelper.swift */; };
+		F30EEF1F2D59EEB800404BCF /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30EEF1E2D59EEB800404BCF /* KeychainManager.swift */; };
+		F30EEF232D59F12200404BCF /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30EEF222D59F12200404BCF /* Keys.swift */; };
 		F3223B7A2D016D8C00E74574 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B792D016D8C00E74574 /* MineViewModel.swift */; };
 		F3223B7C2D01848F00E74574 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B7B2D01848F00E74574 /* Tools.swift */; };
 		F3223B802D02BE6B00E74574 /* 欢喜隐私协议.docx in Resources */ = {isa = PBXBuildFile; fileRef = F3223B7F2D02BE6B00E74574 /* 欢喜隐私协议.docx */; };
@@ -282,6 +285,9 @@
 		420045BD32FD448FC5BBC8C4 /* Pods-huanxi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanxi.debug.xcconfig"; path = "Target Support Files/Pods-huanxi/Pods-huanxi.debug.xcconfig"; sourceTree = "<group>"; };
 		CA729ABFB7BAA4ADCD4DD472 /* Pods_huanxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_huanxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA9A2110F87E34A74D9BC07 /* Pods-huanxi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanxi.release.xcconfig"; path = "Target Support Files/Pods-huanxi/Pods-huanxi.release.xcconfig"; sourceTree = "<group>"; };
+		F30EEF1A2D59E03600404BCF /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		F30EEF1E2D59EEB800404BCF /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		F30EEF222D59F12200404BCF /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		F3223B792D016D8C00E74574 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		F3223B7B2D01848F00E74574 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		F3223B7F2D02BE6B00E74574 /* 欢喜隐私协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "欢喜隐私协议.docx"; sourceTree = "<group>"; };
@@ -660,7 +666,9 @@
 				399739522C61C04A00D4DD8C /* WindowHelper.swift */,
 				F39F6DFD2CE1350B00CFF8B5 /* Enum.swift */,
 				F39F6DFF2CE136E800CFF8B5 /* Constants.swift */,
+				F30EEF222D59F12200404BCF /* Keys.swift */,
 				F3223B7B2D01848F00E74574 /* Tools.swift */,
+				F30EEF1A2D59E03600404BCF /* KeychainHelper.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -755,6 +763,7 @@
 			children = (
 				F3223B872D0676F400E74574 /* NIMManager.swift */,
 				39066F662C51E15B003D347E /* LoginManager.swift */,
+				F30EEF1E2D59EEB800404BCF /* KeychainManager.swift */,
 			);
 			path = manager;
 			sourceTree = "<group>";
@@ -1138,6 +1147,7 @@
 				3998DE2F2BB00B4B0000C4DD /* EditImagesView.swift in Sources */,
 				F39F6DF82CE1304D00CFF8B5 /* Codable+Extension.swift in Sources */,
 				F3E786222CEC8B0000EC2251 /* WebVC.swift in Sources */,
+				F30EEF1F2D59EEB800404BCF /* KeychainManager.swift in Sources */,
 				F37388232D13E0310072CE77 /* SearchSugPopView.swift in Sources */,
 				F39F6DF62CE12C8700CFF8B5 /* VisitorModel.swift in Sources */,
 				F39F6DD42CDA753A00CFF8B5 /* MainView.swift in Sources */,
@@ -1241,6 +1251,7 @@
 				F3E5A5092D3E8EA300AEF187 /* SquareViewModel.swift in Sources */,
 				39E9080F2C26BAC40017B83B /* SearchTagViewController.swift in Sources */,
 				F37388022D110AF80072CE77 /* PostMorePopView.swift in Sources */,
+				F30EEF232D59F12200404BCF /* Keys.swift in Sources */,
 				39AB75112C93224900440E5A /* InputCodeViewController.swift in Sources */,
 				F39F6DED2CE1280F00CFF8B5 /* Interpolation.swift in Sources */,
 				F3E5A49A2D30C10B00AEF187 /* SetModel.swift in Sources */,
@@ -1254,6 +1265,7 @@
 				F3FC1D232D155B03005555A0 /* UIView+Extension.swift in Sources */,
 				3998DE352BB59F0E0000C4DD /* UpdatesEarlierCell.swift in Sources */,
 				F3223B882D0676F400E74574 /* NIMManager.swift in Sources */,
+				F30EEF1B2D59E03600404BCF /* KeychainHelper.swift in Sources */,
 				392CF1062B8D7C5D0070637E /* UIView+FrameExtension.swift in Sources */,
 				398FF3472B90177D00565C8C /* HUDHelper.swift in Sources */,
 				399739532C61C04A00D4DD8C /* WindowHelper.swift in Sources */,

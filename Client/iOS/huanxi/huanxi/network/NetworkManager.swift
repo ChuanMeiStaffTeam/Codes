@@ -51,16 +51,18 @@ class NetworkManager {
             
         logRequest(url.absoluteString, parameters: parameters, headers: headers) // 打印请求日志
 
+        // 设置请求头
         var allHeaders = HTTPHeaders()
         headers?.dictionary.forEach({ (key: String, value: String) in
             let header = HTTPHeader.init(name: key, value: value)
             allHeaders.add(header)
         })
-            
         if let token = LoginManager.shared.getToken() {
         allHeaders.add(name: "token", value: token)
         }
-            
+        let uuid = KeychainManager.shared.uuid
+        allHeaders.add(name: "deviceId,", value: uuid)
+
         // 使用 .get 请求时，不再传递参数，避免重复
         let encoding: ParameterEncoding = method == .get ? URLEncoding.default : JSONEncoding.default
                 

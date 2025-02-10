@@ -14,6 +14,10 @@ typealias LaunchAdHandler = () -> Void
 class LaunchManager {
     // 单例
     static let shared = LaunchManager()
+    
+    // 是否同意过隐私协议
+    @UserDefaultWrapper<Bool>(key: UserDefaultKeys.isPrivacyAccepted, defaultValue: false)
+    var isPrivacyAccepted: Bool
 
     // 属性
     private var launchHandler: LaunchHandler?
@@ -40,7 +44,7 @@ class LaunchManager {
         launchWindow.makeKeyAndVisible()
 
         // 检查是否同意隐私协议
-        if !UserDefaults.standard.bool(forKey: "PrivacyAccepted") {
+        if !isPrivacyAccepted {
             DispatchQueue.main.async {
                 let privacyPopup = PrivacyPopupViewController()
                 privacyPopup.modalPresentationStyle = .overFullScreen
@@ -49,7 +53,7 @@ class LaunchManager {
                     guard let strongSelf = self else { return }
                     handler()
                     strongSelf.dismissLaunchWindow()
-                    UserDefaults.standard.set(true, forKey: "PrivacyAccepted")
+                    strongSelf.isPrivacyAccepted = true
                 }
                 self.launchViewController.present(privacyPopup, animated: true, completion: nil)
             }

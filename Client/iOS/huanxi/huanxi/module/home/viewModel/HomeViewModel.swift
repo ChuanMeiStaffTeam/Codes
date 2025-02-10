@@ -45,7 +45,7 @@ extension HomeViewModel {
 
 class HomeViewModel {
 
-    @UserDefaultWrapper<Bool>(key: "NoRecommend", defaultValue: false)
+    @UserDefaultWrapper<Bool>(key: UserDefaultKeys.homeNoRecommend, defaultValue: false)
     var isNoRecommend: Bool
 
     let dataList = BehaviorRelay<[CellType]>(value: Array(repeating: .skeleton, count: 3))
