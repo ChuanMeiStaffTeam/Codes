@@ -118,9 +118,11 @@ extension LoginManager {
     }
     
     class func requestLogin(params: [String: Any], completion: @escaping (Bool) -> Void) {
+        HUDHelper.showHUD()
         NetworkManager.shared.postRequest(path: "user/login/code",
                                           parameters: params,
                                           responseType: LoginModel.self) { success, message, data in
+            HUDHelper.hideHUD()
             if success {
                 if let token = data?.token {
                     LoginManager.shared.updateToken(token: token)

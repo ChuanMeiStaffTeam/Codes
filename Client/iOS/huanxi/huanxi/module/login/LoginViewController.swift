@@ -261,6 +261,7 @@ class LoginViewController: BaseViewController {
                         let success = await LoginManager.requestCode(self.phoneTextField.text ?? "")
                         if success {
                             self.isCodeTextFieldVisible.accept(true)
+                            self.codeTextField.becomeFirstResponder()
                         }
                     }
                 }
