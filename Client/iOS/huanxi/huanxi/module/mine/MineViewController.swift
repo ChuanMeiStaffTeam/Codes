@@ -96,14 +96,6 @@ class MineViewController: BaseViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        // TODO: - bug fix
-        if type == .mySelf {
-            hidesBottomBarWhenPushed = false
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.currentUser?.userId = userId
