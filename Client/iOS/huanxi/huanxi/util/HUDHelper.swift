@@ -9,45 +9,58 @@ import Foundation
 import UIKit
 import MBProgressHUD
 
-class HUDHelper {
-    static func showHUD(_ view: UIView?, text: String) {
-        DispatchQueue.main.async {
-            guard let view = view ?? UIApplication.shared.windows.first(where: \.isKeyWindow) else {
-                return
-            }
+/// Toast 位置枚举
+enum ToastPosition {
+    case top
+    case middle
+    case bottom
+}
 
-            let hud = MBProgressHUD.showAdded(to: view, animated: true)
+class HUDHelper {
+    
+    /// 显示加载 HUD
+    static func showHUD(in view: UIView? = nil, text: String = "") {
+        DispatchQueue.main.async {
+            guard let targetView = view ?? getKeyWindow() else { return }
+            
+            let hud = MBProgressHUD.showAdded(to: targetView, animated: true)
             hud.label.text = text
             hud.mode = .indeterminate
         }
     }
-
-    static func hideHUD(_ view: UIView?) {
-        DispatchQueue.main.async {
-            guard let view = view ?? UIApplication.shared.windows.first(where: \.isKeyWindow) else {
-                return
-            }
-            
-            MBProgressHUD.hide(for: view, animated: true)
-        }
-    }
-
-    static func showToast(_ text: String) {
-        guard let view = UIApplication.shared.windows.first(where: \.isKeyWindow) else {
-            return
-        }
-        showToast(view, text: text)
-    }
     
-    static func showToast(_ view: UIView, text: String) {
+    /// 隐藏加载 HUD
+    static func hideHUD(in view: UIView? = nil) {
         DispatchQueue.main.async {
-            let hud = MBProgressHUD.showAdded(to: view, animated: true)
+            guard let targetView = view ?? getKeyWindow() else { return }
+            MBProgressHUD.hide(for: targetView, animated: true)
+        }
+    }
+
+    /// 显示 Toast 提示
+    static func showToast(_ text: String, in view: UIView? = nil, delay: TimeInterval = 2.0, position: ToastPosition = .middle) {
+        DispatchQueue.main.async {
+            guard let targetView = view ?? getKeyWindow() else { return }
+            
+            let hud = MBProgressHUD.showAdded(to: targetView, animated: true)
             hud.mode = .text
             hud.label.text = text
             hud.margin = 10
-            hud.offset = CGPoint(x: 0, y: 0)
             hud.isUserInteractionEnabled = false
-            hud.hide(animated: true, afterDelay: 2.0)
+
+            // 计算偏移量
+            let offsetY: CGFloat
+            switch position {
+            case .top:
+                offsetY = -targetView.bounds.height * 0.3
+            case .middle:
+                offsetY = 0
+            case .bottom:
+                offsetY = targetView.bounds.height * 0.3
+            }
+
+            hud.offset = CGPoint(x: 0, y: offsetY)
+            hud.hide(animated: true, afterDelay: delay)
         }
     }
 }

@@ -9,13 +9,9 @@ import UIKit
 
 class WindowHelper {
     
-    /// 获取当前的 UIWindow
-    static func currentWindow() -> UIWindow? {
-        return UIApplication.shared.windows.filter { $0.isKeyWindow }.first
-    }
-    
+
     /// 获取当前顶部的 UIViewController
-    static func topViewController(base: UIViewController? = WindowHelper.currentWindow()?.rootViewController) -> UIViewController? {
+    static func topViewController(base: UIViewController? = getKeyWindow()?.rootViewController) -> UIViewController? {
         if let nav = base as? UINavigationController {
             return topViewController(base: nav.visibleViewController)
         }

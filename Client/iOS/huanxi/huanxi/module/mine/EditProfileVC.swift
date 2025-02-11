@@ -113,9 +113,9 @@ extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationController
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
             Task{
-                HUDHelper.showHUD(view, text: "")
+                HUDHelper.showHUD(in: view, text: "")
                 let success = await self.viewModel.uploadAvatar(image)
-                HUDHelper.hideHUD(view)
+                HUDHelper.hideHUD(in: view)
                 if success {
                     self.avatarImgView.image = image
                 }

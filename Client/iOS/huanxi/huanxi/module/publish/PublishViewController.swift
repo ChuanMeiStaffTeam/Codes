@@ -43,7 +43,7 @@ class PublishViewController: BaseViewController {
     }
     
     func requestImageData() {
-        HUDHelper.showHUD(view, text: "图片加载中...")
+        HUDHelper.showHUD(in: view, text: "图片加载中...")
 
         photoAlbumManager.fetchAllImages { [weak self] images, assets in
             self?.allImages = images
@@ -53,7 +53,7 @@ class PublishViewController: BaseViewController {
             if let asset = assets.first {
                 self?.photoAlbumManager.fetchOriginalImage(for: asset) { image in
                     self?.editImageView.image = image
-                    HUDHelper.hideHUD(self?.view)
+                    HUDHelper.hideHUD(in: self?.view)
                 }
             }
             
@@ -200,10 +200,10 @@ class PublishViewController: BaseViewController {
             allAssets[$0]
         }
         
-        HUDHelper.showHUD(view, text: "加载中...")
+        HUDHelper.showHUD(text: "加载中...")
 
         photoAlbumManager.fetchOriginalImages(for: selectedAssets) { [weak self] images in
-            HUDHelper.hideHUD(self?.view)
+            HUDHelper.hideHUD()
             let vc = EditPhotoViewController()
             vc.modalPresentationStyle = .fullScreen
             vc.images = images ?? []

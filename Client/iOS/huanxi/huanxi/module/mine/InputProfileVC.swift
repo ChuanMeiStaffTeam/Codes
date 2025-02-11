@@ -132,9 +132,9 @@ class InputProfileVC: BaseViewController {
             ]
             
             Task{
-                HUDHelper.showHUD(self.view, text: "")
+                HUDHelper.showHUD(in: self.view, text: "")
                 let success = await LoginManager.fetchUpdateUserInfo(params: params)
-                HUDHelper.hideHUD(self.view)
+                HUDHelper.hideHUD(in: self.view)
                 if success {
                     HUDHelper.showToast("修改成功")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

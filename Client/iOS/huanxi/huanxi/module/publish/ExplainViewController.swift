@@ -112,14 +112,14 @@ class ExplainViewController: BaseViewController {
             HUDHelper.showToast("请输入说明")
             return
         }
-        HUDHelper.showHUD(self.view, text: "图片上传中")
+        HUDHelper.showHUD(in: self.view, text: "图片上传中")
         // 上传图片，获取图片地址
         NetworkManager.shared.uploadMultipleImages(path: "postImage/article",
                                                    parameters: ["": ""],
                                                    images: images,
                                                    imageName: "images",
                                                    responseType: ImageResponse.self) { success, message, data in
-            HUDHelper.hideHUD(self.view)
+            HUDHelper.hideHUD(in: self.view)
             if success {
                 self.requestPost(desc: desc, imagesUrl: data?.list ?? [])
                 HUDHelper.showToast("图片上传成功")

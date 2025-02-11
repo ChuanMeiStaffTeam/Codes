@@ -186,7 +186,7 @@ class PostCommentPopView: BaseView {
                     let postMorePopView = PostMorePopView()
                     var model = PostModel(liked: false)
                     model.userId = userInfo?.userId
-                    postMorePopView.show(model, type: 1)
+                    postMorePopView.show(model, type: .delete)
                     postMorePopView.trashButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
                         guard let self = self else { return }
                         postMorePopView.close()

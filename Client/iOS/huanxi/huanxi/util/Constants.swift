@@ -12,11 +12,12 @@ import UIKit
 let screenWidth = UIScreen.main.bounds.size.width
 let screenHeight = UIScreen.main.bounds.size.height
 
+/// 获取当前的 UIWindow
 func getKeyWindow() -> UIWindow? {
-    if #available(iOS 13, *) {
+    if #available(iOS 13.0, *) {
         return UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }
-            .flatMap { $0.windows }
+            .flatMap(\.windows)
             .first { $0.isKeyWindow }
     } else {
         return UIApplication.shared.keyWindow

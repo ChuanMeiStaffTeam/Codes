@@ -214,6 +214,29 @@ class HomeViewModel {
         }
     }
     
+    func requestMarkPost(
+        params: [String: Any], indexPath: IndexPath?, completion: @escaping (Bool) -> Void
+    ) {
+        NetworkManager.shared.postRequest(
+            path: "reports/mark",
+            parameters: params,
+            responseType: String.self
+        ) { [weak self] success, message, data in
+            if success {
+                guard let `self` = self else { return }
+                DispatchQueue.main.async {
+                 guard let indexPath = indexPath else { return }
+                    var currentData = self.dataList.value
+                    currentData.remove(at: indexPath.row)
+                    self.dataList.accept(currentData)
+                }
+            } else {
+                HUDHelper.showToast(message)
+            }
+            completion(success)
+        }
+    }
+    
 
     // MARK: - 点赞逻辑
     func fetchLikeAction(_ data: PostModel, indexPath: IndexPath?) {

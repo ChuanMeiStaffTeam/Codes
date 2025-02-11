@@ -215,14 +215,27 @@ extension HomeViewController: MainContentCellDelegate {
         let postMorePopView = PostMorePopView()
         postMorePopView.show(data)
         postMorePopView.trashButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
-            guard let self = self else { return }
+            guard let `self` = self else { return }
             postMorePopView.close()
             self.viewModel.requestDeletePost(params: ["postId" : data.postId ?? 0], indexPath: indexPath) { success in}
         }).disposed(by: disposeBag)
         postMorePopView.briefcaseButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
-            guard let self = self else { return }
+            guard let `self` = self else { return }
             self.openUserPage(data.user)
             postMorePopView.close()
+        }).disposed(by: disposeBag)
+        postMorePopView.uninterestedButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            postMorePopView.close()
+            self.viewModel.requestMarkPost(params: ["postId" : data.postId ?? 0], indexPath: indexPath) { success in
+                if success {
+                    
+                }
+            }
+        }).disposed(by: disposeBag)
+        postMorePopView.reportButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+
         }).disposed(by: disposeBag)
     }
     

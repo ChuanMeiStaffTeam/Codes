@@ -11,6 +11,11 @@ import RxCocoa
 import RxSwift
 import UIKit
 
+enum PostMoreType {
+    case normal
+    case delete
+}
+
 class PostMorePopView: BaseView {
     var postModel: PostModel = PostModel(liked: false)
 
@@ -33,7 +38,7 @@ class PostMorePopView: BaseView {
         view.backgroundColor = UIColor.postBgColor
         view.snapPositions = [.closed, .open]
         view.position = .open
-        view.openHeightBehavior = .fixed(height: 150)
+        view.openHeightBehavior = .fixed(height: 200)
         view.cornerRadius = 20
         return view
     }()
@@ -44,7 +49,7 @@ class PostMorePopView: BaseView {
         button.contentHorizontalAlignment = .left
         button.setTitle("删除", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.setImage(UIImage(systemName: "trash.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(UIImage(systemName: "trash.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(.white), for: .normal)
         return button
     }()
 
@@ -53,7 +58,25 @@ class PostMorePopView: BaseView {
         button.contentHorizontalAlignment = .left
         button.setTitle("查看简介", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.setImage(UIImage(systemName: "briefcase.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(UIImage(systemName: "briefcase.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(.white), for: .normal)
+        return button
+    }()
+    
+    let uninterestedButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.contentHorizontalAlignment = .left
+        button.setTitle("不感兴趣", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.setImage(UIImage(systemName: "heart.slash.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(.white), for: .normal)
+        return button
+    }()
+    
+    let reportButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.contentHorizontalAlignment = .left
+        button.setTitle("举报", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.setImage(UIImage(systemName: "flag.slash.circle")?.withRenderingMode(.alwaysOriginal).withTintColor(.white), for: .normal)
         return button
     }()
 
@@ -77,10 +100,10 @@ class PostMorePopView: BaseView {
             make.width.equalTo(40)
         }
 
-        [trashButton, briefcaseButton].forEach({ $0.setImgPosition(postion: .Left, spacing: 10) })
+        [trashButton, briefcaseButton, uninterestedButton, reportButton].forEach({ $0.setImgPosition(postion: .Left, spacing: 10) })
 
         // 创建 UIStackView
-        let stackView = UIStackView(arrangedSubviews: [trashButton, briefcaseButton])
+        let stackView = UIStackView(arrangedSubviews: [trashButton, briefcaseButton, uninterestedButton, reportButton])
         stackView.axis = .vertical // 纵向排列
         stackView.alignment = .fill // 子视图填充
         stackView.distribution = .fillEqually // 高度平均分配
@@ -123,14 +146,22 @@ class PostMorePopView: BaseView {
         }
     }
     
-    func show(_ postModel: PostModel, type: Int = 0) {
+    func show(_ postModel: PostModel, type: PostMoreType = .normal) {
         self.postModel = postModel
-        if let userInfo = LoginManager.shared.getUserInfo() {
-            trashButton.isHidden = postModel.userId != userInfo.userId
+        if type == .delete {
+            drawerView.openHeightBehavior = .fixed(height: 150)
+            [trashButton, briefcaseButton, uninterestedButton, reportButton].forEach({ $0.isHidden = true })
+            trashButton.isHidden = false
+        } else {
+            drawerView.openHeightBehavior = .fixed(height: 200)
+            if let userInfo = LoginManager.shared.getUserInfo() {
+                let isMySelf = postModel.userId == userInfo.userId
+                trashButton.isHidden = !isMySelf
+                uninterestedButton.isHidden = isMySelf
+                reportButton.isHidden = isMySelf
+            }
         }
-        if type == 1 {
-            briefcaseButton.isHidden = true
-        }
+        
         if let window = getKeyWindow() {
             drawerView.attachTo(view: window)
         }
