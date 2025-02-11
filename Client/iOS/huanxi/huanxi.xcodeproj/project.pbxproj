@@ -91,6 +91,9 @@
 		F30EEF1B2D59E03600404BCF /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30EEF1A2D59E03600404BCF /* KeychainHelper.swift */; };
 		F30EEF1F2D59EEB800404BCF /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30EEF1E2D59EEB800404BCF /* KeychainManager.swift */; };
 		F30EEF232D59F12200404BCF /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30EEF222D59F12200404BCF /* Keys.swift */; };
+		F30EEF262D5B285600404BCF /* ReportReasonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30EEF252D5B285600404BCF /* ReportReasonVC.swift */; };
+		F30EEF282D5B2DCB00404BCF /* ReportReasonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30EEF272D5B2DCB00404BCF /* ReportReasonCell.swift */; };
+		F30EEF2A2D5B36D700404BCF /* ReportReasonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30EEF292D5B36D700404BCF /* ReportReasonViewModel.swift */; };
 		F3223B7A2D016D8C00E74574 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B792D016D8C00E74574 /* MineViewModel.swift */; };
 		F3223B7C2D01848F00E74574 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3223B7B2D01848F00E74574 /* Tools.swift */; };
 		F3223B802D02BE6B00E74574 /* 欢喜隐私协议.docx in Resources */ = {isa = PBXBuildFile; fileRef = F3223B7F2D02BE6B00E74574 /* 欢喜隐私协议.docx */; };
@@ -288,6 +291,9 @@
 		F30EEF1A2D59E03600404BCF /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		F30EEF1E2D59EEB800404BCF /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		F30EEF222D59F12200404BCF /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		F30EEF252D5B285600404BCF /* ReportReasonVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReasonVC.swift; sourceTree = "<group>"; };
+		F30EEF272D5B2DCB00404BCF /* ReportReasonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReasonCell.swift; sourceTree = "<group>"; };
+		F30EEF292D5B36D700404BCF /* ReportReasonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReasonViewModel.swift; sourceTree = "<group>"; };
 		F3223B792D016D8C00E74574 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		F3223B7B2D01848F00E74574 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		F3223B7F2D02BE6B00E74574 /* 欢喜隐私协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "欢喜隐私协议.docx"; sourceTree = "<group>"; };
@@ -560,6 +566,7 @@
 		397216B62B820F6C007D0F2B /* module */ = {
 			isa = PBXGroup;
 			children = (
+				F30EEF242D5B284000404BCF /* report */,
 				F3E5A5122D3EAD2F00AEF187 /* post */,
 				F3E786202CEC8A7F00EC2251 /* web */,
 				39066F5F2C50E2C9003D347E /* login */,
@@ -740,6 +747,16 @@
 				CA729ABFB7BAA4ADCD4DD472 /* Pods_huanxi.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F30EEF242D5B284000404BCF /* report */ = {
+			isa = PBXGroup;
+			children = (
+				F30EEF252D5B285600404BCF /* ReportReasonVC.swift */,
+				F30EEF272D5B2DCB00404BCF /* ReportReasonCell.swift */,
+				F30EEF292D5B36D700404BCF /* ReportReasonViewModel.swift */,
+			);
+			path = report;
 			sourceTree = "<group>";
 		};
 		F3223B782D016D6D00E74574 /* viewmodel */ = {
@@ -1117,6 +1134,7 @@
 				392CF10C2B8EC8E60070637E /* MainModel.swift in Sources */,
 				F3E5A4E02D310A9F00AEF187 /* EditProfileVC.swift in Sources */,
 				F37388212D13C4590072CE77 /* SearchSugHeaderView.swift in Sources */,
+				F30EEF2A2D5B36D700404BCF /* ReportReasonViewModel.swift in Sources */,
 				F3E786242CECB58F00EC2251 /* UIDevice+Extension.swift in Sources */,
 				F39F6DF42CE12C6700CFF8B5 /* CommentModel.swift in Sources */,
 				F3E5A4EE2D38E8F200AEF187 /* CommentViewModel.swift in Sources */,
@@ -1189,6 +1207,7 @@
 				04F0D1A62BFADC5900FFE128 /* MineHeaderView.swift in Sources */,
 				F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */,
 				39E908142C26C46F0017B83B /* WaterfallCollectionView.swift in Sources */,
+				F30EEF262D5B285600404BCF /* ReportReasonVC.swift in Sources */,
 				F3223B7A2D016D8C00E74574 /* MineViewModel.swift in Sources */,
 				39E908222C28791C0017B83B /* SearchResultHeaderView.swift in Sources */,
 				397216842B81E8EC007D0F2B /* ViewController.swift in Sources */,
@@ -1196,6 +1215,7 @@
 				F3E5A4F02D3A2D6800AEF187 /* DrawerPresentation.swift in Sources */,
 				39066F672C51E15B003D347E /* LoginManager.swift in Sources */,
 				397216B12B81EA57007D0F2B /* NavigationController.swift in Sources */,
+				F30EEF282D5B2DCB00404BCF /* ReportReasonCell.swift in Sources */,
 				F3E5A5112D3E9A4000AEF187 /* FollowResponseModel.swift in Sources */,
 				397216BD2B8249D9007D0F2B /* UpdatesViewController.swift in Sources */,
 				F37388062D1129950072CE77 /* BaseView.swift in Sources */,

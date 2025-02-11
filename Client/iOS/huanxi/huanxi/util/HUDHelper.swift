@@ -38,13 +38,21 @@ class HUDHelper {
     }
 
     /// 显示 Toast 提示
-    static func showToast(_ text: String, in view: UIView? = nil, delay: TimeInterval = 2.0, position: ToastPosition = .middle) {
+    static func showToast(_ text: String, icon: String = "", in view: UIView? = nil, delay: TimeInterval = 2.0, position: ToastPosition = .middle) {
         DispatchQueue.main.async {
             guard let targetView = view ?? getKeyWindow() else { return }
+            guard !text.isEmpty else { return }
             
             let hud = MBProgressHUD.showAdded(to: targetView, animated: true)
             hud.mode = .text
-            hud.label.text = text
+            
+            // 如果图标存在，使用自定义视图显示图标
+            if let iconImage = UIImage(systemName: icon)?.withRenderingMode(.alwaysOriginal).withTintColor(.white) {
+                hud.label.attributedText = formatToastImageText(text, iconImage)
+            } else {
+                hud.label.text = text
+            }
+    
             hud.margin = 10
             hud.isUserInteractionEnabled = false
 
@@ -62,6 +70,38 @@ class HUDHelper {
             hud.offset = CGPoint(x: 0, y: offsetY)
             hud.hide(animated: true, afterDelay: delay)
         }
+    }
+    
+    
+    /// 显示 成功Toast 提示
+    static func showSuccessToast(_ text: String, in view: UIView? = nil, delay: TimeInterval = 2.0, position: ToastPosition = .middle){
+        showToast(text, icon: "checkmark.circle", in: view, delay: delay, position: position)
+    }
+    
+    static func formatToastImageText(_ text: String, _ icon: UIImage) -> NSAttributedString {
+        guard !text.isEmpty else {
+            return NSMutableAttributedString(string: "")
+        }
+        
+//        let image = icon.withPadding(.zero)
+        // 创建一个 NSTextAttachment 来包含图片
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = icon
+        imageAttachment.bounds = CGRect(x: 0, y: -4, width: icon.size.width, height: icon.size.height) // 调整图片的大小和位置
+
+        // 将 NSTextAttachment 转换为 NSAttributedString
+        let imageString = NSAttributedString(attachment: imageAttachment)
+        
+        // 创建一个可变的 NSAttributedString 来拼接文本和图片
+        let attributedString = NSMutableAttributedString(string: "")
+        
+        // 添加图片
+        attributedString.append(imageString)
+        
+        // 添加后半部分文字
+        attributedString.append(NSAttributedString(string: " " + text))
+        
+        return attributedString
     }
 }
 

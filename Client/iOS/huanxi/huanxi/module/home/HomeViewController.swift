@@ -227,15 +227,24 @@ extension HomeViewController: MainContentCellDelegate {
         postMorePopView.uninterestedButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             postMorePopView.close()
-            self.viewModel.requestMarkPost(params: ["postId" : data.postId ?? 0], indexPath: indexPath) { success in
+            HUDHelper.showHUD()
+            self.viewModel.requestMarkPost(params: ["postId" : "\(data.postId ?? 0)", "filterType": "不敢兴趣"], indexPath: indexPath) { success in
+                HUDHelper.hideHUD()
                 if success {
-                    
+                    HUDHelper.showSuccessToast("反馈成功")
                 }
             }
         }).disposed(by: disposeBag)
         postMorePopView.reportButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
-
+            postMorePopView.close()
+            Task {
+                let result = await ReportReasonVC.startReportReason(postMorePopView.postModel)
+                if result {
+                    self.viewModel.hiddenReport(indexPath: indexPath)
+                    HUDHelper.showSuccessToast("举报成功，我们会尽快处理")
+                }
+            }
         }).disposed(by: disposeBag)
     }
     
