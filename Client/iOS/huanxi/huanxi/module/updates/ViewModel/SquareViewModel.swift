@@ -51,9 +51,15 @@ class SquareViewModel {
     }
 
     func requestHomePosts(completion: @escaping (Bool) -> Void) {
-        NetworkManager.shared.getRequest(
+        
+        let params = [
+            "page": 1,
+            "limit": 50
+        ]
+        
+        NetworkManager.shared.postRequest(
             path: LoginManager.shared.isLogin() ? "postImage/queryHomePosts" : "postImage/visitorGetPost",
-            parameters: nil,
+            parameters: params,
             responseType: PostsResponse.self
         ) { [weak self] success, message, data in
             guard let `self` = self else { return }
