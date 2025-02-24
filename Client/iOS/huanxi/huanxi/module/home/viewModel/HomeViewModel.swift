@@ -10,6 +10,11 @@ import RxRelay
 
 
 extension HomeViewModel {
+    enum ReloadType {
+        case reloads    // 刷新
+        case loadMore   // 加载更多
+    }
+    
     enum CellType: Equatable {
         case skeleton
         case userItem([UserInfoModel])
@@ -46,19 +51,26 @@ extension HomeViewModel {
 class HomeViewModel {
 
     @UserDefaultWrapper<Bool>(key: UserDefaultKeys.homeNoRecommend, defaultValue: false)
-    var isNoRecommend: Bool
+    private var isNoRecommend: Bool
+    private var pageNo = 1
+    private var pageSize = 10
+    private var dataSource: [CellType] = []
 
     let dataList = BehaviorRelay<[CellType]>(value: Array(repeating: .skeleton, count: 3))
+    let hasMoreRelay = BehaviorRelay<Bool>(value: true)
 
     required init() {
         self.isNoRecommend = false
     }
 
-    func requestHomePosts(completion: @escaping (Bool) -> Void) {
+
+    func requestHomePosts(reloadType: ReloadType = .reloads, completion: ((Bool) -> Void)? = nil) {
+        
+        pageNo = reloadType == .reloads ? 1 : pageNo
         
         let params = [
-            "page": 1,
-            "limit": 50
+            "page": pageNo,
+            "limit": pageSize
         ]
         
         NetworkManager.shared.postRequest(
@@ -70,21 +82,41 @@ class HomeViewModel {
             if success {
                 let postsItems: [CellType] = (data?.list ?? []).map { CellType.postItem($0) }
                 let userItems: [UserInfoModel] = data?.users ?? []
-                var list:[CellType] = []
-                list.append(CellType.userItem(Array(userItems.prefix(6))))
-                list.append(contentsOf: postsItems)
-                if !isNoRecommend {
-                    let recommend = MainModel(type: "recommend", users: Array(userItems.suffix(6)))
-                    if list.count > 5 {
-                        list.insert(CellType.recommend(recommend), at: 4)
+
+                switch reloadType {
+                case .reloads:
+                    self.dataSource = []
+                    self.dataSource.append(CellType.userItem(Array(userItems.prefix(6))))
+                    self.dataSource.append(contentsOf: postsItems)
+                    if !isNoRecommend {
+                        let recommend = MainModel(type: "recommend", users: Array(userItems.suffix(6)))
+                        if self.dataSource.count > 5 {
+                            self.dataSource.insert(CellType.recommend(recommend), at: 4)
+                        }
                     }
+                    self.dataList.accept(self.dataSource)
+                    notifyHasMoreStatus(postsItems)
+                    if postsItems.count >= 10 { self.pageNo += 1 }
+                case .loadMore:
+                    self.dataSource.append(contentsOf: postsItems)
+                    self.dataList.accept(self.dataSource)
+                    notifyHasMoreStatus(postsItems)
+                    if postsItems.count >= 10 { self.pageNo += 1 }
                 }
-                self.dataList.accept(list)
             } else {
                 self.dataList.accept([HomeViewModel.CellType.error])
                 HUDHelper.showToast(message)
             }
-            completion(success)
+            completion?(success)
+        }
+    }
+    
+    /// 是否还有更多数据
+    private func notifyHasMoreStatus(_ items: [CellType]) {
+        if self.dataSource.isEmpty {
+            self.hasMoreRelay.accept(true)
+        } else {
+            self.hasMoreRelay.accept(items.count >= 10)
         }
     }
     

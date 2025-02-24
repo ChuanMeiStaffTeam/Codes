@@ -8,8 +8,13 @@
 import Foundation
 import RxRelay
 
-
 extension SquareViewModel {
+    
+    enum ReloadType {
+        case reloads    // 刷新
+        case loadMore   // 加载更多
+    }
+    
     enum CellType: Equatable {
         case skeleton
         case userItem([UserInfoModel])
@@ -45,16 +50,20 @@ extension SquareViewModel {
 
 class SquareViewModel {
 
+    private var pageNo = 1
+    private var pageSize = 10
+    private var dataSource: [CellType] = []
+
     let dataList = BehaviorRelay<[CellType]>(value: Array(repeating: .skeleton, count: 3))
+    let hasMoreRelay = BehaviorRelay<Bool>(value: true)
 
-    required init() {
-    }
-
-    func requestHomePosts(completion: @escaping (Bool) -> Void) {
+    func requestHomePosts(reloadType: ReloadType = .reloads, completion: ((Bool) -> Void)? = nil) {
+        
+        pageNo = reloadType == .reloads ? 1 : pageNo
         
         let params = [
-            "page": 1,
-            "limit": 50
+            "page": pageNo,
+            "limit": pageSize
         ]
         
         NetworkManager.shared.postRequest(
@@ -64,25 +73,35 @@ class SquareViewModel {
         ) { [weak self] success, message, data in
             guard let `self` = self else { return }
             if success {
-                let postsItems: [CellType] = (data?.list ?? []).map { CellType.postItem($0) }
-                let reversedArray = Array(postsItems.reversed())
-
-//                let userItems: [UserInfoModel] = data?.users ?? []
-                var list:[CellType] = []
-//                list.append(CellType.userItem(Array(userItems.prefix(6))))
-                list.append(contentsOf: reversedArray)
-//                if !isNoRecommend {
-//                    let recommend = MainModel(type: "recommend", users: Array(userItems.suffix(6)))
-//                    if list.count > 5 {
-//                        list.insert(CellType.recommend(recommend), at: 4)
-//                    }
-//                }
-                self.dataList.accept(list)
+                let list: [CellType] = (data?.list ?? []).map { CellType.postItem($0) }
+                let postsItems = Array(list.reversed())
+                switch reloadType {
+                case .reloads:
+                    self.dataSource = []
+                    self.dataSource.append(contentsOf: postsItems)
+                    self.dataList.accept(self.dataSource)
+                    notifyHasMoreStatus(postsItems)
+                    if postsItems.count >= 10 { self.pageNo += 1 }
+                case .loadMore:
+                    self.dataSource.append(contentsOf: postsItems)
+                    self.dataList.accept(self.dataSource)
+                    notifyHasMoreStatus(postsItems)
+                    if postsItems.count >= 10 { self.pageNo += 1 }
+                }
             } else {
                 self.dataList.accept([CellType.error])
                 HUDHelper.showToast(message)
             }
-            completion(success)
+            completion?(success)
+        }
+    }
+    
+    /// 是否还有更多数据
+    private func notifyHasMoreStatus(_ items: [CellType]) {
+        if self.dataSource.isEmpty {
+            self.hasMoreRelay.accept(true)
+        } else {
+            self.hasMoreRelay.accept(items.count >= 10)
         }
     }
     

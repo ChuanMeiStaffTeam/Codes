@@ -35,12 +35,12 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         setupView()
         bindUI()
-        refrehData()
+        self.viewModel.requestHomePosts()
         
         // 使用 Combine 订阅通知
         cancellable = NotificationCenter.default.publisher(for: .refreshMainPageNotification)
             .sink { notification in
-                self.refrehData()
+                self.viewModel.requestHomePosts()
             }
     }
     
@@ -58,10 +58,16 @@ class HomeViewController: BaseViewController {
         }
         let header = MJRefreshNormalHeader { [weak self] in
             guard let self = self else { return }
-            self.refrehData()
+            self.viewModel.requestHomePosts()
         }.autoChangeTransparency(true)
         .link(to: tableView)
-        header.stateLabel?.isHidden = true
+        header.setCustomHeadTitle()
+        
+        let footer = CustomAutoFooter { [weak self] in
+            guard let `self` = self else { return }
+            self.viewModel.requestHomePosts(reloadType: .loadMore)
+        }.autoChangeTransparency(true).link(to: tableView)
+        footer.setCustomNoMoreTitle()
     }
     
     func setupNavView() {
@@ -143,6 +149,7 @@ class HomeViewController: BaseViewController {
         self.viewModel.dataList
             .subscribe(onNext: { [weak self] cellTypes in
                 guard let `self` = self else { return }
+                self.tableView.mj_header?.endRefreshing()
                 DispatchQueue.main.async {
                     if cellTypes.isEmpty {
                         self.setEmptyOrNetErrorView(.noData)
@@ -155,20 +162,23 @@ class HomeViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        self.viewModel.hasMoreRelay
+            .subscribe(onNext: { [weak self] hasMore in
+                guard let `self` = self else { return }
+                if !hasMore {
+                    self.tableView.mj_footer?.endRefreshingWithNoMoreData()
+                } else {
+                    self.tableView.mj_footer?.endRefreshing()
+                }
+            })
+            .disposed(by: disposeBag)
+        
         tableView.rx.itemSelected
             .withUnretained(self)
             .subscribe(onNext: { cellType in
             })
             .disposed(by: disposeBag)
         
-    }
-    
-    
-    private func refrehData() {
-        viewModel.requestHomePosts { [weak self] result in
-            guard let self = self else { return }
-            self.tableView.mj_header?.endRefreshing()
-        }
     }
     
     // MARK: - 设置空视图or错误视图
@@ -182,7 +192,7 @@ class HomeViewController: BaseViewController {
         emptyView.updateType(type: type)
         emptyView.reloadBlock = { [weak self] in
             guard let self = self else { return }
-            self.refrehData()
+            self.viewModel.requestHomePosts()
         }
     }
     

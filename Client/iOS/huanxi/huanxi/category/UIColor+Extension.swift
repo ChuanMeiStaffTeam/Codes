@@ -51,6 +51,10 @@ extension UIColor {
         return .init(hexString: "#212328")
     }
     
+    static var divider: UIColor {
+        return .init(hexString: "#FFFFFF",alpha: 0.3)
+    }
+    
     static var white_10: UIColor {
         return .init(hexString: "#FFFFFF",alpha: 0.1)
     }

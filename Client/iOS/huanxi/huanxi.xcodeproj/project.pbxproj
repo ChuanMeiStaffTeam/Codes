@@ -131,6 +131,8 @@
 		F39F6E092CE22D8600CFF8B5 /* CommentTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E082CE22D8600CFF8B5 /* CommentTextView.swift */; };
 		F39F6E0C2CE2404E00CFF8B5 /* PostSharePopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E0B2CE2404E00CFF8B5 /* PostSharePopView.swift */; };
 		F39F6E0E2CE26F4100CFF8B5 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */; };
+		F3A3C8C42D6C18AA00ACB53F /* CustomAutoFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3C8C32D6C18AA00ACB53F /* CustomAutoFooter.swift */; };
+		F3A3C8C62D6C193E00ACB53F /* MJRefreshExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3C8C52D6C193E00ACB53F /* MJRefreshExtension.swift */; };
 		F3E5A49A2D30C10B00AEF187 /* SetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4992D30C10B00AEF187 /* SetModel.swift */; };
 		F3E5A49C2D30EB5D00AEF187 /* ChangePhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A49B2D30EB5D00AEF187 /* ChangePhoneVC.swift */; };
 		F3E5A4E02D310A9F00AEF187 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */; };
@@ -326,6 +328,8 @@
 		F39F6E082CE22D8600CFF8B5 /* CommentTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTextView.swift; sourceTree = "<group>"; };
 		F39F6E0B2CE2404E00CFF8B5 /* PostSharePopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSharePopView.swift; sourceTree = "<group>"; };
 		F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		F3A3C8C32D6C18AA00ACB53F /* CustomAutoFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAutoFooter.swift; sourceTree = "<group>"; };
+		F3A3C8C52D6C193E00ACB53F /* MJRefreshExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MJRefreshExtension.swift; sourceTree = "<group>"; };
 		F3E5A4992D30C10B00AEF187 /* SetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetModel.swift; sourceTree = "<group>"; };
 		F3E5A49B2D30EB5D00AEF187 /* ChangePhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneVC.swift; sourceTree = "<group>"; };
 		F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
@@ -682,6 +686,7 @@
 				F3E786232CECB58F00EC2251 /* UIDevice+Extension.swift */,
 				F3FC1D222D155B03005555A0 /* UIView+Extension.swift */,
 				F3FC1D292D15D151005555A0 /* ArrayExtension.swift */,
+				F3A3C8C52D6C193E00ACB53F /* MJRefreshExtension.swift */,
 			);
 			path = category;
 			sourceTree = "<group>";
@@ -821,6 +826,7 @@
 		F39F6DDC2CDE792900CFF8B5 /* widget */ = {
 			isa = PBXGroup;
 			children = (
+				F3A3C8C22D6C189300ACB53F /* refresh */,
 				F373881B2D1321470072CE77 /* WaterfallFlowLayout */,
 				F3223B822D03441D00E74574 /* SHFullscreenPopGestureSwift */,
 				F39F6E0A2CE2400500CFF8B5 /* share */,
@@ -878,6 +884,14 @@
 				F3F80E852CEA087F00008887 /* LaunchManager.swift */,
 			);
 			path = launch;
+			sourceTree = "<group>";
+		};
+		F3A3C8C22D6C189300ACB53F /* refresh */ = {
+			isa = PBXGroup;
+			children = (
+				F3A3C8C32D6C18AA00ACB53F /* CustomAutoFooter.swift */,
+			);
+			path = refresh;
 			sourceTree = "<group>";
 		};
 		F3E5A4982D30C0C900AEF187 /* Model */ = {
@@ -1190,6 +1204,7 @@
 				F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */,
 				39E908142C26C46F0017B83B /* WaterfallCollectionView.swift in Sources */,
 				F30EEF262D5B285600404BCF /* ReportReasonVC.swift in Sources */,
+				F3A3C8C42D6C18AA00ACB53F /* CustomAutoFooter.swift in Sources */,
 				F3223B7A2D016D8C00E74574 /* MineViewModel.swift in Sources */,
 				39E908222C28791C0017B83B /* SearchResultHeaderView.swift in Sources */,
 				397216842B81E8EC007D0F2B /* ViewController.swift in Sources */,
@@ -1213,6 +1228,7 @@
 				399739572C6B3D6700D4DD8C /* PostModel.swift in Sources */,
 				F39F6DD22CD962D200CFF8B5 /* Api.swift in Sources */,
 				3999527B2BA9B30300415C46 /* ExplainViewController.swift in Sources */,
+				F3A3C8C62D6C193E00ACB53F /* MJRefreshExtension.swift in Sources */,
 				392CF1182B8ECE720070637E /* MainContentCell.swift in Sources */,
 				392CF10E2B8ECA230070637E /* MainUserView.swift in Sources */,
 				F39F6E0E2CE26F4100CFF8B5 /* UIImage+Extension.swift in Sources */,
