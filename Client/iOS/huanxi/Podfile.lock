@@ -22,6 +22,7 @@ PODS:
   - RxRelay (6.8.0):
     - RxSwift (= 6.8.0)
   - RxSwift (6.8.0)
+  - SDCAlertView (12.0.4)
   - SnapKit (5.7.1)
   - SwiftyJSON (5.0.2)
   - TOCropViewController (2.7.4)
@@ -38,12 +39,13 @@ DEPENDENCIES:
   - NIMSDK_LITE (= 9.16.5)
   - RxCocoa (~> 6.8.0)
   - RxSwift (~> 6.8.0)
+  - SDCAlertView
   - SnapKit
   - SwiftyJSON
   - TOCropViewController
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - JXSegmentedView
     - Kingfisher
@@ -55,6 +57,7 @@ SPEC REPOS:
     - RxCocoa
     - RxRelay
     - RxSwift
+    - SDCAlertView
     - SnapKit
     - SwiftyJSON
     - TOCropViewController
@@ -72,11 +75,12 @@ SPEC CHECKSUMS:
   RxCocoa: 2d33c1e1e5d66492052ad46b11024ae287572880
   RxRelay: 335c78b926a2aea8d863a6d25f1ed3b5ad8e8705
   RxSwift: 4e28be97cbcfeee614af26d83415febbf2bf6f45
+  SDCAlertView: 051ba84cc526eddd546c8b716d41ac08d1577ac1
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
   YXArtemis: 2771e9ac5e5e01867914835aedb03429d135043e
 
-PODFILE CHECKSUM: 7587732864cb01d8162efbdfcdf0b6497149ab43
+PODFILE CHECKSUM: 3f39f13f4e8db541789be19c0ab8131f7d6d9ed4
 
 COCOAPODS: 1.16.1
