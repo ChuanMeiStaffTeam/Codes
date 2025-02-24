@@ -49,9 +49,6 @@ class HomeViewModel {
     var isNoRecommend: Bool
 
     let dataList = BehaviorRelay<[CellType]>(value: Array(repeating: .skeleton, count: 3))
-    //mock
-    var mainList: [MainModel] = []
-    var postsList: [PostModel] = []
 
     required init() {
         self.isNoRecommend = false
