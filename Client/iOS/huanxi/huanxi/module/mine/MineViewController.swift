@@ -87,11 +87,12 @@ class MineViewController: BaseViewController {
                 }
             }
         case .other:
-            LoginManager.requestOtherUserInfo(userId: "\(userId)") { [weak self] user in
+            LoginManager.requestOtherUserInfo(userId: "\(userId)") { [weak self] result in
                 guard let `self` = self else { return }
-                self.currentUser = user
-                self.nameLabel.text = user?.fullName ?? "游客"
-                self.mineUserInfoView.reloadData(user)
+                guard let result = result else { return }
+                self.currentUser = result.0
+                self.nameLabel.text = self.currentUser?.fullName ?? "游客"
+                self.mineUserInfoView.reloadData(self.currentUser)
             }
         }
     }

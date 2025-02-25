@@ -159,13 +159,13 @@ extension LoginManager {
         }
     }
     
-    class func requestOtherUserInfo(userId: String, completion: @escaping (UserInfoModel?) -> Void) {
+    class func requestOtherUserInfo(userId: String, completion: @escaping ((UserInfoModel?, Bool)?) -> Void) {
         NetworkManager.shared.postRequest(path: "userinfo/getUserById",
                                          parameters: ["userId" : userId],
-                                         responseType: UserInfoModel.self) { success, message, data in
+                                         responseType: LoginModel.self) { success, message, data in
             if success {
-                if let userInfo = data {
-                    completion(userInfo)
+                if let userInfo = data?.userinfo {
+                    completion((userInfo, data?.reported ?? false))
                 } else {
                     completion(nil)
                 }

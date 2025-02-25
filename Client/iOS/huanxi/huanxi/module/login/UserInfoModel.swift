@@ -14,6 +14,7 @@ struct UserInfoResponse: Codable {
 
 struct LoginModel: Codable {
     let isFirst: Bool
+    let reported: Bool
     let token: String
     let userinfo: UserInfoModel
 }
