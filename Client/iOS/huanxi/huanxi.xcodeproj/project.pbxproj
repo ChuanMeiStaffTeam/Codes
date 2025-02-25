@@ -133,6 +133,7 @@
 		F39F6E0E2CE26F4100CFF8B5 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */; };
 		F3A3C8C42D6C18AA00ACB53F /* CustomAutoFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3C8C32D6C18AA00ACB53F /* CustomAutoFooter.swift */; };
 		F3A3C8C62D6C193E00ACB53F /* MJRefreshExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3C8C52D6C193E00ACB53F /* MJRefreshExtension.swift */; };
+		F3A3C8C92D6D690B00ACB53F /* OtherMineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3C8C82D6D690B00ACB53F /* OtherMineVC.swift */; };
 		F3E5A49A2D30C10B00AEF187 /* SetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4992D30C10B00AEF187 /* SetModel.swift */; };
 		F3E5A49C2D30EB5D00AEF187 /* ChangePhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A49B2D30EB5D00AEF187 /* ChangePhoneVC.swift */; };
 		F3E5A4E02D310A9F00AEF187 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */; };
@@ -330,6 +331,7 @@
 		F39F6E0D2CE26F4100CFF8B5 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		F3A3C8C32D6C18AA00ACB53F /* CustomAutoFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAutoFooter.swift; sourceTree = "<group>"; };
 		F3A3C8C52D6C193E00ACB53F /* MJRefreshExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MJRefreshExtension.swift; sourceTree = "<group>"; };
+		F3A3C8C82D6D690B00ACB53F /* OtherMineVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherMineVC.swift; sourceTree = "<group>"; };
 		F3E5A4992D30C10B00AEF187 /* SetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetModel.swift; sourceTree = "<group>"; };
 		F3E5A49B2D30EB5D00AEF187 /* ChangePhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneVC.swift; sourceTree = "<group>"; };
 		F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 				F3223B782D016D6D00E74574 /* viewmodel */,
 				04F0D1A42BFADC1000FFE128 /* views */,
 				F3F895582D30BD3200827BBB /* MineViewController.swift */,
+				F3A3C8C82D6D690B00ACB53F /* OtherMineVC.swift */,
 				F3E5A4F52D3DD42100AEF187 /* MineCollectListVC.swift */,
 				F3E5A50C2D3E93A100AEF187 /* MineFollowContainerVC.swift */,
 				F3E5A50E2D3E93C400AEF187 /* MineFollowListVC.swift */,
@@ -1208,6 +1211,7 @@
 				F3223B7A2D016D8C00E74574 /* MineViewModel.swift in Sources */,
 				39E908222C28791C0017B83B /* SearchResultHeaderView.swift in Sources */,
 				397216842B81E8EC007D0F2B /* ViewController.swift in Sources */,
+				F3A3C8C92D6D690B00ACB53F /* OtherMineVC.swift in Sources */,
 				392CF10A2B8EC8700070637E /* HomeViewModel.swift in Sources */,
 				F3E5A4F02D3A2D6800AEF187 /* DrawerPresentation.swift in Sources */,
 				39066F672C51E15B003D347E /* LoginManager.swift in Sources */,

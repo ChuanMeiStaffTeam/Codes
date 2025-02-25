@@ -252,14 +252,19 @@ extension PostDetailViewController: MainContentCellDelegate {
 
 extension PostDetailViewController {
     func openUserPage(_ model: UserInfoModel?) {
-        let vc = MineViewController()
         let user = LoginManager.shared.getUserInfo()
-        vc.type = user?.userId == model?.userId ? .mySelf : MineType.other
-        vc.userId = model?.userId ?? 0
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
+        if user?.userId != model?.userId {
+            let vc = OtherMineVC()
+            vc.userId = model?.userId ?? 0
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let vc = MineViewController()
+            vc.userId = model?.userId ?? 0
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
-    
 }
 
 

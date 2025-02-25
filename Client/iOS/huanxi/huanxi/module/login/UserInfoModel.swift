@@ -13,14 +13,13 @@ struct UserInfoResponse: Codable {
 
 
 struct LoginModel: Codable {
-    let isFirst: Bool
-    let reported: Bool
+    var isFirst: Bool?
     let token: String
     let userinfo: UserInfoModel
 }
 
 struct UpdateUserModel: Codable {
-    
+    var reported: Bool?
     let user: UserInfoModel
 }
 
