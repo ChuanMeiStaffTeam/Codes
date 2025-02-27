@@ -11,7 +11,7 @@ class SettingViewController: BaseViewController {
     
     private let dataList: [SetModel] = [
         SetModel(title: "账号与安全"),
-        SetModel(title: "广告接入"),
+//        SetModel(title: "广告接入"),
         SetModel(title: "语言"),
         SetModel(title: "用户协议"),
         SetModel(title: "隐私政策"),
@@ -109,12 +109,9 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             vc.title = model.title
             self.navigationController?.pushViewController(vc, animated: true)
         case 1:
-            let vc = CompanyViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
-        case 2:
             let vc = LanguageViewController()
             self.navigationController?.pushViewController(vc, animated: true)
-        case 3,4:
+        case 2,3:
             let docxName = indexPath.row == 3 ? "欢喜用户协议" : "欢喜隐私协议"
             let filePath = Bundle.main.path(forResource: docxName, ofType: "docx") ?? ""
             DocumentPreviewer.shared.show(from: self, filePaths: [filePath]) {
