@@ -17,16 +17,19 @@ protocol MainContentCellDelegate: AnyObject {
     
     func didClickShare(_ data: PostModel)
     
+    func didClickAvatar(_ data: PostModel)
+
     func didClickMark(_ data: PostModel, indexPath: IndexPath?, markComplete:((Bool)->Void)?)
 }
 
-class MainContentCell: UITableViewCell {
+class MainContentCell: BaseTableViewCell {
     
     weak var delegate: MainContentCellDelegate?
     
     let avatar = UIImageView()
     let nameLabel = UILabel()
     let countryLabel = UILabel()
+    let userTapView = UIView()
     let moreBtn = UIButton()
     let imgView = UIImageView()
     let likeBtn = UIButton()
@@ -47,6 +50,13 @@ class MainContentCell: UITableViewCell {
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(self.playLikeAnimation))
         doubleTap.numberOfTapsRequired = 2
         imgView.addGestureRecognizer(doubleTap)
+    
+        userTapView.rx.tapGestureThrottle().subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            if let delegate = self.delegate {
+                delegate.didClickAvatar(model ?? PostModel(liked: false))
+            }
+        }).disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {
@@ -111,6 +121,7 @@ class MainContentCell: UITableViewCell {
         contentView.addSubview(avatar)
         contentView.addSubview(nameLabel)
         contentView.addSubview(countryLabel)
+        contentView.addSubview(userTapView)
         contentView.addSubview(moreBtn)
         contentView.addSubview(imgView)
         contentView.addSubview(likeBtn)
@@ -152,6 +163,11 @@ class MainContentCell: UITableViewCell {
             make.right.lessThanOrEqualToSuperview().inset(10)
             make.width.greaterThanOrEqualTo(UIDevice.screenWidth/4)
             make.height.equalTo(14)
+        }
+        
+        userTapView.snp.makeConstraints { make in
+            make.left.top.bottom.equalTo(avatar)
+            make.width.equalTo(UIDevice.screenWidth / 2)
         }
         
         moreBtn.setImage(UIImage.init(named: "main_more"), for: .normal)

@@ -94,6 +94,81 @@ class MineViewModel {
             }
         }
     }
+    
+    func fetchFollow(_ userId: Int) async -> Bool {
+        await withCheckedContinuation { continuation in
+            NetworkManager.shared.postRequest(
+                path: "follows/follow",
+                parameters: ["followingId" : userId],
+                responseType: String.self
+            ) { success, message, data in
+                if success {
+                } else {
+                    HUDHelper.showToast(message)
+                }
+                continuation.resume(returning: success)
+            }
+        }
+    }
+    
+    
+    func fetchUnFollow(_ userId: Int) async -> Bool {
+        await withCheckedContinuation { continuation in
+            NetworkManager.shared.postRequest(
+                path: "follows/unfollow",
+                parameters: ["unfollowingId" : userId],
+                responseType: String.self
+            ) { success, message, data in
+                if success {
+                } else {
+                    HUDHelper.showToast(message)
+                }
+                continuation.resume(returning: success)
+            }
+        }
+    }
+    
+    func fetchUserReports(_ userId: Int, canaleBlack: Bool = false) async -> Bool {
+        await withCheckedContinuation { continuation in
+            NetworkManager.shared.postRequest(
+                path: "userReports/report",
+                parameters: ["reportedId" : userId, "reportReason" : canaleBlack ? "" : "不喜欢"],
+                responseType: String.self
+            ) { success, message, data in
+                if success {
+                } else {
+                    HUDHelper.showToast(message)
+                }
+                continuation.resume(returning: success)
+            }
+        }
+    }
+    
+    
+    
+//    NetworkManager.shared.postRequest(
+//        path: "follows/follow",
+//        parameters: params,
+//        responseType: String.self
+//    ) { [weak self] success, message, data in
+//        if success {
+//            guard let `self` = self else { return }
+//            DispatchQueue.main.async {
+//             guard let indexPath = indexPath else { return }
+//                var currentData = self.users.value
+//                currentData.remove(at: indexPath.row)
+//                self.users.accept(currentData)
+//                if currentData.isEmpty {
+//                    if let block = self.hiddenBlock {
+//                        block()
+//                    }
+//                }
+//            }
+//        } else {
+//            HUDHelper.showToast(message)
+//        }
+//        completion(success)
+//    }
 }
 
 extension MineViewModel {

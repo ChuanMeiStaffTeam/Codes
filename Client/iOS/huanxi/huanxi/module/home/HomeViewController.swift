@@ -231,7 +231,10 @@ extension HomeViewController: MainContentCellDelegate {
         }).disposed(by: disposeBag)
         postMorePopView.briefcaseButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
-            self.openUserPage(data.user)
+            let userBriefVC = UserBriefVC()
+            userBriefVC.user = data.user
+            userBriefVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(userBriefVC, animated: true)
             postMorePopView.close()
         }).disposed(by: disposeBag)
         postMorePopView.uninterestedButton.rx.tapThrottle().subscribe(onNext: { [weak self] _ in
@@ -286,6 +289,11 @@ extension HomeViewController: MainContentCellDelegate {
                 markComplete?(favorite)
             }
         }
+    }
+    
+    
+    func didClickAvatar(_ data: PostModel) {
+        self.openUserPage(data.user)
     }
     
     func didClickComment(_ data: PostModel) {

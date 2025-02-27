@@ -59,6 +59,14 @@ extension UIColor {
         return .init(hexString: "#FFFFFF",alpha: 0.1)
     }
     
+    static var white_30: UIColor {
+        return .init(hexString: "#FFFFFF",alpha: 0.3)
+    }
+    
+    static var white_50: UIColor {
+        return .init(hexString: "#FFFFFF",alpha: 0.5)
+    }
+    
     static var white_60: UIColor {
         return .init(hexString: "#FFFFFF",alpha: 0.6)
     }

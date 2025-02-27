@@ -19,8 +19,9 @@ struct LoginModel: Codable {
 }
 
 struct UpdateUserModel: Codable {
-    var reported: Bool?
-    let user: UserInfoModel
+    var reported: Bool? //true已拉黑 false未拉黑
+    var followed: Bool? //true已关注 false未关注
+    var user: UserInfoModel?
 }
 
 struct UserInfoModel: Codable, Equatable{
