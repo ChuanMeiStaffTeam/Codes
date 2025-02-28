@@ -138,6 +138,23 @@
 		F3A3C8CE2D6EE25E00ACB53F /* AlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3C8CD2D6EE25E00ACB53F /* AlertControllerExtension.swift */; };
 		F3A3C8D02D703E3E00ACB53F /* UnFollowPopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3C8CF2D703E3E00ACB53F /* UnFollowPopView.swift */; };
 		F3A3C8D22D70465C00ACB53F /* BlackTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A3C8D12D70465C00ACB53F /* BlackTipView.swift */; };
+		F3A3C9142D7155E500ACB53F /* report-template.html in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C9012D7155E500ACB53F /* report-template.html */; };
+		F3A3C9152D7155E500ACB53F /* FrameworkTemplate.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C9062D7155E500ACB53F /* FrameworkTemplate.xcprivacy */; };
+		F3A3C9162D7155E500ACB53F /* AppTemplate.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C9052D7155E500ACB53F /* AppTemplate.xcprivacy */; };
+		F3A3C9172D7155E500ACB53F /* VERSION in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C9112D7155E500ACB53F /* VERSION */; };
+		F3A3C9182D7155E500ACB53F /* fixer.sh in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C90A2D7155E500ACB53F /* fixer.sh */; };
+		F3A3C9192D7155E500ACB53F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C90D2D7155E500ACB53F /* README.md */; };
+		F3A3C91A2D7155E500ACB53F /* README.zh-CN.md in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C90E2D7155E500ACB53F /* README.zh-CN.md */; };
+		F3A3C91B2D7155E500ACB53F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C90C2D7155E500ACB53F /* LICENSE */; };
+		F3A3C91C2D7155E500ACB53F /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C9082D7155E500ACB53F /* .gitignore */; };
+		F3A3C91D2D7155E500ACB53F /* install.sh in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C90B2D7155E500ACB53F /* install.sh */; };
+		F3A3C91E2D7155E500ACB53F /* xcode_install_helper.rb in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C8FD2D7155E500ACB53F /* xcode_install_helper.rb */; };
+		F3A3C91F2D7155E500ACB53F /* uninstall.sh in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C90F2D7155E500ACB53F /* uninstall.sh */; };
+		F3A3C9202D7155E500ACB53F /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C9092D7155E500ACB53F /* CHANGELOG.md */; };
+		F3A3C9212D7155E500ACB53F /* report.sh in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C9002D7155E500ACB53F /* report.sh */; };
+		F3A3C9222D7155E500ACB53F /* upgrade.sh in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C9102D7155E500ACB53F /* upgrade.sh */; };
+		F3A3C9232D7155E500ACB53F /* xcode_uninstall_helper.rb in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C8FE2D7155E500ACB53F /* xcode_uninstall_helper.rb */; };
+		F3A3C9242D7155E500ACB53F /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C9032D7155E500ACB53F /* .gitkeep */; };
 		F3E5A49A2D30C10B00AEF187 /* SetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4992D30C10B00AEF187 /* SetModel.swift */; };
 		F3E5A49C2D30EB5D00AEF187 /* ChangePhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A49B2D30EB5D00AEF187 /* ChangePhoneVC.swift */; };
 		F3E5A4E02D310A9F00AEF187 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */; };
@@ -340,6 +357,23 @@
 		F3A3C8CD2D6EE25E00ACB53F /* AlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerExtension.swift; sourceTree = "<group>"; };
 		F3A3C8CF2D703E3E00ACB53F /* UnFollowPopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnFollowPopView.swift; sourceTree = "<group>"; };
 		F3A3C8D12D70465C00ACB53F /* BlackTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackTipView.swift; sourceTree = "<group>"; };
+		F3A3C8FD2D7155E500ACB53F /* xcode_install_helper.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = xcode_install_helper.rb; sourceTree = "<group>"; };
+		F3A3C8FE2D7155E500ACB53F /* xcode_uninstall_helper.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = xcode_uninstall_helper.rb; sourceTree = "<group>"; };
+		F3A3C9002D7155E500ACB53F /* report.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = report.sh; sourceTree = "<group>"; };
+		F3A3C9012D7155E500ACB53F /* report-template.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "report-template.html"; sourceTree = "<group>"; };
+		F3A3C9032D7155E500ACB53F /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		F3A3C9052D7155E500ACB53F /* AppTemplate.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AppTemplate.xcprivacy; sourceTree = "<group>"; };
+		F3A3C9062D7155E500ACB53F /* FrameworkTemplate.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FrameworkTemplate.xcprivacy; sourceTree = "<group>"; };
+		F3A3C9082D7155E500ACB53F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		F3A3C9092D7155E500ACB53F /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		F3A3C90A2D7155E500ACB53F /* fixer.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = fixer.sh; sourceTree = "<group>"; };
+		F3A3C90B2D7155E500ACB53F /* install.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = install.sh; sourceTree = "<group>"; };
+		F3A3C90C2D7155E500ACB53F /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		F3A3C90D2D7155E500ACB53F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F3A3C90E2D7155E500ACB53F /* README.zh-CN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README.zh-CN.md"; sourceTree = "<group>"; };
+		F3A3C90F2D7155E500ACB53F /* uninstall.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = uninstall.sh; sourceTree = "<group>"; };
+		F3A3C9102D7155E500ACB53F /* upgrade.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = upgrade.sh; sourceTree = "<group>"; };
+		F3A3C9112D7155E500ACB53F /* VERSION */ = {isa = PBXFileReference; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
 		F3E5A4992D30C10B00AEF187 /* SetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetModel.swift; sourceTree = "<group>"; };
 		F3E5A49B2D30EB5D00AEF187 /* ChangePhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneVC.swift; sourceTree = "<group>"; };
 		F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
@@ -512,6 +546,7 @@
 		3972167E2B81E8EC007D0F2B /* huanxi */ = {
 			isa = PBXGroup;
 			children = (
+				F3A3C9132D7155E500ACB53F /* scripts */,
 				F3223B862D0676D400E74574 /* manager */,
 				F39F6E0F2CEA01F800CFF8B5 /* launch */,
 				392CF1022B8D789E0070637E /* network */,
@@ -917,6 +952,70 @@
 			path = alert;
 			sourceTree = "<group>";
 		};
+		F3A3C8FF2D7155E500ACB53F /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F3A3C8FD2D7155E500ACB53F /* xcode_install_helper.rb */,
+				F3A3C8FE2D7155E500ACB53F /* xcode_uninstall_helper.rb */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		F3A3C9022D7155E500ACB53F /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				F3A3C9002D7155E500ACB53F /* report.sh */,
+				F3A3C9012D7155E500ACB53F /* report-template.html */,
+			);
+			path = Report;
+			sourceTree = "<group>";
+		};
+		F3A3C9042D7155E500ACB53F /* UserTemplates */ = {
+			isa = PBXGroup;
+			children = (
+				F3A3C9032D7155E500ACB53F /* .gitkeep */,
+			);
+			path = UserTemplates;
+			sourceTree = "<group>";
+		};
+		F3A3C9072D7155E500ACB53F /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				F3A3C9042D7155E500ACB53F /* UserTemplates */,
+				F3A3C9052D7155E500ACB53F /* AppTemplate.xcprivacy */,
+				F3A3C9062D7155E500ACB53F /* FrameworkTemplate.xcprivacy */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
+		F3A3C9122D7155E500ACB53F /* app_privacy_manifest_fixer */ = {
+			isa = PBXGroup;
+			children = (
+				F3A3C8FF2D7155E500ACB53F /* Helper */,
+				F3A3C9022D7155E500ACB53F /* Report */,
+				F3A3C9072D7155E500ACB53F /* Templates */,
+				F3A3C9082D7155E500ACB53F /* .gitignore */,
+				F3A3C9092D7155E500ACB53F /* CHANGELOG.md */,
+				F3A3C90A2D7155E500ACB53F /* fixer.sh */,
+				F3A3C90B2D7155E500ACB53F /* install.sh */,
+				F3A3C90C2D7155E500ACB53F /* LICENSE */,
+				F3A3C90D2D7155E500ACB53F /* README.md */,
+				F3A3C90E2D7155E500ACB53F /* README.zh-CN.md */,
+				F3A3C90F2D7155E500ACB53F /* uninstall.sh */,
+				F3A3C9102D7155E500ACB53F /* upgrade.sh */,
+				F3A3C9112D7155E500ACB53F /* VERSION */,
+			);
+			path = app_privacy_manifest_fixer;
+			sourceTree = "<group>";
+		};
+		F3A3C9132D7155E500ACB53F /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				F3A3C9122D7155E500ACB53F /* app_privacy_manifest_fixer */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
 		F3E5A4982D30C0C900AEF187 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -982,6 +1081,7 @@
 				397216792B81E8EC007D0F2B /* Frameworks */,
 				3972167A2B81E8EC007D0F2B /* Resources */,
 				AF54A85F9BDF07861217B4AD /* [CP] Embed Pods Frameworks */,
+				F3A3C8D32D71527600ACB53F /* Fix Privacy Manifest */,
 			);
 			buildRules = (
 			);
@@ -1077,6 +1177,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3A3C9142D7155E500ACB53F /* report-template.html in Resources */,
+				F3A3C9152D7155E500ACB53F /* FrameworkTemplate.xcprivacy in Resources */,
+				F3A3C9162D7155E500ACB53F /* AppTemplate.xcprivacy in Resources */,
+				F3A3C9172D7155E500ACB53F /* VERSION in Resources */,
+				F3A3C9182D7155E500ACB53F /* fixer.sh in Resources */,
+				F3A3C9192D7155E500ACB53F /* README.md in Resources */,
+				F3A3C91A2D7155E500ACB53F /* README.zh-CN.md in Resources */,
+				F3A3C91B2D7155E500ACB53F /* LICENSE in Resources */,
+				F3A3C91C2D7155E500ACB53F /* .gitignore in Resources */,
+				F3A3C91D2D7155E500ACB53F /* install.sh in Resources */,
+				F3A3C91E2D7155E500ACB53F /* xcode_install_helper.rb in Resources */,
+				F3A3C91F2D7155E500ACB53F /* uninstall.sh in Resources */,
+				F3A3C9202D7155E500ACB53F /* CHANGELOG.md in Resources */,
+				F3A3C9212D7155E500ACB53F /* report.sh in Resources */,
+				F3A3C9222D7155E500ACB53F /* upgrade.sh in Resources */,
+				F3A3C9232D7155E500ACB53F /* xcode_uninstall_helper.rb in Resources */,
+				F3A3C9242D7155E500ACB53F /* .gitkeep in Resources */,
 				397216892B81E8F1007D0F2B /* Assets.xcassets in Resources */,
 				F3E7861E2CEC761700EC2251 /* InfoPlist.strings in Resources */,
 				F3E7861A2CEC6FBE00EC2251 /* Localizable.strings in Resources */,
@@ -1142,6 +1259,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-huanxi/Pods-huanxi-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F3A3C8D32D71527600ACB53F /* Fix Privacy Manifest */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Fix Privacy Manifest";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# 使用相对路径（推荐）：如果`app_privacy_manifest_fixer`在项目目录内\n\"${PROJECT_DIR}/huanxi/scripts/app_privacy_manifest_fixer/fixer.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
