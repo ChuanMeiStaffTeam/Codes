@@ -10,12 +10,29 @@ import UIKit
 class SearchViewController: BaseViewController {
     private let searchHeaderView = SearchHeaderView()
     private let searchTagsView = SearchTagsView()
-    private let waterfallView = WaterfallCollectionView()
     private let nav = NavigationController(rootViewController: SearchSugViewController())
 
     private lazy var emptyView: CCEmptyView = {
         let emptyView = CCEmptyView()
         return emptyView
+    }()
+    
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 2
+        layout.minimumLineSpacing = 2
+        layout.scrollDirection = .vertical
+        let cellWidth = (.screenWidth - 4) / 3
+        layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
+        
+        let collectionView = UICollectionView(frame: CGRect.init(x: 0, y: 0, width: .screenWidth, height: .screenHeight), collectionViewLayout: layout)
+        collectionView.backgroundColor = .black
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(SearchTagListCell.self, forCellWithReuseIdentifier: SearchTagListCell.defaultReuseIdentifier)
+        collectionView.register(SpaceCollectionViewCell.self, forCellWithReuseIdentifier: SpaceCollectionViewCell.defaultReuseIdentifier)
+
+        return collectionView
     }()
     
     private let viewModel = SearchViewModel()
@@ -59,16 +76,9 @@ class SearchViewController: BaseViewController {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(48)
         }
-
-        waterfallView.didSelectItemBlock = { [weak self] post in
-            guard let `self` = self else { return }
-            let vc = PostDetailViewController()
-            vc.hidesBottomBarWhenPushed = true
-            vc.postItem = post
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        view.addSubview(waterfallView)
-        waterfallView.snp.makeConstraints { make in
+        
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
             make.top.equalTo(searchTagsView.snp.bottom).offset(5)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview().inset(UIDevice.sy_tabBarFullHeight)
@@ -79,7 +89,7 @@ class SearchViewController: BaseViewController {
         self.viewModel.postsList
             .subscribe(onNext: { [weak self] cellTypes in
                 guard let `self` = self else { return }
-                self.waterfallView.items = cellTypes
+                self.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
@@ -99,6 +109,48 @@ extension SearchViewController {
         }
     }
 }
+
+extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.viewModel.postsList.value.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let item = self.viewModel.postsList.value.ck_objIndex(indexPath.item) else {
+            return collectionView.dequeueReusableCell(forIndexPath: indexPath) as SpaceCollectionViewCell
+        }
+        switch item {
+        case .skeleton:
+            let cell: SearchTagListCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
+            cell.isSkeletonVisible = true
+            return cell
+        case .postItem(let post):
+            let cell: SearchTagListCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
+            cell.isSkeletonVisible = false
+            if let urlStr = post.images?.first?.imageUrl {
+                cell.imgView.kf.setImage(with: URL.init(string: urlStr))
+            }
+            return cell
+        default:
+            return collectionView.dequeueReusableCell(forIndexPath: indexPath) as SpaceCollectionViewCell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let item = self.viewModel.postsList.value.ck_objIndex(indexPath.item) else { return }
+        switch item {
+        case .postItem(let post):
+            let vc = PostDetailViewController()
+            vc.hidesBottomBarWhenPushed = true
+            vc.postItem = post
+            self.navigationController?.pushViewController(vc, animated: true)
+        default:
+            return
+        }
+    }
+}
+
 
 /*代码功能
  

@@ -21,7 +21,7 @@ class SearchViewModel: BaseViewModel {
 
 extension SearchViewModel {
     func requestDefaultSearchPosts(completion: @escaping (Bool) -> Void) {
-        self.postsList.accept(Array(repeating: .skeleton, count: 12))
+        self.postsList.accept(Array(repeating: .skeleton, count: 18))
         NetworkManager.shared.postRequest(
             path: "postImage/defaultSearchPosts",
             parameters: nil,
