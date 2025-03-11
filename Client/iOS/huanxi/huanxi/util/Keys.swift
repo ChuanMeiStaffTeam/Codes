@@ -18,3 +18,8 @@ struct KeychainKeys {
     /// 设备 UUID
     static let uuid = "UUID"
 }
+
+struct ConfigKeys {
+    /// 穿山甲AppID
+    static let BUAdAppID = "721180"
+}

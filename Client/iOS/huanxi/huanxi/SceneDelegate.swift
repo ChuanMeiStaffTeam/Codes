@@ -6,10 +6,13 @@
 //
 
 import UIKit
+
 // import IQKeyboardManagerSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    
+    let tabbar = TabBarController()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -44,13 +47,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Launch配置
         LaunchManager.shared.configLaunchHandler { [weak self] in
-            guard let strongSelf = self else { return }
-            DispatchQueue.main.async {
-                strongSelf.window?.makeKeyAndVisible()
-                let tabbar = TabBarController()
-                strongSelf.window?.rootViewController = tabbar
-                
-                NIMManager.register()
+            guard let `self` = self else { return }
+            self.window?.makeKeyAndVisible()
+            self.window?.rootViewController = tabbar
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                // 初始化全局服务
+                appDelegate.initializeGlobalServices(launchOptions: appDelegate.launchOptions)
             }
         } adHandler: {
         }
@@ -84,6 +86,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
+    
 }
 
 

@@ -10,11 +10,13 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var launchOptions: [UIApplication.LaunchOptionsKey: Any]?  // 保存启动参数
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // 启用
-        SHFullscreenPopGesture.configure()
+        
+        // 保存启动参数
+        self.launchOptions = launchOptions
+
         // Override point for customization after application launch.
         return true
     }

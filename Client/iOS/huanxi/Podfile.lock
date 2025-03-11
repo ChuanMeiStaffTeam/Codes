@@ -1,4 +1,7 @@
 PODS:
+  - Ads-CN-Beta/BUAdSDK (6.7.0.3)
+  - Ads-CN-Beta/CSJMediation (6.7.0.3):
+    - Ads-CN-Beta/BUAdSDK
   - Alamofire (5.8.1)
   - JXSegmentedView (1.4.1)
   - Kingfisher (7.11.0)
@@ -16,6 +19,56 @@ PODS:
     - YXArtemis
   - NIMSDK_LITE/NOS (9.16.5):
     - YXArtemis
+  - Pangrowth/media (5.3.0.0):
+    - PangrowthMedia-premium (= 5.6.4.1)
+  - PangrowthMedia-premium (5.6.4.1):
+    - RangersAPM/CN (>= 3.10.6)
+    - RangersAPM/Core (>= 3.10.6)
+    - RangersAPM/Crash (>= 3.10.6)
+    - RangersAPM/EventMonitor (>= 3.10.6)
+    - RangersAPM/HMD (>= 3.10.6)
+    - RangersAPM/Public (>= 3.10.6)
+    - RangersAppLog/Core (>= 6.15.1)
+    - RangersAppLog/Host/CN (>= 6.15.1)
+    - RangersAppLog/Log (>= 6.15.1)
+  - RangersAPM/Above (5.1.6)
+  - RangersAPM/CN (5.1.6):
+    - RangersAPM/Core
+    - RangersAPM/Public
+  - RangersAPM/Core (5.1.6):
+    - RangersAPM/HMDLite
+  - RangersAPM/Crash (5.1.6):
+    - RangersAPM/Core
+    - RangersAPM/HMD
+    - RangersAPM/Public
+    - RangersAPM/SessionTracker
+    - RangersAPM/Zip
+  - RangersAPM/EventMonitor (5.1.6):
+    - RangersAPM/Core
+    - RangersAPM/HMD
+    - RangersAPM/Public
+  - RangersAPM/HMD (5.1.6):
+    - RangersAPM/Core
+    - RangersAPM/Public
+  - RangersAPM/HMDLite (5.1.6)
+  - RangersAPM/Public (5.1.6):
+    - RangersAPM/Above
+    - RangersAPM/Core
+    - RangersAPM/HMDLite
+    - RangersAPM/Zyone
+  - RangersAPM/SessionTracker (5.1.6):
+    - RangersAPM/Core
+    - RangersAPM/HMD
+    - RangersAPM/Public
+  - RangersAPM/Zip (5.1.6)
+  - RangersAPM/Zyone (5.1.6)
+  - RangersAppLog/Core (6.16.9):
+    - RangersAppLog/Encryptor/VOLC
+  - RangersAppLog/Encryptor/VOLC (6.16.9)
+  - RangersAppLog/Host/CN (6.16.9):
+    - RangersAppLog/Core
+  - RangersAppLog/Log (6.16.9):
+    - RangersAppLog/Core
   - RxCocoa (6.8.0):
     - RxRelay (= 6.8.0)
     - RxSwift (= 6.8.0)
@@ -26,9 +79,44 @@ PODS:
   - SnapKit (5.7.1)
   - SwiftyJSON (5.0.2)
   - TOCropViewController (2.7.4)
+  - TTSDKFramework/BMF (1.42.3.4-premium):
+    - TTSDKFramework/Core
+  - TTSDKFramework/Core (1.42.3.4-premium):
+    - RangersAppLog/Core (~> 6.16.2)
+    - RangersAppLog/Host/CN (~> 6.16.2)
+  - TTSDKFramework/HttpDNS (1.42.3.4-premium)
+  - TTSDKFramework/Player (1.42.3.4-premium):
+    - TTSDKFramework/Core
+    - TTSDKFramework/HttpDNS
+    - TTSDKFramework/PlayerCore
+    - TTSDKFramework/Reachability
+    - TTSDKFramework/TopSignature
+    - TTSDKFramework/VCN
+    - TTSDKFramework/VolcLog
+  - TTSDKFramework/Player-SR (1.42.3.4-premium):
+    - TTSDKFramework/BMF
+    - TTSDKFramework/Player
+  - TTSDKFramework/PlayerCore (1.42.3.4-premium):
+    - TTSDKFramework/Core
+    - TTSDKFramework/Tools
+    - TTSDKFramework/TTFFmpeg
+    - TTSDKFramework/VideoProcessor
+  - TTSDKFramework/Reachability (1.42.3.4-premium)
+  - TTSDKFramework/SSL (1.42.3.4-premium)
+  - TTSDKFramework/Tools (1.42.3.4-premium):
+    - TTSDKFramework/SSL
+  - TTSDKFramework/TopSignature (1.42.3.4-premium)
+  - TTSDKFramework/TTFFmpeg (1.42.3.4-premium):
+    - TTSDKFramework/Tools
+  - TTSDKFramework/VCN (1.42.3.4-premium)
+  - TTSDKFramework/VideoProcessor (1.42.3.4-premium)
+  - TTSDKFramework/VolcLog (1.42.3.4-premium):
+    - TTSDKFramework/SSL
   - YXArtemis (1.1.3)
 
 DEPENDENCIES:
+  - Ads-CN-Beta/BUAdSDK (= 6.7.0.3)
+  - Ads-CN-Beta/CSJMediation (= 6.7.0.3)
   - Alamofire
   - JXSegmentedView
   - Kingfisher
@@ -37,15 +125,18 @@ DEPENDENCIES:
   - MBProgressHUD
   - MJRefresh
   - NIMSDK_LITE (= 9.16.5)
+  - Pangrowth/media (= 5.3.0.0)
   - RxCocoa (~> 6.8.0)
   - RxSwift (~> 6.8.0)
   - SDCAlertView
   - SnapKit
   - SwiftyJSON
   - TOCropViewController
+  - TTSDKFramework/Player-SR (= 1.42.3.4-premium)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - Ads-CN-Beta
     - Alamofire
     - JXSegmentedView
     - Kingfisher
@@ -62,8 +153,15 @@ SPEC REPOS:
     - SwiftyJSON
     - TOCropViewController
     - YXArtemis
+  https://github.com/volcengine/volcengine-specs.git:
+    - Pangrowth
+    - PangrowthMedia-premium
+    - RangersAPM
+    - RangersAppLog
+    - TTSDKFramework
 
 SPEC CHECKSUMS:
+  Ads-CN-Beta: e8d837177f53d71d18fa17b7248bd309f1edd78d
   Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
   JXSegmentedView: cd73555ce2134d1656db2cb383ba9c2f36fb5078
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
@@ -72,6 +170,10 @@ SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
   NIMSDK_LITE: 88b7b4dfc47c74fe9790893322af1af1d06050e3
+  Pangrowth: 0e975cc60cc98f7c140333b6f54a84f10a35c987
+  PangrowthMedia-premium: a22fd065f2891fcc832b3e4163f6e426c95f28b1
+  RangersAPM: eb5b9cfe5e454d6a433b2b5a4cc56a5289c15c43
+  RangersAppLog: d4fa640a806e5fef583b07bea2f610684e81161e
   RxCocoa: 2d33c1e1e5d66492052ad46b11024ae287572880
   RxRelay: 335c78b926a2aea8d863a6d25f1ed3b5ad8e8705
   RxSwift: 4e28be97cbcfeee614af26d83415febbf2bf6f45
@@ -79,8 +181,9 @@ SPEC CHECKSUMS:
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
+  TTSDKFramework: 3cba00b346c4a9adaa014e26fd081bb8ad9c5314
   YXArtemis: 2771e9ac5e5e01867914835aedb03429d135043e
 
-PODFILE CHECKSUM: 3f39f13f4e8db541789be19c0ab8131f7d6d9ed4
+PODFILE CHECKSUM: 0ad8eee7e416e850fe3e128e26af98bb5726e9b5
 
 COCOAPODS: 1.16.1

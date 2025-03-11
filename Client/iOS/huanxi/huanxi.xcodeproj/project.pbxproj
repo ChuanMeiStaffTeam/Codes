@@ -155,6 +155,8 @@
 		F3A3C9222D7155E500ACB53F /* upgrade.sh in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C9102D7155E500ACB53F /* upgrade.sh */; };
 		F3A3C9232D7155E500ACB53F /* xcode_uninstall_helper.rb in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C8FE2D7155E500ACB53F /* xcode_uninstall_helper.rb */; };
 		F3A3C9242D7155E500ACB53F /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C9032D7155E500ACB53F /* .gitkeep */; };
+		F3B322E72D801D5B00A0774F /* SDK_Setting_5668424.json in Resources */ = {isa = PBXBuildFile; fileRef = F3B322E62D801D5B00A0774F /* SDK_Setting_5668424.json */; };
+		F3B322ED2D801FC700A0774F /* AppDelegate+Sdk.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B322EC2D801FC700A0774F /* AppDelegate+Sdk.swift */; };
 		F3E5A49A2D30C10B00AEF187 /* SetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4992D30C10B00AEF187 /* SetModel.swift */; };
 		F3E5A49C2D30EB5D00AEF187 /* ChangePhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A49B2D30EB5D00AEF187 /* ChangePhoneVC.swift */; };
 		F3E5A4E02D310A9F00AEF187 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */; };
@@ -254,7 +256,6 @@
 		397216832B81E8EC007D0F2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		397216862B81E8EC007D0F2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		397216882B81E8F1007D0F2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3972168D2B81E8F1007D0F2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		397216922B81E8F1007D0F2B /* huanxiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = huanxiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		397216962B81E8F1007D0F2B /* huanxiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = huanxiTests.swift; sourceTree = "<group>"; };
 		3972169C2B81E8F1007D0F2B /* huanxiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = huanxiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -374,6 +375,10 @@
 		F3A3C90F2D7155E500ACB53F /* uninstall.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = uninstall.sh; sourceTree = "<group>"; };
 		F3A3C9102D7155E500ACB53F /* upgrade.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = upgrade.sh; sourceTree = "<group>"; };
 		F3A3C9112D7155E500ACB53F /* VERSION */ = {isa = PBXFileReference; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
+		F3B322E62D801D5B00A0774F /* SDK_Setting_5668424.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SDK_Setting_5668424.json; sourceTree = "<group>"; };
+		F3B322EC2D801FC700A0774F /* AppDelegate+Sdk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Sdk.swift"; sourceTree = "<group>"; };
+		F3B322F32D80351900A0774F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/Info.plist; sourceTree = "<group>"; };
+		F3B322F52D80352700A0774F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hans"; path = "zh-Hans.lproj/Info.plist"; sourceTree = "<group>"; };
 		F3E5A4992D30C10B00AEF187 /* SetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetModel.swift; sourceTree = "<group>"; };
 		F3E5A49B2D30EB5D00AEF187 /* ChangePhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneVC.swift; sourceTree = "<group>"; };
 		F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
@@ -546,6 +551,7 @@
 		3972167E2B81E8EC007D0F2B /* huanxi */ = {
 			isa = PBXGroup;
 			children = (
+				F3B322E52D801D3900A0774F /* config */,
 				F3A3C9132D7155E500ACB53F /* scripts */,
 				F3223B862D0676D400E74574 /* manager */,
 				F39F6E0F2CEA01F800CFF8B5 /* launch */,
@@ -556,13 +562,14 @@
 				399318302B82E9E200F6D069 /* util */,
 				397216B62B820F6C007D0F2B /* module */,
 				3972167F2B81E8EC007D0F2B /* AppDelegate.swift */,
+				F3B322EC2D801FC700A0774F /* AppDelegate+Sdk.swift */,
 				397216AF2B81EA14007D0F2B /* base */,
 				397216812B81E8EC007D0F2B /* SceneDelegate.swift */,
 				397216832B81E8EC007D0F2B /* ViewController.swift */,
 				397216852B81E8EC007D0F2B /* Main.storyboard */,
 				397216882B81E8F1007D0F2B /* Assets.xcassets */,
 				F3F80E872CEA17C900008887 /* LaunchScreen.xib */,
-				3972168D2B81E8F1007D0F2B /* Info.plist */,
+				F3B322F42D80351900A0774F /* Info.plist */,
 				F3E7861C2CEC761700EC2251 /* InfoPlist.strings */,
 				F3E786182CEC6FBE00EC2251 /* Localizable.strings */,
 			);
@@ -1016,6 +1023,14 @@
 			path = scripts;
 			sourceTree = "<group>";
 		};
+		F3B322E52D801D3900A0774F /* config */ = {
+			isa = PBXGroup;
+			children = (
+				F3B322E62D801D5B00A0774F /* SDK_Setting_5668424.json */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
 		F3E5A4982D30C0C900AEF187 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1082,6 +1097,7 @@
 				3972167A2B81E8EC007D0F2B /* Resources */,
 				AF54A85F9BDF07861217B4AD /* [CP] Embed Pods Frameworks */,
 				F3A3C8D32D71527600ACB53F /* Fix Privacy Manifest */,
+				BF293611A63D115D3CA3A49B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1202,6 +1218,7 @@
 				F333FB912CFEA34500E0E0B2 /* 欢喜用户协议.docx in Resources */,
 				F39F6DDB2CDBCDAD00CFF8B5 /* heart.json in Resources */,
 				F3F80E882CEA17C900008887 /* LaunchScreen.xib in Resources */,
+				F3B322E72D801D5B00A0774F /* SDK_Setting_5668424.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1259,6 +1276,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-huanxi/Pods-huanxi-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BF293611A63D115D3CA3A49B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-huanxi/Pods-huanxi-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-huanxi/Pods-huanxi-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-huanxi/Pods-huanxi-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F3A3C8D32D71527600ACB53F /* Fix Privacy Manifest */ = {
@@ -1389,6 +1423,7 @@
 				39E9080D2C26B9070017B83B /* SearchHeaderView.swift in Sources */,
 				04F23E452C0EE4330078809E /* DirectViewController.swift in Sources */,
 				F3F80E842CEA064E00008887 /* PrivacyPopupViewController.swift in Sources */,
+				F3B322ED2D801FC700A0774F /* AppDelegate+Sdk.swift in Sources */,
 				399739572C6B3D6700D4DD8C /* PostModel.swift in Sources */,
 				F39F6DD22CD962D200CFF8B5 /* Api.swift in Sources */,
 				3999527B2BA9B30300415C46 /* ExplainViewController.swift in Sources */,
@@ -1493,6 +1528,15 @@
 				397216862B81E8EC007D0F2B /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F3B322F42D80351900A0774F /* Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3B322F32D80351900A0774F /* en */,
+				F3B322F52D80352700A0774F /* zh-Hans */,
+			);
+			name = Info.plist;
 			sourceTree = "<group>";
 		};
 		F3E786182CEC6FBE00EC2251 /* Localizable.strings */ = {
@@ -1655,6 +1699,7 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App获取定位权限，以发布帖子";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "App获取麦克风权限，以发送语音";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App需要获取相册权限，来发布图片动态";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "我们希望获取您的许可，以便提供更符合您兴趣的个性化内容";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1695,6 +1740,7 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App获取定位权限，以发布帖子";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "App获取麦克风权限，以发送语音";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App需要获取相册权限，来发布图片动态";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "我们希望获取您的许可，以便提供更符合您兴趣的个性化内容";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
