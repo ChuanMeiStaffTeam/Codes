@@ -9,6 +9,8 @@
 "UILaunchStoryboardName" = "LaunchScreen";
 "CFBundleDisplayName" = "Glee";
 
+// MARK: - 隐私权限
+NSPhotoLibraryUsageDescription = "We need to access your photo album to upload pictures and post content.";
 
 
 /*InfoPlist.strings 文件的作用

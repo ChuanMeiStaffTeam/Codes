@@ -182,7 +182,13 @@ class LoginViewController: BaseViewController {
         
         verifyButton.rx.tap
             .bind { [weak self] in
-                self?.startCountdown()
+                guard let `self` = self else { return }
+                Task {
+                    let success = await LoginManager.requestCode(self.phoneTextField.text ?? "")
+                    if success {
+                        self.startCountdown()
+                    }
+                }
             }
             .disposed(by: disposeBag)
         
@@ -191,9 +197,6 @@ class LoginViewController: BaseViewController {
                 guard let `self` = self else { return }
                 loginButton.setTitle(visible ? "登录" : "验证并登录", for: .normal)
                 codeStackView.isHidden = !visible
-                if visible {
-                    self.startCountdown()
-                }
             })
             .disposed(by: disposeBag)
 
@@ -261,6 +264,7 @@ class LoginViewController: BaseViewController {
                         let success = await LoginManager.requestCode(self.phoneTextField.text ?? "")
                         if success {
                             self.isCodeTextFieldVisible.accept(true)
+                            self.startCountdown()
                             self.codeTextField.becomeFirstResponder()
                         }
                     }

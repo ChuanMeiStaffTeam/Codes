@@ -316,6 +316,7 @@
 		F3223B812D03441D00E74574 /* SHFullscreenPopGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHFullscreenPopGesture.swift; sourceTree = "<group>"; };
 		F3223B872D0676F400E74574 /* NIMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIMManager.swift; sourceTree = "<group>"; };
 		F3245DCD2CF6F6BD006657B3 /* Pods_huanxi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_huanxi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F32883082D8131F20009A6A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxQLPreviewController.swift; sourceTree = "<group>"; };
 		F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreviewer.swift; sourceTree = "<group>"; };
 		F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "欢喜用户协议.docx"; sourceTree = "<group>"; };
@@ -377,8 +378,6 @@
 		F3A3C9112D7155E500ACB53F /* VERSION */ = {isa = PBXFileReference; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
 		F3B322E62D801D5B00A0774F /* SDK_Setting_5668424.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SDK_Setting_5668424.json; sourceTree = "<group>"; };
 		F3B322EC2D801FC700A0774F /* AppDelegate+Sdk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Sdk.swift"; sourceTree = "<group>"; };
-		F3B322F32D80351900A0774F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/Info.plist; sourceTree = "<group>"; };
-		F3B322F52D80352700A0774F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hans"; path = "zh-Hans.lproj/Info.plist"; sourceTree = "<group>"; };
 		F3E5A4992D30C10B00AEF187 /* SetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetModel.swift; sourceTree = "<group>"; };
 		F3E5A49B2D30EB5D00AEF187 /* ChangePhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneVC.swift; sourceTree = "<group>"; };
 		F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
@@ -569,7 +568,7 @@
 				397216852B81E8EC007D0F2B /* Main.storyboard */,
 				397216882B81E8F1007D0F2B /* Assets.xcassets */,
 				F3F80E872CEA17C900008887 /* LaunchScreen.xib */,
-				F3B322F42D80351900A0774F /* Info.plist */,
+				F32883082D8131F20009A6A4 /* Info.plist */,
 				F3E7861C2CEC761700EC2251 /* InfoPlist.strings */,
 				F3E786182CEC6FBE00EC2251 /* Localizable.strings */,
 			);
@@ -1530,15 +1529,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		F3B322F42D80351900A0774F /* Info.plist */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3B322F32D80351900A0774F /* en */,
-				F3B322F52D80352700A0774F /* zh-Hans */,
-			);
-			name = Info.plist;
-			sourceTree = "<group>";
-		};
 		F3E786182CEC6FBE00EC2251 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1692,7 +1682,7 @@
 				EXCLUDED_ARCHS = armv7;
 				"EXCLUDED_ARCHS[sdk=*]" = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "armv7 arm64";
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = huanxi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "欢喜";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
@@ -1733,7 +1723,7 @@
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = huanxi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "欢喜";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";

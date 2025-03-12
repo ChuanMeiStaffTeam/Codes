@@ -8,3 +8,6 @@
 
 "UILaunchStoryboardName" = "LaunchScreen";
 "CFBundleDisplayName" = "欢喜";
+
+// MARK: - 隐私权限
+NSPhotoLibraryUsageDescription = "我们需要访问您的相册，来上传图片并发布内容。";
