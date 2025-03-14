@@ -7,54 +7,22 @@
 
 import UIKit
 
-// import IQKeyboardManagerSwift
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    
-    let tabbar = TabBarController()
 
+    let tabbar = TabBarController()
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
-
-//        IQKeyboardManager.shared.enable = true
-
-        // 自定义导航栏的外观
-        let appearance = UINavigationBarAppearance()
-
-        // 设置背景色（例如：系统蓝色）
-        appearance.backgroundColor = UIColor.black
-
-        // 去除毛玻璃效果
-        appearance.backgroundEffect = nil
-
-        // 可选：设置标题文字颜色和字体
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-
-        // 将自定义的外观应用到导航栏
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().compactAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-
-        // 全局设置暗黑模式
-        if #available(iOS 13.0, *) {
-            window?.overrideUserInterfaceStyle = .dark
-        }
-
-        // Launch配置
-        LaunchManager.shared.configLaunchHandler { [weak self] in
-            guard let `self` = self else { return }
-            self.window?.makeKeyAndVisible()
-            self.window?.rootViewController = tabbar
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                // 初始化全局服务
-                appDelegate.initializeGlobalServices(launchOptions: appDelegate.launchOptions)
-            }
-        } adHandler: {
+        // 初始化窗口和根视图
+        setupWindowScene(scene)
+        // 初始化三方服务
+        setupThirdPartyServices()
+        // 处理 Deep Link
+        if let urlContext = connectionOptions.urlContexts.first {
+            handleDeepLink(urlContext.url)
         }
     }
 

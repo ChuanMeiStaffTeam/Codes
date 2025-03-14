@@ -19,7 +19,16 @@ struct KeychainKeys {
     static let uuid = "UUID"
 }
 
-struct ConfigKeys {
+struct AdConfigKeys {
     /// 穿山甲AppID
-    static let BUAdAppID = "721180"
+    static let BUAdAppID = "5668424"
+    static let BUAdAppID_Test = "5669981"
+
+    /// 穿山甲开屏广告id
+    static let BUAd_Splash_ID = "103405436"
+    static let BUAd_Splash_Test_ID = "103406461"
+
+
+    static let BUPangrowthAppID = "721180"
+    
 }

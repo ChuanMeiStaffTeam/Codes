@@ -99,6 +99,12 @@
 		F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */; };
 		F333FB852CFE9C0B00E0E0B2 /* DocumentPreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */; };
 		F333FB912CFEA34500E0E0B2 /* 欢喜用户协议.docx in Resources */ = {isa = PBXBuildFile; fileRef = F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */; };
+		F361576A2D8411DF00C71B94 /* AppDelegate+GlobalSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36157692D8411DF00C71B94 /* AppDelegate+GlobalSetup.swift */; };
+		F36157702D84129500C71B94 /* SceneDelegate+WindowSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F361576F2D84129500C71B94 /* SceneDelegate+WindowSetup.swift */; };
+		F36157722D8412AA00C71B94 /* SceneDelegate+ThirdPartySetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36157712D8412AA00C71B94 /* SceneDelegate+ThirdPartySetup.swift */; };
+		F36157742D8412BE00C71B94 /* SceneDelegate+DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36157732D8412BE00C71B94 /* SceneDelegate+DeepLink.swift */; };
+		F36157782D8418CD00C71B94 /* AdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36157772D8418CD00C71B94 /* AdService.swift */; };
+		F361577A2D8419A200C71B94 /* PermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36157792D8419A200C71B94 /* PermissionService.swift */; };
 		F37388022D110AF80072CE77 /* PostMorePopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37388012D110AF80072CE77 /* PostMorePopView.swift */; };
 		F37388042D1127660072CE77 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37388032D1127660072CE77 /* ReusableView.swift */; };
 		F37388062D1129950072CE77 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37388052D1129920072CE77 /* BaseView.swift */; };
@@ -156,7 +162,6 @@
 		F3A3C9232D7155E500ACB53F /* xcode_uninstall_helper.rb in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C8FE2D7155E500ACB53F /* xcode_uninstall_helper.rb */; };
 		F3A3C9242D7155E500ACB53F /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C9032D7155E500ACB53F /* .gitkeep */; };
 		F3B322E72D801D5B00A0774F /* SDK_Setting_5668424.json in Resources */ = {isa = PBXBuildFile; fileRef = F3B322E62D801D5B00A0774F /* SDK_Setting_5668424.json */; };
-		F3B322ED2D801FC700A0774F /* AppDelegate+Sdk.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B322EC2D801FC700A0774F /* AppDelegate+Sdk.swift */; };
 		F3E5A49A2D30C10B00AEF187 /* SetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4992D30C10B00AEF187 /* SetModel.swift */; };
 		F3E5A49C2D30EB5D00AEF187 /* ChangePhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A49B2D30EB5D00AEF187 /* ChangePhoneVC.swift */; };
 		F3E5A4E02D310A9F00AEF187 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */; };
@@ -320,6 +325,12 @@
 		F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxQLPreviewController.swift; sourceTree = "<group>"; };
 		F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreviewer.swift; sourceTree = "<group>"; };
 		F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "欢喜用户协议.docx"; sourceTree = "<group>"; };
+		F36157692D8411DF00C71B94 /* AppDelegate+GlobalSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+GlobalSetup.swift"; sourceTree = "<group>"; };
+		F361576F2D84129500C71B94 /* SceneDelegate+WindowSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+WindowSetup.swift"; sourceTree = "<group>"; };
+		F36157712D8412AA00C71B94 /* SceneDelegate+ThirdPartySetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+ThirdPartySetup.swift"; sourceTree = "<group>"; };
+		F36157732D8412BE00C71B94 /* SceneDelegate+DeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+DeepLink.swift"; sourceTree = "<group>"; };
+		F36157772D8418CD00C71B94 /* AdService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdService.swift; sourceTree = "<group>"; };
+		F36157792D8419A200C71B94 /* PermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionService.swift; sourceTree = "<group>"; };
 		F37388012D110AF80072CE77 /* PostMorePopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMorePopView.swift; sourceTree = "<group>"; };
 		F37388032D1127660072CE77 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		F37388052D1129920072CE77 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
@@ -377,7 +388,6 @@
 		F3A3C9102D7155E500ACB53F /* upgrade.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = upgrade.sh; sourceTree = "<group>"; };
 		F3A3C9112D7155E500ACB53F /* VERSION */ = {isa = PBXFileReference; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
 		F3B322E62D801D5B00A0774F /* SDK_Setting_5668424.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SDK_Setting_5668424.json; sourceTree = "<group>"; };
-		F3B322EC2D801FC700A0774F /* AppDelegate+Sdk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Sdk.swift"; sourceTree = "<group>"; };
 		F3E5A4992D30C10B00AEF187 /* SetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetModel.swift; sourceTree = "<group>"; };
 		F3E5A49B2D30EB5D00AEF187 /* ChangePhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneVC.swift; sourceTree = "<group>"; };
 		F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
@@ -550,6 +560,7 @@
 		3972167E2B81E8EC007D0F2B /* huanxi */ = {
 			isa = PBXGroup;
 			children = (
+				F36157762D84181500C71B94 /* services */,
 				F3B322E52D801D3900A0774F /* config */,
 				F3A3C9132D7155E500ACB53F /* scripts */,
 				F3223B862D0676D400E74574 /* manager */,
@@ -561,9 +572,12 @@
 				399318302B82E9E200F6D069 /* util */,
 				397216B62B820F6C007D0F2B /* module */,
 				3972167F2B81E8EC007D0F2B /* AppDelegate.swift */,
-				F3B322EC2D801FC700A0774F /* AppDelegate+Sdk.swift */,
-				397216AF2B81EA14007D0F2B /* base */,
 				397216812B81E8EC007D0F2B /* SceneDelegate.swift */,
+				F36157692D8411DF00C71B94 /* AppDelegate+GlobalSetup.swift */,
+				F361576F2D84129500C71B94 /* SceneDelegate+WindowSetup.swift */,
+				F36157712D8412AA00C71B94 /* SceneDelegate+ThirdPartySetup.swift */,
+				F36157732D8412BE00C71B94 /* SceneDelegate+DeepLink.swift */,
+				397216AF2B81EA14007D0F2B /* base */,
 				397216832B81E8EC007D0F2B /* ViewController.swift */,
 				397216852B81E8EC007D0F2B /* Main.storyboard */,
 				397216882B81E8F1007D0F2B /* Assets.xcassets */,
@@ -828,6 +842,15 @@
 				F30EEF1E2D59EEB800404BCF /* KeychainManager.swift */,
 			);
 			path = manager;
+			sourceTree = "<group>";
+		};
+		F36157762D84181500C71B94 /* services */ = {
+			isa = PBXGroup;
+			children = (
+				F36157772D8418CD00C71B94 /* AdService.swift */,
+				F36157792D8419A200C71B94 /* PermissionService.swift */,
+			);
+			path = services;
 			sourceTree = "<group>";
 		};
 		F373880F2D12F60E0072CE77 /* viewmodel */ = {
@@ -1346,8 +1369,10 @@
 				39066F652C514853003D347E /* DataUtil.swift in Sources */,
 				39E908242C287C630017B83B /* UITextField+Extension.swift in Sources */,
 				39B7943C2B9896410048C996 /* EditPhotoViewController.swift in Sources */,
+				F36157742D8412BE00C71B94 /* SceneDelegate+DeepLink.swift in Sources */,
 				392CF1142B8ECE570070637E /* MainUserCell.swift in Sources */,
 				F3E5A50F2D3E93C400AEF187 /* MineFollowListVC.swift in Sources */,
+				F361577A2D8419A200C71B94 /* PermissionService.swift in Sources */,
 				392CF1082B8D7E8F0070637E /* CGFloat+LayoutExtension.swift in Sources */,
 				39A86D1F2C4DF0C7000D4217 /* SettingViewController.swift in Sources */,
 				F3FC1D3A2D18E71E005555A0 /* SearchResultPostListVC.swift in Sources */,
@@ -1372,6 +1397,7 @@
 				F39F6DEB2CE127B300CFF8B5 /* Overlay.swift in Sources */,
 				39E908082C1ECD0C0017B83B /* MineConstrainerView.swift in Sources */,
 				F3E5A5012D3E5F4500AEF187 /* HemeRecommendItemCell.swift in Sources */,
+				F36157722D8412AA00C71B94 /* SceneDelegate+ThirdPartySetup.swift in Sources */,
 				39E9080B2C26B15B0017B83B /* SearchTagsView.swift in Sources */,
 				04F23E512C0F00450078809E /* ChatUserInfoView.swift in Sources */,
 				042597FF2C2A951F00482282 /* SearchDetailListViewController.swift in Sources */,
@@ -1406,6 +1432,7 @@
 				F3A3C8C92D6D690B00ACB53F /* OtherMineVC.swift in Sources */,
 				392CF10A2B8EC8700070637E /* HomeViewModel.swift in Sources */,
 				F3E5A4F02D3A2D6800AEF187 /* DrawerPresentation.swift in Sources */,
+				F36157782D8418CD00C71B94 /* AdService.swift in Sources */,
 				39066F672C51E15B003D347E /* LoginManager.swift in Sources */,
 				397216B12B81EA57007D0F2B /* NavigationController.swift in Sources */,
 				F30EEF282D5B2DCB00404BCF /* ReportReasonCell.swift in Sources */,
@@ -1422,7 +1449,6 @@
 				39E9080D2C26B9070017B83B /* SearchHeaderView.swift in Sources */,
 				04F23E452C0EE4330078809E /* DirectViewController.swift in Sources */,
 				F3F80E842CEA064E00008887 /* PrivacyPopupViewController.swift in Sources */,
-				F3B322ED2D801FC700A0774F /* AppDelegate+Sdk.swift in Sources */,
 				399739572C6B3D6700D4DD8C /* PostModel.swift in Sources */,
 				F39F6DD22CD962D200CFF8B5 /* Api.swift in Sources */,
 				3999527B2BA9B30300415C46 /* ExplainViewController.swift in Sources */,
@@ -1462,6 +1488,8 @@
 				04F23E4F2C0F00050078809E /* ChatViewController.swift in Sources */,
 				F3A3C8CE2D6EE25E00ACB53F /* AlertControllerExtension.swift in Sources */,
 				F37388042D1127660072CE77 /* ReusableView.swift in Sources */,
+				F36157702D84129500C71B94 /* SceneDelegate+WindowSetup.swift in Sources */,
+				F361576A2D8411DF00C71B94 /* AppDelegate+GlobalSetup.swift in Sources */,
 				F3F895592D30BD3200827BBB /* MineViewController.swift in Sources */,
 				04BCDA352C13063100437222 /* TextSizeCalculator.swift in Sources */,
 				F3E5A5092D3E8EA300AEF187 /* SquareViewModel.swift in Sources */,
