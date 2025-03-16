@@ -26,9 +26,7 @@ class AdService: NSObject {
             return
         }
         let configuration = BUAdSDKConfiguration()
-        
-//        // 提前导入配置
-//        configuration.mediation.advanceSDKConfigPath = [[NSBundle mainBundle]pathForResource:@"GroMore-config-ios-5000546" ofType:@"json"];
+
         // 设置APPID
         configuration.appID = AdConfigKeys.BUAdAppID_Test
         configuration.appLogoImage = UIImage(resource: .iconLogo)
@@ -72,7 +70,7 @@ class AdService: NSObject {
         
         guard window != nil else { return }
         
-        let ad = BUSplashAd(slotID: AdConfigKeys.BUAd_Splash_Test_ID, adSize: CGSize.zero)
+        let ad = BUSplashAd(slotID: AdConfigKeys.BUAd_Splash_Test_ID, adSize: UIScreen.main.bounds.size)
         ad.supportCardView = true
         ad.supportZoomOutView = true
         

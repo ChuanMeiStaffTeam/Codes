@@ -28,7 +28,10 @@ struct AdConfigKeys {
     static let BUAd_Splash_ID = "103405436"
     static let BUAd_Splash_Test_ID = "103406461"
 
-
+    /// 穿山甲信息流广告id
+    static let BUAd_Build_ID = "103408949"
+    static let BUAd_Build_Test_ID = "103408515"
+    
     static let BUPangrowthAppID = "721180"
     
 }

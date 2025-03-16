@@ -7,7 +7,7 @@
 
 import Foundation
 import RxRelay
-
+import BUAdSDK
 
 extension HomeViewModel {
     enum ReloadType {
@@ -20,6 +20,7 @@ extension HomeViewModel {
         case userItem([UserInfoModel])
         case postItem(PostModel)
         case recommend(MainModel)
+        case ad(BUNativeAd)
         case empty
         case error
 

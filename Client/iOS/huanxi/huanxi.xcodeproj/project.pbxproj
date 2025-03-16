@@ -162,6 +162,7 @@
 		F3A3C9232D7155E500ACB53F /* xcode_uninstall_helper.rb in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C8FE2D7155E500ACB53F /* xcode_uninstall_helper.rb */; };
 		F3A3C9242D7155E500ACB53F /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = F3A3C9032D7155E500ACB53F /* .gitkeep */; };
 		F3B322E72D801D5B00A0774F /* SDK_Setting_5668424.json in Resources */ = {isa = PBXBuildFile; fileRef = F3B322E62D801D5B00A0774F /* SDK_Setting_5668424.json */; };
+		F3CEE6182D869B7300DBC404 /* FeedAdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CEE6172D869B7300DBC404 /* FeedAdService.swift */; };
 		F3E5A49A2D30C10B00AEF187 /* SetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4992D30C10B00AEF187 /* SetModel.swift */; };
 		F3E5A49C2D30EB5D00AEF187 /* ChangePhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A49B2D30EB5D00AEF187 /* ChangePhoneVC.swift */; };
 		F3E5A4E02D310A9F00AEF187 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */; };
@@ -388,6 +389,7 @@
 		F3A3C9102D7155E500ACB53F /* upgrade.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = upgrade.sh; sourceTree = "<group>"; };
 		F3A3C9112D7155E500ACB53F /* VERSION */ = {isa = PBXFileReference; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
 		F3B322E62D801D5B00A0774F /* SDK_Setting_5668424.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SDK_Setting_5668424.json; sourceTree = "<group>"; };
+		F3CEE6172D869B7300DBC404 /* FeedAdService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAdService.swift; sourceTree = "<group>"; };
 		F3E5A4992D30C10B00AEF187 /* SetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetModel.swift; sourceTree = "<group>"; };
 		F3E5A49B2D30EB5D00AEF187 /* ChangePhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneVC.swift; sourceTree = "<group>"; };
 		F3E5A4DF2D310A9F00AEF187 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
@@ -848,6 +850,7 @@
 			isa = PBXGroup;
 			children = (
 				F36157772D8418CD00C71B94 /* AdService.swift */,
+				F3CEE6172D869B7300DBC404 /* FeedAdService.swift */,
 				F36157792D8419A200C71B94 /* PermissionService.swift */,
 			);
 			path = services;
@@ -1432,6 +1435,7 @@
 				F3A3C8C92D6D690B00ACB53F /* OtherMineVC.swift in Sources */,
 				392CF10A2B8EC8700070637E /* HomeViewModel.swift in Sources */,
 				F3E5A4F02D3A2D6800AEF187 /* DrawerPresentation.swift in Sources */,
+				F3CEE6182D869B7300DBC404 /* FeedAdService.swift in Sources */,
 				F36157782D8418CD00C71B94 /* AdService.swift in Sources */,
 				39066F672C51E15B003D347E /* LoginManager.swift in Sources */,
 				397216B12B81EA57007D0F2B /* NavigationController.swift in Sources */,

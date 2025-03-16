@@ -9,10 +9,13 @@ import UIKit
 import SwiftUI
 import Combine
 import MJRefresh
+import BUAdSDK
 
 class HomeViewController: BaseViewController {
     
     private var cancellable: AnyCancellable?
+
+    private var feedAdService = FeedAdService()
 
     private let viewModel = HomeViewModel()
 
@@ -36,6 +39,17 @@ class HomeViewController: BaseViewController {
         setupView()
         bindUI()
         self.viewModel.requestHomePosts()
+        
+        // 确保穿山甲 SDK 初始化完成后加载广告
+        AdService.shared.initializeSDK {
+            self.feedAdService.loadNativeAds()
+        }
+        
+        self.feedAdService.onAdsLoaded = { [weak self] in
+            guard let `self` = self else { return }
+            let ads = self.feedAdService.feedAds.prefix(3).map { $0 }
+            debugPrint("信息流广告加载成功: \(ads)")
+        }
         
         // 使用 Combine 订阅通知
         cancellable = NotificationCenter.default.publisher(for: .refreshMainPageNotification)
