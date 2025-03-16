@@ -9,13 +9,13 @@ import BUAdSDK
 
 class FeedAdService: NSObject {    
     private var adManager: BUNativeAdsManager?
-    var feedAds: [BUNativeAd] = [] // 存储加载的广告
-    var onAdsLoaded: (() -> Void)? // 广告加载完成回调
+    var onAdsLoaded: (([BUNativeAd]) -> Void)? // 广告加载完成回调
     
     override init() {}
 
     // 加载信息流广告（确保 SDK 已初始化）
-    func loadNativeAds() {
+    func loadNativeAds(completion: (([BUNativeAd]) -> Void)? = nil) {
+        onAdsLoaded = completion
         let slot = BUAdSlot()
         slot.id = AdConfigKeys.BUAd_Build_Test_ID
         slot.adSize = CGSize(width: UIDevice.screenWidth, height: 300)
@@ -34,8 +34,7 @@ extension FeedAdService: BUNativeAdsManagerDelegate {
     
     func nativeAdsManagerSuccess(toLoad adsManager: BUNativeAdsManager, nativeAds nativeAdDataArray: [BUNativeAd]?) {
         guard let ads = nativeAdDataArray else { return }
-        self.feedAds = ads
-        onAdsLoaded?() // 触发广告加载完成的回调
+        onAdsLoaded?(ads) // 触发广告加载完成的回调
     }
     
     func nativeAdsManager(_ adsManager: BUNativeAdsManager, didFailWithError error: Error?) {

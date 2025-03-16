@@ -56,12 +56,25 @@ class HomeViewModel {
     private var pageNo = 1
     private var pageSize = 10
     private var dataSource: [CellType] = []
+    private var ads: [BUNativeAd] = []
 
     let dataList = BehaviorRelay<[CellType]>(value: Array(repeating: .skeleton, count: 3))
     let hasMoreRelay = BehaviorRelay<Bool>(value: true)
 
+    private var feedAdService = FeedAdService()
+
     required init() {
         self.isNoRecommend = false
+        
+        // 确保穿山甲 SDK 初始化完成后加载广告
+        AdService.shared.initializeSDK {
+            self.feedAdService.loadNativeAds { [weak self] ads in
+                guard let `self` = self else { return }
+                let ads = ads.prefix(3).map { $0 }
+                self.ads = ads
+                debugPrint("信息流广告加载成功: \(ads)")
+            }
+        }
     }
 
 
