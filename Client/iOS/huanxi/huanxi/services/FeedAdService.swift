@@ -14,8 +14,11 @@ class FeedAdService: NSObject {
     override init() {}
 
     // 加载信息流广告（确保 SDK 已初始化）
-    func loadNativeAds(completion: (([BUNativeAd]) -> Void)? = nil) {
+    func loadNativeAds(with vc: UIViewController?, completion: (([BUNativeAd]) -> Void)? = nil) {
         onAdsLoaded = completion
+        
+        self.adManager?.mediation?.destory()
+        
         let slot = BUAdSlot()
         slot.id = AdConfigKeys.BUAd_Build_Test_ID
         slot.adSize = CGSize(width: UIDevice.screenWidth, height: 300)
@@ -23,9 +26,16 @@ class FeedAdService: NSObject {
         
         let adManager = BUNativeAdsManager(slot: slot)
         adManager.delegate = self
+        adManager.mediation?.rootViewController = vc
         self.adManager = adManager
         
-        adManager.loadAdData(withCount: 3) // 请求 3 个广告
+        adManager.loadAdData(withCount: 5) // 请求 3 个广告
+    }
+    
+    deinit {
+        self.adManager?.mediation?.destory()
+        self.adManager?.delegate = nil
+        self.adManager = nil
     }
 }
 
@@ -34,6 +44,7 @@ extension FeedAdService: BUNativeAdsManagerDelegate {
     
     func nativeAdsManagerSuccess(toLoad adsManager: BUNativeAdsManager, nativeAds nativeAdDataArray: [BUNativeAd]?) {
         guard let ads = nativeAdDataArray else { return }
+        self.adManager?.delegate = nil
         onAdsLoaded?(ads) // 触发广告加载完成的回调
     }
     

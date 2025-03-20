@@ -188,6 +188,33 @@
 		F3E7861E2CEC761700EC2251 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3E7861C2CEC761700EC2251 /* InfoPlist.strings */; };
 		F3E786222CEC8B0000EC2251 /* WebVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E786212CEC8B0000EC2251 /* WebVC.swift */; };
 		F3E786242CECB58F00EC2251 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E786232CECB58F00EC2251 /* UIDevice+Extension.swift */; };
+		F3F26D702D8AB2360019A1F6 /* BUDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D4F2D8AB2360019A1F6 /* BUDCollectionViewCell.m */; };
+		F3F26D712D8AB2360019A1F6 /* BUDActionAreaView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D4D2D8AB2360019A1F6 /* BUDActionAreaView.m */; };
+		F3F26D722D8AB2360019A1F6 /* BUDPasterContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D632D8AB2360019A1F6 /* BUDPasterContentView.m */; };
+		F3F26D732D8AB2360019A1F6 /* BUDRefreshButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D652D8AB2360019A1F6 /* BUDRefreshButton.m */; };
+		F3F26D742D8AB2360019A1F6 /* BUDSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D692D8AB2360019A1F6 /* BUDSelectedView.m */; };
+		F3F26D752D8AB2360019A1F6 /* BUDSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D6D2D8AB2360019A1F6 /* BUDSwitchView.m */; };
+		F3F26D762D8AB2360019A1F6 /* BUDDrawTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D552D8AB2360019A1F6 /* BUDDrawTableViewCell.m */; };
+		F3F26D772D8AB2360019A1F6 /* BUDVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D6F2D8AB2360019A1F6 /* BUDVideoView.m */; };
+		F3F26D782D8AB2360019A1F6 /* BUDFeedStyleHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D5D2D8AB2360019A1F6 /* BUDFeedStyleHelper.m */; };
+		F3F26D792D8AB2360019A1F6 /* BUDNormalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D612D8AB2360019A1F6 /* BUDNormalButton.m */; };
+		F3F26D7A2D8AB2360019A1F6 /* BUDdemoDislikeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D532D8AB2360019A1F6 /* BUDdemoDislikeCollectionCell.m */; };
+		F3F26D7B2D8AB2360019A1F6 /* BUDSelectedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D672D8AB2360019A1F6 /* BUDSelectedCollectionViewCell.m */; };
+		F3F26D7C2D8AB2360019A1F6 /* BUDSettingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D6B2D8AB2360019A1F6 /* BUDSettingTableView.m */; };
+		F3F26D7D2D8AB2360019A1F6 /* BUDFeedNormalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D5B2D8AB2360019A1F6 /* BUDFeedNormalTableViewCell.m */; };
+		F3F26D7E2D8AB2360019A1F6 /* BUDFeedNativeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D592D8AB2360019A1F6 /* BUDFeedNativeTableViewCell.m */; };
+		F3F26D7F2D8AB2360019A1F6 /* BUDNativeBannerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D5F2D8AB2360019A1F6 /* BUDNativeBannerTableViewCell.m */; };
+		F3F26D802D8AB2360019A1F6 /* BUDFeedAdTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D572D8AB2360019A1F6 /* BUDFeedAdTableViewCell.m */; };
+		F3F26D812D8AB2360019A1F6 /* BUDCustomPlayerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D512D8AB2360019A1F6 /* BUDCustomPlayerAdView.m */; };
+		F3F26D8B2D8AB6C20019A1F6 /* BUDFeedNormalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D882D8AB6C20019A1F6 /* BUDFeedNormalModel.m */; };
+		F3F26D8C2D8AB6C20019A1F6 /* BUDSelcetedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D8A2D8AB6C20019A1F6 /* BUDSelcetedItem.m */; };
+		F3F26D8D2D8AB6C20019A1F6 /* BUDConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D862D8AB6C20019A1F6 /* BUDConfigModel.m */; };
+		F3F26D922D8AB8F20019A1F6 /* NSString+LocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D902D8AB8F20019A1F6 /* NSString+LocalizedString.m */; };
+		F3F26D952D8AB94D0019A1F6 /* UIColor+DarkMode.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D942D8AB94D0019A1F6 /* UIColor+DarkMode.m */; };
+		F3F26D982D8AB9B70019A1F6 /* UIView+Draw.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D972D8AB9B70019A1F6 /* UIView+Draw.m */; };
+		F3F26D9A2D8ABD140019A1F6 /* KingfisherHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D992D8ABD140019A1F6 /* KingfisherHelper.swift */; };
+		F3F26D9E2D8ABE950019A1F6 /* BUDCustomDislikeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D9D2D8ABE950019A1F6 /* BUDCustomDislikeViewController.m */; };
+		F3F26DA72D8BBDF80019A1F6 /* BUMDFeedAdTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26DA22D8BBDF80019A1F6 /* BUMDFeedAdTableViewCell.m */; };
 		F3F80E822CEA038C00008887 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E812CEA038C00008887 /* LaunchViewController.swift */; };
 		F3F80E842CEA064E00008887 /* PrivacyPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E832CEA064E00008887 /* PrivacyPopupViewController.swift */; };
 		F3F80E862CEA087F00008887 /* LaunchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E852CEA087F00008887 /* LaunchManager.swift */; };
@@ -417,6 +444,61 @@
 		F3E7861F2CEC762F00EC2251 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		F3E786212CEC8B0000EC2251 /* WebVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebVC.swift; sourceTree = "<group>"; };
 		F3E786232CECB58F00EC2251 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		F3F26D4C2D8AB2360019A1F6 /* BUDActionAreaView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDActionAreaView.h; sourceTree = "<group>"; };
+		F3F26D4D2D8AB2360019A1F6 /* BUDActionAreaView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDActionAreaView.m; sourceTree = "<group>"; };
+		F3F26D4E2D8AB2360019A1F6 /* BUDCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDCollectionViewCell.h; sourceTree = "<group>"; };
+		F3F26D4F2D8AB2360019A1F6 /* BUDCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDCollectionViewCell.m; sourceTree = "<group>"; };
+		F3F26D502D8AB2360019A1F6 /* BUDCustomPlayerAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDCustomPlayerAdView.h; sourceTree = "<group>"; };
+		F3F26D512D8AB2360019A1F6 /* BUDCustomPlayerAdView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDCustomPlayerAdView.m; sourceTree = "<group>"; };
+		F3F26D522D8AB2360019A1F6 /* BUDdemoDislikeCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDdemoDislikeCollectionCell.h; sourceTree = "<group>"; };
+		F3F26D532D8AB2360019A1F6 /* BUDdemoDislikeCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDdemoDislikeCollectionCell.m; sourceTree = "<group>"; };
+		F3F26D542D8AB2360019A1F6 /* BUDDrawTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDDrawTableViewCell.h; sourceTree = "<group>"; };
+		F3F26D552D8AB2360019A1F6 /* BUDDrawTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDDrawTableViewCell.m; sourceTree = "<group>"; };
+		F3F26D562D8AB2360019A1F6 /* BUDFeedAdTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDFeedAdTableViewCell.h; sourceTree = "<group>"; };
+		F3F26D572D8AB2360019A1F6 /* BUDFeedAdTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDFeedAdTableViewCell.m; sourceTree = "<group>"; };
+		F3F26D582D8AB2360019A1F6 /* BUDFeedNativeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDFeedNativeTableViewCell.h; sourceTree = "<group>"; };
+		F3F26D592D8AB2360019A1F6 /* BUDFeedNativeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDFeedNativeTableViewCell.m; sourceTree = "<group>"; };
+		F3F26D5A2D8AB2360019A1F6 /* BUDFeedNormalTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDFeedNormalTableViewCell.h; sourceTree = "<group>"; };
+		F3F26D5B2D8AB2360019A1F6 /* BUDFeedNormalTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDFeedNormalTableViewCell.m; sourceTree = "<group>"; };
+		F3F26D5C2D8AB2360019A1F6 /* BUDFeedStyleHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDFeedStyleHelper.h; sourceTree = "<group>"; };
+		F3F26D5D2D8AB2360019A1F6 /* BUDFeedStyleHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDFeedStyleHelper.m; sourceTree = "<group>"; };
+		F3F26D5E2D8AB2360019A1F6 /* BUDNativeBannerTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDNativeBannerTableViewCell.h; sourceTree = "<group>"; };
+		F3F26D5F2D8AB2360019A1F6 /* BUDNativeBannerTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDNativeBannerTableViewCell.m; sourceTree = "<group>"; };
+		F3F26D602D8AB2360019A1F6 /* BUDNormalButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDNormalButton.h; sourceTree = "<group>"; };
+		F3F26D612D8AB2360019A1F6 /* BUDNormalButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDNormalButton.m; sourceTree = "<group>"; };
+		F3F26D622D8AB2360019A1F6 /* BUDPasterContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDPasterContentView.h; sourceTree = "<group>"; };
+		F3F26D632D8AB2360019A1F6 /* BUDPasterContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDPasterContentView.m; sourceTree = "<group>"; };
+		F3F26D642D8AB2360019A1F6 /* BUDRefreshButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDRefreshButton.h; sourceTree = "<group>"; };
+		F3F26D652D8AB2360019A1F6 /* BUDRefreshButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDRefreshButton.m; sourceTree = "<group>"; };
+		F3F26D662D8AB2360019A1F6 /* BUDSelectedCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDSelectedCollectionViewCell.h; sourceTree = "<group>"; };
+		F3F26D672D8AB2360019A1F6 /* BUDSelectedCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDSelectedCollectionViewCell.m; sourceTree = "<group>"; };
+		F3F26D682D8AB2360019A1F6 /* BUDSelectedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDSelectedView.h; sourceTree = "<group>"; };
+		F3F26D692D8AB2360019A1F6 /* BUDSelectedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDSelectedView.m; sourceTree = "<group>"; };
+		F3F26D6A2D8AB2360019A1F6 /* BUDSettingTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDSettingTableView.h; sourceTree = "<group>"; };
+		F3F26D6B2D8AB2360019A1F6 /* BUDSettingTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDSettingTableView.m; sourceTree = "<group>"; };
+		F3F26D6C2D8AB2360019A1F6 /* BUDSwitchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDSwitchView.h; sourceTree = "<group>"; };
+		F3F26D6D2D8AB2360019A1F6 /* BUDSwitchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDSwitchView.m; sourceTree = "<group>"; };
+		F3F26D6E2D8AB2360019A1F6 /* BUDVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDVideoView.h; sourceTree = "<group>"; };
+		F3F26D6F2D8AB2360019A1F6 /* BUDVideoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDVideoView.m; sourceTree = "<group>"; };
+		F3F26D822D8AB2390019A1F6 /* huanxi-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "huanxi-Bridging-Header.h"; sourceTree = "<group>"; };
+		F3F26D852D8AB6C20019A1F6 /* BUDConfigModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDConfigModel.h; sourceTree = "<group>"; };
+		F3F26D862D8AB6C20019A1F6 /* BUDConfigModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDConfigModel.m; sourceTree = "<group>"; };
+		F3F26D872D8AB6C20019A1F6 /* BUDFeedNormalModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDFeedNormalModel.h; sourceTree = "<group>"; };
+		F3F26D882D8AB6C20019A1F6 /* BUDFeedNormalModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDFeedNormalModel.m; sourceTree = "<group>"; };
+		F3F26D892D8AB6C20019A1F6 /* BUDSelcetedItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDSelcetedItem.h; sourceTree = "<group>"; };
+		F3F26D8A2D8AB6C20019A1F6 /* BUDSelcetedItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDSelcetedItem.m; sourceTree = "<group>"; };
+		F3F26D8E2D8AB74E0019A1F6 /* BUDMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDMacros.h; sourceTree = "<group>"; };
+		F3F26D8F2D8AB8F20019A1F6 /* NSString+LocalizedString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+LocalizedString.h"; sourceTree = "<group>"; };
+		F3F26D902D8AB8F20019A1F6 /* NSString+LocalizedString.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+LocalizedString.m"; sourceTree = "<group>"; };
+		F3F26D932D8AB94D0019A1F6 /* UIColor+DarkMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+DarkMode.h"; sourceTree = "<group>"; };
+		F3F26D942D8AB94D0019A1F6 /* UIColor+DarkMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DarkMode.m"; sourceTree = "<group>"; };
+		F3F26D962D8AB9B70019A1F6 /* UIView+Draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Draw.h"; sourceTree = "<group>"; };
+		F3F26D972D8AB9B70019A1F6 /* UIView+Draw.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Draw.m"; sourceTree = "<group>"; };
+		F3F26D992D8ABD140019A1F6 /* KingfisherHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherHelper.swift; sourceTree = "<group>"; };
+		F3F26D9C2D8ABE950019A1F6 /* BUDCustomDislikeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUDCustomDislikeViewController.h; sourceTree = "<group>"; };
+		F3F26D9D2D8ABE950019A1F6 /* BUDCustomDislikeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDCustomDislikeViewController.m; sourceTree = "<group>"; };
+		F3F26DA12D8BBDF80019A1F6 /* BUMDFeedAdTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUMDFeedAdTableViewCell.h; sourceTree = "<group>"; };
+		F3F26DA22D8BBDF80019A1F6 /* BUMDFeedAdTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUMDFeedAdTableViewCell.m; sourceTree = "<group>"; };
 		F3F80E812CEA038C00008887 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		F3F80E832CEA064E00008887 /* PrivacyPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPopupViewController.swift; sourceTree = "<group>"; };
 		F3F80E852CEA087F00008887 /* LaunchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchManager.swift; sourceTree = "<group>"; };
@@ -562,6 +644,7 @@
 		3972167E2B81E8EC007D0F2B /* huanxi */ = {
 			isa = PBXGroup;
 			children = (
+				F3F26D832D8AB60F0019A1F6 /* adModule */,
 				F36157762D84181500C71B94 /* services */,
 				F3B322E52D801D3900A0774F /* config */,
 				F3A3C9132D7155E500ACB53F /* scripts */,
@@ -581,6 +664,7 @@
 				F36157732D8412BE00C71B94 /* SceneDelegate+DeepLink.swift */,
 				397216AF2B81EA14007D0F2B /* base */,
 				397216832B81E8EC007D0F2B /* ViewController.swift */,
+				F3F26D822D8AB2390019A1F6 /* huanxi-Bridging-Header.h */,
 				397216852B81E8EC007D0F2B /* Main.storyboard */,
 				397216882B81E8F1007D0F2B /* Assets.xcassets */,
 				F3F80E872CEA17C900008887 /* LaunchScreen.xib */,
@@ -735,6 +819,7 @@
 				F30EEF222D59F12200404BCF /* Keys.swift */,
 				F3223B7B2D01848F00E74574 /* Tools.swift */,
 				F30EEF1A2D59E03600404BCF /* KeychainHelper.swift */,
+				F3F26D992D8ABD140019A1F6 /* KingfisherHelper.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -1101,6 +1186,106 @@
 			path = web;
 			sourceTree = "<group>";
 		};
+		F3F26D4B2D8AB1AA0019A1F6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				F3F26DA52D8BBDF80019A1F6 /* Mediation */,
+				F3F26D4C2D8AB2360019A1F6 /* BUDActionAreaView.h */,
+				F3F26D4D2D8AB2360019A1F6 /* BUDActionAreaView.m */,
+				F3F26D4E2D8AB2360019A1F6 /* BUDCollectionViewCell.h */,
+				F3F26D4F2D8AB2360019A1F6 /* BUDCollectionViewCell.m */,
+				F3F26D502D8AB2360019A1F6 /* BUDCustomPlayerAdView.h */,
+				F3F26D512D8AB2360019A1F6 /* BUDCustomPlayerAdView.m */,
+				F3F26D522D8AB2360019A1F6 /* BUDdemoDislikeCollectionCell.h */,
+				F3F26D532D8AB2360019A1F6 /* BUDdemoDislikeCollectionCell.m */,
+				F3F26D542D8AB2360019A1F6 /* BUDDrawTableViewCell.h */,
+				F3F26D552D8AB2360019A1F6 /* BUDDrawTableViewCell.m */,
+				F3F26D562D8AB2360019A1F6 /* BUDFeedAdTableViewCell.h */,
+				F3F26D572D8AB2360019A1F6 /* BUDFeedAdTableViewCell.m */,
+				F3F26D582D8AB2360019A1F6 /* BUDFeedNativeTableViewCell.h */,
+				F3F26D592D8AB2360019A1F6 /* BUDFeedNativeTableViewCell.m */,
+				F3F26D5A2D8AB2360019A1F6 /* BUDFeedNormalTableViewCell.h */,
+				F3F26D5B2D8AB2360019A1F6 /* BUDFeedNormalTableViewCell.m */,
+				F3F26D5C2D8AB2360019A1F6 /* BUDFeedStyleHelper.h */,
+				F3F26D5D2D8AB2360019A1F6 /* BUDFeedStyleHelper.m */,
+				F3F26D5E2D8AB2360019A1F6 /* BUDNativeBannerTableViewCell.h */,
+				F3F26D5F2D8AB2360019A1F6 /* BUDNativeBannerTableViewCell.m */,
+				F3F26D602D8AB2360019A1F6 /* BUDNormalButton.h */,
+				F3F26D612D8AB2360019A1F6 /* BUDNormalButton.m */,
+				F3F26D622D8AB2360019A1F6 /* BUDPasterContentView.h */,
+				F3F26D632D8AB2360019A1F6 /* BUDPasterContentView.m */,
+				F3F26D642D8AB2360019A1F6 /* BUDRefreshButton.h */,
+				F3F26D652D8AB2360019A1F6 /* BUDRefreshButton.m */,
+				F3F26D662D8AB2360019A1F6 /* BUDSelectedCollectionViewCell.h */,
+				F3F26D672D8AB2360019A1F6 /* BUDSelectedCollectionViewCell.m */,
+				F3F26D682D8AB2360019A1F6 /* BUDSelectedView.h */,
+				F3F26D692D8AB2360019A1F6 /* BUDSelectedView.m */,
+				F3F26D6A2D8AB2360019A1F6 /* BUDSettingTableView.h */,
+				F3F26D6B2D8AB2360019A1F6 /* BUDSettingTableView.m */,
+				F3F26D6C2D8AB2360019A1F6 /* BUDSwitchView.h */,
+				F3F26D6D2D8AB2360019A1F6 /* BUDSwitchView.m */,
+				F3F26D6E2D8AB2360019A1F6 /* BUDVideoView.h */,
+				F3F26D6F2D8AB2360019A1F6 /* BUDVideoView.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		F3F26D832D8AB60F0019A1F6 /* adModule */ = {
+			isa = PBXGroup;
+			children = (
+				F3F26D8E2D8AB74E0019A1F6 /* BUDMacros.h */,
+				F3F26D9B2D8ABE260019A1F6 /* controller */,
+				F3F26D912D8AB8F20019A1F6 /* util */,
+				F3F26D842D8AB6590019A1F6 /* model */,
+				F3F26D4B2D8AB1AA0019A1F6 /* view */,
+			);
+			path = adModule;
+			sourceTree = "<group>";
+		};
+		F3F26D842D8AB6590019A1F6 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				F3F26D852D8AB6C20019A1F6 /* BUDConfigModel.h */,
+				F3F26D862D8AB6C20019A1F6 /* BUDConfigModel.m */,
+				F3F26D872D8AB6C20019A1F6 /* BUDFeedNormalModel.h */,
+				F3F26D882D8AB6C20019A1F6 /* BUDFeedNormalModel.m */,
+				F3F26D892D8AB6C20019A1F6 /* BUDSelcetedItem.h */,
+				F3F26D8A2D8AB6C20019A1F6 /* BUDSelcetedItem.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		F3F26D912D8AB8F20019A1F6 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				F3F26D962D8AB9B70019A1F6 /* UIView+Draw.h */,
+				F3F26D972D8AB9B70019A1F6 /* UIView+Draw.m */,
+				F3F26D932D8AB94D0019A1F6 /* UIColor+DarkMode.h */,
+				F3F26D942D8AB94D0019A1F6 /* UIColor+DarkMode.m */,
+				F3F26D8F2D8AB8F20019A1F6 /* NSString+LocalizedString.h */,
+				F3F26D902D8AB8F20019A1F6 /* NSString+LocalizedString.m */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		F3F26D9B2D8ABE260019A1F6 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				F3F26D9C2D8ABE950019A1F6 /* BUDCustomDislikeViewController.h */,
+				F3F26D9D2D8ABE950019A1F6 /* BUDCustomDislikeViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		F3F26DA52D8BBDF80019A1F6 /* Mediation */ = {
+			isa = PBXGroup;
+			children = (
+				F3F26DA12D8BBDF80019A1F6 /* BUMDFeedAdTableViewCell.h */,
+				F3F26DA22D8BBDF80019A1F6 /* BUMDFeedAdTableViewCell.m */,
+			);
+			path = Mediation;
+			sourceTree = "<group>";
+		};
 		F3FC1D262D15CE32005555A0 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1181,6 +1366,7 @@
 				TargetAttributes = {
 					3972167B2B81E8EC007D0F2B = {
 						CreatedOnToolsVersion = 13.3.1;
+						LastSwiftMigration = 1610;
 					};
 					397216912B81E8F1007D0F2B = {
 						CreatedOnToolsVersion = 13.3.1;
@@ -1353,6 +1539,7 @@
 				F3E5A4E02D310A9F00AEF187 /* EditProfileVC.swift in Sources */,
 				F37388212D13C4590072CE77 /* SearchSugHeaderView.swift in Sources */,
 				F30EEF2A2D5B36D700404BCF /* ReportReasonViewModel.swift in Sources */,
+				F3F26D922D8AB8F20019A1F6 /* NSString+LocalizedString.m in Sources */,
 				F3E786242CECB58F00EC2251 /* UIDevice+Extension.swift in Sources */,
 				F39F6DF42CE12C6700CFF8B5 /* CommentModel.swift in Sources */,
 				F3E5A4EE2D38E8F200AEF187 /* CommentViewModel.swift in Sources */,
@@ -1362,11 +1549,13 @@
 				392CF1162B8ECE640070637E /* MainRecommendCell.swift in Sources */,
 				3998DE312BB016A60000C4DD /* UITextView+Extension.swift in Sources */,
 				042598012C2A970400482282 /* SearchContentCell.swift in Sources */,
+				F3F26D982D8AB9B70019A1F6 /* UIView+Draw.m in Sources */,
 				3998DE332BB031FF0000C4DD /* EditPhotosView.swift in Sources */,
 				F3F895552D30BAB100827BBB /* BaseCell.swift in Sources */,
 				39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */,
 				F3E5A49C2D30EB5D00AEF187 /* ChangePhoneVC.swift in Sources */,
 				04F23E482C0EE6AF0078809E /* DirectChatCell.swift in Sources */,
+				F3F26D952D8AB94D0019A1F6 /* UIColor+DarkMode.m in Sources */,
 				F373881D2D13224C0072CE77 /* BaseViewModel.swift in Sources */,
 				F3E5A50D2D3E93A100AEF187 /* MineFollowContainerVC.swift in Sources */,
 				39066F652C514853003D347E /* DataUtil.swift in Sources */,
@@ -1374,6 +1563,7 @@
 				39B7943C2B9896410048C996 /* EditPhotoViewController.swift in Sources */,
 				F36157742D8412BE00C71B94 /* SceneDelegate+DeepLink.swift in Sources */,
 				392CF1142B8ECE570070637E /* MainUserCell.swift in Sources */,
+				F3F26D9E2D8ABE950019A1F6 /* BUDCustomDislikeViewController.m in Sources */,
 				F3E5A50F2D3E93C400AEF187 /* MineFollowListVC.swift in Sources */,
 				F361577A2D8419A200C71B94 /* PermissionService.swift in Sources */,
 				392CF1082B8D7E8F0070637E /* CGFloat+LayoutExtension.swift in Sources */,
@@ -1427,6 +1617,24 @@
 				04F0D1A62BFADC5900FFE128 /* MineHeaderView.swift in Sources */,
 				F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */,
 				39E908142C26C46F0017B83B /* WaterfallCollectionView.swift in Sources */,
+				F3F26D702D8AB2360019A1F6 /* BUDCollectionViewCell.m in Sources */,
+				F3F26D712D8AB2360019A1F6 /* BUDActionAreaView.m in Sources */,
+				F3F26D722D8AB2360019A1F6 /* BUDPasterContentView.m in Sources */,
+				F3F26D732D8AB2360019A1F6 /* BUDRefreshButton.m in Sources */,
+				F3F26D742D8AB2360019A1F6 /* BUDSelectedView.m in Sources */,
+				F3F26D752D8AB2360019A1F6 /* BUDSwitchView.m in Sources */,
+				F3F26D762D8AB2360019A1F6 /* BUDDrawTableViewCell.m in Sources */,
+				F3F26D772D8AB2360019A1F6 /* BUDVideoView.m in Sources */,
+				F3F26D782D8AB2360019A1F6 /* BUDFeedStyleHelper.m in Sources */,
+				F3F26D792D8AB2360019A1F6 /* BUDNormalButton.m in Sources */,
+				F3F26D7A2D8AB2360019A1F6 /* BUDdemoDislikeCollectionCell.m in Sources */,
+				F3F26D7B2D8AB2360019A1F6 /* BUDSelectedCollectionViewCell.m in Sources */,
+				F3F26D7C2D8AB2360019A1F6 /* BUDSettingTableView.m in Sources */,
+				F3F26D7D2D8AB2360019A1F6 /* BUDFeedNormalTableViewCell.m in Sources */,
+				F3F26D7E2D8AB2360019A1F6 /* BUDFeedNativeTableViewCell.m in Sources */,
+				F3F26D7F2D8AB2360019A1F6 /* BUDNativeBannerTableViewCell.m in Sources */,
+				F3F26D802D8AB2360019A1F6 /* BUDFeedAdTableViewCell.m in Sources */,
+				F3F26D812D8AB2360019A1F6 /* BUDCustomPlayerAdView.m in Sources */,
 				F30EEF262D5B285600404BCF /* ReportReasonVC.swift in Sources */,
 				F3A3C8C42D6C18AA00ACB53F /* CustomAutoFooter.swift in Sources */,
 				F3223B7A2D016D8C00E74574 /* MineViewModel.swift in Sources */,
@@ -1449,6 +1657,7 @@
 				F39F6DE92CE1277400CFF8B5 /* DrawerView.swift in Sources */,
 				F39F6E022CE1465500CFF8B5 /* Date+Extension.swift in Sources */,
 				F39F6DF02CE128DD00CFF8B5 /* PostCommentPopView.swift in Sources */,
+				F3F26D9A2D8ABD140019A1F6 /* KingfisherHelper.swift in Sources */,
 				F3FC1D382D18E6EC005555A0 /* SearchResultUserListVC.swift in Sources */,
 				39E9080D2C26B9070017B83B /* SearchHeaderView.swift in Sources */,
 				04F23E452C0EE4330078809E /* DirectViewController.swift in Sources */,
@@ -1464,6 +1673,9 @@
 				F3FC1D2C2D15DE8B005555A0 /* SearchTagListCell.swift in Sources */,
 				F3E7860F2CEC5C1300EC2251 /* RichTextLabel.swift in Sources */,
 				397216802B81E8EC007D0F2B /* AppDelegate.swift in Sources */,
+				F3F26D8B2D8AB6C20019A1F6 /* BUDFeedNormalModel.m in Sources */,
+				F3F26D8C2D8AB6C20019A1F6 /* BUDSelcetedItem.m in Sources */,
+				F3F26D8D2D8AB6C20019A1F6 /* BUDConfigModel.m in Sources */,
 				F39F6E062CE1727800CFF8B5 /* CommentListCell.swift in Sources */,
 				F3F80E8A2CEA3EF700008887 /* TransAnimator.swift in Sources */,
 				F373881A2D1314E90072CE77 /* WaterfallMutiSectionFlowLayout.swift in Sources */,
@@ -1491,6 +1703,7 @@
 				F3223B832D03441D00E74574 /* SHFullscreenPopGesture.swift in Sources */,
 				04F23E4F2C0F00050078809E /* ChatViewController.swift in Sources */,
 				F3A3C8CE2D6EE25E00ACB53F /* AlertControllerExtension.swift in Sources */,
+				F3F26DA72D8BBDF80019A1F6 /* BUMDFeedAdTableViewCell.m in Sources */,
 				F37388042D1127660072CE77 /* ReusableView.swift in Sources */,
 				F36157702D84129500C71B94 /* SceneDelegate+WindowSetup.swift in Sources */,
 				F361576A2D8411DF00C71B94 /* AppDelegate+GlobalSetup.swift in Sources */,
@@ -1707,6 +1920,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = CH2X87N5DP;
@@ -1737,6 +1951,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jxjh.huanxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "huanxi/huanxi-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1749,6 +1965,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = CH2X87N5DP;
@@ -1778,6 +1995,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jxjh.huanxi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "huanxi/huanxi-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

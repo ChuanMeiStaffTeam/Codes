@@ -21,9 +21,19 @@ class HomeViewController: BaseViewController {
         let view = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
         view.backgroundColor = .clear
         view.separatorColor = .clear
+        view.separatorStyle = .none
+
         view.register(HomeUserCell.self, forCellReuseIdentifier: HomeUserCell.defaultReuseIdentifier)
         view.register(MainContentCell.self, forCellReuseIdentifier: MainContentCell.defaultReuseIdentifier)
         view.register(HemeRecommendCell.self, forCellReuseIdentifier: HemeRecommendCell.defaultReuseIdentifier)
+        
+        //信息流广告
+        view.register(BUMDFeedAdLeftTableViewCell.self, forCellReuseIdentifier: "BUMDFeedAdLeftTableViewCell")
+        view.register(BUMDFeedAdLargeTableViewCell.self, forCellReuseIdentifier: "BUMDFeedAdLargeTableViewCell")
+        view.register(BUMDFeedAdGroupTableViewCell.self, forCellReuseIdentifier: "BUMDFeedAdGroupTableViewCell")
+        view.register(BUMDFeedVideoAdTableViewCell.self, forCellReuseIdentifier: "BUMDFeedVideoAdTableViewCell")
+        view.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+
         return view
     }()
 
@@ -139,6 +149,9 @@ class HomeViewController: BaseViewController {
                         self.viewModel.hiddenFollow(indexPath: IndexPath(row: index, section: 0))
                     }
                     return cell
+                case .ad(let model):
+                    let cell = self.cellForNativeAd(tableView, indexPath: IndexPath(row: index, section: 0), nativeAd: model)
+                    return cell ?? UITableViewCell()
                 default:
                     let cell = UITableViewCell()
                     cell.backgroundColor = .clear
@@ -199,6 +212,79 @@ class HomeViewController: BaseViewController {
     
 }
 
+//MARK: ads UITableViewCell
+extension HomeViewController {
+    func heightForNativeAd(_ tableView: UITableView, indexPath: IndexPath, nativeAd: BUNativeAd) -> CGFloat {
+        var width = tableView.bounds.width
+        width -= view.safeAreaInsets.left + view.safeAreaInsets.right
+        var height: CGFloat = 150
+        if let isExpressAd = nativeAd.mediation?.isExpressAd, isExpressAd{
+            height = nativeAd.mediation?.canvasView.bounds.height ?? 150
+        } else {
+            switch nativeAd.data?.imageMode {
+            case .adModeSmallImage:
+                height = BUMDFeedAdLeftTableViewCell.cellHeight(withModel: nativeAd, width: width)
+            case .adModeLargeImage, .adModeImagePortrait:
+                height = BUMDFeedAdLargeTableViewCell.cellHeight(withModel: nativeAd, width: width)
+            case .adModeGroupImage:
+                height = BUMDFeedAdGroupTableViewCell.cellHeight(withModel: nativeAd, width: width)
+            case .videoAdModeImage:
+                height = BUMDFeedVideoAdTableViewCell.cellHeight(withModel: nativeAd, width: width)
+            default:
+                break
+            }
+        }
+        return height
+    }
+    
+    func cellForNativeAd(_ tableView: UITableView, indexPath: IndexPath, nativeAd: BUNativeAd) -> UITableViewCell? {
+        nativeAd.rootViewController = self
+        nativeAd.delegate = self
+        nativeAd.mediation?.canvasView.tag = 1000
+
+        if let isExpressAd = nativeAd.mediation?.isExpressAd, isExpressAd{
+            nativeAd.mediation?.render()
+            // 模板视图
+            let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
+            cell.selectionStyle = .none
+            // 重用 BUNativeExpressAdView，先把之前的广告视图取下来，再添加上当前视图
+            if let subView = cell.contentView.viewWithTag(1000) {
+                subView.removeFromSuperview()
+            }
+            cell.contentView.addSubview(nativeAd.mediation?.canvasView ?? UIView())
+            return cell
+        } else {
+            // 自渲染
+            var cell: BUMDFeedAdBaseTableViewCell?
+            switch nativeAd.data?.imageMode {
+            case .adModeSmallImage:
+                cell = tableView.dequeueReusableCell(withIdentifier: "BUMDFeedAdLeftTableViewCell", for: indexPath) as? BUMDFeedAdLeftTableViewCell
+            case .adModeLargeImage, .adModeImagePortrait:
+                cell = tableView.dequeueReusableCell(withIdentifier: "BUMDFeedAdLargeTableViewCell", for: indexPath) as? BUMDFeedAdLargeTableViewCell
+            case .adModeGroupImage:
+                cell = tableView.dequeueReusableCell(withIdentifier: "BUMDFeedAdGroupTableViewCell", for: indexPath) as? BUMDFeedAdGroupTableViewCell
+            case .videoAdModeImage, .videoAdModePortrait:
+                cell = tableView.dequeueReusableCell(withIdentifier: "BUMDFeedVideoAdTableViewCell", for: indexPath) as? BUMDFeedVideoAdTableViewCell
+            default:
+                cell = tableView.dequeueReusableCell(withIdentifier: "BUMDFeedAdBaseTableViewCell", for: indexPath) as? BUMDFeedAdBaseTableViewCell
+            }
+            if let cell = cell {
+                cell.tag = indexPath.row
+                cell.cellClose = { [weak self] index, cell in
+                    guard let `self` = self else { return }
+                    if index < self.viewModel.dataList.value.count{
+                        cell.nativeAdView = nil
+                        self.viewModel.removeItem(index: index)
+                    }
+                }
+                cell.refreshUI(withModel: nativeAd)
+            }
+            return cell
+        }
+    }
+}
+
+//MARK: UITableViewDelegate
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let item = self.viewModel.dataList.value.ck_objIndex(indexPath.item) else {
@@ -214,10 +300,90 @@ extension HomeViewController: UITableViewDelegate {
             return 120
         case .recommend:
             return 330
+        case .ad(let ad):
+            let contentH = self.heightForNativeAd(tableView, indexPath: indexPath, nativeAd: ad)
+            return contentH
         default:
-            return 0
+            return UITableView.automaticDimension
         }
     }
+}
+
+//MARK: BUMNativeAdDelegate
+extension HomeViewController: BUMNativeAdDelegate {
+    
+    func nativeAdDidBecomeVisible(_ nativeAd: BUNativeAd) {
+        // 展示后可获取信息如下
+        if let info = nativeAd.mediation?.getShowEcpmInfo() {
+            debugPrint("ecpm: \(info.ecpm ?? "N/A")")
+            debugPrint("platform: \(info.adnName)")
+            debugPrint("ritID: \(info.slotID)")
+            debugPrint("requestID: \(info.requestID ?? "None")")
+        }
+    }
+    
+    func nativeAdWillPresentFullScreenModal(_ nativeAd: BUNativeAd) {
+        
+    }
+    
+    func nativeAdExpressViewRenderSuccess(_ nativeAd: BUNativeAd) {
+        debugPrint("nativeAdExpressViewRenderSuccess")
+        if let index = self.viewModel.dataList.value.firstIndex(where: { $0.itemAd === nativeAd }) {
+            let indexPaths = [
+                IndexPath(row: index, section: 0)
+            ]
+            tableView.reloadRows(at: indexPaths, with: .fade)
+        }
+    }
+    
+    func nativeAdExpressViewRenderFail(_ nativeAd: BUNativeAd, error: (any Error)?) {
+        
+    }
+    
+    func nativeAdVideo(_ nativeAd: BUNativeAd?, stateDidChanged playerState: BUPlayerPlayState) {
+        
+    }
+    
+    func nativeAd(_ nativeAd: BUNativeAd?, dislikeWithReason filterWords: [BUDislikeWords]?) {
+
+        // 遍历所有可见的 cell
+        for cell in tableView.visibleCells {
+            if let adCell = cell as? BUMDFeedAdBaseTableViewCell {
+                adCell.nativeAdView = nil
+            }
+            
+            if let adView = cell.contentView.viewWithTag(1000) {
+                adView.removeFromSuperview()
+            }
+        }
+
+        // 移除广告视图
+        nativeAd?.mediation?.canvasView.removeFromSuperview()
+
+        // 刷新表格
+        // 从数据源中移除 nativeAd
+        if let index = self.viewModel.dataList.value.firstIndex(where: { $0.itemAd === nativeAd }) {
+            self.viewModel.removeItem(index: index)
+        }
+    }
+    
+    
+    func nativeAdVideoDidClick(_ nativeAd: BUNativeAd?) {
+        
+    }
+    
+    func nativeAdVideoDidPlayFinish(_ nativeAd: BUNativeAd?) {
+        
+    }
+    
+    func nativeAdShakeViewDidDismiss(_ nativeAd: BUNativeAd?) {
+        
+    }
+    
+    func nativeAdVideo(_ nativeAdView: BUNativeAd?, rewardDidCountDown countDown: Int) {
+        
+    }
+
 }
 
 

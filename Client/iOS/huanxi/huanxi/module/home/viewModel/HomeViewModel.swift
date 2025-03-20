@@ -34,6 +34,16 @@ extension HomeViewModel {
             }
         }
         
+        var itemAd: BUNativeAd? {
+            switch self {
+            case .ad(let ad):
+                return ad
+            default:
+                return nil
+            }
+        }
+        
+    
         static func == (lhs: CellType, rhs: CellType) -> Bool {
             switch (lhs, rhs) {
             case (.skeleton, .skeleton), (.empty, .empty), (.error, .error):
@@ -54,7 +64,7 @@ class HomeViewModel {
     @UserDefaultWrapper<Bool>(key: UserDefaultKeys.homeNoRecommend, defaultValue: false)
     private var isNoRecommend: Bool
     private var pageNo = 1
-    private var pageSize = 10
+    private var pageSize = 20
     private var dataSource: [CellType] = []
     private var ads: [BUNativeAd] = []
 
@@ -65,18 +75,34 @@ class HomeViewModel {
 
     required init() {
         self.isNoRecommend = false
-        
+        let topVC = WindowHelper.topViewController()
         // 确保穿山甲 SDK 初始化完成后加载广告
         AdService.shared.initializeSDK {
-            self.feedAdService.loadNativeAds { [weak self] ads in
+            self.feedAdService.loadNativeAds(with: topVC) { [weak self] ads in
                 guard let `self` = self else { return }
                 let ads = ads.prefix(3).map { $0 }
                 self.ads = ads
                 debugPrint("信息流广告加载成功: \(ads)")
+                reloadAds()
             }
         }
     }
 
+    func reloadAds() {
+        guard ads.count > 0 else { return }
+        guard dataSource.count > 2 else { return }
+        // 在数据源中每隔3个普通单元格插入一个广告
+        for (index, ad) in ads.enumerated() {
+            let insertIndex = min(index * 4 + 3, dataSource.count)
+            dataSource.insert(CellType.ad(ad), at: insertIndex)
+        }
+        dataList.accept(dataSource)
+    }
+    
+    func removeItem(index: Int) {
+        dataSource.remove(at: index)
+        dataList.accept(dataSource)
+    }
 
     func requestHomePosts(reloadType: ReloadType = .reloads, completion: ((Bool) -> Void)? = nil) {
         
@@ -108,14 +134,21 @@ class HomeViewModel {
                             self.dataSource.insert(CellType.recommend(recommend), at: 4)
                         }
                     }
+                    if ads.count > 0, dataSource.count > 2 {
+                        // 在数据源中每隔3个普通单元格插入一个广告
+                        for (index, ad) in ads.enumerated() {
+                            let insertIndex = min(index * 4 + 3, dataSource.count)
+                            dataSource.insert(CellType.ad(ad), at: insertIndex)
+                        }
+                    }
                     self.dataList.accept(self.dataSource)
                     notifyHasMoreStatus(postsItems)
-                    if postsItems.count >= 10 { self.pageNo += 1 }
+                    if postsItems.count >= 20 { self.pageNo += 1 }
                 case .loadMore:
                     self.dataSource.append(contentsOf: postsItems)
                     self.dataList.accept(self.dataSource)
                     notifyHasMoreStatus(postsItems)
-                    if postsItems.count >= 10 { self.pageNo += 1 }
+                    if postsItems.count >= 20 { self.pageNo += 1 }
                 }
             } else {
                 self.dataList.accept([HomeViewModel.CellType.error])
@@ -130,7 +163,7 @@ class HomeViewModel {
         if self.dataSource.isEmpty {
             self.hasMoreRelay.accept(true)
         } else {
-            self.hasMoreRelay.accept(items.count >= 10)
+            self.hasMoreRelay.accept(items.count >= 20)
         }
     }
     
