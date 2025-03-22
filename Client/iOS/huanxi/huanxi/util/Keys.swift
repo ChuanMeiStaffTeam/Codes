@@ -21,8 +21,8 @@ struct KeychainKeys {
 
 struct AdConfigKeys {
     /// 穿山甲AppID
-    static let BUAdAppID = "5668424"
-    static let BUAdAppID_Test = "5669981"
+    static let BUAd_AppID = "5668424"
+    static let BUAd_AppID_Test = "5669981"
 
     /// 穿山甲开屏广告id
     static let BUAd_Splash_ID = "103405436"
@@ -32,6 +32,7 @@ struct AdConfigKeys {
     static let BUAd_Build_ID = "103408949"
     static let BUAd_Build_Test_ID = "103408515"
     
-    static let BUPangrowthAppID = "721180"
-    
+    static let BUPangrowth_test_config_path = "SDK_Setting_5669981"
+    static let BUPangrowth_config_path  = "SDK_Setting_5668424"
+
 }

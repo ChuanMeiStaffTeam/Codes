@@ -215,6 +215,8 @@
 		F3F26D9A2D8ABD140019A1F6 /* KingfisherHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D992D8ABD140019A1F6 /* KingfisherHelper.swift */; };
 		F3F26D9E2D8ABE950019A1F6 /* BUDCustomDislikeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26D9D2D8ABE950019A1F6 /* BUDCustomDislikeViewController.m */; };
 		F3F26DA72D8BBDF80019A1F6 /* BUMDFeedAdTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26DA22D8BBDF80019A1F6 /* BUMDFeedAdTableViewCell.m */; };
+		F3F26DAB2D8D437B0019A1F6 /* MyClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F3F26DAA2D8D437B0019A1F6 /* MyClass.m */; };
+		F3F26DAD2D8E7FEE0019A1F6 /* SDK_Setting_5669981.json in Resources */ = {isa = PBXBuildFile; fileRef = F3F26DAC2D8E7FEE0019A1F6 /* SDK_Setting_5669981.json */; };
 		F3F80E822CEA038C00008887 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E812CEA038C00008887 /* LaunchViewController.swift */; };
 		F3F80E842CEA064E00008887 /* PrivacyPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E832CEA064E00008887 /* PrivacyPopupViewController.swift */; };
 		F3F80E862CEA087F00008887 /* LaunchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F80E852CEA087F00008887 /* LaunchManager.swift */; };
@@ -499,6 +501,9 @@
 		F3F26D9D2D8ABE950019A1F6 /* BUDCustomDislikeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUDCustomDislikeViewController.m; sourceTree = "<group>"; };
 		F3F26DA12D8BBDF80019A1F6 /* BUMDFeedAdTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUMDFeedAdTableViewCell.h; sourceTree = "<group>"; };
 		F3F26DA22D8BBDF80019A1F6 /* BUMDFeedAdTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUMDFeedAdTableViewCell.m; sourceTree = "<group>"; };
+		F3F26DA92D8D437B0019A1F6 /* MyClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyClass.h; sourceTree = "<group>"; };
+		F3F26DAA2D8D437B0019A1F6 /* MyClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyClass.m; sourceTree = "<group>"; };
+		F3F26DAC2D8E7FEE0019A1F6 /* SDK_Setting_5669981.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SDK_Setting_5669981.json; sourceTree = "<group>"; };
 		F3F80E812CEA038C00008887 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		F3F80E832CEA064E00008887 /* PrivacyPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPopupViewController.swift; sourceTree = "<group>"; };
 		F3F80E852CEA087F00008887 /* LaunchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchManager.swift; sourceTree = "<group>"; };
@@ -1136,6 +1141,7 @@
 		F3B322E52D801D3900A0774F /* config */ = {
 			isa = PBXGroup;
 			children = (
+				F3F26DAC2D8E7FEE0019A1F6 /* SDK_Setting_5669981.json */,
 				F3B322E62D801D5B00A0774F /* SDK_Setting_5668424.json */,
 			);
 			path = config;
@@ -1233,6 +1239,8 @@
 		F3F26D832D8AB60F0019A1F6 /* adModule */ = {
 			isa = PBXGroup;
 			children = (
+				F3F26DA92D8D437B0019A1F6 /* MyClass.h */,
+				F3F26DAA2D8D437B0019A1F6 /* MyClass.m */,
 				F3F26D8E2D8AB74E0019A1F6 /* BUDMacros.h */,
 				F3F26D9B2D8ABE260019A1F6 /* controller */,
 				F3F26D912D8AB8F20019A1F6 /* util */,
@@ -1427,6 +1435,7 @@
 				F3223B802D02BE6B00E74574 /* 欢喜隐私协议.docx in Resources */,
 				397216872B81E8EC007D0F2B /* Main.storyboard in Resources */,
 				F333FB912CFEA34500E0E0B2 /* 欢喜用户协议.docx in Resources */,
+				F3F26DAD2D8E7FEE0019A1F6 /* SDK_Setting_5669981.json in Resources */,
 				F39F6DDB2CDBCDAD00CFF8B5 /* heart.json in Resources */,
 				F3F80E882CEA17C900008887 /* LaunchScreen.xib in Resources */,
 				F3B322E72D801D5B00A0774F /* SDK_Setting_5668424.json in Resources */,
@@ -1551,6 +1560,7 @@
 				042598012C2A970400482282 /* SearchContentCell.swift in Sources */,
 				F3F26D982D8AB9B70019A1F6 /* UIView+Draw.m in Sources */,
 				3998DE332BB031FF0000C4DD /* EditPhotosView.swift in Sources */,
+				F3F26DAB2D8D437B0019A1F6 /* MyClass.m in Sources */,
 				F3F895552D30BAB100827BBB /* BaseCell.swift in Sources */,
 				39FABA122B931D3D00A10FE6 /* PhotoAlbumManager.swift in Sources */,
 				F3E5A49C2D30EB5D00AEF187 /* ChangePhoneVC.swift in Sources */,

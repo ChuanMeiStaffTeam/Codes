@@ -9,6 +9,17 @@ import UIKit
 
 class WindowHelper {
     
+    static var mainWindow: UIWindow? {
+        if let delegate = UIApplication.shared.delegate, let window = delegate.perform(#selector(getter: UIWindowSceneDelegate.window))?.takeUnretainedValue() as? UIWindow {
+            return window
+        }
+        
+        if let keyWindow = UIApplication.shared.keyWindow {
+            return keyWindow
+        }
+        
+        return UIApplication.shared.windows.first
+    }
 
     /// 获取当前顶部的 UIViewController
     static func topViewController(base: UIViewController? = getKeyWindow()?.rootViewController) -> UIViewController? {

@@ -7,6 +7,11 @@
 
 import Foundation
 import AdSupport
+import LCDSDK
+
+func JSONConfigPath() -> String! {
+    Bundle.main.path(forResource: AdConfigKeys.BUPangrowth_test_config_path, ofType:"json")
+}
 
 // MARK: - AppDelegate Global Setup
 extension AppDelegate {
@@ -25,10 +30,24 @@ extension AppDelegate {
         // 启用FullscreenPopGesture
         SHFullscreenPopGesture.configure()
         // 初始化广告服务
-        AdService.shared.initializeSDK()
+        AdService.shared.initializeSDK {
+        }
         // 请求 IDFA 权限
         PermissionService.shared.requestPermission(.idfa) { status in
         }
+    }
+    
+    
+    private func setupPangrowthSDK() {
+        let config = LCDConfig()
+        LCDManager.initialize(withConfigPath: JSONConfigPath(), config:config)
+        LCDManager.start(completeHandler: { (initStatus ,userInfo) in
+            if initStatus == LCDINITStatus.success {
+                print("初始化注册成功！")
+            } else {
+                print(userInfo["msg"] ?? "")
+            }
+        })
     }
     
     private func setupCrashMonitoring() {

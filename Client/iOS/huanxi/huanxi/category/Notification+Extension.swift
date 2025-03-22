@@ -26,6 +26,7 @@ extension Notification {
 extension Notification.Name {
     static let refreshMainPageNotification = Notification.Name("refreshMainPageNotification")
     static let collectNotification = Notification.Name("collectNotification")
+    static let lcSDJXSDKSetConfigNotification = Notification.Name("kLCSDJXSDKSetConfigNotification")
 }
 
 /*代码分析：Notification 扩展，获取键盘高度和自定义通知名称

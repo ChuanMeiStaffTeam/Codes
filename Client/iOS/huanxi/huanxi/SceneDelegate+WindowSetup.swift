@@ -40,9 +40,11 @@ extension SceneDelegate {
             guard let `self` = self else { return }
             self.window?.makeKeyAndVisible()
             self.window?.rootViewController = tabbar
+            
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                 // 初始化全局服务
                 appDelegate.setupGlobalServices()
+                appDelegate.window = self.window
             }
         } adHandler: {
         }

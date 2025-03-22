@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import LCDSDK
 
 // MARK: - SceneDelegate Third-Party Service Setup
 extension SceneDelegate {
@@ -20,10 +21,24 @@ extension SceneDelegate {
             DispatchQueue.main.async {
                 AdService.shared.loadSplashAd(for: self.window)
             }
+            self.setupPangrowthSDK()
+
         }
     }
     
     private func setupAnalytics() {
         debugPrint("Analytics Service Initialized")
+    }
+    
+    private func setupPangrowthSDK() {
+        let config = LCDConfig()
+        LCDManager.initialize(withConfigPath: JSONConfigPath(), config:config)
+        LCDManager.start(completeHandler: { (initStatus ,userInfo) in
+            if initStatus == LCDINITStatus.success {
+                print("初始化注册成功！")
+            } else {
+                print(userInfo["msg"] ?? "")
+            }
+        })
     }
 }

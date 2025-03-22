@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import LCDSDK
 
 class TabBarController: UITabBarController {
     
@@ -14,6 +15,7 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         self.delegate = self
+        
         setupTabbar()
     }
     
@@ -32,6 +34,7 @@ class TabBarController: UITabBarController {
         self.tabBar.unselectedItemTintColor = UIColor.gray // 设置未选中的颜色
         
         self.tabBar.backgroundColor = UIColor.black
+        
     }
     
     func setupViewController(_ vc: UIViewController, title: String, iconStr: String, selectedIconStr: String) -> UIViewController {
@@ -45,6 +48,20 @@ class TabBarController: UITabBarController {
         return nav
     }
     
+    
+    
+    /// 初始化小视频首页
+    func configVideoVC() -> LCDDrawVideoViewController! {
+        let videoVc:LCDDrawVideoViewController! = LCDDrawVideoViewController(configBuilder:{ (config:LCDDrawVideoVCConfig) in
+            config.viewSize = CGSizeMake(UIScreen.main.bounds.width, UIScreen.main.bounds.height - UIDevice.sy_tabBarFullHeight)
+            config.drawVCTabOptions = LCDDrawVideoVCTabOptions.recommand
+        })
+        videoVc.navigationController?.navigationBar.isHidden = true
+        videoVc.tabBarItem.title = "小视频"
+        videoVc.tabBarItem.image = UIImage(named: "video")
+        return videoVc
+    }
+    
 }
 
 
@@ -56,7 +73,7 @@ extension TabBarController: UITabBarControllerDelegate {
         guard let targetIndex = viewControllers.firstIndex(of: viewController) else { return true }
         
         // 如果是 Message、Update 或 Mine，需要检查登录
-        if targetIndex == 2 || targetIndex == 3 || targetIndex == 4 {
+        if targetIndex == 2 || targetIndex == 4 {
             if !LoginManager.shared.isLogin() {
                 // 未登录时弹出登录界面
                 Task {

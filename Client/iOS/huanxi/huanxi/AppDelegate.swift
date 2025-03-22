@@ -7,9 +7,12 @@
 
 import UIKit
 
-@main
+//@main
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var window: UIWindow?
+    
     var launchOptions: [UIApplication.LaunchOptionsKey: Any]?  // 保存启动参数
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -35,6 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    func applicationDidBecomeActive(_ application: UIApplication) {
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+    }
 
 }
 

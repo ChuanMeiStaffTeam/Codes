@@ -28,7 +28,7 @@ class AdService: NSObject {
         let configuration = BUAdSDKConfiguration()
 
         // 设置APPID
-        configuration.appID = AdConfigKeys.BUAdAppID_Test
+        configuration.appID = AdConfigKeys.BUAd_AppID
         configuration.appLogoImage = UIImage(resource: .iconLogo)
         // 设置日志输出
         configuration.debugLog = NSNumber(integerLiteral: 1)
@@ -70,7 +70,7 @@ class AdService: NSObject {
         
         guard window != nil else { return }
         
-        let ad = BUSplashAd(slotID: AdConfigKeys.BUAd_Splash_Test_ID, adSize: UIScreen.main.bounds.size)
+        let ad = BUSplashAd(slotID: AdConfigKeys.BUAd_Splash_ID, adSize: UIScreen.main.bounds.size)
         ad.supportCardView = true
         ad.supportZoomOutView = true
         

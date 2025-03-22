@@ -11,3 +11,4 @@
 #import "UIView+Draw.h"
 #import "BUDCustomDislikeViewController.h"
 
+#import "MyClass.h"

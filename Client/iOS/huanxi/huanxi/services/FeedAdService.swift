@@ -20,7 +20,7 @@ class FeedAdService: NSObject {
         self.adManager?.mediation?.destory()
         
         let slot = BUAdSlot()
-        slot.id = AdConfigKeys.BUAd_Build_Test_ID
+        slot.id = AdConfigKeys.BUAd_Build_ID
         slot.adSize = CGSize(width: UIDevice.screenWidth, height: 300)
         slot.mediation.mutedIfCan = false
         

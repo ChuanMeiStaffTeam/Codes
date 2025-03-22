@@ -1,0 +1,60 @@
+{
+	"init": {
+		"site_id": "5669981",
+		"app_id": "721874",
+		"partner": "pangle_721874",
+		"secure_key": "7e319d3ae9574dca2f2e0af9ef9577a5",
+		"secure_key_d": "2c0894da327dd11575797981c1df63b9"
+	},
+	"feed": {
+		"news_list_ad_code_id": "",
+		"news_first_ad_code_id": "",
+		"news_second_ad_code_id": "",
+		"video_first_ad_code_id": "",
+		"video_second_ad_code_id": "",
+		"related_ad_code_id": "",
+		"news_draw_ad_code_id": "964553222",
+		"news_draw_native_ad_code_id": "964553216",
+		"news_outer_list_ad_code_id": "",
+		"news_outer_first_ad_code_id": "",
+		"news_outer_second_ad_code_id": "",
+		"outer_video_second_ad_code_id": "",
+		"outer_related_ad_code_id": "",
+		"news_outer_draw_ad_code_id": "964553230",
+		"news_outer_draw_native_ad_code_id": "964553231",
+		"news_interstitial_code_id": ""
+	},
+	"small_video": {
+		"draw_ad_code_id": "964553218",
+		"draw_native_ad_code_id": "964553226",
+		"grid_ad_code_id": "964553228",
+		"grid_draw_ad_code_id": "964553232",
+		"grid_draw_native_ad_code_id": "964553229",
+		"video_card_ad_code_id": "964553225",
+		"video_card_draw_ad_code_id": "964553224",
+		"video_card_draw_native_ad_code_id": "964553235",
+		"interstitial_ad_code_id": "",
+		"interstitial_note_ad_code_id": "964553234",
+		"staggered_grid_ad_code_id": "964553215",
+		"staggered_grid_draw_ad_code_id": "964553218",
+		"staggered_grid_draw_native_ad_code_id": "964553226",
+		"draw_interstitial_ad_code_id": "964553221",
+		"draw_fullscreen_interstitial_ad_code_id": "964553219",
+		"draw_banner_code_id": "964553217",
+		"drama_rewarded_ad_code_id": "964553223",
+		"drama_rewarded_ad_code_id_02": "964553227",
+		"drama_draw_ad_code_id": "964553220",
+		"staggered_grid_ad_code_id_02": "964553233"
+	},
+	"novel": {
+		"status": 0,
+		"pre_ad_code_id": "",
+		"mid_ad_code_id": "",
+		"exciting_ad_code_id": "",
+		"interstitial_code_id": "",
+		"banner_ad_code_id": "",
+		"end_ad_code_id": ""
+	},
+	"live": null,
+	"license_config": null
+}
