@@ -41,12 +41,20 @@ class SearchHeaderView: UIView {
         setupView()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        bgView.snp.updateConstraints { make in
+            make.top.equalToSuperview().offset(self.safeAreaInsets.top)
+        }
+    }
+
     func setupView() {
         
         backgroundColor = .black
         addSubview(bgView)
         bgView.snp.makeConstraints { make in
-            make.edges.equalTo(UIEdgeInsets(top: UIDevice.sy_safeDistanceTop, left: 0, bottom: 0, right: 0))
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(self.safeAreaInsets.top)
         }
         
         bgView.addSubview(textField)

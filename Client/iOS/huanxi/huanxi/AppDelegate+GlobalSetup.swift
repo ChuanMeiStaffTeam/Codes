@@ -27,8 +27,7 @@ extension AppDelegate {
         debugPrint("✅ 初始化全局服务...")
         // 注册 NIM
         NIMManager.register()
-        // 启用FullscreenPopGesture
-        SHFullscreenPopGesture.configure()
+
         // 初始化广告服务
         AdService.shared.initializeSDK {
         }

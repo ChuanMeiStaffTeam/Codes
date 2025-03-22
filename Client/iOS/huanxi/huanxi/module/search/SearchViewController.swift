@@ -40,6 +40,7 @@ class SearchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         sh_prefersNavigationBarHidden = true
+//        self.navigationController?.navigationBar.isHidden = true
         setupUI()
         bindUI()
         refrehData()

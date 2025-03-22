@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 保存启动参数
         self.launchOptions = launchOptions
 
+        // 启用FullscreenPopGesture
+        SHFullscreenPopGesture.configure()
+        
         // Override point for customization after application launch.
         return true
     }
