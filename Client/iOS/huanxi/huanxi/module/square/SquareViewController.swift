@@ -31,13 +31,22 @@ class SquareViewController: UIViewController {
         addChild(videoVC)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         videoVC.drawVideoViewControllerDidAppear()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        videoVC.drawVideoViewControllerDidDisappear()
+//    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         videoVC.drawVideoViewControllerDidDisappear()
     }
     

@@ -24,7 +24,7 @@ class TabBarController: UITabBarController {
         let main = setupViewController(HomeViewController(), title: "首页", iconStr: "tabbar_main", selectedIconStr: "tabbar_main")
         let search = setupViewController(SearchViewController(), title: "搜索", iconStr: "tabbar_search", selectedIconStr: "tabbar_search")
         let publish = setupViewController(PublishViewController(), title: "发布", iconStr: "tabbar_publish", selectedIconStr: "tabbar_publish")
-        let updates = setupViewController(SquareViewController(), title: "广场", iconStr: "tabbar_updates", selectedIconStr: "tabbar_updates")
+        let updates = setupViewController(SquareViewController(), title: "视频", iconStr: "tabbar_updates", selectedIconStr: "tabbar_updates")
         let mine = setupViewController(MineViewController(), title: "我的", iconStr: "tabbar_mine", selectedIconStr: "tabbar_mine")
 
         let viewcontrollers = [main, search, publish, updates, mine]

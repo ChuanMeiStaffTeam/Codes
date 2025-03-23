@@ -80,7 +80,7 @@ class HomeViewModel {
         AdService.shared.initializeSDK {
             self.feedAdService.loadNativeAds(with: topVC) { [weak self] ads in
                 guard let `self` = self else { return }
-                let ads = ads.prefix(3).map { $0 }
+                let ads = ads.prefix(5).map { $0 }
                 self.ads = ads
                 debugPrint("信息流广告加载成功: \(ads)")
                 reloadAds()
@@ -90,10 +90,10 @@ class HomeViewModel {
 
     func reloadAds() {
         guard ads.count > 0 else { return }
-        guard dataSource.count > 2 else { return }
-        // 在数据源中每隔3个普通单元格插入一个广告
+        guard dataSource.count > 8 else { return }
+        // 在数据源中每隔9个普通单元格插入一个广告
         for (index, ad) in ads.enumerated() {
-            let insertIndex = min(index * 4 + 3, dataSource.count)
+            let insertIndex = min(index * 10 + 9, dataSource.count)
             dataSource.insert(CellType.ad(ad), at: insertIndex)
         }
         dataList.accept(dataSource)
@@ -134,22 +134,22 @@ class HomeViewModel {
                             self.dataSource.insert(CellType.recommend(recommend), at: 4)
                         }
                     }
-                    if ads.count > 0, dataSource.count > 2 {
-                        // 在数据源中每隔3个普通单元格插入一个广告
-                        for (index, ad) in ads.enumerated() {
-                            let insertIndex = min(index * 4 + 3, dataSource.count)
-                            dataSource.insert(CellType.ad(ad), at: insertIndex)
-                        }
-                    }
-                    self.dataList.accept(self.dataSource)
-                    notifyHasMoreStatus(postsItems)
-                    if postsItems.count >= 20 { self.pageNo += 1 }
                 case .loadMore:
                     self.dataSource.append(contentsOf: postsItems)
-                    self.dataList.accept(self.dataSource)
-                    notifyHasMoreStatus(postsItems)
-                    if postsItems.count >= 20 { self.pageNo += 1 }
                 }
+                
+                
+                if ads.count > 0, dataSource.count > 8 {
+                    // 在数据源中每隔9个普通单元格插入一个广告
+                    for (index, ad) in ads.enumerated() {
+                        let insertIndex = min(index * 10 + 9, dataSource.count)
+                        dataSource.insert(CellType.ad(ad), at: insertIndex)
+                    }
+                }
+                
+                self.dataList.accept(self.dataSource)
+                notifyHasMoreStatus(postsItems)
+                if postsItems.count >= 20 { self.pageNo += 1 }
             } else {
                 self.dataList.accept([HomeViewModel.CellType.error])
                 HUDHelper.showToast(message)
