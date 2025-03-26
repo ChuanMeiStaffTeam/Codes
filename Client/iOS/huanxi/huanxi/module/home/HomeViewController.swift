@@ -46,6 +46,7 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         setupView()
         bindUI()
+        self.viewModel.initSDK()
         self.viewModel.requestHomePosts()
         
         // 使用 Combine 订阅通知

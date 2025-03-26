@@ -13,14 +13,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     let tabbar = TabBarController()
     
+    // 是否同意过隐私协议
+    @UserDefaultWrapper<Bool>(key: UserDefaultKeys.isPrivacyAccepted, defaultValue: false)
+    var isPrivacyAccepted: Bool
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         // 初始化窗口和根视图
         setupWindowScene(scene)
-        // 初始化三方服务
-        setupThirdPartyServices()
+
         // 处理 Deep Link
         if let urlContext = connectionOptions.urlContexts.first {
             handleDeepLink(urlContext.url)
@@ -38,13 +41,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-        LCDManager.startOpenGLESActivity()
+        if isPrivacyAccepted {
+            LCDManager.startOpenGLESActivity()
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
-        LCDManager.stopOpenGLESActivity()
+        if isPrivacyAccepted {
+            LCDManager.stopOpenGLESActivity()
+        }
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {

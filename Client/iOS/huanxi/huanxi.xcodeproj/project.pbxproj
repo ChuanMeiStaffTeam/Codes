@@ -99,6 +99,7 @@
 		F333FB832CFE8D3E00E0E0B2 /* HxQLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */; };
 		F333FB852CFE9C0B00E0E0B2 /* DocumentPreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */; };
 		F333FB912CFEA34500E0E0B2 /* 欢喜用户协议.docx in Resources */ = {isa = PBXBuildFile; fileRef = F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */; };
+		F343C96F2D90E6FD0055FCE4 /* 第三方共享个人信息清单.docx in Resources */ = {isa = PBXBuildFile; fileRef = F343C96E2D90E6FD0055FCE4 /* 第三方共享个人信息清单.docx */; };
 		F361576A2D8411DF00C71B94 /* AppDelegate+GlobalSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36157692D8411DF00C71B94 /* AppDelegate+GlobalSetup.swift */; };
 		F36157702D84129500C71B94 /* SceneDelegate+WindowSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F361576F2D84129500C71B94 /* SceneDelegate+WindowSetup.swift */; };
 		F36157722D8412AA00C71B94 /* SceneDelegate+ThirdPartySetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36157712D8412AA00C71B94 /* SceneDelegate+ThirdPartySetup.swift */; };
@@ -355,6 +356,7 @@
 		F333FB822CFE8D3E00E0E0B2 /* HxQLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HxQLPreviewController.swift; sourceTree = "<group>"; };
 		F333FB842CFE9C0B00E0E0B2 /* DocumentPreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreviewer.swift; sourceTree = "<group>"; };
 		F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "欢喜用户协议.docx"; sourceTree = "<group>"; };
+		F343C96E2D90E6FD0055FCE4 /* 第三方共享个人信息清单.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "第三方共享个人信息清单.docx"; sourceTree = "<group>"; };
 		F36157692D8411DF00C71B94 /* AppDelegate+GlobalSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+GlobalSetup.swift"; sourceTree = "<group>"; };
 		F361576F2D84129500C71B94 /* SceneDelegate+WindowSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+WindowSetup.swift"; sourceTree = "<group>"; };
 		F36157712D8412AA00C71B94 /* SceneDelegate+ThirdPartySetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+ThirdPartySetup.swift"; sourceTree = "<group>"; };
@@ -981,6 +983,7 @@
 			children = (
 				F39F6DDA2CDBCDAD00CFF8B5 /* Lottie Files */,
 				F333FB8F2CFEA34500E0E0B2 /* 欢喜用户协议.docx */,
+				F343C96E2D90E6FD0055FCE4 /* 第三方共享个人信息清单.docx */,
 				F3223B7F2D02BE6B00E74574 /* 欢喜隐私协议.docx */,
 			);
 			path = resources;
@@ -1424,6 +1427,7 @@
 				F3A3C91D2D7155E500ACB53F /* install.sh in Resources */,
 				F3A3C91E2D7155E500ACB53F /* xcode_install_helper.rb in Resources */,
 				F3A3C91F2D7155E500ACB53F /* uninstall.sh in Resources */,
+				F343C96F2D90E6FD0055FCE4 /* 第三方共享个人信息清单.docx in Resources */,
 				F3A3C9202D7155E500ACB53F /* CHANGELOG.md in Resources */,
 				F3A3C9212D7155E500ACB53F /* report.sh in Resources */,
 				F3A3C9222D7155E500ACB53F /* upgrade.sh in Resources */,

@@ -46,6 +46,10 @@ extension SceneDelegate {
                 appDelegate.setupGlobalServices()
                 appDelegate.window = self.window
             }
+            
+            
+            // 初始化三方服务
+            setupThirdPartyServices()
         } adHandler: {
         }
     }

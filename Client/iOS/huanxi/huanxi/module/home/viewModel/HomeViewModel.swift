@@ -75,6 +75,9 @@ class HomeViewModel {
 
     required init() {
         self.isNoRecommend = false
+    }
+    
+    func initSDK() {
         let topVC = WindowHelper.topViewController()
         // 确保穿山甲 SDK 初始化完成后加载广告
         AdService.shared.initializeSDK {
