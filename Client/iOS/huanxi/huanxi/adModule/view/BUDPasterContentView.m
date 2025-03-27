@@ -95,7 +95,7 @@ static UIEdgeInsets const padding = {10, 15, 10, 15};
         self.buCustomVideoView = videoView;
     } else {    
         // 创建播放器视图
-        [self addSubview:self.nativeAdRelatedView.mediaAdView];
+        [self addSubview:self.nativeAdRelatedView.videoAdView];
     }
     
     UIImageView *imgV = [[UIImageView alloc] init];
@@ -114,7 +114,7 @@ static UIEdgeInsets const padding = {10, 15, 10, 15};
         NSString *url = model.data.videoUrl;
         [self.buCustomVideoView loadURL:[NSURL URLWithString:url]];
     } else {
-        self.nativeAdRelatedView.mediaAdView.materialMeta = model.data;
+        self.nativeAdRelatedView.videoAdView.materialMeta = model.data;
     }
     [self addSubview:self.nativeAdRelatedView.logoADImageView];
 
@@ -190,11 +190,11 @@ static UIEdgeInsets const padding = {10, 15, 10, 15};
     // 广告展位图
     const CGFloat imageHeight = contentWidth * (9.0 / 16.0);
     if ([self isVideoAd]) {
-        self.nativeAdRelatedView.mediaAdView.hidden = NO;
+        self.nativeAdRelatedView.videoAdView.hidden = NO;
         self.adImageView.hidden = YES;
-        self.nativeAdRelatedView.mediaAdView.frame = CGRectMake(padding.left, y, contentWidth, imageHeight);
+        self.nativeAdRelatedView.videoAdView.frame = CGRectMake(padding.left, y, contentWidth, imageHeight);
     } else if ([self isImageAd]) {
-        self.nativeAdRelatedView.mediaAdView.hidden = YES;
+        self.nativeAdRelatedView.videoAdView.hidden = YES;
         self.adImageView.hidden = NO;
         NSURL *url = [NSURL URLWithString:self.nativeAd.data.imageAry.firstObject.imageURL];
         [KingfisherHelper setImageFor:self.adImageView with:url.absoluteString];
@@ -257,9 +257,9 @@ static UIEdgeInsets const padding = {10, 15, 10, 15};
     return self.buCustomVideoView;
 }
 
-- (BUMediaAdView *)SDKVideoView {
+- (BUVideoAdView *)SDKVideoView {
     if (self.nativeAdRelatedView) {
-        return self.nativeAdRelatedView.mediaAdView;
+        return self.nativeAdRelatedView.videoAdView;
     }
     return nil;
 }

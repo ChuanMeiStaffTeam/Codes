@@ -29,7 +29,7 @@ end
 
 def ads_pods
   # 穿山甲依赖
-  pod 'Ads-CN-Beta','6.8.0.0', :subspecs => ['BUAdSDK', 'CSJMediation']
+  pod 'Ads-CN-Beta','6.6.0.0', :subspecs => ['BUAdSDK', 'CSJMediation']
   pod 'TTSDKFramework', '1.42.3.4-premium', :subspecs => [ 'Player-SR' ]
   pod 'Pangrowth', '5.3.0.0', :subspecs => [ 'media' ]
       

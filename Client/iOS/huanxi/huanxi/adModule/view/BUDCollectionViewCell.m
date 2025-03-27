@@ -70,7 +70,7 @@
     [_customview addSubview:_imageView];
     
     // add video view
-    [_customview addSubview:self.relatedView.mediaAdView];
+    [_customview addSubview:self.relatedView.videoAdView];
     // add logo view
     self.relatedView.logoADImageView.frame = CGRectZero;
     [_customview addSubview:self.relatedView.logoADImageView];
@@ -97,11 +97,11 @@
     // imageMode decides whether to show video or not
     if (adMeta.imageMode == BUFeedVideoAdModeImage) {
         self.imageView.hidden = YES;
-        self.relatedView.mediaAdView.hidden = NO;
-        self.relatedView.mediaAdView.frame = rect;
+        self.relatedView.videoAdView.hidden = NO;
+        self.relatedView.videoAdView.frame = rect;
     } else {
         self.imageView.hidden = NO;
-        self.relatedView.mediaAdView.hidden = YES;
+        self.relatedView.videoAdView.hidden = YES;
         if (adMeta.imageAry.count > 0) {
             if (image.imageURL.length > 0) {
                 self.imageView.frame = rect;

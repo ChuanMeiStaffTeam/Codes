@@ -146,12 +146,12 @@
 - (void)buildupVideoView{
     self.nativeAdRelatedView = [[BUNativeAdRelatedView alloc] init];
     
-    if (!self.nativeAdRelatedView.mediaAdView.superview) {
-        self.nativeAdRelatedView.mediaAdView.frame = CGRectMake(0, 0, GlobleWidth, GlobleHeight);
-        [self.nativeAdRelatedView.mediaAdView playerPlayIncon:[UIImage imageNamed:@"adPlay.png"] playInconSize:CGSizeMake(60, 60)];
+    if (!self.nativeAdRelatedView.videoAdView.superview) {
+        self.nativeAdRelatedView.videoAdView.frame = CGRectMake(0, 0, GlobleWidth, GlobleHeight);
+        [self.nativeAdRelatedView.videoAdView playerPlayIncon:[UIImage imageNamed:@"adPlay.png"] playInconSize:CGSizeMake(60, 60)];
         //Whether to support click pause
-        self.nativeAdRelatedView.mediaAdView.drawVideoClickEnable = YES;
-        [self.contentView insertSubview:self.nativeAdRelatedView.mediaAdView atIndex:0];
+        self.nativeAdRelatedView.videoAdView.drawVideoClickEnable = YES;
+        [self.contentView insertSubview:self.nativeAdRelatedView.videoAdView atIndex:0];
     }
     
     if (!self.nativeAdRelatedView.adLabel.superview) {
@@ -187,7 +187,7 @@
 #pragma mark addAccessibilityIdentifier
 - (void)addAccessibilityIdentifier {
     self.creativeButton.accessibilityIdentifier = @"button";
-    self.nativeAdRelatedView.mediaAdView.accessibilityIdentifier = @"draw_view";
+    self.nativeAdRelatedView.videoAdView.accessibilityIdentifier = @"draw_view";
     self.titleLabel.accessibilityIdentifier = @"draw_appname";
     self.infoLabel.accessibilityIdentifier = @"draw_appdetial";
 }

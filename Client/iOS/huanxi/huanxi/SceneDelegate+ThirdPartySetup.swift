@@ -17,12 +17,12 @@ extension SceneDelegate {
     
     private func setupAdService() {
         // 初始化成功后加载开屏广告
-        AdService.shared.initializeSDK {
+        AdService.shared.initializeSDK { [weak self] in
+            guard let `self` = self else { return }
             DispatchQueue.main.async {
                 AdService.shared.loadSplashAd(for: self.window)
             }
             self.setupPangrowthSDK()
-
         }
     }
     

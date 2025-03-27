@@ -10,7 +10,7 @@ import AdSupport
 import LCDSDK
 
 func JSONConfigPath() -> String! {
-    Bundle.main.path(forResource: AdConfigKeys.BUPangrowth_test_config_path, ofType:"json")
+    Bundle.main.path(forResource: AdConfigKeys.BUPangrowth_config_path, ofType:"json")
 }
 
 // MARK: - AppDelegate Global Setup
