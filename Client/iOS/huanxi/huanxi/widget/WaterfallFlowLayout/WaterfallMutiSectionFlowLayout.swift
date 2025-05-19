@@ -1,6 +1,5 @@
 //
 //  WaterfallMutiSectionFlowLayout.swift
-//  OVTC
 //
 //  Created by LZM on 2024/9/24.
 //

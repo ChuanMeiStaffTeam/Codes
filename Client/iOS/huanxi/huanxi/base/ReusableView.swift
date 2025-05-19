@@ -1,6 +1,5 @@
 //
 //  ReusableView.swift
-//  OVTC
 //
 
 import Foundation

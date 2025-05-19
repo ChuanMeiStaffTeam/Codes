@@ -1,6 +1,5 @@
 //
 //  CustomAutoFooter.swift
-//  OVTC
 //
 //  Created by rslz on 2025/1/23.
 //
