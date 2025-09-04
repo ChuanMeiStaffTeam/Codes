@@ -9,7 +9,7 @@ struct Api {
 
     //host
     static let onlineHost = ""
-    static let testHost = "http://139.196.232.242:8181"
+    static let testHost = "http://47.100.209.228:8181"
     static let baseURL = Api.testHost
     
     //首页接口
