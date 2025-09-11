@@ -31,7 +31,11 @@ class AdService: NSObject {
         configuration.appID = AdConfigKeys.BUAd_AppID
         configuration.appLogoImage = UIImage(resource: .iconLogo)
         // 设置日志输出
+#if DEBUG
         configuration.debugLog = NSNumber(integerLiteral: 1)
+#else
+        configuration.debugLog = NSNumber(integerLiteral: 0)
+#endif
         
         // 如果使用聚合维度功能，则务必将以下字段设置为YES
         // 并检查工程有引用CSJMediation.framework，这样SDK初始化时将启动聚合相关必要组件
