@@ -181,10 +181,17 @@ class MainContentCell: BaseTableViewCell {
         imgView.backgroundColor = UIColor.postBgColor
         imgView.isUserInteractionEnabled = true
         imgView.clipsToBounds = true
+        imgView.contentMode = .scaleAspectFill
         imgView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().offset(0)
             make.top.equalToSuperview().offset(52)
-            make.height.equalTo(410)
+            if traitCollection.horizontalSizeClass == .regular {
+                // iPad 大边距
+                make.height.equalTo(500)
+            } else {
+                // iPhone 小边距
+                make.height.equalTo(410)
+            }
         }
         
 

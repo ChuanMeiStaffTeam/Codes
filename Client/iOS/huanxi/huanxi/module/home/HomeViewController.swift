@@ -296,7 +296,8 @@ extension HomeViewController: UITableViewDelegate {
             return 620
         case .postItem(let post):
             let contentH = post.caption?.height(withConstrainedWidth: UIDevice.screenWidth - 20, font: .systemFont(ofSize: 14)) ?? 16
-            return 570 + (contentH > 50 ? 50 : contentH)
+            let imgH = traitCollection.horizontalSizeClass == .regular ? 500.0 : 410.0
+            return 160 + imgH + (contentH > 50 ? 50 : contentH)
         case .userItem(_):
             return 120
         case .recommend:
